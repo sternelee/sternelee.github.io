@@ -31,7 +31,7 @@
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="STERNE" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="STERNE" type="application/atom+xml" />
 
 
 
@@ -203,7 +203,7 @@
 
       <div class="post-title">
         
-            <a class="post-title-link" href="/2015/12/11/搭建Hexo博客并部署到Github/">
+            <a class="post-title-link" href="/2015/12/11/use-Hexo-add-GitPage/">
               搭建Hexo博客并部署到Github
             </a>
         
@@ -275,7 +275,7 @@
 
         
           <div class="feed-link motion-element">
-            <a href="/rss2.xml">
+            <a href="/atom.xml">
               <i class="menu-item-icon icon-feed"></i>
               RSS
             </a>
@@ -295,6 +295,14 @@
             
               <span class="links-of-author-item">
               <a href="http://sterne.cn" target="_blank">Ghost博客</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/SterneLee" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://www.facebook.com/sterne.lee" target="_blank">Facebook</a>
             </span>
             
           
@@ -348,7 +356,6 @@
 </div> 
 
 
-
       </div>
     </div>
 
@@ -400,7 +407,12 @@
   
   
 
-  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a").jrumble();
+    });
+  </script>
   <!-- lazyload -->
   <script type="text/javascript" src="/js/lazyload.js"></script>
       <script type="text/javascript">

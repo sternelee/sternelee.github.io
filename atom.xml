@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[STERNE]]></title>
+  <subtitle><![CDATA[SterneLee's blog]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://sternelee.github.io/"/>
+  <updated>2015-12-15T07:43:25.886Z</updated>
+  <id>http://sternelee.github.io/</id>
+  
+  <author>
+    <name><![CDATA[Sterne Lee]]></name>
+    <email><![CDATA[sternelee@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <link href="http://sternelee.github.io/2015/12/15/hello-world/"/>
+    <id>http://sternelee.github.io/2015/12/15/hello-world/</id>
+    <published>2015-12-15T07:43:25.886Z</published>
+    <updated>2015-12-15T07:43:25.886Z</updated>
+    <content type="html"><![CDATA[<p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[搭建Hexo博客并部署到Github]]></title>
+    <link href="http://sternelee.github.io/2015/12/11/use-Hexo-add-GitPage/"/>
+    <id>http://sternelee.github.io/2015/12/11/use-Hexo-add-GitPage/</id>
+    <published>2015-12-11T08:16:56.000Z</published>
+    <updated>2015-12-15T07:15:43.588Z</updated>
+    <content type="html"><![CDATA[<p>搭建Hexo博客并部署到Github的小细节</p>
+<h2 id="git_SSH-key"><a href="#git_SSH-key" class="headerlink" title="git SSH-key"></a>git SSH-key</h2><h3 id="u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E"><a href="#u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E" class="headerlink" title="在本地添加ssh-key的过程中，最好是直接回车使用默认的配置"></a>在本地添加ssh-key的过程中，最好是直接回车使用默认的配置</h3><p>比如在passphrase时应直接回车，不然会生成SHA:256的key而还需要相关的转化</p>
+<p>然后添加到github的ssh-key表单进行登记</p>
+<a id="more"></a>
+<h2 id="hexo__u914D_u7F6E"><a href="#hexo__u914D_u7F6E" class="headerlink" title="hexo 配置"></a>hexo 配置</h2><h3 id="u5728_config-yml_u6587_u4EF6_u91CC_u9762_u7684repo_u91CC_uFF0C_u5728windows_u4E0B_u6700_u597D_u7528https_u800C_u4E0D_u8981_u7528ssh_u94FE_u63A5"><a href="#u5728_config-yml_u6587_u4EF6_u91CC_u9762_u7684repo_u91CC_uFF0C_u5728windows_u4E0B_u6700_u597D_u7528https_u800C_u4E0D_u8981_u7528ssh_u94FE_u63A5" class="headerlink" title="在_config.yml文件里面的repo里，在windows下最好用https而不要用ssh链接"></a>在_config.yml文件里面的repo里，在windows下最好用https而不要用ssh链接</h3><h2 id="hexo_u547D_u4EE4"><a href="#hexo_u547D_u4EE4" class="headerlink" title="hexo命令"></a>hexo命令</h2><h3 id="u66F4_u65B0_u535A_u5BA2_u65F6_u8981_u6C42_u6309_u7167_u4E0B_u5217_u6B65_u9AA4_u8FDB_u884C"><a href="#u66F4_u65B0_u535A_u5BA2_u65F6_u8981_u6C42_u6309_u7167_u4E0B_u5217_u6B65_u9AA4_u8FDB_u884C" class="headerlink" title="更新博客时要求按照下列步骤进行"></a>更新博客时要求按照下列步骤进行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">详细操作可参考博客园文章</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>搭建Hexo博客并部署到Github的小细节</p>
+<h2 id="git_SSH-key"><a href="#git_SSH-key" class="headerlink" title="git SSH-key"></a>git SSH-key</h2><h3 id="u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E"><a href="#u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E" class="headerlink" title="在本地添加ssh-key的过程中，最好是直接回车使用默认的配置"></a>在本地添加ssh-key的过程中，最好是直接回车使用默认的配置</h3><p>比如在passphrase时应直接回车，不然会生成SHA:256的key而还需要相关的转化</p>
+<p>然后添加到github的ssh-key表单进行登记</p>]]>
+    
+    </summary>
+    
+      <category term="hexo,github,git" scheme="http://sternelee.github.io/tags/hexo-github-git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[My New Post]]></title>
+    <link href="http://sternelee.github.io/2015/12/10/My-New-Post/"/>
+    <id>http://sternelee.github.io/2015/12/10/My-New-Post/</id>
+    <published>2015-12-10T06:31:25.000Z</published>
+    <updated>2015-12-11T08:11:01.049Z</updated>
+    <content type="html"><![CDATA[<p>这是我的Github博客</p>
+<p>##</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>这是我的Github博客</p>
+<p>##</p>
+]]>
+    </summary>
+    
+  </entry>
+  
+</feed>

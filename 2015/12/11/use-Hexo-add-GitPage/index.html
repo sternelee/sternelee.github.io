@@ -27,11 +27,11 @@
 
 
 
-  <meta name="keywords" content="Hexo,Sterne,sternelee" />
+  <meta name="keywords" content="hexo,github,git," />
 
 
 
-  <link rel="alternate" href="/rss2.xml" title="STERNE" type="application/atom+xml" />
+  <link rel="alternate" href="/atom.xml" title="STERNE" type="application/atom+xml" />
 
 
 
@@ -62,7 +62,7 @@
 
 
 
-  <title> Hello World // STERNE </title>
+  <title> 搭建Hexo博客并部署到Github // STERNE </title>
 </head>
 
 <body>
@@ -199,7 +199,7 @@
           
           
             
-              Hello World
+              搭建Hexo博客并部署到Github
             
           
         </h1>
@@ -216,8 +216,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/12/11/hello-world/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/hello-world/"></span>
+            <a href="/2015/12/11/use-Hexo-add-GitPage/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/11/use-Hexo-add-GitPage/"></span>
             </a>
           </span>
           
@@ -231,27 +231,30 @@
       
 
       
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>搭建Hexo博客并部署到Github的小细节</p>
+<h2 id="git_SSH-key"><a href="#git_SSH-key" class="headerlink" title="git SSH-key"></a>git SSH-key</h2><h3 id="u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E"><a href="#u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E" class="headerlink" title="在本地添加ssh-key的过程中，最好是直接回车使用默认的配置"></a>在本地添加ssh-key的过程中，最好是直接回车使用默认的配置</h3><p>比如在passphrase时应直接回车，不然会生成SHA:256的key而还需要相关的转化</p>
+<p>然后添加到github的ssh-key表单进行登记</p>
+<a id="more"></a>
+<h2 id="hexo__u914D_u7F6E"><a href="#hexo__u914D_u7F6E" class="headerlink" title="hexo 配置"></a>hexo 配置</h2><h3 id="u5728_config-yml_u6587_u4EF6_u91CC_u9762_u7684repo_u91CC_uFF0C_u5728windows_u4E0B_u6700_u597D_u7528https_u800C_u4E0D_u8981_u7528ssh_u94FE_u63A5"><a href="#u5728_config-yml_u6587_u4EF6_u91CC_u9762_u7684repo_u91CC_uFF0C_u5728windows_u4E0B_u6700_u597D_u7528https_u800C_u4E0D_u8981_u7528ssh_u94FE_u63A5" class="headerlink" title="在_config.yml文件里面的repo里，在windows下最好用https而不要用ssh链接"></a>在_config.yml文件里面的repo里，在windows下最好用https而不要用ssh链接</h3><h2 id="hexo_u547D_u4EE4"><a href="#hexo_u547D_u4EE4" class="headerlink" title="hexo命令"></a>hexo命令</h2><h3 id="u66F4_u65B0_u535A_u5BA2_u65F6_u8981_u6C42_u6309_u7167_u4E0B_u5217_u6B65_u9AA4_u8FDB_u884C"><a href="#u66F4_u65B0_u535A_u5BA2_u65F6_u8981_u6C42_u6309_u7167_u4E0B_u5217_u6B65_u9AA4_u8FDB_u884C" class="headerlink" title="更新博客时要求按照下列步骤进行"></a>更新博客时要求按照下列步骤进行</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean</span><br><span class="line">hexo generate</span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.cnblogs.com/zhcncn/p/4097881.html" target="_blank" rel="external">详细操作可参考博客园文章</a></p>
 
       
     </div>
 
     <div class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/hexo-github-git/"> #hexo,github,git </a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/12/11/搭建Hexo博客并部署到Github/">搭建Hexo博客并部署到Github</a>
+              <a href="/2015/12/15/hello-world/">Hello World</a>
             
           </div>
 
@@ -272,10 +275,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2015/12/11/hello-world/"
-     data-title="Hello World"
+        <div class="ds-share flat" data-thread-key="2015/12/11/use-Hexo-add-GitPage/"
+     data-title="搭建Hexo博客并部署到Github"
      data-content=""
-     data-url="http://sternelee.github.io/2015/12/11/hello-world/">
+     data-url="http://sternelee.github.io/2015/12/11/use-Hexo-add-GitPage/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -296,8 +299,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/12/11/hello-world/"
-               data-title="Hello World" data-url="http://sternelee.github.io/2015/12/11/hello-world/">
+          <div class="ds-thread" data-thread-key="2015/12/11/use-Hexo-add-GitPage/"
+               data-title="搭建Hexo博客并部署到Github" data-url="http://sternelee.github.io/2015/12/11/use-Hexo-add-GitPage/">
           </div>
         
       </div>
@@ -371,7 +374,7 @@
 
         
           <div class="feed-link motion-element">
-            <a href="/rss2.xml">
+            <a href="/atom.xml">
               <i class="menu-item-icon icon-feed"></i>
               RSS
             </a>
@@ -393,6 +396,14 @@
               <a href="http://sterne.cn" target="_blank">Ghost博客</a>
             </span>
             
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/SterneLee" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://www.facebook.com/sterne.lee" target="_blank">Facebook</a>
+            </span>
+            
           
         </div>
 
@@ -411,7 +422,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick_Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create_a_new_post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run_server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate_static_files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy_to_remote_sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git_SSH-key"><span class="nav-number">1.</span> <span class="nav-text">git SSH-key</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E"><span class="nav-number">1.1.</span> <span class="nav-text">在本地添加ssh-key的过程中，最好是直接回车使用默认的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo__u914D_u7F6E"><span class="nav-number">2.</span> <span class="nav-text">hexo 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u5728_config-yml_u6587_u4EF6_u91CC_u9762_u7684repo_u91CC_uFF0C_u5728windows_u4E0B_u6700_u597D_u7528https_u800C_u4E0D_u8981_u7528ssh_u94FE_u63A5"><span class="nav-number">2.1.</span> <span class="nav-text">在_config.yml文件里面的repo里，在windows下最好用https而不要用ssh链接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hexo_u547D_u4EE4"><span class="nav-number">3.</span> <span class="nav-text">hexo命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#u66F4_u65B0_u535A_u5BA2_u65F6_u8981_u6C42_u6309_u7167_u4E0B_u5217_u6B65_u9AA4_u8FDB_u884C"><span class="nav-number">3.1.</span> <span class="nav-text">更新博客时要求按照下列步骤进行</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -453,7 +464,6 @@
     NexT.Mist
   </a>
 </div> 
-
 
 
       </div>
@@ -671,7 +681,12 @@
 
   
 
-  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a").jrumble();
+    });
+  </script>
   <!-- lazyload -->
   <script type="text/javascript" src="/js/lazyload.js"></script>
       <script type="text/javascript">
