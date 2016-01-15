@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://sternelee.github.io/2015/12/15/hello-world/</loc>
-    <lastmod>2015-12-15T07:43:25.886Z</lastmod>
+    <loc>http://sternelee.github.io/2015/12/08/hello-world/</loc>
+    <lastmod>2016-01-15T04:05:14.185Z</lastmod>
   </url>
   
   <url>
-    <loc>http://sternelee.github.io/2015/12/11/use-Hexo-add-GitPage/</loc>
-    <lastmod>2015-12-15T07:15:43.588Z</lastmod>
+    <loc>http://sternelee.github.io/2016/01/15/react-start/</loc>
+    <lastmod>2016-01-15T04:03:58.321Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://sternelee.github.io/2015/12/16/use-Hexo-add-GitPage/</loc>
+    <lastmod>2016-01-15T03:56:32.970Z</lastmod>
   </url>
   
   <url>
@@ -24,11 +29,6 @@
   <url>
     <loc>http://sternelee.github.io/tags/index.html</loc>
     <lastmod>2015-12-15T06:36:35.083Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://sternelee.github.io/2015/12/10/My-New-Post/</loc>
-    <lastmod>2015-12-11T08:11:01.049Z</lastmod>
   </url>
   
 </urlset>
