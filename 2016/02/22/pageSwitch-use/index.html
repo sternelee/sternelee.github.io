@@ -27,7 +27,7 @@
 
 
 
-  <meta name="keywords" content="Hexo,Sterne,sternelee" />
+  <meta name="keywords" content="H5,js," />
 
 
 
@@ -62,7 +62,7 @@
 
 
 
-  <title> STERNE - 阅读，实践，学习，积累，分享 </title>
+  <title> pageSwitch使用与修改 // STERNE </title>
 </head>
 
 <body>
@@ -76,9 +76,7 @@
   </div>
 <![endif]-->
 
-  <div class="container one-column 
-   page-home 
-">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -188,9 +186,9 @@
       <div class="main-inner">
         <div id="content" class="content">
           
+
   <div id="posts" class="posts-expand">
     
-      
 
   <div class="post post-type-normal ">
     <div class="post-header">
@@ -201,9 +199,7 @@
           
           
             
-              <a class="post-title-link" href="/2016/02/22/pageSwitch-use/">
-                pageSwitch使用与修改
-              </a>
+              pageSwitch使用与修改
             
           
         </h1>
@@ -246,282 +242,90 @@
       
 
       
-        
-          <h2 id="pageSwitch__u7B80_u4ECB"><a href="#pageSwitch__u7B80_u4ECB" class="headerlink" title="pageSwitch 简介"></a>pageSwitch 简介</h2><p>pageSwitch适用场景为全屏切换，即一切一屏，移动与web端单页切换，制作翻页H5等等，并且在此基础上实现了超过一百种切换效果。</p>
-<p>GitHub地址：<a href="https://github.com/qiqiboy/pageSwitch">https://github.com/qiqiboy/pageSwitch</a></p>
+        <h2 id="pageSwitch__u7B80_u4ECB"><a href="#pageSwitch__u7B80_u4ECB" class="headerlink" title="pageSwitch 简介"></a>pageSwitch 简介</h2><p>pageSwitch适用场景为全屏切换，即一切一屏，移动与web端单页切换，制作翻页H5等等，并且在此基础上实现了超过一百种切换效果。</p>
+<p>GitHub地址：<a href="https://github.com/qiqiboy/pageSwitch" target="_blank" rel="external">https://github.com/qiqiboy/pageSwitch</a></p>
 <hr>
-<p>pageSwitch修改<br>由于原作者版本没有区别当前页面的标签，<br>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/02/22/pageSwitch-use/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+<p>pageSwitch修改<br>由于原作者版本没有区别当前页面的标签，<br><a id="more"></a><br>因此在原基本上修改了firePlay函数，大约在840行左右。原firePlay函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">firePlay:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self=<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.playing)&#123;</span><br><span class="line">            <span class="keyword">this</span>.playTimer=setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                self.slide((self.current+<span class="number">1</span>)%(self.loop?<span class="literal">Infinity</span>:self.length));</span><br><span class="line">                &#125;,<span class="keyword">this</span>.interval);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>在此基本上，为了让当前显示页面添加标识，为便当前操作，内容动画更改等提供接口，修改如下<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">firePlay:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> self=<span class="keyword">this</span>;</span><br><span class="line">        each(self.pages,<span class="function"><span class="keyword">function</span>(<span class="params">page</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> pcn=page.className.replace(<span class="regexp">/\s+current/g</span>,<span class="string">""</span>);</span><br><span class="line">            page.className=pcn;</span><br><span class="line">        &#125;);</span><br><span class="line">        self.pages[self.current].className +=<span class="string">' current'</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.playing)&#123;</span><br><span class="line">            <span class="keyword">this</span>.playTimer=setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                self.slide((self.current+<span class="number">1</span>)%(self.loop?<span class="literal">Infinity</span>:self.length));</span><br><span class="line">            &#125;,<span class="keyword">this</span>.interval);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>也就在给予当前显示页面加上class=current，这样更方便页面内元素与动画的操作与实现。</p>
+
       
     </div>
 
     <div class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/H5/"> #H5 </a>
+          
+            <a href="/tags/js/"> #js </a>
+          
+        </div>
       
 
       
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/15/react-start/">reactjs学习体验</a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </div>
   </div>
 
 
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/02/22/pageSwitch-use/"
+     data-title="pageSwitch使用与修改"
+     data-content=""
+     data-url="http://sternelee.github.io/2016/02/22/pageSwitch-use/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2016/01/15/react-start/">
-                reactjs学习体验
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2016-01-15
-        </span>
-
+      <div class="comments" id="comments">
         
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/前端/">前端</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2016/01/15/react-start/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/15/react-start/"></span>
-            </a>
-          </span>
-          
+          <div class="ds-thread" data-thread-key="2016/02/22/pageSwitch-use/"
+               data-title="pageSwitch使用与修改" data-url="http://sternelee.github.io/2016/02/22/pageSwitch-use/">
+          </div>
         
       </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h2 id="reactjs__u662F_u4EC0_u4E48_uFF1F"><a href="#reactjs__u662F_u4EC0_u4E48_uFF1F" class="headerlink" title="reactjs 是什么？"></a>reactjs 是什么？</h2><p>reactjs是来自facebook公司的用于构建用户界面的JavaScript库。</p>
-<p>GitHub地址：<a href="https://github.com/facebook/react">https://github.com/facebook/react</a></p>
-<h2 id="reactjs_u7684_u4E24_u4E2A_u884D_u751F_u9879_u76EE_u4E5F_u503C_u5F97_u6CE8_u610F_u3002"><a href="#reactjs_u7684_u4E24_u4E2A_u884D_u751F_u9879_u76EE_u4E5F_u503C_u5F97_u6CE8_u610F_u3002" class="headerlink" title="reactjs的两个衍生项目也值得注意。"></a>reactjs的两个衍生项目也值得注意。</h2><ul>
-<li>react-native:用reactjs写手机app </li>
-</ul>
-<p>GitHub地址：<a href="https://github.com/facebook/react-native">https://github.com/facebook/react-native</a></p>
-<ul>
-<li>react-canvas:用canvas代替臃肿缓慢的DOM作为UI，在移动端获得能与原生应用媲美的流畅效果
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/01/15/react-start/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/16/use-Hexo-add-GitPage/">
-                搭建Hexo博客并部署到Github
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-12-16
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/笔记/">笔记</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/12/16/use-Hexo-add-GitPage/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/16/use-Hexo-add-GitPage/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>搭建Hexo博客并部署到Github的小细节</p>
-<h2 id="git_SSH-key"><a href="#git_SSH-key" class="headerlink" title="git SSH-key"></a>git SSH-key</h2><h3 id="u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E"><a href="#u5728_u672C_u5730_u6DFB_u52A0ssh-key_u7684_u8FC7_u7A0B_u4E2D_uFF0C_u6700_u597D_u662F_u76F4_u63A5_u56DE_u8F66_u4F7F_u7528_u9ED8_u8BA4_u7684_u914D_u7F6E" class="headerlink" title="在本地添加ssh-key的过程中，最好是直接回车使用默认的配置"></a>在本地添加ssh-key的过程中，最好是直接回车使用默认的配置</h3><p>比如在passphrase时应直接回车，不然会生成SHA:256的key而还需要相关的转化</p>
-<p>然后添加到github的ssh-key表单进行登记</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/16/use-Hexo-add-GitPage/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/12/08/hello-world/">
-                Hello World
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-12-08
-        </span>
-
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/12/08/hello-world/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/08/hello-world/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>Welcome to <a href="http://hexo.io/">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/12/08/hello-world/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
     
   </div>
 
-  
 
         </div>
 
+        
+          <!-- 多说热评文章-->
+          <p>热评文章</p>
+          <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
         
       </div>
 
@@ -539,6 +343,15 @@
   <div id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
       
 
       <div class="site-overview">
@@ -616,6 +429,17 @@
       </div>
 
       
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#pageSwitch__u7B80_u4ECB"><span class="nav-number">1.</span> <span class="nav-text">pageSwitch 简介</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
 
     </div>
   </div>
@@ -683,6 +507,152 @@
   <script type="text/javascript" src="/js/search-toggle.js"></script>
 
   
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   <script type="text/javascript">
     $(document).ready(function () {
@@ -717,6 +687,10 @@
 
 
   
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
   
 
   <script src="/js/jump.js"></script>
