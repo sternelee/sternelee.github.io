@@ -4,7 +4,7 @@
   <subtitle><![CDATA[SterneLee's blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://sternelee.github.io/"/>
-  <updated>2016-02-22T10:23:07.764Z</updated>
+  <updated>2016-03-10T05:13:21.000Z</updated>
   <id>http://sternelee.github.io/</id>
   
   <author>
@@ -13,6 +13,107 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[RequireJS定义新模块blob]]></title>
+    <link href="http://sternelee.github.io/2016/03/04/requirejsding-yi-xin-mo-kuai-define/"/>
+    <id>http://sternelee.github.io/2016/03/04/requirejsding-yi-xin-mo-kuai-define/</id>
+    <published>2016-03-04T05:53:51.000Z</published>
+    <updated>2016-03-10T05:13:21.000Z</updated>
+    <content type="html"><![CDATA[<p>RequireJS是一个非常小巧的JavaScript模块载入框架，目标为实现浏览器端的模块化开发。</p>
+<h5 id="Require_u4F7F_u7528_u5165_u95E8"><a href="#Require_u4F7F_u7528_u5165_u95E8" class="headerlink" title="Require使用入门"></a>Require使用入门</h5><p>在<a href="http://www.requirejs.cn/" target="_blank" rel="external">RequireJS</a>中下载最新版require.js文件，在index.html中加载<br><a id="more"></a><br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;!DOCTYPE html&#62;&#10;&#60;html lang=&#34;en&#34;&#62;&#10;&#60;head&#62;&#10;&#9;&#60;meta charset=&#34;UTF-8&#34;&#62;&#10;&#9;&#60;title&#62;Require Blob&#60;/title&#62;&#10;&#9;&#60;script src=&#34;require.js&#34; data-main=&#34;main&#34;&#62;&#60;/script&#62;&#10;&#60;/head&#62;&#10;&#60;body&#62;&#10;&#60;img src=&#34;blob.jpg&#34; alt=&#34;&#34; &#62;&#10;&#60;/body&#62;&#10;&#60;/html&#62;</span><br></pre></td></tr></table></figure></p>
+<p>其中，data-main所指向的为函数代码入口，即是main.js<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.config(&#123;</span><br><span class="line">	paths: &#123;</span><br><span class="line">		jquery:<span class="string">'jquery.min'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>详细配置请看官方文档</p>
+<h5 id="define_u6A21_u5757_u5B9A_u4E49"><a href="#define_u6A21_u5757_u5B9A_u4E49" class="headerlink" title="define模块定义"></a>define模块定义</h5><p>在RequireJS中，require()是用来加载和使用模块，define()是用来定义新模块(注册为requirejs中模块)，define(“”,[], function(){})中第一个参数是定义模块的名字，第二个参数是依赖的名称数组，第三个参数是函数，在模块的所有依赖加载完毕后，该函数会被调用来定义该模块。依赖关系会以参数的形式注入到该函数上，参数列表与依赖名称列表一一对应。<br>一个简单的例子:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'app'</span>,[<span class="string">'jquery'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		log: <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">window</span>.console &amp;&amp; <span class="built_in">console</span>.log)&#123;</span><br><span class="line">				<span class="built_in">console</span>.log(msg);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				alert(msg);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		hello: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.log(<span class="string">"hello, I'm powered by jquery"</span>+$().jquery+<span class="string">"!"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>然后在使用该模块:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'app'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">sub</span>)</span>&#123;</span><br><span class="line">	sub.hello();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>我们可以看到，新模块以及在定义是依赖了jQuery，在使用中已经实现了jQuery模块的依赖并实现了新模块的操作。</p>
+<h5 id="u5B9A_u4E49blob_u6A21_u5757"><a href="#u5B9A_u4E49blob_u6A21_u5757" class="headerlink" title="定义blob模块"></a>定义blob模块</h5><p><a href="http://www.zhangxinxu.com/study/201310/blob-get-image-show.html" target="_blank" rel="external">详细blob的介绍</a>在此不再重复，以下直接上代码:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">"blob"</span>,[],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> t = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = e;</span><br><span class="line">        <span class="built_in">window</span>.URL = <span class="built_in">window</span>.URL || <span class="built_in">window</span>.webkitURL;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> history.pushState == <span class="string">"function"</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">            xhr.open(<span class="string">"get"</span>,that.src,<span class="literal">true</span>);</span><br><span class="line">            xhr.responseType=<span class="string">"blob"</span>;</span><br><span class="line">            xhr.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">this</span>.status == <span class="number">200</span>)&#123;</span><br><span class="line">                    <span class="keyword">var</span> blob = <span class="keyword">this</span>.response;</span><br><span class="line">                    that.src = <span class="built_in">window</span>.URL.createObjectURL(blob);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            xhr.send();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"不支持blob,请更新浏览器哈"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">	<span class="keyword">return</span> t</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">require</span>([<span class="string">"jquery"</span>,<span class="string">"blob"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$,blob</span>)</span>&#123;</span><br><span class="line">	$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		blob($(<span class="string">"img"</span>)[<span class="number">0</span>]);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>此模块的功能是将页面图片的src链接转化成blob对象链接，define用返回一个函数对象来实现require中依赖的实例化。    </p>
+<p>注意：blob是属于XMLHttpRequest()返回的对象，因此需要在服务器中运行才能获取得对象链接。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>RequireJS是一个非常小巧的JavaScript模块载入框架，目标为实现浏览器端的模块化开发。</p>
+<h5 id="Require_u4F7F_u7528_u5165_u95E8"><a href="#Require_u4F7F_u7528_u5165_u95E8" class="headerlink" title="Require使用入门"></a>Require使用入门</h5><p>在<a href="http://www.requirejs.cn/">RequireJS</a>中下载最新版require.js文件，在index.html中加载<br>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="WebAPP" scheme="http://sternelee.github.io/tags/WebAPP/"/>
+    
+      <category term="jsvascript" scheme="http://sternelee.github.io/tags/jsvascript/"/>
+    
+      <category term="webapi" scheme="http://sternelee.github.io/tags/webapi/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[【转载】Web Animation API从入门到上座]]></title>
+    <link href="http://sternelee.github.io/2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/"/>
+    <id>http://sternelee.github.io/2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/</id>
+    <published>2016-02-26T02:26:21.000Z</published>
+    <updated>2016-02-26T03:48:01.000Z</updated>
+    <content type="html"><![CDATA[<h4 id="u8FDC_u89C2_uFF1A_u8BA4_u8BC6WAAPI"><a href="#u8FDC_u89C2_uFF1A_u8BA4_u8BC6WAAPI" class="headerlink" title="远观：认识WAAPI"></a>远观：认识WAAPI</h4><hr>
+<p>当我们谈及网页动画时，自然联想到的是CSS3动画、JS动画、SVG动画、APNG动画等技术以及jQuery.animate()等动画封装库，根据实际动画内容设计去选择不同的实现方式。然而，每个现行的动画技术都存在一定的缺点，如CSS3动画必须通过JS去获取动态改变的值，setInterval的时间往往是不精确的而且还会卡顿，APNG动画会带来文件体积较大的困扰，引入额外的动画封装库也并非对性能敏感的业务适用。目前情形对开发者而言，鱼和熊掌似乎不可兼得，既希望获得更强大便捷的动画控制能力，又希望性能和体验上足够流畅优雅，如果能有一种浏览器原生支持的通用的动画解决方案，那将是极好极好的呢。<br><a id="more"></a><br>W3C提出Web Animation API（简称WAAPI）正缘于此，它致力于集合CSS3动画的性能、JavaScript的灵活、动画库的丰富等各家所长，将尽可能多的动画控制由原生浏览器实现，并添加许多CSS不具备的变量、控制以及或调的选项。看起来一切都很棒，是不是以后我们在动画技术选型上可以一招鲜吃遍天了呢？接下来请跟我一起敲开Web Animation API的奇妙之门。</p>
+<h4 id="u5165_u95E8_uFF1A_u4ECE_u5B9E_u4F8B_u5F00_u59CB"><a href="#u5165_u95E8_uFF1A_u4ECE_u5B9E_u4F8B_u5F00_u59CB" class="headerlink" title="入门：从实例开始"></a>入门：从实例开始</h4><hr>
+<p>WAAPI核心在于提供了<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Element.animate()</span><br></pre></td></tr></table></figure></p>
+<p>方法，下面看个最简单的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.animate(</span><br><span class="line">    [&#123;<span class="string">'background'</span>: <span class="string">'red'</span>&#125;, &#123;<span class="string">'background'</span>: <span class="string">'green'</span>&#125;, &#123;<span class="string">'background'</span>: <span class="string">'blue'</span>&#125;]</span><br><span class="line">    , <span class="number">3000</span>);</span><br></pre></td></tr></table></figure></p>
+<p>使用Chrome 39以上的浏览器运行一下，页面背景色进行了红绿蓝的依次过渡，3s后结束。我们当然是不会满足于这么简单的控制参数，继续看下个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dot = <span class="built_in">document</span>.querySelector(<span class="string">'.dot'</span>);</span><br><span class="line">  <span class="keyword">var</span> frames = [</span><br><span class="line">    &#123;transform: <span class="string">'rotate(0deg) translate(80px)'</span>&#125;,</span><br><span class="line">    &#123;transform: <span class="string">'rotate(360deg) translate(80px) '</span>&#125;,</span><br><span class="line">  ];</span><br><span class="line">  <span class="keyword">var</span> timing = &#123;</span><br><span class="line">    duration: <span class="number">2500</span>,         <span class="comment">//ms</span></span><br><span class="line">    delay: <span class="number">0</span>,               <span class="comment">//ms</span></span><br><span class="line">    iterations: <span class="literal">Infinity</span>,   <span class="comment">//1, 2, 3 ... Infinity</span></span><br><span class="line">    direction: <span class="string">'alternate'</span>, <span class="comment">//'normal', 'reverse'等</span></span><br><span class="line">    easing: <span class="string">'ease-in-out'</span>,  <span class="comment">//'linear', 'ease-in'等</span></span><br><span class="line">    fill: <span class="string">'forwards'</span>,       <span class="comment">//'backwards', 'both', 'none', 'auto'</span></span><br><span class="line">  &#125;;</span><br><span class="line">  dot.animate(frames, timing);</span><br></pre></td></tr></table></figure></p>
+<p>可以看到DOM节点具备全新的<strong>animate</strong>方法，第一个参数是关键帧数组<strong>frames[]</strong>，对应CSS3中的<strong>@keyframes</strong>，每一帧的描述与CSS3极其类似；第二个参数是时间控制<strong>timing</strong>，包括有<strong>duration</strong>持续时间、<strong>iterations</strong>执行次数、<strong>direction</strong>动画方向、<strong>easing</strong>缓动函数等属性。是不是很像CSS3的语法，以上<strong>timing</strong>参数等同于：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.dot &#123;&#10;  animation: frames 2500ms ease-in-out 0ms infinite alternate forwards;&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下所示：<br><img src="http://cdn2.w3cplus.com/cdn/farfuture/dsOki-8akuAh6aMvaGGTKYgx4SEwmSgNR4-5UGP1Or0/mtime:1455634587/sites/default/files/blogs/2016/1602/demo1.gif" alt="效果图1"></p>
+<h4 id="u8FDB_u9662_uFF1A_u7EC6_u6570WAAPI_u4F17_u5999"><a href="#u8FDB_u9662_uFF1A_u7EC6_u6570WAAPI_u4F17_u5999" class="headerlink" title="进院：细数WAAPI众妙"></a>进院：细数WAAPI众妙</h4><hr>
+<h5 id="u52A8_u753B_u56DE_u8C03_u4E0E_u52A8_u753B_u72B6_u6001"><a href="#u52A8_u753B_u56DE_u8C03_u4E0E_u52A8_u753B_u72B6_u6001" class="headerlink" title="动画回调与动画状态"></a>动画回调与动画状态</h5><p>在最初的例子中，我们可以定义一个对象来接收<strong>Element.animate()</strong>的返回值，如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> player = <span class="built_in">document</span>.body.animate(<span class="comment">/* ... */</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong>player</strong>即成为该动画返回的一个“动画播放器”对象，同时动画开始播放。我们需要了解动画当前的状态，可以通过该对象的只读属性<strong>playState</strong>来获得：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(player.playState); <span class="comment">//"running","paused","finished"...</span></span><br></pre></td></tr></table></figure></p>
+<p>播放器共有五种状态，除了代码中注释的三种基本状态，还包括”idle”表示恢复到初始状态，”pending”表示播放或者暂停即将发生时。</p>
+<p>播放器可以通过四种方法可以改变动画当前的状态。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">player.pause(); <span class="comment">//"paused"</span></span><br><span class="line">player.play();  <span class="comment">//"running"</span></span><br><span class="line">player.cancel(); <span class="comment">//"idle"</span></span><br><span class="line">player.finish(); <span class="comment">//"finished"</span></span><br></pre></td></tr></table></figure></p>
+<p>与CSS3动画类似，<strong>player</strong>可以为动画自然结束或者手动结束时指定一个<strong>onfinish</strong>函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">player.onfinish = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请注意，设置播放次数<strong>Infinity</strong>的动画没有自然结束的时机去调用<strong>onfinish</strong>函数。</p>
+<h5 id="u65F6_u95F4_u63A7_u5236_u4E0E_u65F6_u95F4_u8F74"><a href="#u65F6_u95F4_u63A7_u5236_u4E0E_u65F6_u95F4_u8F74" class="headerlink" title="时间控制与时间轴"></a>时间控制与时间轴</h5><p>播放器<strong>player</strong>具有一个读写属性<strong>playbackRate</strong>，用于控制动画的播放速度。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> player = element.animate(<span class="comment">/* ... */</span>);</span><br><span class="line"><span class="built_in">console</span>.log(player.playbackRate); <span class="comment">//1</span></span><br><span class="line">player.playbackRate = <span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
+<p>playbackRate默认值为1，可以通过设置更大的整数使得动画加速，也可以通过设置大于零的小数来使得动画减缓播放速度。</p>
+<p><strong>player</strong>还具有两个与时间相关的读写属性<strong>currentTime</strong>和<strong>startTime</strong>。前者返回动画当前过去的毫秒数，它的最大值是<strong>timing</strong>参数设置的<strong>delay+(duration*iterations)</strong>，而设置<strong>Infinity</strong>的动画没有<strong>currentTime</strong>的最大值。</p>
+<p>当设置了<strong>playbackRate</strong>时，动画的<strong>currentTime</strong>并不会发生变化，真正变化的是时间轴，播放速度改变使得时间轴被相应拉伸或者压缩。</p>
+<p>播放器可以调用<strong>reverse()</strong>倒叙播放动画，由时间轴的终点走向起点，动画结束时<strong>currentTime</strong>的值回到0。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">player.onfinish = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    player.reverse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="u591A_u4E2A_u52A8_u753B"><a href="#u591A_u4E2A_u52A8_u753B" class="headerlink" title="多个动画"></a>多个动画</h6><p>CSS3动画是可以同时指定多个keyframes动画到一个DOM节点上，WAAPI同样具备应用多个动画的能力。在一个元素上多次调用animate方法，即实现了一个元素多个动画：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> animated = <span class="built_in">document</span>.getElementById(<span class="string">'toAnimate'</span>);</span><br><span class="line"><span class="keyword">var</span> pulseKeyframes, activateKeyframes, haveFunKeyframes;</span><br><span class="line"><span class="keyword">var</span> pulse = animated.animate(pulseKeyframes, <span class="number">1000</span>); </span><br><span class="line"><span class="keyword">var</span> activate = animated.animate(activateKeyframes, <span class="number">3000</span>);</span><br><span class="line"><span class="keyword">var</span> haveFunWithIt = animated.animate(haveFunKeyframes, <span class="number">2500</span>);</span><br></pre></td></tr></table></figure></p>
+<p>每个子动画也拥有独立的<strong>timing</strong>参数，以及独立的动画状态（播放、停止、完成、取消）和独立的时间轴（启动时间、播放速度和结束时间），方便动画进行细节控制。</p>
+<h5 id="u66F4_u9AD8_u7EA7_u7684_u63A5_u53E3"><a href="#u66F4_u9AD8_u7EA7_u7684_u63A5_u53E3" class="headerlink" title="更高级的接口"></a>更高级的接口</h5><p>WAAPI还拥有<strong>timeline</strong>属性，对动画进行分组和排序的能力，以及沿自定义路径移动（再也不是SVG的天下了）的能力，光这一点就足够令人激动不已，然而篇幅有限于是下回再表。</p>
+<h4 id="u767B_u5802_uFF1A_u5B98_u65B9_u6848_u4F8B"><a href="#u767B_u5802_uFF1A_u5B98_u65B9_u6848_u4F8B" class="headerlink" title="登堂：官方案例"></a>登堂：官方案例</h4><hr>
+<p><a href="https://github.com/web-animations/web-animations-codelabs" target="_blank" rel="external">Codelabs</a> 越来越多基于WAAPI的Codelabs实例涌现，这些实例非常适合初接触WAAPI的同学作为开始的<a href="https://github.com/web-animations/web-animations-codelabs" target="_blank" rel="external">范例</a>。<br><img src="http://cdn1.w3cplus.com/cdn/farfuture/fy-SWNAXsFt-byMQkld5kIXhNn7GEeJHw7K8gfgx4OA/mtime:1455634593/sites/default/files/blogs/2016/1602/preview.gif" alt="图例2"><br><img src="http://cdn.w3cplus.com/cdn/farfuture/10FuXl47mkYFhds2Ht4LSJLeFAC-zIm4heeNHngcYqA/mtime:1455634589/sites/default/files/blogs/2016/1602/demo22.gif" alt="图例3"><br><a href="http://web-animations.github.io/web-animations-demos" target="_blank" rel="external">Google’s demos</a> 如果你希望用WAAPI挑战更炫酷的动画，特别是遵循Material Design风格的动画效果，这将是不错的灵感来源。<br><img src="http://cdn.w3cplus.com/cdn/farfuture/D6WJQ6cOuVFukfWGwdeSsao4-3Onuer65CHDkS7a3pA/mtime:1455634589/sites/default/files/blogs/2016/1602/demo2.gif" alt="图例4"></p>
+<h4 id="u4E0A_u5EA7_uFF1A_u79FB_u52A8_u7AEF_u8FD0_u884C"><a href="#u4E0A_u5EA7_uFF1A_u79FB_u52A8_u7AEF_u8FD0_u884C" class="headerlink" title="上座：移动端运行"></a>上座：移动端运行</h4><hr>
+<p>看到这里，相信你已经不只一次体验到WAAPI带来的惊喜。作为一名彻头彻尾的移动端H5开发，我当然也想把WAAPI应用到移动业务上去服务用户…什么？手机上怎么没效果！<br><img src="http://sterne.qiniudn.com/image/b/e9/51b3ea5c99dfb7df407bec295ec6c.png" alt="图例5"><br>为了在现代浏览器厂商还没完全跟进到位的时候抢先用上WAAPI，我们可以选择引入针对Web Animation API的<a href="https://github.com/web-animations/web-animations-js" target="_blank" rel="external">Polyfill</a>库，从而在IE/Firefox/Safari等浏览器上体验到WAAPI的精彩。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#60;script src=&#34;https://cdn.jsdelivr.net/web-animations/latest/web-animations.min.js&#34;&#62;&#60;/script&#62;&#10;&#60;script&#62;&#10;  document.body.animate([&#10;    &#123;&#39;background&#39;: &#39;red&#39;&#125;,&#10;    &#123;&#39;background&#39;: &#39;green&#39;&#125;&#10;  ], 1000);&#10;&#60;/script&#62;</span><br></pre></td></tr></table></figure></p>
+<p>移动端浏览器，Android 5.0以上的Android Browser和Chrome for Android本身就已经支持WAAPI了，加上Polyfill之后，iOS的Safari也支持了。别忘了，还有我大手Q的X5内核浏览器。</p>
+<p>至此，小伙伴们终于露出欣慰的笑容。敬请期待下篇《Web Animation API 从上座到书墨》。</p>
+<h4 id="u54C1_u8317_uFF1A_u53C2_u8003_u6587_u732E"><a href="#u54C1_u8317_uFF1A_u53C2_u8003_u6587_u732E" class="headerlink" title="品茗：参考文献"></a>品茗：参考文献</h4><hr>
+<ul>
+<li><a href="https://w3c.github.io/web-animations/" target="_blank" rel="external">W3C Spec</a></li>
+<li><a href="http://danielcwilson.com/blog/2015/07/animations-intro" target="_blank" rel="external">《Let’s talk about the Web Animations API》</a></li>
+<li><a href="http://web-animations.github.io/web-animations-demos" target="_blank" rel="external">Google’s Demo</a></li>
+<li><a href="https://github.com/web-animations/web-animations-codelabs" target="_blank" rel="external">codelabs</a></li>
+<li><a href="https://github.com/web-animations/web-animations-js" target="_blank" rel="external">Polyfill</a></li>
+<li><a href="https://developers.google.com/web/updates/2015/10/web-animations-resources" target="_blank" rel="external">Resources</a></li>
+</ul>
+<blockquote>
+<p>本文转载自AlloyTeam：<a href="http://www.alloyteam.com/2015/12/web-animation-api-from-entry-to-the-top。" target="_blank" rel="external">http://www.alloyteam.com/2015/12/web-animation-api-from-entry-to-the-top。</a></p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h4 id="u8FDC_u89C2_uFF1A_u8BA4_u8BC6WAAPI"><a href="#u8FDC_u89C2_uFF1A_u8BA4_u8BC6WAAPI" class="headerlink" title="远观：认识WAAPI"></a>远观：认识WAAPI</h4><hr>
+<p>当我们谈及网页动画时，自然联想到的是CSS3动画、JS动画、SVG动画、APNG动画等技术以及jQuery.animate()等动画封装库，根据实际动画内容设计去选择不同的实现方式。然而，每个现行的动画技术都存在一定的缺点，如CSS3动画必须通过JS去获取动态改变的值，setInterval的时间往往是不精确的而且还会卡顿，APNG动画会带来文件体积较大的困扰，引入额外的动画封装库也并非对性能敏感的业务适用。目前情形对开发者而言，鱼和熊掌似乎不可兼得，既希望获得更强大便捷的动画控制能力，又希望性能和体验上足够流畅优雅，如果能有一种浏览器原生支持的通用的动画解决方案，那将是极好极好的呢。<br>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="WebAPP" scheme="http://sternelee.github.io/tags/WebAPP/"/>
+    
+      <category term="jsvascript" scheme="http://sternelee.github.io/tags/jsvascript/"/>
+    
+      <category term="webapi" scheme="http://sternelee.github.io/tags/webapi/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[pageSwitch使用与修改]]></title>
@@ -37,6 +138,46 @@
       <category term="H5" scheme="http://sternelee.github.io/tags/H5/"/>
     
       <category term="js" scheme="http://sternelee.github.io/tags/js/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[用Canvas来实时处理Video]]></title>
+    <link href="http://sternelee.github.io/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/"/>
+    <id>http://sternelee.github.io/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/</id>
+    <published>2016-01-27T05:10:17.000Z</published>
+    <updated>2016-01-27T06:07:12.000Z</updated>
+    <content type="html"><![CDATA[<p>结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。</p>
+<h4 id="canvas_u89C6_u9891_u64AD_u653E"><a href="#canvas_u89C6_u9891_u64AD_u653E" class="headerlink" title="canvas视频播放"></a>canvas视频播放</h4><a id="more"></a>
+<p>利用sublime text 快速新建html文件，结构代码如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">style</span>&gt;</span><span class="css"></span><br><span class="line">    <span class="tag">body</span><span class="rules">&#123;<span class="rule"><span class="attribute">background</span>:<span class="value">black</span></span>;<span class="rule"><span class="attribute">color</span>:<span class="value"><span class="hexcolor">#CCCCCC</span></span></span>;&#125;</span></span><br><span class="line">    <span class="tag">div</span><span class="rules">&#123;<span class="rule"><span class="attribute">float</span>:<span class="value">left</span></span>;<span class="rule"><span class="attribute">border</span>:<span class="value"><span class="number">1px</span> solid <span class="hexcolor">#444444</span></span></span>;<span class="rule"><span class="attribute">padding</span>:<span class="value"><span class="number">10px</span></span></span>;<span class="rule"><span class="attribute">margin</span>:<span class="value"><span class="number">10px</span></span></span>;<span class="rule"><span class="attribute">background</span>:<span class="value"><span class="hexcolor">#3B3B3B</span></span></span>;&#125;</span></span><br><span class="line">  </span><span class="tag">&lt;/<span class="title">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span> <span class="attribute">onload</span>=<span class="value">"processor.doLoad()"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"display:none;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">video</span> <span class="attribute">id</span>=<span class="value">"video"</span> <span class="attribute">src</span>=<span class="value">"video.ogv"</span> <span class="attribute">controls</span>=<span class="value">"true"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"c1"</span> <span class="attribute">width</span>=<span class="value">"160"</span> <span class="attribute">height</span>=<span class="value">"96"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>由于我们播放视频用canvas来展示，因此大可把video标签隐藏，直接display:none;然后在body的后面添加播放动作：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'c1'</span>);</span><br><span class="line"><span class="keyword">var</span> video = <span class="built_in">document</span>.getElementById(<span class="string">'video'</span>);</span><br><span class="line">btn.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(video.paused)&#123;</span><br><span class="line">      video.play();</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">      video.pause();</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>canvas中可以用drawImage()来绘制图片，同样我们也可以用来绘制视频画面，监听video的play事件并且用setTimeout()来不断绘制视频画面。<br>细节代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> processor = &#123;</span><br><span class="line">      timerCallback: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.video.paused || <span class="keyword">this</span>.video.ended) &#123;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.computeFrame();</span><br><span class="line">        <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            self.timerCallback();</span><br><span class="line">          &#125;, <span class="number">0</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">      doLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.video = <span class="built_in">document</span>.getElementById(<span class="string">"video"</span>);</span><br><span class="line">        <span class="keyword">this</span>.c1 = <span class="built_in">document</span>.getElementById(<span class="string">"c1"</span>);</span><br><span class="line">        <span class="keyword">this</span>.ctx1 = <span class="keyword">this</span>.c1.getContext(<span class="string">"2d"</span>);</span><br><span class="line">        <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">this</span>.video.addEventListener(<span class="string">"play"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            self.width = self.video.videoWidth / <span class="number">2</span>;</span><br><span class="line">            self.height = self.video.videoHeight / <span class="number">2</span>;</span><br><span class="line">            self.timerCallback();</span><br><span class="line">          &#125;, <span class="literal">false</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">      computeFrame: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.ctx1.drawImage(<span class="keyword">this</span>.video, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">this</span>.width, <span class="keyword">this</span>.height);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>初步播放视频的效果如下：<br><a href="http://sterne.cn/examples/canvas-video-1.html" target="_blank" rel="external">点击查看效果</a></p>
+<h5 id="u521D_u59CB_u5316chroma-key"><a href="#u521D_u59CB_u5316chroma-key" class="headerlink" title="初始化chroma-key"></a>初始化chroma-key</h5><p>doLoad()方法在XHTML文档初始加载时调用。这个方法的作用是为chroma-key处理代码准备所需的变量，设置一个事件侦听器，当用户开始播放视频时我们能检测到。</p>
+<h5 id="u89C6_u9891_u76D1_u542C"><a href="#u89C6_u9891_u76D1_u542C" class="headerlink" title="视频监听"></a>视频监听</h5><p>addEventListener()监听video元素，当用户按下视频上的播放按钮时被调用。为了应对用户回放，这段代码获取视频的宽度和高度，并且减半（我们将在执行chroma-keying效果时将视频的大小减半），然后调用timerCallback()方法来启动视频捕捉和视觉效果计算。</p>
+<h5 id="u5B9A_u65F6_u56DE_u8C03"><a href="#u5B9A_u65F6_u56DE_u8C03" class="headerlink" title="定时回调"></a>定时回调</h5><p>setTimeout()定时器回调函数在视频开始播放时被调用（当“播放”事件发生时），然后负责自身周期调用，为每一帧视频实现keying特效。</p>
+<h5 id="u5904_u7406_u89C6_u9891_u5E27_u6570_u636E"><a href="#u5904_u7406_u89C6_u9891_u5E27_u6570_u636E" class="headerlink" title="处理视频帧数据"></a>处理视频帧数据</h5><p>在canvas中，有两个图像数据处理函数getImageData()和putImageData()，获取与写入图像数据。因此，我们可以给canvas2添加一个背景，并将canvas1的图像数据处理后放入canvas2中，来实现图像叠加与色彩更换。</p>
+<p>注意图像数据的处理：<br>computeFrame()方法，如下所示，实际上负责抓取每一帧的数据和执行chroma-keying特效。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ctx1 与ctx2分别为两个canvas在context</span></span><br><span class="line"><span class="keyword">var</span> frame = <span class="keyword">this</span>.ctx1.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">this</span>.width, <span class="keyword">this</span>.height);</span><br><span class="line"><span class="keyword">var</span> l = frame.data.length / <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; l; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> r = frame.data[i * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">      <span class="keyword">var</span> g = frame.data[i * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">      <span class="keyword">var</span> b = frame.data[i * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">      <span class="keyword">if</span> (g &gt; <span class="number">100</span> &amp;&amp; r &gt; <span class="number">100</span> &amp;&amp; b &lt; <span class="number">43</span>)</span><br><span class="line">           frame.data[i * <span class="number">4</span> + <span class="number">3</span>] = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.ctx2.putImageData(frame, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过调用第一个canvas上下文的getImageData()方法，来获取原始图像数据当前视频帧的一个副本。它提供了原始的32位像素图像数据，这样我们就能够进行操作。<br><img src="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hgko9fj204g02oq2t.jpg" alt="原图像"><br>通过将帧图像数据的总长度除以4，来计算图像的总像素数。循环扫描所有像素，获取每个像素的红、绿、蓝值，同时和预定义的背景色进行比较，这些背景色将用foo.png中导入的背景图像替换。</p>
+<p>被检测成背景的每一个像素，将它的alpha值替换为零，表明该像素是完全透明的。结果，最终的图像背景部分是100%透明的，这样视频内容就叠加到静态背景上了。<br><img src="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hg71voj204h02oweg.jpg" alt="转换后的图像"></p>
+<p>利用这种方法，可以在纯色幕布中制作真人视频，然后更改背景！<br>注意，要在服务器环境下使用！</p>
+<p>最终的效果如下：<a href="http://sterne.cn/examples/canvas-video-2.html" target="_blank" rel="external">点击查看效果</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。</p>
+<h4 id="canvas_u89C6_u9891_u64AD_u653E"><a href="#canvas_u89C6_u9891_u64AD_u653E" class="headerlink" title="canvas视频播放"></a>canvas视频播放</h4>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="WebAPP" scheme="http://sternelee.github.io/tags/WebAPP/"/>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="javascript" scheme="http://sternelee.github.io/tags/javascript/"/>
     
       <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
     
@@ -169,6 +310,34 @@ GitHub地址：<a href="https://github.com/Flipboard/react-canvas" target="_blan
   </entry>
   
   <entry>
+    <title><![CDATA[npm国内被墙的解决方法]]></title>
+    <link href="http://sternelee.github.io/2015/12/16/npmguo-nei-bei-qiang-de-jie-jue-fang-fa/"/>
+    <id>http://sternelee.github.io/2015/12/16/npmguo-nei-bei-qiang-de-jie-jue-fang-fa/</id>
+    <published>2015-12-16T03:54:36.000Z</published>
+    <updated>2015-12-16T03:58:00.000Z</updated>
+    <content type="html"><![CDATA[<p>上网四处搜索，发现有一个cnpm的方法似乎可以解决问题，但是发现cnpm上镜像好像并不齐全，而且也是各种卡住，所以这种方式也只能放弃 ，于是搜到了一篇npm使用代理的文章，顿时醒悟。<br>首先，我们的npm包无所谓安全性，所以不要使用性能和效率更慢的https，转而使用http，相关命令如下：<br>1、关闭npm的https<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> strict-ssl <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>2、设置npm的获取地址<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> registry <span class="string">"http://registry.npmjs.org/"</span></span><br></pre></td></tr></table></figure></p>
+<p>一般这样运气的好的话，速度就会快许多，可能会安装成功。如果你还脸黑，这样设置还是一直卡住无法下载依赖，那就只能使用proxy代理方式来解决了，命令如下：<br>3、设置npm获取的代理服务器地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> proxy=http://代理服务器ip:代理服务器端口</span><br></pre></td></tr></table></figure></p>
+<p>希望本文能让一直无法正常下载npm而抓狂的同学有所帮助。</p>
+<p>清除npm的代理命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config delete http-proxy</span><br><span class="line">npm config delete https-proxy</span><br></pre></td></tr></table></figure>
+<p>最终发现cnpm其实是这么用的，我太傻了，还是cnpm靠谱<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=http://r.cnpmjs.org</span><br><span class="line"></span><br><span class="line">npm install microtime --registry=http://r.cnpmjs.org --disturl=http://dist.cnpmjs.org</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>上网四处搜索，发现有一个cnpm的方法似乎可以解决问题，但是发现cnpm上镜像好像并不齐全，而且也是各种卡住，所以这种方式也只能放弃 ，于是搜到了一篇npm使用代理的文章，顿时醒悟。<br>首先，我们的npm包无所谓安全性，所以不要使用性能和效率更慢的https，转而使用http，相关命令如下：<br>1、关闭npm的https<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> strict-ssl <span class="literal">false</span></span><br></pre></td></tr></table></figure></p>]]>
+    
+    </summary>
+    
+      <category term="Nodejs" scheme="http://sternelee.github.io/tags/Nodejs/"/>
+    
+      <category term="WebAPP" scheme="http://sternelee.github.io/tags/WebAPP/"/>
+    
+      <category term="笔记" scheme="http://sternelee.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Hello World]]></title>
     <link href="http://sternelee.github.io/2015/12/08/hello-world/"/>
     <id>http://sternelee.github.io/2015/12/08/hello-world/</id>
@@ -190,6 +359,590 @@ GitHub地址：<a href="https://github.com/Flipboard/react-canvas" target="_blan
 <h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>]]>
     
     </summary>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[关于缓存问题：js清除缓存]]></title>
+    <link href="http://sternelee.github.io/2015/11/23/guan-yu-huan-cun-wen-ti-jsqing-chu-huan-cun/"/>
+    <id>http://sternelee.github.io/2015/11/23/guan-yu-huan-cun-wen-ti-jsqing-chu-huan-cun/</id>
+    <published>2015-11-23T07:09:07.000Z</published>
+    <updated>2015-11-23T07:10:30.000Z</updated>
+    <content type="html"><![CDATA[<p>css并行加载，js串行加载（会阻塞页面）</p>
+<p>清除缓存的问题:1、一般手动清除，浏览器缓存  2、js代码清除缓存</p>
+<p>js文件:  路径后面加一个随机数如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"lib/gMarker.js?random=120211"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p> css文件<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">'stylesheet'</span> <span class="attribute">href</span>=<span class="value">'css/index.css?t=120224'</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>加一个标识 强制浏览器重新加载此文件</p>
+<p>图片文件：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">background</span><span class="pseudo">:url(</span>**<span class="class">.png</span>?20150421)</span><br></pre></td></tr></table></figure></p>
+<p>加一个标识号，使图片不被缓存</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>css并行加载，js串行加载（会阻塞页面）</p>
+<p>清除缓存的问题:1、一般手动清除，浏览器缓存  2、js代码清除缓存</p>
+<p>js文件:  路径后面加一个随机数如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"lib/gMarker.js?random=120211"</span>&gt;<span class="xml"><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure></p>
+<p> css文件<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">'stylesheet'</span> <span class="attribute">href</span>=<span class="value">'css/index.css?t=120224'</span>&gt;</span></span><br></pre></td></tr></table></figure></p>]]>
+    
+    </summary>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="javascript" scheme="http://sternelee.github.io/tags/javascript/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="笔记" scheme="http://sternelee.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[利用canvas 导出图片]]></title>
+    <link href="http://sternelee.github.io/2015/11/23/li-yong-canvas-dao-chu-tu-pian/"/>
+    <id>http://sternelee.github.io/2015/11/23/li-yong-canvas-dao-chu-tu-pian/</id>
+    <published>2015-11-23T07:05:39.000Z</published>
+    <updated>2015-11-23T07:08:17.000Z</updated>
+    <content type="html"><![CDATA[<p>######1、使用canvas绘制图片，并将图片导出。<br>在本地直接访问静态网页时，无法使用toDataURL（），需要将网页发布后，canvas才能使用toDataURL获取画布上的内容。因为canvas不允许使用toDataURL来获取异域图片<br><img src="http://images0.cnblogs.com/blog2015/604652/201505/242125195234527.png" alt=""><br>原因：将不同域下图片绘制到canvas上时，不能使用toDataURL来获取imgdata，因为 canvas 使用了没有权限的跨域图片在使用canvas.toDataURL()等数据导出函数的时候会报错！ img.crossOrigin = “Anonymous” ，它开启了本地的跨域允许。当然服务器存储那边也要开放相应的权限才行，如果是设置了防盗链的图片在服务端就没有相应的权限的话你本地端开启了权限也是没有用的。<br><a id="more"></a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">downloadImg</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">       a.href = canvas.toDataURL(<span class="string">'image/png'</span>); <span class="comment">//下载图片</span></span><br><span class="line">       a.download = <span class="string">'未命名.png'</span>; <span class="built_in">console</span>.log(a);</span><br><span class="line">       a.click();</span><br><span class="line">   &#125; </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">drawImg</span>(<span class="params">ctx</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> img2 = <span class="keyword">new</span> Image();</span><br><span class="line">        img2.setAttribute(<span class="string">'crossOrigin'</span>,<span class="string">'anonymous'</span>);</span><br><span class="line">        img2.src = <span class="string">'img/1.png'</span>;</span><br><span class="line">        img2.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">            ctx.drawImage(<span class="keyword">this</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>绘制跨域图片：</p>
+<p>创建一张图片，设置其跨域属性crossOrigin,将这个临时图片绘制到canvas上<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=dyns.length;i&lt;len;i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> dynDiv = dyns[i].getLayerContainer();</span><br><span class="line">    <span class="keyword">var</span> dynimg = dynDiv.getElementsByTagName(<span class="string">'img'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//dynimg.setAttribute('crossOrigin', 'anonymous');</span></span><br><span class="line">    <span class="comment">//ctx.drawImage(dynimg,0,0,canvas.width,canvas.height); </span></span><br><span class="line">    <span class="comment">// canvas.toDataURL();  //出错 直接绘制不同域下的图片，无法通过toDataURL获取图片信息</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重新创建一张图片，设置其跨域属性crossOrigin,将这个临时图片绘制到canvas上，则可以使用toDataURL方法获取其图片内容数据，在生成图片</span></span><br><span class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">    img.setAttribute(<span class="string">'crossOrigin'</span>,<span class="string">'anonymous'</span>);</span><br><span class="line">    img.src = dynimg.src; </span><br><span class="line">    img.onload =<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">        ctx.drawImage(<span class="keyword">this</span>,<span class="number">0</span>,<span class="number">0</span>,canvas.width,canvas.height);</span><br><span class="line">        canvas.toDataURL();  <span class="comment">//成功获取</span></span><br><span class="line">    &#125;;                </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>######1、使用canvas绘制图片，并将图片导出。<br>在本地直接访问静态网页时，无法使用toDataURL（），需要将网页发布后，canvas才能使用toDataURL获取画布上的内容。因为canvas不允许使用toDataURL来获取异域图片<br><img src="http://images0.cnblogs.com/blog2015/604652/201505/242125195234527.png" alt=""><br>原因：将不同域下图片绘制到canvas上时，不能使用toDataURL来获取imgdata，因为 canvas 使用了没有权限的跨域图片在使用canvas.toDataURL()等数据导出函数的时候会报错！ img.crossOrigin = “Anonymous” ，它开启了本地的跨域允许。当然服务器存储那边也要开放相应的权限才行，如果是设置了防盗链的图片在服务端就没有相应的权限的话你本地端开启了权限也是没有用的。<br>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="javascript" scheme="http://sternelee.github.io/tags/javascript/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[HTML5 Audio/Video 标签,属性,方法,事件汇总]]></title>
+    <link href="http://sternelee.github.io/2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/"/>
+    <id>http://sternelee.github.io/2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/</id>
+    <published>2015-11-11T05:19:42.000Z</published>
+    <updated>2015-11-11T05:25:06.000Z</updated>
+    <content type="html"><![CDATA[<p>#####&lt;audio&gt; 标签属性：</p>
+<p>src：音乐的URL<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">audio</span> <span class="attribute">id</span>=<span class="value">"media"</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp3"</span> <span class="attribute">controls</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp3"</span> <span class="attribute">type</span>=<span class="value">"audio/mp3"</span>&gt;</span><span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.ogg"</span> <span class="attribute">type</span>=<span class="value">"audio/ogg"</span>&gt;</span><span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">audio</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>#####&lt;video&gt;标签属性：<br><a id="more"></a><br>src：视频的URL<br>poster：视频封面，没有播放时显示的图片<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条<br>width：视频宽度<br>height：视频高度<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">video</span> <span class="attribute">id</span>=<span class="value">"media"</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp4"</span> <span class="attribute">controls</span> <span class="attribute">width</span>=<span class="value">"400px"</span> <span class="attribute">heigt</span>=<span class="value">"400px"</span>&gt;</span><span class="tag">&lt;/<span class="title">video</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>获取HTMLVideoElement和HTMLAudioElement对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//audio可以直接通过new创建对象</span></span><br><span class="line">Media = <span class="keyword">new</span> Audio(<span class="string">"http://www.abc.com/test.mp3"</span>);</span><br><span class="line"><span class="comment">//audio和video都可以通过标签获取对象</span></span><br><span class="line">Media = <span class="built_in">document</span>.getElementById(<span class="string">"media"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>######Media方法和属性：</p>
+<p>HTMLVideoElement 和 HTMLAudioElement 均继承自 HTMLMediaElement<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//&#38169;&#35823;&#29366;&#24577;&#10;Media.error;            //null:&#27491;&#24120;&#10;Media.error.code;       //1.&#29992;&#25143;&#32456;&#27490; 2.&#32593;&#32476;&#38169;&#35823; 3.&#35299;&#30721;&#38169;&#35823; 4.URL&#26080;&#25928;&#10;&#10;//&#32593;&#32476;&#29366;&#24577;&#10;Media.currentSrc;           //&#36820;&#22238;&#24403;&#21069;&#36164;&#28304;&#30340;URL&#10;Media.src = value;          //&#36820;&#22238;&#25110;&#35774;&#32622;&#24403;&#21069;&#36164;&#28304;&#30340;URL&#10;Media.canPlayType(type);    //&#26159;&#21542;&#33021;&#25773;&#25918;&#26576;&#31181;&#26684;&#24335;&#30340;&#36164;&#28304;&#10;Media.networkState;         //0.&#27492;&#20803;&#32032;&#26410;&#21021;&#22987;&#21270;  1.&#27491;&#24120;&#20294;&#27809;&#26377;&#20351;&#29992;&#32593;&#32476;  2.&#27491;&#22312;&#19979;&#36733;&#25968;&#25454;  3.&#27809;&#26377;&#25214;&#21040;&#36164;&#28304;&#10;Media.load();               //&#37325;&#26032;&#21152;&#36733;src&#25351;&#23450;&#30340;&#36164;&#28304;&#10;Media.buffered;             //&#36820;&#22238;&#24050;&#32531;&#20914;&#21306;&#22495;&#65292;TimeRanges&#10;Media.preload;              //none:&#19981;&#39044;&#36733; metadata:&#39044;&#36733;&#36164;&#28304;&#20449;&#24687; auto:&#10;&#10;//&#20934;&#22791;&#29366;&#24577;&#10;Media.readyState;       //1:HAVE_NOTHING 2:HAVE_METADATA 3.HAVE_CURRENT_DATA 4.HAVE_FUTURE_DATA 5.HAVE_ENOUGH_DATA&#10;Media.seeking;          //&#26159;&#21542;&#27491;&#22312;seeking&#10;&#10;//&#22238;&#25918;&#29366;&#24577;&#10;Media.currentTime = value;          //&#24403;&#21069;&#25773;&#25918;&#30340;&#20301;&#32622;&#65292;&#36171;&#20540;&#21487;&#25913;&#21464;&#20301;&#32622;&#10;Media.startTime;                    //&#19968;&#33324;&#20026;0&#65292;&#22914;&#26524;&#20026;&#27969;&#23186;&#20307;&#25110;&#32773;&#19981;&#20174;0&#24320;&#22987;&#30340;&#36164;&#28304;&#65292;&#21017;&#19981;&#20026;0&#10;Media.duration;                     //&#24403;&#21069;&#36164;&#28304;&#38271;&#24230; &#27969;&#36820;&#22238;&#26080;&#38480;&#10;Media.paused;                       //&#26159;&#21542;&#26242;&#20572;&#10;Media.defaultPlaybackRate = value;  //&#40664;&#35748;&#30340;&#22238;&#25918;&#36895;&#24230;&#65292;&#21487;&#20197;&#35774;&#32622;&#10;Media.playbackRate = value;         //&#24403;&#21069;&#25773;&#25918;&#36895;&#24230;&#65292;&#35774;&#32622;&#21518;&#39532;&#19978;&#25913;&#21464;&#10;Media.played;                       //&#36820;&#22238;&#24050;&#32463;&#25773;&#25918;&#30340;&#21306;&#22495;&#65292;TimeRanges&#65292;&#20851;&#20110;&#27492;&#23545;&#35937;&#35265;&#19979;&#25991;&#10;Media.seekable;                     //&#36820;&#22238;&#21487;&#20197;seek&#30340;&#21306;&#22495; TimeRanges&#10;Media.ended;                        //&#26159;&#21542;&#32467;&#26463;&#10;Media.autoPlay;                     //&#26159;&#21542;&#33258;&#21160;&#25773;&#25918;&#10;Media.loop;                         //&#26159;&#21542;&#24490;&#29615;&#25773;&#25918;&#10;Media.play();                       //&#25773;&#25918;&#10;Media.pause();                      //&#26242;&#20572;&#10;&#10;//&#25511;&#21046;&#10;Media.controls;         //&#26159;&#21542;&#26377;&#40664;&#35748;&#25511;&#21046;&#26465;&#10;Media.volume = value;   //&#38899;&#37327;&#10;Media.muted = value;    //&#38745;&#38899;&#10;&#10;//TimeRanges(&#21306;&#22495;)&#23545;&#35937;&#10;TimeRanges.length;              //&#21306;&#22495;&#27573;&#25968;&#10;TimeRanges.start(index)         //&#31532;index&#27573;&#21306;&#22495;&#30340;&#24320;&#22987;&#20301;&#32622;&#10;TimeRanges.end(index)           //&#31532;index&#27573;&#21306;&#22495;&#30340;&#32467;&#26463;&#20301;&#32622;&#10;&#20107;&#20214;&#65306;&#10;&#10;eventTester = function(e)&#123;&#10;  Media.addEventListener(e,function()&#123;&#10;   console.log((new Date()).getTime(),e);&#10;  &#125;);&#10;&#125;&#10;eventTester(&#34;loadstart&#34;);       //&#23458;&#25143;&#31471;&#24320;&#22987;&#35831;&#27714;&#25968;&#25454;&#10;eventTester(&#34;progress&#34;);        //&#23458;&#25143;&#31471;&#27491;&#22312;&#35831;&#27714;&#25968;&#25454;&#10;eventTester(&#34;suspend&#34;);         //&#24310;&#36831;&#19979;&#36733;&#10;eventTester(&#34;abort&#34;);           //&#23458;&#25143;&#31471;&#20027;&#21160;&#32456;&#27490;&#19979;&#36733;&#65288;&#19981;&#26159;&#22240;&#20026;&#38169;&#35823;&#24341;&#36215;&#65289;&#65292;&#10;eventTester(&#34;error&#34;);           //&#35831;&#27714;&#25968;&#25454;&#26102;&#36935;&#21040;&#38169;&#35823;&#10;eventTester(&#34;stalled&#34;);         //&#32593;&#36895;&#22833;&#36895;&#10;eventTester(&#34;play&#34;);            //play()&#21644;autoplay&#24320;&#22987;&#25773;&#25918;&#26102;&#35302;&#21457;&#10;eventTester(&#34;pause&#34;);           //pause()&#35302;&#21457;&#10;eventTester(&#34;loadedmetadata&#34;);  //&#25104;&#21151;&#33719;&#21462;&#36164;&#28304;&#38271;&#24230;&#10;eventTester(&#34;loadeddata&#34;);      //&#25552;&#31034;&#24403;&#21069;&#24103;&#30340;&#25968;&#25454;&#26159;&#21487;&#29992;&#30340;&#10;eventTester(&#34;waiting&#34;);         //&#31561;&#24453;&#25968;&#25454;&#65292;&#24182;&#38750;&#38169;&#35823;&#10;eventTester(&#34;playing&#34;);         //&#24320;&#22987;&#22238;&#25918;&#10;eventTester(&#34;canplay&#34;);         //&#21487;&#20197;&#25773;&#25918;&#65292;&#20294;&#20013;&#36884;&#21487;&#33021;&#22240;&#20026;&#21152;&#36733;&#32780;&#26242;&#20572;&#10;eventTester(&#34;canplaythrough&#34;);  //&#21487;&#20197;&#25773;&#25918;&#65292;&#27468;&#26354;&#20840;&#37096;&#21152;&#36733;&#23436;&#27605;&#10;eventTester(&#34;seeking&#34;);         //&#23547;&#25214;&#20013;&#10;eventTester(&#34;seeked&#34;);          //&#23547;&#25214;&#23436;&#27605;&#10;eventTester(&#34;timeupdate&#34;);      //&#25773;&#25918;&#26102;&#38388;&#25913;&#21464;&#10;eventTester(&#34;ended&#34;);           //&#25773;&#25918;&#32467;&#26463;&#10;eventTester(&#34;ratechange&#34;);      //&#25773;&#25918;&#36895;&#29575;&#25913;&#21464;&#10;eventTester(&#34;durationchange&#34;);  //&#36164;&#28304;&#38271;&#24230;&#25913;&#21464;&#10;eventTester(&#34;volumechange&#34;);    //&#38899;&#37327;&#25913;&#21464;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>#####&lt;audio&gt; 标签属性：</p>
+<p>src：音乐的URL<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">audio</span> <span class="attribute">id</span>=<span class="value">"media"</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp3"</span> <span class="attribute">controls</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp3"</span> <span class="attribute">type</span>=<span class="value">"audio/mp3"</span>&gt;</span><span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.ogg"</span> <span class="attribute">type</span>=<span class="value">"audio/ogg"</span>&gt;</span><span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">audio</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>#####&lt;video&gt;标签属性：<br>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="javascript" scheme="http://sternelee.github.io/tags/javascript/"/>
+    
+      <category term="笔记" scheme="http://sternelee.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[自适应设计与响应式网页设计]]></title>
+    <link href="http://sternelee.github.io/2015/11/10/zi-gua-ying-she-ji-yu-xiang-ying-shi-wang-ye-she-ji/"/>
+    <id>http://sternelee.github.io/2015/11/10/zi-gua-ying-she-ji-yu-xiang-ying-shi-wang-ye-she-ji/</id>
+    <published>2015-11-10T08:25:37.000Z</published>
+    <updated>2015-11-10T08:44:10.000Z</updated>
+    <content type="html"><![CDATA[<p>目前非常流行自适应设计与响应式设计，而且经常让人混淆，自适应设计不应与自适应布局混为一谈，它们是完全不一样的概念。  </p>
+<p>######在这先说明下这两者的异同：</p>
+<ul>
+<li>自从移动终端飞速发展以来，各种各样的机型突飞猛进，很多网站的解决方法，是为不同的设备提供不同的网页，比如专门提供一个mobile版本，或者iPhone/iPad版本。这样做固然保证了效果，但是比较麻烦，同时要维护好几个版本，而且如果一个网站有多个portal（入口），会大大增加架构设计的复杂度。  </li>
+<li><p>于是，很早就有人设想，能不能”一次设计，普遍适用”，让同一张网页自动适应不同大小的屏幕，根据屏幕宽度，自动调整布局（layout）？</p>
+<a id="more"></a>
+<p>2010年，Ethan Marcotte提出了”<a href="http://alistapart.com/article/responsive-web-design" target="_blank" rel="external">自适应网页设计</a>“（Responsive Web Design）这个名词，指可以自动识别屏幕宽度、并做出相应调整的网页设计。<br><img src="http://cdn.alloyteam.com/wp-content/uploads/2015/04/%E5%9B%BE%E7%89%872.png" alt="图片"><br>图片来源<a href="http://mashable.com/2012/12/11/responsive-web-design/" target="_blank" rel="external">http://mashable.com/2012/12/11/responsive-web-design/</a></p>
+</li>
+<li><p>如图所示就叫做自适应布局。自适应布局有它的使用价值，在于它能够提供一种更加实用的解决方案，使得项目的实现成本更低，并且更加易于测试。一个自适应布局可以被看作是响应式布局的一个更加廉价的替代品，会在项目资源紧缺的情况下更具有吸引力。<br>######而在响应式布局中你却要考虑上百种不同的状态:</p>
+</li>
+<li>响应式网页设计是自适应网页设计的子集。响应式网页设计指的是页面的布局（流动网格、灵活的图像及媒介查询）。总体目标就是去解决设备多样化问题。</li>
+<li>响应式布局等于流动网格布局，而自适应布局等于使用固定分割点来进行布局。</li>
+<li>当固定宽度与流动宽度结合起来时，自适应布局就是一种响应式设计，而不仅仅是它的一种替代方法。​<br>######那么如何进行响应式布局呢？下面就一步步为你揭开响应式布局的面纱：</li>
+<li>Skill 1 学会运用 Css3 Media Queries，根据不同的屏幕分辨率，选择应用不同的Css规则</li>
+<li>Media Queries语法简介：<br>max-width：若浏览区域的宽度小于400像素，则下方的CSS描述就会立即被套用：<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (max-width:<span class="number">400px</span>)</span>&#123; </span><br><span class="line">    <span class="class">.class</span>  <span class="rules">&#123;</span><br><span class="line">         <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="hexcolor">#ccc</span></span></span>; </span><br><span class="line">     &#125;</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>也可以把要套用的描述独立成外部档案：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"screen and (max-width: 400px)"</span> <span class="attribute">href</span>=<span class="value">"mini.css"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>Min Width：若浏览区域的宽度大于800像素，则下方的CSS描述就会立即被套用：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (min-width:<span class="number">800px</span>)</span>&#123;</span><br><span class="line">  <span class="class">.class</span></span><br><span class="line">  <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="hexcolor">#666</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Device Width：若浏览设备的可视范围最大为480px，则下方的CSS描述就会立即被套用：(注：移动手机目前常见最大宽度为480px，如iPhone or Android Phone)<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (max-device-width:<span class="number">480px</span>)</span>&#123;</span><br><span class="line">  <span class="class">.class</span></span><br><span class="line">  <span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">background</span>:<span class="value"><span class="hexcolor">#000</span></span></span>;</span><br><span class="line">  &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>针对iPhone4提供专用的css设定档：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>= "<span class="attribute">stylesheet</span>"  <span class="attribute">media</span>= "<span class="attribute">only</span> <span class="attribute">screen</span> <span class="attribute">and</span> (<span class="attribute">-webkit-min-device-pixel-ratio:</span> <span class="attribute">2</span>)"  <span class="attribute">type</span>= "<span class="attribute">text</span>/<span class="attribute">css</span>"  <span class="attribute">href</span>= "<span class="attribute">iphone4.css</span>"  /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>针对iPad的Portrait Mode(直立)与Landscape Mode(横躺)两种浏览模式给予不同的css设定档：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"all and (orientation:portrait)"</span> <span class="attribute">href</span>=<span class="value">"portrait.css"</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">media</span>=<span class="value">"all and (orientation:landscape)"</span> <span class="attribute">href</span>=<span class="value">"landscape.css"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Skill 2 在网页头部加上viewport标签<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"viewport"</span> <span class="attribute">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>浏览器推出了“viewport meta”标签，许多移动浏览器现在都支持这个标签，W3C 协议定义 viewport meta 目前还属于草案，很多人都會在html head 处加上 viewport 这个meta data，一个典型的移动端viewport如上。<br>该属性可以控制视窗口宽度的大小。它可以被设置为实际的具体像素    width= 600或为特殊设备设置宽度值。<br>viewport设置属性如下：<br>width：可设定数值，或者指定为 device-width<br>height：可设定数值，或者指定為 device-height<br>initial-scale：第一次进入页面的初始比例<br>minimum-scale：允许缩小最小比例<br>maximum-scale：允许放大最大比例<br>user-scalable：允许使用者缩放，1 or 0 (yes or no)<br>编译过程会转化成如下的语义：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="at_rule">@<span class="keyword">viewport</span> </span>&#123;</span><br><span class="line">    <span class="tag">width</span>: <span class="tag">device-width</span>;</span><br><span class="line">    <span class="tag">initial-scale</span>: 1<span class="class">.0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>device-width ，主要是为了让整个页面宽度与手机可视宽度相同，这样就可以简单相容于不同机型屏幕大小，如果这边width沒有设定的话，就会依照html/css给予的width当作预设值。</li>
+<li>因为解析度不同，device-width有时候不一定是view width，所以在类似iphone 4高解析度机器上，device-width=320 ，可是实际解析度为480，这时候就需要利用javascript针对UA下去做动态调整。</li>
+<li>user-scalable，这个属性可以让使用者能否放大、缩小页面，如果页面不允许手机使用者缩放，就直接设定0或者no，反之要启动缩放功能，就设置1或者是yes。</li>
+<li>接下来将说明几种常用的方式，以及具体例子提供给大家參考。<br>如果在手机端我们希望网页呈现固定，不希望使用者随意缩放，直接设定如下<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">meta</span> <span class="attribute">name</span>=<span class="value">"viewport"</span> <span class="attribute">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果希望在不同device使用不同缩放大小，就必须使用javascript，检测UA(User agent)，动态设定viewport，如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">viewport = <span class="built_in">document</span>.querySelector(<span class="string">"meta[name=viewport]"</span>);</span><br><span class="line">viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;'</span>);</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Skill 3 不使用绝对宽度<br>由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度（margin-left:5px）的布局，也不能使用具有绝对宽度(例如：width：200px)的元素,而最好使用百分比宽度width:20%;或者with:auto;<br>Skill 4 字体最好不要用绝对大小(px)，而使用相对大小(em)<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">body</span> <span class="rules">&#123; <span class="rule"><span class="attribute">font</span>:<span class="value"> normal <span class="number">100%</span> Helvetica, Arial, sans-serif</span></span>; &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>上面的代码指定，字体大小是页面默认大小的100%，即16像素。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">h1</span> <span class="rules">&#123; <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">1.5em</span></span></span>; &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.small</span> <span class="rules">&#123; <span class="rule"><span class="attribute">font-size</span>:<span class="value"> <span class="number">0.875em</span></span></span>; &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）</p>
+<ul>
+<li><p>这里顺便说说 px  pt em  rem区别：</p>
+<ul>
+<li>px是pixel，像素，是屏幕上显示数据的最基本的点，在HTML中，默认的单位就是px；</li>
+<li>pt是point，是印刷行业常用单位，等于1/72英寸。</li>
+<li>em才是真正的“相对单位”（百分比嘛，当然是相对），而px和pt都是绝对单位（都有固定值）。所以，一般移动终端布局用em比较合适。</li>
+<li>rem是css3的出现，同时引进新的单位,而rem是相对于根元素&lt;html&gt;，这样就意味着，我们只需要在根元素确定一个参考值，在根元素中设置多大的字体，这完全可以根据您自己的需要。</li>
+</ul>
+</li>
+<li><p>Skill 5 流动布局（fluid grid）<br>流动布局的含义是各个位置都是浮动的，不是固定不变的</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.main</span> <span class="rules">&#123; <span class="rule"><span class="attribute">float</span>:<span class="value"> right</span></span>; <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">70%</span></span></span>; &#125;</span> </span><br><span class="line"><span class="class">.leftBar</span> <span class="rules">&#123; <span class="rule"><span class="attribute">float</span>:<span class="value"> left</span></span>; <span class="rule"><span class="attribute">width</span>:<span class="value"> <span class="number">25%</span></span></span>; &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。</p>
+<ul>
+<li>Skill 6 图片的自动缩放，等比缩放<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">img</span><span class="rules">&#123;</span><br><span class="line">    <span class="rule"><span class="attribute">max-width</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line"> &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>要使图片按等比缩放，一般不需要规定图片高度。且最好不用background-image,因为这样不会按照等比缩放。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>目前非常流行自适应设计与响应式设计，而且经常让人混淆，自适应设计不应与自适应布局混为一谈，它们是完全不一样的概念。  </p>
+<p>######在这先说明下这两者的异同：</p>
+<ul>
+<li>自从移动终端飞速发展以来，各种各样的机型突飞猛进，很多网站的解决方法，是为不同的设备提供不同的网页，比如专门提供一个mobile版本，或者iPhone/iPad版本。这样做固然保证了效果，但是比较麻烦，同时要维护好几个版本，而且如果一个网站有多个portal（入口），会大大增加架构设计的复杂度。  </li>
+<li><p>于是，很早就有人设想，能不能”一次设计，普遍适用”，让同一张网页自动适应不同大小的屏幕，根据屏幕宽度，自动调整布局（layout）？</p>]]>
+    
+    </summary>
+    
+      <category term="CSS3" scheme="http://sternelee.github.io/tags/CSS3/"/>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[12 个 CSS 高级技巧汇总]]></title>
+    <link href="http://sternelee.github.io/2015/10/30/12-ge-css-gao-ji-ji-qiao-hui-zong/"/>
+    <id>http://sternelee.github.io/2015/10/30/12-ge-css-gao-ji-ji-qiao-hui-zong/</id>
+    <published>2015-10-30T02:39:44.000Z</published>
+    <updated>2015-11-06T08:33:22.000Z</updated>
+    <content type="html"><![CDATA[<p>下面这些CSS高级技巧，一般人我可不告诉他哦。</p>
+<ul>
+<li>使用 :not() 在菜单上应用/取消应用边框  </li>
+<li>给body添加行高  </li>
+<li>所有一切都垂直居中  </li>
+<li>逗号分隔的列表  </li>
+<li>使用负的 nth-child 选择项目  </li>
+<li>对图标使用SVG  </li>
+<li>优化显示文本  </li>
+<li>对纯CSS滑块使用 max-height  </li>
+<li>继承 box-sizing  </li>
+<li>表格单元格等宽  </li>
+<li>用Flexbox摆脱外边距的各种hack  </li>
+<li>使用属性选择器用于空链接  </li>
+<li>使用 :not() 在菜单上应用/取消应用边框<br>*先给每一个菜单项添加边框  <a id="more"></a>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.nav</span> <span class="tag">li</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">border-right</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#666</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>……然后再除去最后一个元素……<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// remove border /  </span><br><span class="line">.nav li:last-child &#123;</span><br><span class="line">  border-right: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>……可以直接使用 :not() 伪类来应用元素：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.nav</span> <span class="tag">li</span><span class="pseudo">:not(</span><span class="pseudo">:last-child)</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">border-right</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#666</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样代码就干净，易读，易于理解了。</p>
+<p>当然，如果你的新元素有兄弟元素的话，也可以使用通用的兄弟选择符（~）：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.nav</span> <span class="tag">li</span><span class="pseudo">:first-child</span> ~ <span class="tag">li</span> <span class="rules">&#123;  </span><br><span class="line"><span class="rule"><span class="attribute">border-left</span>:<span class="value"> <span class="number">1px</span> solid <span class="hexcolor">#666</span></span></span>;</span><br><span class="line">&#125;</span>  </span><br><span class="line">```  </span><br><span class="line">给 <span class="tag">body</span>添加行高</span><br><span class="line">你不需要分别添加 <span class="tag">line-height</span> 到每个 &lt;<span class="tag">p</span>&gt;，&lt;<span class="tag">h</span>*&gt;等。只要添加到 <span class="tag">body</span> 即可：</span><br><span class="line">```<span class="tag">css</span></span><br><span class="line"><span class="tag">body</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">line-height</span>:<span class="value"> <span class="number">1</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样文本元素就可以很容易地从 body 继承。<br>所有一切都垂直居中<br>要将所有元素垂直居中，太简单了：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">html</span>, <span class="tag">body</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">height</span>:<span class="value"> <span class="number">100%</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">margin</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="tag">body</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">-webkit-align-items</span>:<span class="value"> center</span></span>;  </span><br><span class="line">  <span class="rule"><span class="attribute">-ms-flex-align</span>:<span class="value"> center</span></span>;  </span><br><span class="line">  <span class="rule"><span class="attribute">align-items</span>:<span class="value"> center</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">display</span>:<span class="value"> -webkit-flex</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>看，是不是很简单。</p>
+<ul>
+<li>注：在IE11中要小心flexbox。</li>
+</ul>
+<p>逗号分隔的列表<br>让HTML列表项看上去像一个真正的，用逗号分隔的列表：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">ul</span> &gt; <span class="tag">li</span><span class="pseudo">:not(</span><span class="pseudo">:last-child)</span><span class="pseudo">::after</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="string">","</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>对最后一个列表项使用 :not() 伪类。</p>
+<p>使用负的 nth-child 选择项目<br>在CSS中使用负的 nth-child 选择项目1到项目n。<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">li</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">display</span>:<span class="value"> none</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="comment">/* select items 1 through 3 and display them */</span></span><br><span class="line"><span class="tag">li</span><span class="pseudo">:nth-child(-n+3)</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">display</span>:<span class="value"> block</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>就是这么容易。<br>对图标使用SVG<br>我们没有理由不对图标使用SVG：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.logo</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">background</span>:<span class="value"> <span class="function">url</span>(<span class="string">"logo.svg"</span>)</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>SVG对所有的分辨率类型都具有良好的扩展性，并支持所有浏览器都回归到IE9。这样可以避开.png、.jpg或.gif文件了。</p>
+<p>优化显示文本<br>有时，字体并不能在所有设备上都达到最佳的显示，所以可以让设备浏览器来帮助你：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">html</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">-moz-osx-font-smoothing</span>:<span class="value"> grayscale</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">-webkit-font-smoothing</span>:<span class="value"> antialiased</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">text-rendering</span>:<span class="value"> optimizeLegibility</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>注：请负责任地使用 optimizeLegibility。此外，IE /Edge没有 text-rendering 支持。</p>
+<p>对纯CSS滑块使用 max-height<br>使用 max-height 和溢出隐藏来实现只有CSS的滑块：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.slider</span> <span class="tag">ul</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">max-height</span>:<span class="value"> <span class="number">0</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">overlow</span>:<span class="value"> hidden</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.slider</span><span class="pseudo">:hover</span> <span class="tag">ul</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">max-height</span>:<span class="value"> <span class="number">1000px</span></span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">transition</span>:<span class="value"> .<span class="number">3s</span> ease</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>继承 box-sizing<br>让 box-sizing 继承 html：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">html</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> border-box</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line">*,*<span class="pseudo">:before</span>,*<span class="pseudo">:after</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">box-sizing</span>:<span class="value"> inherit</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>这样在插件或杠杆其他行为的其他组件中就能更容易地改变 box-sizing 了。</p>
+<p>表格单元格等宽<br>表格工作起来很麻烦，所以务必尽量使用 table-layout: fixed 来保持单元格的等宽：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.calendar</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">table-layout</span>:<span class="value"> fixed</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>用Flexbox摆脱外边距的各种hack<br>当需要用到列分隔符时，通过flexbox的 space-between 属性，你就可以摆脱nth-，first-，和 last-child 的hack了：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class">.list</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">display</span>:<span class="value"> flex</span></span>;</span><br><span class="line">  <span class="rule"><span class="attribute">justify-content</span>:<span class="value"> space-between</span></span>;</span><br><span class="line">&#125;</span></span><br><span class="line"><span class="class">.list</span> <span class="class">.person</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">flex-basis</span>:<span class="value"> <span class="number">23%</span></span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>现在，列表分隔符就会在均匀间隔的位置出现。<br>使用属性选择器用于空链接  </p>
+<p>当 &lt;a&gt; 元素没有文本值，但 href 属性有链接的时候显示链接：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">a</span><span class="attr_selector">[href^="http"]</span><span class="pseudo">:empty</span><span class="pseudo">::before</span> <span class="rules">&#123;</span><br><span class="line">  <span class="rule"><span class="attribute">content</span>:<span class="value"> <span class="function">attr</span>(href)</span></span>;</span><br><span class="line">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>相当方便。</p>
+<p>支持<br>这些高级技巧在Chrome、Firefox、Safari、Edge的当前版本，以及IE11中都能有效工作。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>下面这些CSS高级技巧，一般人我可不告诉他哦。</p>
+<ul>
+<li>使用 :not() 在菜单上应用/取消应用边框  </li>
+<li>给body添加行高  </li>
+<li>所有一切都垂直居中  </li>
+<li>逗号分隔的列表  </li>
+<li>使用负的 nth-child 选择项目  </li>
+<li>对图标使用SVG  </li>
+<li>优化显示文本  </li>
+<li>对纯CSS滑块使用 max-height  </li>
+<li>继承 box-sizing  </li>
+<li>表格单元格等宽  </li>
+<li>用Flexbox摆脱外边距的各种hack  </li>
+<li>使用属性选择器用于空链接  </li>
+<li>使用 :not() 在菜单上应用/取消应用边框<br>*先给每一个菜单项添加边框]]>
+    
+    </summary>
+    
+      <category term="CSS3" scheme="http://sternelee.github.io/tags/CSS3/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[简单的H5翻页实现]]></title>
+    <link href="http://sternelee.github.io/2015/10/20/jian-dan-de-h5fan-ye-shi-xian/"/>
+    <id>http://sternelee.github.io/2015/10/20/jian-dan-de-h5fan-ye-shi-xian/</id>
+    <published>2015-10-20T06:22:39.000Z</published>
+    <updated>2015-11-06T08:34:12.000Z</updated>
+    <content type="html"><![CDATA[<p>随着着微信的广泛应用，H5应该得到了大量的使用传播，现在咱就来做一个简单的H5翻页动作。    </p>
+<p>首先，页面的结构如下：<br>在content里面设置四个class=page的div<br>然后在javascript中使用（主要写往下翻）<br><a id="more"></a><br><code>$(‘.page’).on(‘touchstart’,function(ev){<br>  var touch  = ev.touches ? ev.touches[0] : ev;<br>  this.pageX = touch.pageX;<br>  this.pageY = touch.pageY;<br>}).on(‘touchmove’,function(ev){<br>  ev.preventDefault();<br>  var touch  = ev.touches ? ev.touches[0] : ev;<br>  this.distX = touch.pageX - this.pageX;<br>  this.distY = touch.pageY - this.pageY;<br>  this.style.webkitTransform = ‘translateY(‘+this.distY+’px)’;<br>}).on(‘’touchend touchcancel’,function(ev){<br>  ev.preventDefault();<br>  if(this.distx &lt; -30){<br>  $(‘.content’).style.webkitTransform = ‘translateY(‘+ -100% +’px)’;<br>}<br>});</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>随着着微信的广泛应用，H5应该得到了大量的使用传播，现在咱就来做一个简单的H5翻页动作。    </p>
+<p>首先，页面的结构如下：<br>在content里面设置四个class=page的div<br>然后在javascript中使用（主要写往下翻）<br>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="笔记" scheme="http://sternelee.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[把HTML插入canvas实现网页截图]]></title>
+    <link href="http://sternelee.github.io/2015/09/29/ba-htmlcha-ru-canvasshi-xian-wang-ye-jie-tu/"/>
+    <id>http://sternelee.github.io/2015/09/29/ba-htmlcha-ru-canvasshi-xian-wang-ye-jie-tu/</id>
+    <published>2015-09-29T01:43:17.000Z</published>
+    <updated>2015-11-23T07:05:24.000Z</updated>
+    <content type="html"><![CDATA[<p>将DOM内容HTML绘制到画布中是有可能的，但如何有把握并且安全地实现它，就应该按照规范行事。你不能把HTML画到canvas上。相反，你需要使用一个SVG图像，其中包含你想要呈现的内容。可以使用＜foreignobject&gt;元素包含HTML内容，之后把这个svg绘制到你的canvas中。<br><a id="more"></a><br>唯一真正棘手的事情可能是创建SVG图像，所有你需要做的是创建一个包含XML字符串的SVG，然后按照下面的步骤构造一个Blob：  </p>
+<p><code>blob对象的媒体类型mime为 “image/svg+xml”&lt;svg&gt; 元素. 
+在svg元素中包含 &lt;foreignobject&gt; 元素.
+（格式化好的）HTML，被包裹到&lt;foreignobject&gt;中.</code>  </p>
+<p>如上所述通过使用一个object URL，我们可以内联HTML而不是从外部源加载它。当然，如果你喜欢，可以使用外部源，只要域与原始文件相同，比如：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span><span class="tag">&lt;<span class="title">canvas</span> <span class="attribute">id</span>=<span class="value">"canvas"</span> <span class="attribute">style</span>=<span class="value">"border:2px solid black;"</span> <span class="attribute">width</span>=<span class="value">"200"</span> <span class="attribute">height</span>=<span class="value">"200"</span>&gt;</span><span class="tag">&lt;/<span class="title">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript"></span><br><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"canvas"</span>);</span><br><span class="line"><span class="keyword">var</span> ctx = canvas.getContext(<span class="string">"2d"</span>);</span><br><span class="line"><span class="keyword">var</span> data = <span class="string">"&lt;svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'&gt;"</span> +</span><br><span class="line">             <span class="string">"&lt;foreignObject width='100%' height='100%'&gt;"</span> +</span><br><span class="line">               <span class="string">"&lt;div xmlns='http://www.w3.org/1999/xhtml' style='font-size:40px'&gt;"</span> +</span><br><span class="line">                 <span class="string">"&lt;em&gt;I&lt;/em&gt; like &lt;span style='color:white; text-shadow:0 0 2px blue;'&gt;cheese&lt;/span&gt;"</span> +</span><br><span class="line">               <span class="string">"&lt;/div&gt;"</span> +</span><br><span class="line">             <span class="string">"&lt;/foreignObject&gt;"</span> +</span><br><span class="line">           <span class="string">"&lt;/svg&gt;"</span>;</span><br><span class="line"><span class="keyword">var</span> DOMURL = self.URL || self.webkitURL || self;</span><br><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line"><span class="keyword">var</span> svg = <span class="keyword">new</span> Blob([data], &#123;type: <span class="string">"image/svg+xml;charset=utf-8"</span>&#125;);</span><br><span class="line"><span class="keyword">var</span> url = DOMURL.createObjectURL(svg);</span><br><span class="line">img.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ctx.drawImage(img, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    DOMURL.revokeObjectURL(url);</span><br><span class="line">&#125;;</span><br><span class="line">img.src = url;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>data变量设置了SVG图像的内容（这包括HTML），我们希望绘制到我们的canvas中。通过调用 new Image()我们建立一个新的html &lt; img&gt;元素，添加数据进去，指定一个object URL，之后在图片onload的时候调用 drawImage() 来把图片绘制到画布中。</p>
+<p>您可能想知道这种方式是否安全，担心canvas会读取敏感数据。答案是这样的：这个解决方案的实现依赖的SVG图像是非常严格的。SVG图像不允许加载任何外部资源，即使似乎来自同一个域。资源如栅格图像（如JPEG图像）或&lt; iframe&gt;s 需要用 data: URIs来内联引入。</p>
+<p>此外，你不能在一个SVG图像中引入脚本文件，所以没有从其他脚本访问DOM的风险，而且DOM元素在SVG图像中不能接收事件的输入，所以没有办法通过把隐私信息加载到一个表单控件（如一个文件的完整路径&lt; input&gt; 元素）然后渲染出来，之后通过读取像素把这些信息取出。</p>
+<p>访问过的链接风格并不应用于SVG图像中呈现的链接，所以历史信息也不能被检索，本地的主题也不呈现在SVG图像中，这使得它很难确定用户的平台。</p>
+<p>生成的canvas元素是纯净的，意味着你可以通过调用 toBlob(function(blob){…})来返回canvas的blob，或者toDataURL()来返回Base64-编码的data: URI。</p>
+<p>SVG必须是合法的XML，你需要解析并把HTML转为规范的符合格式的。下面的代码可以很方便地解析HTML：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> doc = <span class="built_in">document</span>.implementation.createHTMLDocument(<span class="string">""</span>);</span><br><span class="line">doc.write(html);</span><br><span class="line"></span><br><span class="line"><span class="comment">// You must manually set the xmlns if you intend to immediately serialize the HTML</span></span><br><span class="line"><span class="comment">// document to a string as opposed to appending it to a &lt;foreignObject&gt; in the DOM</span></span><br><span class="line">doc.documentElement.setAttribute(<span class="string">"xmlns"</span>, doc.documentElement.namespaceURI);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get well-formed markup</span></span><br><span class="line">html = (<span class="keyword">new</span> XMLSerializer).serializeToString(doc);</span><br></pre></td></tr></table></figure></p>
+<p>本文为Anyforweb技术分享博客，需要了解网站建设及更多Web应用相关信息，请访问anyforweb.com。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>将DOM内容HTML绘制到画布中是有可能的，但如何有把握并且安全地实现它，就应该按照规范行事。你不能把HTML画到canvas上。相反，你需要使用一个SVG图像，其中包含你想要呈现的内容。可以使用＜foreignobject&gt;元素包含HTML内容，之后把这个svg绘制到你的canvas中。<br>]]>
+    
+    </summary>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="javascript" scheme="http://sternelee.github.io/tags/javascript/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[requestAnimationFrame，Web中写动画的另一种选择]]></title>
+    <link href="http://sternelee.github.io/2015/08/27/requestanimationframewebzhong-xie-dong-hua-de-ling-chong-xuan-ze/"/>
+    <id>http://sternelee.github.io/2015/08/27/requestanimationframewebzhong-xie-dong-hua-de-ling-chong-xuan-ze/</id>
+    <published>2015-08-27T07:16:40.000Z</published>
+    <updated>2015-11-06T08:32:38.000Z</updated>
+    <content type="html"><![CDATA[<p>HTML5/CSS3时代，我们要在web里做动画选择其实已经很多了:<br>你可以用CSS3的animattion+keyframes;<br>你也可以用css3的transition;<br>你还可以用通过在canvas上作图来实现动画，也可以借助jQuery动画相关的API方便地实现;<br><a id="more"></a><br>当然最原始的你还可以使用window.setTimout()或者window.setInterval()通过不断更新元素的状态位置等来实现动画，前提是画面的更新频率要达到每秒60次才能让肉眼看到流畅的动画效果。<br>现在又多了一种实现动画的方案，那就是还在草案当中的window.requestAnimationFrame()方法。</p>
+<p>####初识requestAnimationFrame<br>来看<a href="https://developer.mozilla.org/en/docs/Web/API/window.requestAnimationFrame" target="_blank" rel="external">MDN</a>上对其给出的诠释：<br>The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint.<br>The method takes as an argument a callback to be invoked before the repaint.  </p>
+<p>window.requestAnimationFrame() 将告知浏览器你马上要开始动画效果了，后者需要在下次动画前调用相应方法来更新画面。这个方法就是传递给window.requestAnimationFrame()的回调函数。  </p>
+<p>也可这个方法原理其实也就跟setTimeout/setInterval差不多，通过递归调用同一方法来不断更新画面以达到动起来的效果，但它优于setTimeout/setInterval的地方在于它是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销。</p>
+<p>####基本语法<br>可以直接调用，也可以通过window来调用，接收一个函数作为回调，返回一个ID值，通过把这个ID值传给window.cancelAnimationFrame()可以取消该次动画。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requestAnimationFrame(callback)<span class="comment">//callback为回调函数</span></span><br></pre></td></tr></table></figure></p>
+<p>#####一个简单的例子<br>模拟一个进度条动画，初始div宽度为1px,在step函数中将进度加1然后再更新到div宽度上，在进度达到100之前，一直重复这一过程。<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"test"</span> <span class="attribute">style</span>=<span class="value">"width:1px;height:17px;background:#0f0;"</span>&gt;</span>0%<span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"button"</span> <span class="attribute">value</span>=<span class="value">"Run"</span> <span class="attribute">id</span>=<span class="value">"run"</span>/&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.requestAnimationFrame = <span class="built_in">window</span>.requestAnimationFrame || <span class="built_in">window</span>.mozRequestAnimationFrame || <span class="built_in">window</span>.webkitRequestAnimationFrame || <span class="built_in">window</span>.msRequestAnimationFrame;</span><br><span class="line"><span class="keyword">var</span> start = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> ele = <span class="built_in">document</span>.getElementById(<span class="string">"test"</span>);</span><br><span class="line"><span class="keyword">var</span> progress = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">timestamp</span>) </span>&#123;</span><br><span class="line">    progress += <span class="number">1</span>;</span><br><span class="line">    ele.style.width = progress + <span class="string">"%"</span>;</span><br><span class="line">    ele.innerHTML=progress + <span class="string">"%"</span>;</span><br><span class="line">    <span class="keyword">if</span> (progress &lt; <span class="number">100</span>) &#123;</span><br><span class="line">        requestAnimationFrame(step);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">requestAnimationFrame(step);</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"run"</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ele.style.width = <span class="string">"1px"</span>;</span><br><span class="line">    progress = <span class="number">0</span>;</span><br><span class="line">    requestAnimationFrame(step);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p>####浏览器支持情况<br>既然还是草案状态下引入的一个功能，在使用全我们就需要关心一下各浏览器对它的支持情况了。就目前来说，主流现代浏览器都对它提供了支持。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>HTML5/CSS3时代，我们要在web里做动画选择其实已经很多了:<br>你可以用CSS3的animattion+keyframes;<br>你也可以用css3的transition;<br>你还可以用通过在canvas上作图来实现动画，也可以借助jQuery动画相关的API方便地实现;<br>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="前端" scheme="http://sternelee.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[判断浏览器类型来选择网址]]></title>
+    <link href="http://sternelee.github.io/2015/07/23/pan-duan-liu-lan-qi-lei-xing-lai-xuan-ze-wang-zhi/"/>
+    <id>http://sternelee.github.io/2015/07/23/pan-duan-liu-lan-qi-lei-xing-lai-xuan-ze-wang-zhi/</id>
+    <published>2015-07-23T02:22:48.000Z</published>
+    <updated>2015-07-23T02:28:21.000Z</updated>
+    <content type="html"><![CDATA[<p>在HTML文档的头部head加入以下代码  </p>
+<p><pre><code><br>if((/android|webos|ip(hone|ad|od)|opera (mini|mobi|tablet)|iemobile|windows.+(phone|touch)|mobile|fennec|kindle (Fire)|Silk|maemo|blackberry|playbook|bb10\; (touch|kbd)|Symbian(OS)|Ubuntu Touch/i.test(navigator.userAgent)) || window.navigator.userAgent.indexOf(‘baidumap_IPHO’) != -1 || window.navigator.userAgent.indexOf(‘baidumap<em>ANDR’) != -1){<br>          location.replace(‘mobile/index.html’);<br>        }<br></em></code></pre><br><a id="more"></a><br>其中的baidumap*表示在百度地图中打开网址时的跳转。<br>使用navigator.userAgent来判断浏览器类型。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>在HTML文档的头部head加入以下代码  </p>
+<p><pre><code><br>if((/android|webos|ip(hone|ad|od)|opera (mini|mobi|tablet)|iemobile|windows.+(phone|touch)|mobile|fennec|kindle (Fire)|Silk|maemo|blackberry|playbook|bb10\; (touch|kbd)|Symbian(OS)|Ubuntu Touch/i.test(navigator.userAgent)) || window.navigator.userAgent.indexOf(‘baidumap_IPHO’) != -1 || window.navigator.userAgent.indexOf(‘baidumap<em>ANDR’) != -1){<br>          location.replace(‘mobile/index.html’);<br>        }<br></code></pre><br>]]>
+    
+    </summary>
+    
+      <category term="JS" scheme="http://sternelee.github.io/tags/JS/"/>
+    
+      <category term="笔记" scheme="http://sternelee.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[赏心悦目！手机应用动画效果赏析]]></title>
+    <link href="http://sternelee.github.io/2015/06/15/shang-xin-yue-mu-shou-ji-ying-yong-dong-hua-xiao-guo-shang-xi/"/>
+    <id>http://sternelee.github.io/2015/06/15/shang-xin-yue-mu-shou-ji-ying-yong-dong-hua-xiao-guo-shang-xi/</id>
+    <published>2015-06-15T01:41:29.000Z</published>
+    <updated>2015-11-06T08:31:43.000Z</updated>
+    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;随着国际大品牌苹果和谷歌的引领，最近越来越多的国内公司开始关注动效设计了，越来越多的团队已经意识到动效在产品用户体验中的重要性了，更多的射鸡师们也开始投身动效设计领域。<br><a id="more"></a><br>&nbsp;&nbsp;&nbsp;&nbsp;但是说到底，我们到底为什么需要动效设计？或者说我们到底需要什么样的动效？做动效设计也有段时间了，于是尝试用一些案例，从产品本身出发来说说我所思考的动效设计。<br><img src="http://img.ithome.com/newsuploadfiles/2015/6/20150613_191828_190.jpg" alt="我们为什么需要设计"><br>（文中部分案例为设计师个人作品，部分为线上产品，都是我非常非常欣赏的作品。如不慎冒犯请戳我替换掉）</p>
+<h5 id="u4E00_u3001_u52A0_u5F3A_u4F53_u9A8C_u8212_u9002_u5EA6"><a href="#u4E00_u3001_u52A0_u5F3A_u4F53_u9A8C_u8212_u9002_u5EA6" class="headerlink" title="一、加强体验舒适度"></a>一、加强体验舒适度</h5><p>嗯，就是让用户更加爽更加爽的用你的产品。<br>具体表现在：  </p>
+<h6 id="1-_u8868_u73B0_u5C42_u7EA7_u5173_u7CFB"><a href="#1-_u8868_u73B0_u5C42_u7EA7_u5173_u7CFB" class="headerlink" title="1.表现层级关系"></a>1.表现层级关系</h6><p>为了展现层与层的关系，是抽屉，是打开，还是平级切换等等，让用户知道这个界面和上一个、下一个的关系。这已经是非常最常见的运用了。<br><img src="http://img.ui.cn/data/file/2/4/3/260342.gif" alt=""></p>
+<h6 id="2-_u4E0E_u7528_u6237_u624B_u52BF_u7ED3_u5408_uFF0C_u66F4_u81EA_u7136_u7684_u52A8_u753B_u8868_u73B0"><a href="#2-_u4E0E_u7528_u6237_u624B_u52BF_u7ED3_u5408_uFF0C_u66F4_u81EA_u7136_u7684_u52A8_u753B_u8868_u73B0" class="headerlink" title="2.与用户手势结合，更自然的动画表现"></a>2.与用户手势结合，更自然的动画表现</h6><p>当用户手势操作的时候，让界面的动态走向更符合手指的运动，从而让用户感觉到是自己控制了界面的动向，而不是机械化的跳转。<br><img src="http://img.ui.cn/data/file/3/4/3/260343.gif" alt=""><br>City guide app 用手势可以向左向右扔卡片</p>
+<h6 id="3-_u6109_u5FEB_u7684_u63D0_u793A_u529F_u80FD"><a href="#3-_u6109_u5FEB_u7684_u63D0_u793A_u529F_u80FD" class="headerlink" title="3.愉快的提示功能"></a>3.愉快的提示功能</h6><p>在某些需要提醒的时候能吸引用户的注意，但是又不会生硬，符合预期的出现。<br><img src="http://img.ui.cn/data/file/4/4/3/260344.gif" alt=""><br>Action button feedback 出错提示<br><img src="http://img.ui.cn/data/file/5/4/3/260345.gif" alt=""><br>City Guides 启动时提示用户可以左右滑动卡片</p>
+<h6 id="4-_u989D_u5916_u589E_u52A0_u754C_u9762_u7684_u6D3B_u529B"><a href="#4-_u989D_u5916_u589E_u52A0_u754C_u9762_u7684_u6D3B_u529B" class="headerlink" title="4.额外增加界面的活力"></a>4.额外增加界面的活力</h6><p>在用户预期之外增加的惊喜，可以是帅气的，可以是卖萌，可以有些物理属性，总之让用户感知到产品的生命力。<br><img src="http://img.ui.cn/data/file/6/4/3/260346.gif" alt=""><br>readme.io 萌萌的输入框<br><img src="http://img.ui.cn/data/file/7/4/3/260347.gif" alt=""><br>amazon Q弹的菜单<br><img src="http://img.ui.cn/data/file/8/4/3/260348.gif" alt=""><br>tumblr  不喜欢我心都碎了呢~</p>
+<h6 id="5-_u5438_u5F15_u7528_u6237_u6301_u4E45_u7684_u6CE8_u610F_u529B"><a href="#5-_u5438_u5F15_u7528_u6237_u6301_u4E45_u7684_u6CE8_u610F_u529B" class="headerlink" title="5.吸引用户持久的注意力"></a>5.吸引用户持久的注意力</h6><p>也是属于增加用户的惊喜感，在某些数据量较大的界面中添加一些动效，让用户保持注意力。<br><img src="http://img.ui.cn/data/file/9/4/3/260349.gif" alt=""><br>Bubbles 以动态的形式展现数据点</p>
+<p>#####二、减弱不可避免的不适感<br>虽然我们的产品，我们的交互，我们的设计，我们的工程狮都在努力把产品打造的更加优秀，更加完美，但是总有一些无法避免的问题、或者有可能会出现的bug、外界条件的不给力等因素，造成我们的产品体验下降。这些时候适当的增加一些动效可以弥补在出现这些情况时的不适体验。<br>比如下面这些：</p>
+<h6 id="1-_u8BA9_u7B49_u5F85_u53D8_u5F97_u66F4_u6109_u5FEB"><a href="#1-_u8BA9_u7B49_u5F85_u53D8_u5F97_u66F4_u6109_u5FEB" class="headerlink" title="1.让等待变得更愉快"></a>1.让等待变得更愉快</h6><p>常出现在加载、刷新、发送等界面中，让等待变得可视化，甚至不再那么无聊。<br><img src="http://img.ui.cn/data/file/0/5/3/260350.gif" alt=""><br>Download Progress 让下载不再枯燥<br><img src="http://img.ui.cn/data/file/1/5/3/260351.gif" alt=""><br>App loader 有趣的loading动画<br><img src="http://img.ui.cn/data/file/2/5/3/260352.gif" alt=""><br>gear-powered 拉了还想拉的下拉刷新</p>
+<h6 id="2-_u5931_u8D25_u754C_u9762_u7684_u52A8_u6548"><a href="#2-_u5931_u8D25_u754C_u9762_u7684_u52A8_u6548" class="headerlink" title="2.失败界面的动效"></a>2.失败界面的动效</h6><p>比如刷新失败、页面错误、未联网提示这些。<br><img src="http://img.ui.cn/data/file/4/5/3/260354.gif" alt=""><br>download 就算失败了还是感觉萌萌哒~</p>
+<p>######3.增加界面与界面衔接的延续感<br>界面的跳转不可以避免，但是如果让本来分别独立的2个界面或者事件拥有了某种特定的联系，可以显得更加好玩，不再是生硬的跳转。<br><img src="http://img.ui.cn/data/file/5/5/3/260355.gif" alt=""><br>iOS Animation Download 界面跳转时保留部分元素到下一个界面<br><img src="http://img.ui.cn/data/file/6/5/3/260356.gif" alt=""><br>Filter Menu 保留需要的条目移走不再用的<br><img src="http://img.ui.cn/data/file/9/5/3/260359.gif" alt=""><br>Elevate</p>
+<p>#####三、不易被察觉的动效<br>特意把这一类单独说一下，由于不容易被发现，普通用户通常会忽略它们的存在，但很多时候这些小细节让交互变得更加有趣。</p>
+<p>######1.默默增加反馈感<br>为用户的操作提供有趣的正反馈。<br><img src="http://img.ui.cn/data/file/1/6/3/260361.gif" alt=""><br>Twitter 收藏的点击反馈</p>
+<p>######2.去除用户不再需要的元素<br>随着用户的操作，有的内容已经是用户不再关注的。这时候可以将他们隐藏起来。<br><img src="http://img.ui.cn/data/file/8/6/3/260368.gif" alt=""><br>CityHour Calendar Animated Interaction<br><img src="http://img.ui.cn/data/file/9/6/3/260369.gif" alt=""><br>Steller  </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;上面的例子大部分都是比较特色鲜明的，但是大多数实际情况中的优秀动效设计都会涉及到好几点同时都满足。总的来说动效还是为用户体验而服务的，动效设计师尤其要注意交互逻辑，才能让你的作品看起来不但动效帅气逼人而且真正发挥了实际的作用。  </p>
+<p>最后要提醒的是，千万不要牺牲了用户宝贵的时间用来看你毫无目的的动效。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;随着国际大品牌苹果和谷歌的引领，最近越来越多的国内公司开始关注动效设计了，越来越多的团队已经意识到动效在产品用户体验中的重要性了，更多的射鸡师们也开始投身动效设计领域。<br>]]>
+    
+    </summary>
+    
+      <category term="WebAPP" scheme="http://sternelee.github.io/tags/WebAPP/"/>
+    
+      <category term="ideas" scheme="http://sternelee.github.io/tags/ideas/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[手机web——自适应网页设计（html/css控制）]]></title>
+    <link href="http://sternelee.github.io/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/"/>
+    <id>http://sternelee.github.io/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/</id>
+    <published>2015-06-12T03:13:22.000Z</published>
+    <updated>2015-06-12T03:20:02.000Z</updated>
+    <content type="html"><![CDATA[<p>######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？</p>
+<p>其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。</p>
+<blockquote>
+<p>&lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&gt;</p>
+</blockquote>
+<p>&nbsp;&nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。 对于viewport属性，我是真正在接触移动web开发是才遇到的，一把的ps布局都是固定的960px，1000px这种。<br><a id="more"></a><br>&nbsp;&nbsp;下面三篇文章是对viewport属性详细的解释： Viewport（视区概念）——pc端的理解 Viewport（视区概念）——移动端的应用 viewport ——视区概念（转） 对于老式IE6，7，8浏览器需要js处理，由于主要平台是ios和安卓，所有可以暂时不考虑</p>
+<h6 id="u4E8C-__u4E0D_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6__u7531_u4E8E_u7F51_u9875_u4F1A_u6839_u636E_u5C4F_u5E55_u5BBD_u5EA6_u8C03_u6574_u5E03_u5C40_uFF0C_u6240_u4EE5_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5E03_u5C40_uFF0C_u4E5F_u4E0D_u80FD_u4F7F_u7528_u5177_u6709_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5143_u7D20_u3002"><a href="#u4E8C-__u4E0D_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6__u7531_u4E8E_u7F51_u9875_u4F1A_u6839_u636E_u5C4F_u5E55_u5BBD_u5EA6_u8C03_u6574_u5E03_u5C40_uFF0C_u6240_u4EE5_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5E03_u5C40_uFF0C_u4E5F_u4E0D_u80FD_u4F7F_u7528_u5177_u6709_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5143_u7D20_u3002" class="headerlink" title="二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。"></a>二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。</h6><p>这一条非常重要。 具体说，CSS代码不能指定像素宽度： width:xxx px; 只能指定百分比宽度： width: xx%; 或者：width:auto; 这里开发是指一个网页不仅能用在ps上，也能同时用于移动端，但是对于webapp这种还是需要单独做一个webapp使用的页面。</p>
+<p>对于这个知识点，对于我目前做的项目有用处，主要用于控制限定数据库里读出来的图片宽度。 详见：手机webapp的jquery mobile初次使用心得和解决图片自适应大小问题</p>
+<h6 id="u4E09-__u76F8_u5BF9_u5927_u5C0F_u7684_u5B57_u4F53__u5B57_u4F53_u4E5F_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5927_u5C0F_uFF08px_uFF09_uFF0C_u800C_u53EA_u80FD_u4F7F_u7528_u76F8_u5BF9_u5927_u5C0F_uFF08em_uFF09_u3002"><a href="#u4E09-__u76F8_u5BF9_u5927_u5C0F_u7684_u5B57_u4F53__u5B57_u4F53_u4E5F_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5927_u5C0F_uFF08px_uFF09_uFF0C_u800C_u53EA_u80FD_u4F7F_u7528_u76F8_u5BF9_u5927_u5C0F_uFF08em_uFF09_u3002" class="headerlink" title="三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。"></a>三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。</h6><p>body { font: normal 100% Helvetica, Arial, sans-serif; }<br>上面的代码指定，字体大小是页面默认大小的100%，即16像素。</p>
+<p>h1 { font-size: 1.5em; }<br>然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）。</p>
+<p>small { font-size: 0.875em; }<br>small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。</p>
+<h6 id="u56DB-__u6D41_u52A8_u5E03_u5C40_uFF08fluid_grid_uFF09__u201C_u6D41_u52A8_u5E03_u5C40_u201D_u7684_u542B_u4E49_u662F_uFF0C_u5404_u4E2A_u533A_u5757_u7684_u4F4D_u7F6E_u90FD_u662F_u6D6E_u52A8_u7684_uFF0C_u4E0D_u662F_u56FA_u5B9A_u4E0D_u53D8_u7684_u3002"><a href="#u56DB-__u6D41_u52A8_u5E03_u5C40_uFF08fluid_grid_uFF09__u201C_u6D41_u52A8_u5E03_u5C40_u201D_u7684_u542B_u4E49_u662F_uFF0C_u5404_u4E2A_u533A_u5757_u7684_u4F4D_u7F6E_u90FD_u662F_u6D6E_u52A8_u7684_uFF0C_u4E0D_u662F_u56FA_u5B9A_u4E0D_u53D8_u7684_u3002" class="headerlink" title="四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　"></a>四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　</h6><p>.main { float: right; width: 70%; } .leftBar { float: left; width: 25%; }<br>float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。 另外，绝对定位（position: absolute）的使用，也要非常小心。</p>
+<h6 id="u4E94-__u201C_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u7684_u6838_u5FC3_uFF0C_u5C31_u662FCSS3_u5F15_u5165_u7684Media_Query_u6A21_u5757_u3002__u5B83_u7684_u610F_u601D_u5C31_u662F_uFF0C_u81EA_u52A8_u63A2_u6D4B_u5C4F_u5E55_u5BBD_u5EA6_uFF0C_u7136_u540E_u52A0_u8F7D_u76F8_u5E94_u7684CSS_u6587_u4EF6_u3002"><a href="#u4E94-__u201C_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u7684_u6838_u5FC3_uFF0C_u5C31_u662FCSS3_u5F15_u5165_u7684Media_Query_u6A21_u5757_u3002__u5B83_u7684_u610F_u601D_u5C31_u662F_uFF0C_u81EA_u52A8_u63A2_u6D4B_u5C4F_u5E55_u5BBD_u5EA6_uFF0C_u7136_u540E_u52A0_u8F7D_u76F8_u5E94_u7684CSS_u6587_u4EF6_u3002" class="headerlink" title="五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。"></a>五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</h6><p><link rel="stylesheet" type="text/css" media="screen and (max-device-width: 400px)" href="tinyScreen.css"><br>上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。 　</p>
+<p><link rel="stylesheet" type="text/css" media="screen and (min-width: 400px) and (max-device-width: 600px)" href="smallScreen.css"><br>如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。 除了用html标签加载CSS文件，还可以在现有CSS文件中加载。</p>
+<p>@import url(“tinyScreen.css”) screen and (max-device-width: 400px);<br>六. CSS的@media规则 同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。</p>
+<p>@media screen and (max-device-width: 400px) { .column { float: none; width:auto; } #sidebar { display:none; } }<br>上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、宽度自动调节（width:auto），sidebar块不显示（display:none）。</p>
+<h6 id="u4E03-__u56FE_u7247_u7684_u81EA_u9002_u5E94_uFF08fluid_image_uFF09__u9664_u4E86_u5E03_u5C40_u548C_u6587_u672C_uFF0C_u201D_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u8FD8_u5FC5_u987B_u5B9E_u73B0_u56FE_u7247_u7684_u81EA_u52A8_u7F29_u653E_u3002__u8FD9_u53EA_u8981_u4E00_u884CCSS_u4EE3_u7801_uFF1A"><a href="#u4E03-__u56FE_u7247_u7684_u81EA_u9002_u5E94_uFF08fluid_image_uFF09__u9664_u4E86_u5E03_u5C40_u548C_u6587_u672C_uFF0C_u201D_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u8FD8_u5FC5_u987B_u5B9E_u73B0_u56FE_u7247_u7684_u81EA_u52A8_u7F29_u653E_u3002__u8FD9_u53EA_u8981_u4E00_u884CCSS_u4EE3_u7801_uFF1A" class="headerlink" title="七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　"></a>七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　</h6><p>img { max-width: 100%;} 这行代码对于大多数嵌入网页的视频也有效，所以可以写成：</p>
+<p>img, object { max-width: 100%;}</p>
+<p>老版本的IE不支持max-width，</p>
+<p>所以只好写成： img { width: 100%; }</p>
+<p>此外，windows平台缩放图片时，可能出现图像失真现象。这时，可以尝试使用IE的专有命令： 　</p>
+<p>img { -ms-interpolation-mode: bicubic; } 或者，Ethan Marcotte的imgSizer.js。 addLoadEvent(function() { var imgs = document.getElementById(“content”).getElementsByTagName(“img”); imgSizer.collate(imgs); });<br>不过，有条件的话，最好还是根据不同大小的屏幕，加载不同分辨率的图片。有很多方法可以做到这一条，服务器端和客户端都可以实现。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？</p>
+<p>其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。</p>
+<blockquote>
+<p>&lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&gt;</p>
+</blockquote>
+<p>&nbsp;&nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。 对于viewport属性，我是真正在接触移动web开发是才遇到的，一把的ps布局都是固定的960px，1000px这种。<br>]]>
+    
+    </summary>
+    
+      <category term="WebAPP" scheme="http://sternelee.github.io/tags/WebAPP/"/>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="笔记" scheme="http://sternelee.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[通过JS语句判断WEB网站的访问端是电脑还是手机]]></title>
+    <link href="http://sternelee.github.io/2015/06/12/tong-guo-jsyu-ju-pan-duan-webwang-zhan-de-fang-wen-duan-shi-dian-nao-huan-shi-shou-ji/"/>
+    <id>http://sternelee.github.io/2015/06/12/tong-guo-jsyu-ju-pan-duan-webwang-zhan-de-fang-wen-duan-shi-dian-nao-huan-shi-shou-ji/</id>
+    <published>2015-06-12T03:02:44.000Z</published>
+    <updated>2015-06-12T03:20:21.000Z</updated>
+    <content type="html"><![CDATA[<p>通过JS语句判断WEB网站的访问端是电脑还是手机<br><a id="more"></a></p>
+<pre><code>//平台、设备和操作系统
+        var system = {
+            win: false,
+            mac: false,
+            xll: false,
+            ipad:false
+        };
+        //检测平台
+        var p = navigator.platform;
+        system.win = p.indexOf("Win") == 0;
+        system.mac = p.indexOf("Mac") == 0;
+        system.x11 = (p == "X11") || (p.indexOf("Linux") == 0);
+        system.ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false;
+        //跳转语句，如果是手机访问就自动跳转到wap.baidu.com页面
+        if (system.win || system.mac || system.xll||system.ipad) {
+
+        } else {
+
+            window.location.href = "http://www.jdpatro.com/3g/";
+        }</code></pre>
+###### 腾讯网的适配代码
+<pre><code>if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){
+    if(window.location.href.indexOf("?mobile")<0){ try{="" if(="" android|webos|iphone|ipod|blackberry="" i.test(navigator.useragent)){="" window.location.href="http://shipei.qq.com/index.htm" ;="" }else="" ipad="" }else{="" }="" }catch(e){}="" }<="" code=""></0){></code></pre>
+<pre><code>var browser = {
+        versions : function() {
+            var u = navigator.userAgent, app = navigator.appVersion;
+            return {//移动终端浏览器版本信息                                 
+            trident : u.indexOf('Trident') > -1, //IE内核                                 
+            presto : u.indexOf('Presto') > -1, //opera内核                                 
+            webKit : u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核                                 
+            gecko : u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核                                
+            mobile : !!u.match(/AppleWebKit.*Mobile.*/)
+                    || !!u.match(/AppleWebKit/), //是否为移动终端                                 
+            ios : !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端                 
+            android : u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器                                 
+            iPhone : u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器                    
+            iPad: u.indexOf('iPad') > -1, //是否iPad       
+            webApp : u.indexOf('Safari') == -1,//是否web应该程序，没有头部与底部
+            google:u.indexOf('Chrome')>-1
+        };
+    }(),
+    language : (navigator.browserLanguage || navigator.language).toLowerCase()
+    }
+    document.writeln("语言版本: "+browser.language);
+    document.writeln(" 是否为移动终端: "+browser.versions.mobile);</code></pre>
+###### 如何判断访问网站的机器类型-如何判断ipad
+
+如何判断是否是 iPad 浏览器呢，关键是看它的 User Agent 中是否有 iPad。iPad 使用的是 Safari Mobile 浏览器，他的的 User Agent 是：
+<pre><code>Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10
+
+function is_iPad(){        
+ [object Object] [object Object] [object Object]var ua = navigator.userAgent.toLowerCase();
+ [object Object] [object Object] [object Object]if(ua.match(/iPad/i)=="ipad") {                
+ [object Object] [object Object] [object Object] [object Object] [object Object] [object Object]return true;
+ [object Object] [object Object] [object Object]} else {
+ [object Object] [object Object] [object Object] [object Object] [object Object] [object Object]return false;
+ [object Object] [object Object] [object Object]}
+}
+
+
+$is_iPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad');
+
+RewriteCond %{HTTP_USER_AGENT} ^.*iPad.*$
+RewriteRule ^(.*)$ http://ipad.fairyfish.net [R=301]</code></pre>
+
+<h6 id="JS__u5224_u65AD_u6D4F_u89C8_u5668_u5BA2_u6237_u7AEF_u7C7B_u578B_28ipad_2Ciphone_2Candroid_29"><a href="#JS__u5224_u65AD_u6D4F_u89C8_u5668_u5BA2_u6237_u7AEF_u7C7B_u578B_28ipad_2Ciphone_2Candroid_29" class="headerlink" title="JS 判断浏览器客户端类型(ipad,iphone,android)"></a>JS 判断浏览器客户端类型(ipad,iphone,android)</h6><pre><code>var bForcepc
+= fGetQuery("dv") == "pc";  
+   function
+fBrowserRedirect(){  
+       var sUserAgent = navigator.userAgent.toLowerCase(); 
+       var bIsIpad = sUserAgent.match(/ipad/i) ==
+"ipad";   
+       var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os"; 
+       var bIsMidp = sUserAgent.match(/midp/i) == "midp"; 
+       var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4"; 
+       var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb"; 
+       var bIsAndroid = sUserAgent.match(/android/i) == "android"; 
+       var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce"; 
+       var bIsWM = sUserAgent.match(/windows mobile/i) == "windows
+mobile";  
+       if(bIsIpad){  
+           var sUrl =
+location.href;     
+           if(!bForcepc){  
+               window.location.href = "http://ipad.mail.163.com/"; 
+           }  
+       }  
+       if(bIsIphoneOs || bIsAndroid){  
+           var sUrl =
+location.href;     
+           if(!bForcepc){  
+               window.location.href = "http://smart.mail.163.com/"; 
+           }  
+       }  
+       if(bIsMidp||bIsUc7||bIsUc||bIsCE||bIsWM){  
+           var sUrl =
+location.href;     
+           if(!bForcepc){  
+               window.location.href = "http://m.mail.163.com/"; 
+           }  
+       }  
+   } 
+   function
+fGetQuery(name){//获取参数值  
+       var sUrl = window.location.search.substr(1); 
+       var r = sUrl.match(new RegExp("(^|&)" + name +
+"=([^&]*)(&|$)")); 
+       return (r == null ? null : (r[2])); 
+   } 
+   function
+fShowVerBlock(){    
+       if(bForcepc){  
+           document.getElementByIdx_x("dv_block").style.display = "block"; 
+       }  
+       else{  
+           document.getElementByIdx_x("ad_block").style.display = "block"; 
+       }  
+   } 
+   fBrowserRedirect();</code></pre>]]></content>
+    <summary type="html">
+    <![CDATA[<p>通过JS语句判断WEB网站的访问端是电脑还是手机<br>]]>
+    
+    </summary>
+    
+      <category term="WebAPP" scheme="http://sternelee.github.io/tags/WebAPP/"/>
+    
+      <category term="h5" scheme="http://sternelee.github.io/tags/h5/"/>
+    
+      <category term="web" scheme="http://sternelee.github.io/tags/web/"/>
+    
+      <category term="笔记" scheme="http://sternelee.github.io/categories/%E7%AC%94%E8%AE%B0/"/>
     
   </entry>
   

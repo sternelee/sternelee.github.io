@@ -1,0 +1,716 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="sogou_site_verification" content="WEhegz1Bts"/>
+<meta name="360-site-verification" content="ab30d6f9900b55bcfa635dbcf869b683" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="喜欢英文吉他的程序猿" />
+
+
+
+  <meta name="keywords" content="JS,h5,javascript," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'always'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> HTML5 Audio/Video 标签,属性,方法,事件汇总 // STERNE </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">STERNE</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html">
+            <i class="menu-item-icon icon-commonweal"></i> <br />
+            公益404
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'bExB38zoBkxmtz8PsFQ_','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              HTML5 Audio/Video 标签,属性,方法,事件汇总
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-11-11
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/笔记/">笔记</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <p>#####&lt;audio&gt; 标签属性：</p>
+<p>src：音乐的URL<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">audio</span> <span class="attribute">id</span>=<span class="value">"media"</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp3"</span> <span class="attribute">controls</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp3"</span> <span class="attribute">type</span>=<span class="value">"audio/mp3"</span>&gt;</span><span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">source</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.ogg"</span> <span class="attribute">type</span>=<span class="value">"audio/ogg"</span>&gt;</span><span class="tag">&lt;/<span class="title">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">audio</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>#####&lt;video&gt;标签属性：<br><a id="more"></a><br>src：视频的URL<br>poster：视频封面，没有播放时显示的图片<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条<br>width：视频宽度<br>height：视频高度<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">video</span> <span class="attribute">id</span>=<span class="value">"media"</span> <span class="attribute">src</span>=<span class="value">"http://www.abc.com/test.mp4"</span> <span class="attribute">controls</span> <span class="attribute">width</span>=<span class="value">"400px"</span> <span class="attribute">heigt</span>=<span class="value">"400px"</span>&gt;</span><span class="tag">&lt;/<span class="title">video</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>获取HTMLVideoElement和HTMLAudioElement对象<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//audio可以直接通过new创建对象</span></span><br><span class="line">Media = <span class="keyword">new</span> Audio(<span class="string">"http://www.abc.com/test.mp3"</span>);</span><br><span class="line"><span class="comment">//audio和video都可以通过标签获取对象</span></span><br><span class="line">Media = <span class="built_in">document</span>.getElementById(<span class="string">"media"</span>);</span><br></pre></td></tr></table></figure></p>
+<p>######Media方法和属性：</p>
+<p>HTMLVideoElement 和 HTMLAudioElement 均继承自 HTMLMediaElement<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">//&#38169;&#35823;&#29366;&#24577;&#10;Media.error;            //null:&#27491;&#24120;&#10;Media.error.code;       //1.&#29992;&#25143;&#32456;&#27490; 2.&#32593;&#32476;&#38169;&#35823; 3.&#35299;&#30721;&#38169;&#35823; 4.URL&#26080;&#25928;&#10;&#10;//&#32593;&#32476;&#29366;&#24577;&#10;Media.currentSrc;           //&#36820;&#22238;&#24403;&#21069;&#36164;&#28304;&#30340;URL&#10;Media.src = value;          //&#36820;&#22238;&#25110;&#35774;&#32622;&#24403;&#21069;&#36164;&#28304;&#30340;URL&#10;Media.canPlayType(type);    //&#26159;&#21542;&#33021;&#25773;&#25918;&#26576;&#31181;&#26684;&#24335;&#30340;&#36164;&#28304;&#10;Media.networkState;         //0.&#27492;&#20803;&#32032;&#26410;&#21021;&#22987;&#21270;  1.&#27491;&#24120;&#20294;&#27809;&#26377;&#20351;&#29992;&#32593;&#32476;  2.&#27491;&#22312;&#19979;&#36733;&#25968;&#25454;  3.&#27809;&#26377;&#25214;&#21040;&#36164;&#28304;&#10;Media.load();               //&#37325;&#26032;&#21152;&#36733;src&#25351;&#23450;&#30340;&#36164;&#28304;&#10;Media.buffered;             //&#36820;&#22238;&#24050;&#32531;&#20914;&#21306;&#22495;&#65292;TimeRanges&#10;Media.preload;              //none:&#19981;&#39044;&#36733; metadata:&#39044;&#36733;&#36164;&#28304;&#20449;&#24687; auto:&#10;&#10;//&#20934;&#22791;&#29366;&#24577;&#10;Media.readyState;       //1:HAVE_NOTHING 2:HAVE_METADATA 3.HAVE_CURRENT_DATA 4.HAVE_FUTURE_DATA 5.HAVE_ENOUGH_DATA&#10;Media.seeking;          //&#26159;&#21542;&#27491;&#22312;seeking&#10;&#10;//&#22238;&#25918;&#29366;&#24577;&#10;Media.currentTime = value;          //&#24403;&#21069;&#25773;&#25918;&#30340;&#20301;&#32622;&#65292;&#36171;&#20540;&#21487;&#25913;&#21464;&#20301;&#32622;&#10;Media.startTime;                    //&#19968;&#33324;&#20026;0&#65292;&#22914;&#26524;&#20026;&#27969;&#23186;&#20307;&#25110;&#32773;&#19981;&#20174;0&#24320;&#22987;&#30340;&#36164;&#28304;&#65292;&#21017;&#19981;&#20026;0&#10;Media.duration;                     //&#24403;&#21069;&#36164;&#28304;&#38271;&#24230; &#27969;&#36820;&#22238;&#26080;&#38480;&#10;Media.paused;                       //&#26159;&#21542;&#26242;&#20572;&#10;Media.defaultPlaybackRate = value;  //&#40664;&#35748;&#30340;&#22238;&#25918;&#36895;&#24230;&#65292;&#21487;&#20197;&#35774;&#32622;&#10;Media.playbackRate = value;         //&#24403;&#21069;&#25773;&#25918;&#36895;&#24230;&#65292;&#35774;&#32622;&#21518;&#39532;&#19978;&#25913;&#21464;&#10;Media.played;                       //&#36820;&#22238;&#24050;&#32463;&#25773;&#25918;&#30340;&#21306;&#22495;&#65292;TimeRanges&#65292;&#20851;&#20110;&#27492;&#23545;&#35937;&#35265;&#19979;&#25991;&#10;Media.seekable;                     //&#36820;&#22238;&#21487;&#20197;seek&#30340;&#21306;&#22495; TimeRanges&#10;Media.ended;                        //&#26159;&#21542;&#32467;&#26463;&#10;Media.autoPlay;                     //&#26159;&#21542;&#33258;&#21160;&#25773;&#25918;&#10;Media.loop;                         //&#26159;&#21542;&#24490;&#29615;&#25773;&#25918;&#10;Media.play();                       //&#25773;&#25918;&#10;Media.pause();                      //&#26242;&#20572;&#10;&#10;//&#25511;&#21046;&#10;Media.controls;         //&#26159;&#21542;&#26377;&#40664;&#35748;&#25511;&#21046;&#26465;&#10;Media.volume = value;   //&#38899;&#37327;&#10;Media.muted = value;    //&#38745;&#38899;&#10;&#10;//TimeRanges(&#21306;&#22495;)&#23545;&#35937;&#10;TimeRanges.length;              //&#21306;&#22495;&#27573;&#25968;&#10;TimeRanges.start(index)         //&#31532;index&#27573;&#21306;&#22495;&#30340;&#24320;&#22987;&#20301;&#32622;&#10;TimeRanges.end(index)           //&#31532;index&#27573;&#21306;&#22495;&#30340;&#32467;&#26463;&#20301;&#32622;&#10;&#20107;&#20214;&#65306;&#10;&#10;eventTester = function(e)&#123;&#10;  Media.addEventListener(e,function()&#123;&#10;   console.log((new Date()).getTime(),e);&#10;  &#125;);&#10;&#125;&#10;eventTester(&#34;loadstart&#34;);       //&#23458;&#25143;&#31471;&#24320;&#22987;&#35831;&#27714;&#25968;&#25454;&#10;eventTester(&#34;progress&#34;);        //&#23458;&#25143;&#31471;&#27491;&#22312;&#35831;&#27714;&#25968;&#25454;&#10;eventTester(&#34;suspend&#34;);         //&#24310;&#36831;&#19979;&#36733;&#10;eventTester(&#34;abort&#34;);           //&#23458;&#25143;&#31471;&#20027;&#21160;&#32456;&#27490;&#19979;&#36733;&#65288;&#19981;&#26159;&#22240;&#20026;&#38169;&#35823;&#24341;&#36215;&#65289;&#65292;&#10;eventTester(&#34;error&#34;);           //&#35831;&#27714;&#25968;&#25454;&#26102;&#36935;&#21040;&#38169;&#35823;&#10;eventTester(&#34;stalled&#34;);         //&#32593;&#36895;&#22833;&#36895;&#10;eventTester(&#34;play&#34;);            //play()&#21644;autoplay&#24320;&#22987;&#25773;&#25918;&#26102;&#35302;&#21457;&#10;eventTester(&#34;pause&#34;);           //pause()&#35302;&#21457;&#10;eventTester(&#34;loadedmetadata&#34;);  //&#25104;&#21151;&#33719;&#21462;&#36164;&#28304;&#38271;&#24230;&#10;eventTester(&#34;loadeddata&#34;);      //&#25552;&#31034;&#24403;&#21069;&#24103;&#30340;&#25968;&#25454;&#26159;&#21487;&#29992;&#30340;&#10;eventTester(&#34;waiting&#34;);         //&#31561;&#24453;&#25968;&#25454;&#65292;&#24182;&#38750;&#38169;&#35823;&#10;eventTester(&#34;playing&#34;);         //&#24320;&#22987;&#22238;&#25918;&#10;eventTester(&#34;canplay&#34;);         //&#21487;&#20197;&#25773;&#25918;&#65292;&#20294;&#20013;&#36884;&#21487;&#33021;&#22240;&#20026;&#21152;&#36733;&#32780;&#26242;&#20572;&#10;eventTester(&#34;canplaythrough&#34;);  //&#21487;&#20197;&#25773;&#25918;&#65292;&#27468;&#26354;&#20840;&#37096;&#21152;&#36733;&#23436;&#27605;&#10;eventTester(&#34;seeking&#34;);         //&#23547;&#25214;&#20013;&#10;eventTester(&#34;seeked&#34;);          //&#23547;&#25214;&#23436;&#27605;&#10;eventTester(&#34;timeupdate&#34;);      //&#25773;&#25918;&#26102;&#38388;&#25913;&#21464;&#10;eventTester(&#34;ended&#34;);           //&#25773;&#25918;&#32467;&#26463;&#10;eventTester(&#34;ratechange&#34;);      //&#25773;&#25918;&#36895;&#29575;&#25913;&#21464;&#10;eventTester(&#34;durationchange&#34;);  //&#36164;&#28304;&#38271;&#24230;&#25913;&#21464;&#10;eventTester(&#34;volumechange&#34;);    //&#38899;&#37327;&#25913;&#21464;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/"> #JS </a>
+          
+            <a href="/tags/h5/"> #h5 </a>
+          
+            <a href="/tags/javascript/"> #javascript </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/11/23/li-yong-canvas-dao-chu-tu-pian/">利用canvas 导出图片</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/11/10/zi-gua-ying-she-ji-yu-xiang-ying-shi-wang-ye-she-ji/">自适应设计与响应式网页设计</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/"
+     data-title="HTML5 Audio/Video 标签,属性,方法,事件汇总"
+     data-content=""
+     data-url="http://sternelee.github.io/2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/"
+               data-title="HTML5 Audio/Video 标签,属性,方法,事件汇总" data-url="http://sternelee.github.io/2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+          <!-- 多说热评文章-->
+          <p>热评文章</p>
+          <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee" />
+          <p class="site-author-name">Sterne Lee</p>
+        </div>
+        <p class="site-description motion-element">喜欢英文吉他的程序猿</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/sternelee" target="_blank">Github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/leemetoo" target="_blank">新浪微博</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://sterne.cn" target="_blank">Ghost博客</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/SterneLee" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://www.facebook.com/sterne.lee" target="_blank">Facebook</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        我被看了 <span id="busuanzi_value_site_pv"></span> 次~您是第<span id="busuanzi_value_site_uv"></span>个小伙伴
+        <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan style='visibility:hidden;' id='cnzz_stat_icon_1255866986'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255866986%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+<div class="copyright">
+  
+  &copy; &nbsp;  2015 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Sterne Lee</span>
+  <span class="with-love">&spades;</span>
+  <span class="author">sternelee@gmail.com</span>
+</div>
+
+<div class="powered-by" style="visibility:hidden;">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info" style="visibility:hidden;">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div> 
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sternelee"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a").jrumble();
+    });
+  </script>
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>

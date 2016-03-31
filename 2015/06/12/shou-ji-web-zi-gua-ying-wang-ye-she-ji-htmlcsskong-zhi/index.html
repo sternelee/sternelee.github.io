@@ -1,0 +1,732 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="sogou_site_verification" content="WEhegz1Bts"/>
+<meta name="360-site-verification" content="ab30d6f9900b55bcfa635dbcf869b683" />
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+
+  <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.3"/>
+
+
+    <meta name="description" content="喜欢英文吉他的程序猿" />
+
+
+
+  <meta name="keywords" content="WebAPP,h5,web," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.3" />
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var CONFIG = {
+    scheme: 'Mist',
+    analytics: {
+      google: ''
+    },
+    sidebar: 'always'
+  };
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+  <title> 手机web——自适应网页设计（html/css控制） // STERNE </title>
+</head>
+
+<body>
+  <!--[if lte IE 8]>
+  <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'>
+    <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+      <img src="http://7u2nvr.com1.z0.glb.clouddn.com/picouterie.jpg" border="0" height="42" width="820"
+           alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari."
+           style='margin-left:auto;margin-right:auto;display: block;'/>
+    </a>
+  </div>
+<![endif]-->
+
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">STERNE</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<div class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu menu-left">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/">
+            <i class="menu-item-icon icon-home"></i> <br />
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            <i class="menu-item-icon icon-categories"></i> <br />
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            <i class="menu-item-icon icon-about"></i> <br />
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            <i class="menu-item-icon icon-archives"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            <i class="menu-item-icon icon-tags"></i> <br />
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html">
+            <i class="menu-item-icon icon-commonweal"></i> <br />
+            公益404
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+<form class="site-search-form">
+  <input type="text" id="st-search-input" class="st-search-input st-default-search-input" />
+</form>
+<script type="text/javascript">
+  (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+    (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+    e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+  })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+  _st('install', 'bExB38zoBkxmtz8PsFQ_','2.0.0');
+</script>
+
+<div class="site-search-toggle"></div>
+    </div>
+  
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              手机web——自适应网页设计（html/css控制）
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-12
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/笔记/">笔记</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <p>######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？</p>
+<p>其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。</p>
+<blockquote>
+<p>&lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&gt;</p>
+</blockquote>
+<p>&nbsp;&nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。 对于viewport属性，我是真正在接触移动web开发是才遇到的，一把的ps布局都是固定的960px，1000px这种。<br><a id="more"></a><br>&nbsp;&nbsp;下面三篇文章是对viewport属性详细的解释： Viewport（视区概念）——pc端的理解 Viewport（视区概念）——移动端的应用 viewport ——视区概念（转） 对于老式IE6，7，8浏览器需要js处理，由于主要平台是ios和安卓，所有可以暂时不考虑</p>
+<h6 id="u4E8C-__u4E0D_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6__u7531_u4E8E_u7F51_u9875_u4F1A_u6839_u636E_u5C4F_u5E55_u5BBD_u5EA6_u8C03_u6574_u5E03_u5C40_uFF0C_u6240_u4EE5_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5E03_u5C40_uFF0C_u4E5F_u4E0D_u80FD_u4F7F_u7528_u5177_u6709_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5143_u7D20_u3002"><a href="#u4E8C-__u4E0D_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6__u7531_u4E8E_u7F51_u9875_u4F1A_u6839_u636E_u5C4F_u5E55_u5BBD_u5EA6_u8C03_u6574_u5E03_u5C40_uFF0C_u6240_u4EE5_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5E03_u5C40_uFF0C_u4E5F_u4E0D_u80FD_u4F7F_u7528_u5177_u6709_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5143_u7D20_u3002" class="headerlink" title="二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。"></a>二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。</h6><p>这一条非常重要。 具体说，CSS代码不能指定像素宽度： width:xxx px; 只能指定百分比宽度： width: xx%; 或者：width:auto; 这里开发是指一个网页不仅能用在ps上，也能同时用于移动端，但是对于webapp这种还是需要单独做一个webapp使用的页面。</p>
+<p>对于这个知识点，对于我目前做的项目有用处，主要用于控制限定数据库里读出来的图片宽度。 详见：手机webapp的jquery mobile初次使用心得和解决图片自适应大小问题</p>
+<h6 id="u4E09-__u76F8_u5BF9_u5927_u5C0F_u7684_u5B57_u4F53__u5B57_u4F53_u4E5F_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5927_u5C0F_uFF08px_uFF09_uFF0C_u800C_u53EA_u80FD_u4F7F_u7528_u76F8_u5BF9_u5927_u5C0F_uFF08em_uFF09_u3002"><a href="#u4E09-__u76F8_u5BF9_u5927_u5C0F_u7684_u5B57_u4F53__u5B57_u4F53_u4E5F_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5927_u5C0F_uFF08px_uFF09_uFF0C_u800C_u53EA_u80FD_u4F7F_u7528_u76F8_u5BF9_u5927_u5C0F_uFF08em_uFF09_u3002" class="headerlink" title="三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。"></a>三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。</h6><p>body { font: normal 100% Helvetica, Arial, sans-serif; }<br>上面的代码指定，字体大小是页面默认大小的100%，即16像素。</p>
+<p>h1 { font-size: 1.5em; }<br>然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）。</p>
+<p>small { font-size: 0.875em; }<br>small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。</p>
+<h6 id="u56DB-__u6D41_u52A8_u5E03_u5C40_uFF08fluid_grid_uFF09__u201C_u6D41_u52A8_u5E03_u5C40_u201D_u7684_u542B_u4E49_u662F_uFF0C_u5404_u4E2A_u533A_u5757_u7684_u4F4D_u7F6E_u90FD_u662F_u6D6E_u52A8_u7684_uFF0C_u4E0D_u662F_u56FA_u5B9A_u4E0D_u53D8_u7684_u3002"><a href="#u56DB-__u6D41_u52A8_u5E03_u5C40_uFF08fluid_grid_uFF09__u201C_u6D41_u52A8_u5E03_u5C40_u201D_u7684_u542B_u4E49_u662F_uFF0C_u5404_u4E2A_u533A_u5757_u7684_u4F4D_u7F6E_u90FD_u662F_u6D6E_u52A8_u7684_uFF0C_u4E0D_u662F_u56FA_u5B9A_u4E0D_u53D8_u7684_u3002" class="headerlink" title="四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　"></a>四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　</h6><p>.main { float: right; width: 70%; } .leftBar { float: left; width: 25%; }<br>float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。 另外，绝对定位（position: absolute）的使用，也要非常小心。</p>
+<h6 id="u4E94-__u201C_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u7684_u6838_u5FC3_uFF0C_u5C31_u662FCSS3_u5F15_u5165_u7684Media_Query_u6A21_u5757_u3002__u5B83_u7684_u610F_u601D_u5C31_u662F_uFF0C_u81EA_u52A8_u63A2_u6D4B_u5C4F_u5E55_u5BBD_u5EA6_uFF0C_u7136_u540E_u52A0_u8F7D_u76F8_u5E94_u7684CSS_u6587_u4EF6_u3002"><a href="#u4E94-__u201C_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u7684_u6838_u5FC3_uFF0C_u5C31_u662FCSS3_u5F15_u5165_u7684Media_Query_u6A21_u5757_u3002__u5B83_u7684_u610F_u601D_u5C31_u662F_uFF0C_u81EA_u52A8_u63A2_u6D4B_u5C4F_u5E55_u5BBD_u5EA6_uFF0C_u7136_u540E_u52A0_u8F7D_u76F8_u5E94_u7684CSS_u6587_u4EF6_u3002" class="headerlink" title="五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。"></a>五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</h6><p><link rel="stylesheet" type="text/css" media="screen and (max-device-width: 400px)" href="tinyScreen.css"><br>上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。 　</p>
+<p><link rel="stylesheet" type="text/css" media="screen and (min-width: 400px) and (max-device-width: 600px)" href="smallScreen.css"><br>如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。 除了用html标签加载CSS文件，还可以在现有CSS文件中加载。</p>
+<p>@import url(“tinyScreen.css”) screen and (max-device-width: 400px);<br>六. CSS的@media规则 同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。</p>
+<p>@media screen and (max-device-width: 400px) { .column { float: none; width:auto; } #sidebar { display:none; } }<br>上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、宽度自动调节（width:auto），sidebar块不显示（display:none）。</p>
+<h6 id="u4E03-__u56FE_u7247_u7684_u81EA_u9002_u5E94_uFF08fluid_image_uFF09__u9664_u4E86_u5E03_u5C40_u548C_u6587_u672C_uFF0C_u201D_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u8FD8_u5FC5_u987B_u5B9E_u73B0_u56FE_u7247_u7684_u81EA_u52A8_u7F29_u653E_u3002__u8FD9_u53EA_u8981_u4E00_u884CCSS_u4EE3_u7801_uFF1A"><a href="#u4E03-__u56FE_u7247_u7684_u81EA_u9002_u5E94_uFF08fluid_image_uFF09__u9664_u4E86_u5E03_u5C40_u548C_u6587_u672C_uFF0C_u201D_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u8FD8_u5FC5_u987B_u5B9E_u73B0_u56FE_u7247_u7684_u81EA_u52A8_u7F29_u653E_u3002__u8FD9_u53EA_u8981_u4E00_u884CCSS_u4EE3_u7801_uFF1A" class="headerlink" title="七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　"></a>七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　</h6><p>img { max-width: 100%;} 这行代码对于大多数嵌入网页的视频也有效，所以可以写成：</p>
+<p>img, object { max-width: 100%;}</p>
+<p>老版本的IE不支持max-width，</p>
+<p>所以只好写成： img { width: 100%; }</p>
+<p>此外，windows平台缩放图片时，可能出现图像失真现象。这时，可以尝试使用IE的专有命令： 　</p>
+<p>img { -ms-interpolation-mode: bicubic; } 或者，Ethan Marcotte的imgSizer.js。 addLoadEvent(function() { var imgs = document.getElementById(“content”).getElementsByTagName(“img”); imgSizer.collate(imgs); });<br>不过，有条件的话，最好还是根据不同大小的屏幕，加载不同分辨率的图片。有很多方法可以做到这一条，服务器端和客户端都可以实现。</p>
+
+      
+    </div>
+
+    <div class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WebAPP/"> #WebAPP </a>
+          
+            <a href="/tags/h5/"> #h5 </a>
+          
+            <a href="/tags/web/"> #web </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/15/shang-xin-yue-mu-shou-ji-ying-yong-dong-hua-xiao-guo-shang-xi/">赏心悦目！手机应用动画效果赏析</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/12/tong-guo-jsyu-ju-pan-duan-webwang-zhan-de-fang-wen-duan-shi-dian-nao-huan-shi-shou-ji/">通过JS语句判断WEB网站的访问端是电脑还是手机</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/"
+     data-title="手机web——自适应网页设计（html/css控制）"
+     data-content=""
+     data-url="http://sternelee.github.io/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/"
+               data-title="手机web——自适应网页设计（html/css控制）" data-url="http://sternelee.github.io/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+        </div>
+
+        
+          <!-- 多说热评文章-->
+          <p>热评文章</p>
+          <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee" />
+          <p class="site-author-name">Sterne Lee</p>
+        </div>
+        <p class="site-description motion-element">喜欢英文吉他的程序猿</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-name">文章</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">4</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/sternelee" target="_blank">Github</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/leemetoo" target="_blank">新浪微博</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://sterne.cn" target="_blank">Ghost博客</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/SterneLee" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://www.facebook.com/sterne.lee" target="_blank">Facebook</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#u4E8C-__u4E0D_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6__u7531_u4E8E_u7F51_u9875_u4F1A_u6839_u636E_u5C4F_u5E55_u5BBD_u5EA6_u8C03_u6574_u5E03_u5C40_uFF0C_u6240_u4EE5_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5E03_u5C40_uFF0C_u4E5F_u4E0D_u80FD_u4F7F_u7528_u5177_u6709_u7EDD_u5BF9_u5BBD_u5EA6_u7684_u5143_u7D20_u3002"><span class="nav-number">1.</span> <span class="nav-text">二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#u4E09-__u76F8_u5BF9_u5927_u5C0F_u7684_u5B57_u4F53__u5B57_u4F53_u4E5F_u4E0D_u80FD_u4F7F_u7528_u7EDD_u5BF9_u5927_u5C0F_uFF08px_uFF09_uFF0C_u800C_u53EA_u80FD_u4F7F_u7528_u76F8_u5BF9_u5927_u5C0F_uFF08em_uFF09_u3002"><span class="nav-number">2.</span> <span class="nav-text">三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#u56DB-__u6D41_u52A8_u5E03_u5C40_uFF08fluid_grid_uFF09__u201C_u6D41_u52A8_u5E03_u5C40_u201D_u7684_u542B_u4E49_u662F_uFF0C_u5404_u4E2A_u533A_u5757_u7684_u4F4D_u7F6E_u90FD_u662F_u6D6E_u52A8_u7684_uFF0C_u4E0D_u662F_u56FA_u5B9A_u4E0D_u53D8_u7684_u3002"><span class="nav-number">3.</span> <span class="nav-text">四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#u4E94-__u201C_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u7684_u6838_u5FC3_uFF0C_u5C31_u662FCSS3_u5F15_u5165_u7684Media_Query_u6A21_u5757_u3002__u5B83_u7684_u610F_u601D_u5C31_u662F_uFF0C_u81EA_u52A8_u63A2_u6D4B_u5C4F_u5E55_u5BBD_u5EA6_uFF0C_u7136_u540E_u52A0_u8F7D_u76F8_u5E94_u7684CSS_u6587_u4EF6_u3002"><span class="nav-number">4.</span> <span class="nav-text">五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#u4E03-__u56FE_u7247_u7684_u81EA_u9002_u5E94_uFF08fluid_image_uFF09__u9664_u4E86_u5E03_u5C40_u548C_u6587_u672C_uFF0C_u201D_u81EA_u9002_u5E94_u7F51_u9875_u8BBE_u8BA1_u201D_u8FD8_u5FC5_u987B_u5B9E_u73B0_u56FE_u7247_u7684_u81EA_u52A8_u7F29_u653E_u3002__u8FD9_u53EA_u8981_u4E00_u884CCSS_u4EE3_u7801_uFF1A"><span class="nav-number">5.</span> <span class="nav-text">七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        我被看了 <span id="busuanzi_value_site_pv"></span> 次~您是第<span id="busuanzi_value_site_uv"></span>个小伙伴
+        <script type="text/javascript">
+        var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+        document.write(unescape("%3Cspan style='visibility:hidden;' id='cnzz_stat_icon_1255866986'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1255866986%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+<div class="copyright">
+  
+  &copy; &nbsp;  2015 - 
+  2016
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">Sterne Lee</span>
+  <span class="with-love">&spades;</span>
+  <span class="author">sternelee@gmail.com</span>
+</div>
+
+<div class="powered-by" style="visibility:hidden;">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info" style="visibility:hidden;">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div> 
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript" src="/js/fancy-box.js?v=0.4.3"></script>
+
+
+  <script type="text/javascript" src="/js/helpers.js?v=0.4.3"></script>
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/motion_global.js?v=0.4.3" id="motion.global"></script>
+
+
+
+  <script type="text/javascript" src="/js/search-toggle.js"></script>
+
+  
+  
+<script type="text/javascript" src="/js/bootstrap.scrollspy.js?v=0.4.3" id="bootstrap.scrollspy.custom"></script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if (isDesktop() && CONFIG.sidebar === 'post') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          displaySidebar();
+        }
+      }
+    });
+  </script>
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      if (CONFIG.sidebar === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"sternelee"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a").jrumble();
+    });
+  </script>
+  <!-- lazyload -->
+  <script type="text/javascript" src="/js/lazyload.js"></script>
+      <script type="text/javascript">
+        jQuery(function() {          
+            jQuery("#posts img").lazyload({
+              placeholder:"http://www.arao.me/loading.gif",  
+                effect:"fadeIn"
+              });
+            });
+    </script>   
+</body>
+</html>
