@@ -1,0 +1,942 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="javascript,react,前端,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE - (。・`ω´・)喜欢英文吉他的程序猿" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="总结 react 开发是需要用到的框架和功能模块，从模块安装、脚手架、网络请求模块，到状态管理、数据库，以及原生开发的组件与UI，都简单地做了记录，方便开发时查询。">
+<meta name="keywords" content="javascript,react,前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react 开发手册">
+<meta property="og:url" content="http://sternelee.github.io/2017/09/17/react-开发手册/index.html">
+<meta property="og:site_name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+<meta property="og:description" content="总结 react 开发是需要用到的框架和功能模块，从模块安装、脚手架、网络请求模块，到状态管理、数据库，以及原生开发的组件与UI，都简单地做了记录，方便开发时查询。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-20T10:23:27.079Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react 开发手册">
+<meta name="twitter:description" content="总结 react 开发是需要用到的框架和功能模块，从模块安装、脚手架、网络请求模块，到状态管理、数据库，以及原生开发的组件与UI，都简单地做了记录，方便开发时查询。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/2017/09/17/react-开发手册/">
+
+
+
+
+
+  <title> react 开发手册 | STERNE - (。・`ω´・)喜欢英文吉他的程序猿 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE - (。・`ω´・)喜欢英文吉他的程序猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">SterneLee's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2017/09/17/react-开发手册/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                react 开发手册
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-17T11:58:25+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/17/react-开发手册/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2017/09/17/react-开发手册/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>总结 <a href="https://reactjs.org/" target="_blank" rel="noopener">react</a> 开发是需要用到的框架和功能模块，从模块安装、脚手架、网络请求模块，到状态管理、数据库，以及原生开发的组件与UI，都简单地做了记录，方便开发时查询。</p>
+<a id="more"></a>
+<h3 id="语法篇"><a href="#语法篇" class="headerlink" title="语法篇"></a>语法篇</h3><ul>
+<li><a href="http://es6.ruanyifeng.com/" target="_blank" rel="noopener">ES6</a><br>  <a href="http://es6-features.org/#Constants" target="_blank" rel="noopener">es6 api</a></li>
+<li><a href="https://babeljs.cn/" target="_blank" rel="noopener">babel</a><ul>
+<li><a href="http://www.ruanyifeng.com/blog/2016/01/babel.html" target="_blank" rel="noopener">阮一峰的博客</a></li>
+</ul>
+</li>
+<li><a href="https://hulufei.gitbooks.io/react-tutorial/content/jsx-in-depth.html" target="_blank" rel="noopener">JSX</a></li>
+<li><a href="https://github.com/camsong/blog/issues/5" target="_blank" rel="noopener">CSS Module</a></li>
+<li><a href="http://huziketang.com/books/react/" target="_blank" rel="noopener">React小书</a></li>
+</ul>
+<h3 id="工具篇"><a href="#工具篇" class="headerlink" title="工具篇"></a>工具篇</h3><ul>
+<li><a href="https://yarnpkg.com/zh-Hans/" target="_blank" rel="noopener">yarn</a><ul>
+<li><code>facebook</code> 出品的模块安装工具，国内使用阿里源 <code>yarn config set registry &#39;https://registry.npm.taobao.org&#39;</code></li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/create-react-app" target="_blank" rel="noopener">create-react-app</a><ul>
+<li>官方初始化脚手架</li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/create-next-app" target="_blank" rel="noopener">create-next-app</a><ul>
+<li>面向服务端渲染的 <code>next</code> 框架脚手架</li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/axios" target="_blank" rel="noopener">axios</a> <ul>
+<li><code>http</code> 请求模块</li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/fetch-jsonp" target="_blank" rel="noopener">fetch-jsonp</a><ul>
+<li><code>jsonp</code> 请求模块</li>
+</ul>
+</li>
+</ul>
+<h3 id="状态篇"><a href="#状态篇" class="headerlink" title="状态篇"></a>状态篇</h3><ul>
+<li><a href="http://cn.redux.js.org/index.html" target="_blank" rel="noopener">redux</a><ul>
+<li><code>Redux</code> 是 <code>JavaScript</code> 状态容器，提供可预测化的状态管理。</li>
+<li><code>Action</code>, <code>Reducer</code>, <code>Store</code></li>
+</ul>
+</li>
+<li><a href="http://cn.mobx.js.org/" target="_blank" rel="noopener">mobx</a><ul>
+<li><code>mobx</code> 提供简单、可扩展的状态管理</li>
+<li><a href="https://www.npmjs.com/package/mobx-state-tree" target="_blank" rel="noopener">mobx-state-tree</a> 快速创建状态管理模型</li>
+</ul>
+</li>
+</ul>
+<h3 id="UI篇"><a href="#UI篇" class="headerlink" title="UI篇"></a>UI篇</h3><ul>
+<li>PC桌面UI<ul>
+<li><a href="https://ant.design/" target="_blank" rel="noopener">Antd</a> 阿里蚂蚁金服的企业级 <code>UI</code>框架，面向 <code>react</code> 和 <code>RN</code> </li>
+<li><a href="http://www.material-ui.com/#/get-started/usage" target="_blank" rel="noopener">material-ui</a> 谷歌UI</li>
+<li><a href="http://reactdesktop.js.org/" target="_blank" rel="noopener">react desktop</a></li>
+</ul>
+</li>
+<li>Mobile手机UI<ul>
+<li><a href="https://nativebase.io/" target="_blank" rel="noopener">nativebase</a></li>
+<li><a href="https://akveo.github.io/react-native-ui-kitten/#/home" target="_blank" rel="noopener">react-native-ui-kitten</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="数据篇"><a href="#数据篇" class="headerlink" title="数据篇"></a>数据篇</h3><ul>
+<li><a href="https://www.npmjs.com/package/sequelize" target="_blank" rel="noopener">sequelize</a><ul>
+<li>快速连接数据库</li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/faker" target="_blank" rel="noopener">faker</a><ul>
+<li>生成模拟数据</li>
+</ul>
+</li>
+<li><a href="http://graphql.org/" target="_blank" rel="noopener">GraphQL</a><ul>
+<li>面向<code>APP</code> 的描述型数据库</li>
+<li><a href="https://www.apollographql.com/" target="_blank" rel="noopener">Apolo</a></li>
+<li><a href="https://facebook.github.io/relay/" target="_blank" rel="noopener">Relay</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="原生篇"><a href="#原生篇" class="headerlink" title="原生篇"></a>原生篇</h3><ul>
+<li><a href="http://www.reactnativeexpress.com/" target="_blank" rel="noopener">react-native</a><ul>
+<li><code>react</code> 开发原生 <code>app</code></li>
+<li><a href="https://github.com/react-community/create-react-native-app" target="_blank" rel="noopener">create-react-native-app</a> 官方的快速创建RN模板</li>
+</ul>
+</li>
+<li><a href="https://expo.io/" target="_blank" rel="noopener">expo</a><ul>
+<li>使用 <code>RN</code> 的通用开发工具</li>
+</ul>
+</li>
+<li><a href="https://github.com/kusti8/proton-native" target="_blank" rel="noopener">proton-native</a><ul>
+<li>使用<code>React</code>开发桌面应用</li>
+</ul>
+</li>
+</ul>
+<h3 id="IDE篇"><a href="#IDE篇" class="headerlink" title="IDE篇"></a>IDE篇</h3><ul>
+<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a><ul>
+<li>微软出品，插件全面</li>
+</ul>
+</li>
+<li><a href="https://www.decoide.org/" target="_blank" rel="noopener">Deco IDE</a></li>
+<li><a href="https://github.com/infinitered/reactotron" target="_blank" rel="noopener">reactotron</a></li>
+</ul>
+<h3 id="路由篇"><a href="#路由篇" class="headerlink" title="路由篇"></a>路由篇</h3><ul>
+<li><a href="https://reacttraining.com/react-router/" target="_blank" rel="noopener">React Router</a><ul>
+<li>用于<code>web</code>和<code>native</code>的路由框架</li>
+</ul>
+</li>
+<li><a href="https://reactnavigation.org/" target="_blank" rel="noopener">react-navigation</a><ul>
+<li><code>react native</code> 专用的菜单导航</li>
+</ul>
+</li>
+</ul>
+<h3 id="后端篇"><a href="#后端篇" class="headerlink" title="后端篇"></a>后端篇</h3><ul>
+<li><a href="https://github.com/zeit/next.js/" target="_blank" rel="noopener">next</a><ul>
+<li><code>React</code> 后端服务渲染框架</li>
+</ul>
+</li>
+<li><a href="https://www.gatsbyjs.org/" target="_blank" rel="noopener">gatsby</a><ul>
+<li>用于建站的后端框架</li>
+</ul>
+</li>
+<li><a href="https://react-server.io/" target="_blank" rel="noopener">react-server</a><ul>
+<li><a href="https://reactjs.org/docs/react-dom-server.html" target="_blank" rel="noopener">官方</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="组件篇"><a href="#组件篇" class="headerlink" title="组件篇"></a>组件篇</h3><ul>
+<li><a href="https://github.com/smooth-code/loadable-components/" target="_blank" rel="noopener">loadable-components</a><ul>
+<li>预加载组件，用于组件分拆，按需要加载</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/前端/" rel="tag"># 前端</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/02/arraybuffer处理pictures/" rel="next" title="arraybuffer处理pictures">
+                <i class="fa fa-chevron-left"></i> arraybuffer处理pictures
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/17/TypeScript快速上手/" rel="prev" title="TypeScript快速上手">
+                TypeScript快速上手 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee">
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法篇"><span class="nav-number">1.</span> <span class="nav-text">语法篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工具篇"><span class="nav-number">2.</span> <span class="nav-text">工具篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态篇"><span class="nav-number">3.</span> <span class="nav-text">状态篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI篇"><span class="nav-number">4.</span> <span class="nav-text">UI篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据篇"><span class="nav-number">5.</span> <span class="nav-text">数据篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生篇"><span class="nav-number">6.</span> <span class="nav-text">原生篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDE篇"><span class="nav-number">7.</span> <span class="nav-text">IDE篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由篇"><span class="nav-number">8.</span> <span class="nav-text">路由篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#后端篇"><span class="nav-number">9.</span> <span class="nav-text">后端篇</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件篇"><span class="nav-number">10.</span> <span class="nav-text">组件篇</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sternelee';
+      var disqus_identifier = '2017/09/17/react-开发手册/';
+
+      var disqus_title = "react 开发手册";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
+</body>
+</html>

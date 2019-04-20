@@ -1,0 +1,903 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="js,react,ReactJS,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE - (。・`ω´・)喜欢英文吉他的程序猿" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="reactjs 是什么？reactjs是来自facebook公司的用于构建用户界面的JavaScript库。 GitHub地址：https://github.com/facebook/react reactjs的两个衍生项目也值得注意。 react-native:用reactjs写手机app   GitHub地址：https://github.com/facebook/react-native">
+<meta name="keywords" content="js,react,ReactJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="reactjs学习体验">
+<meta property="og:url" content="http://sternelee.github.io/2016/01/15/2016-1-15-react-start/index.html">
+<meta property="og:site_name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+<meta property="og:description" content="reactjs 是什么？reactjs是来自facebook公司的用于构建用户界面的JavaScript库。 GitHub地址：https://github.com/facebook/react reactjs的两个衍生项目也值得注意。 react-native:用reactjs写手机app   GitHub地址：https://github.com/facebook/react-native">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-20T10:16:27.326Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="reactjs学习体验">
+<meta name="twitter:description" content="reactjs 是什么？reactjs是来自facebook公司的用于构建用户界面的JavaScript库。 GitHub地址：https://github.com/facebook/react reactjs的两个衍生项目也值得注意。 react-native:用reactjs写手机app   GitHub地址：https://github.com/facebook/react-native">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/2016/01/15/2016-1-15-react-start/">
+
+
+
+
+
+  <title> reactjs学习体验 | STERNE - (。・`ω´・)喜欢英文吉他的程序猿 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE - (。・`ω´・)喜欢英文吉他的程序猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">SterneLee's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2016/01/15/2016-1-15-react-start/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                reactjs学习体验
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-15T11:46:56+08:00">
+                2016-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/01/15/2016-1-15-react-start/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/15/2016-1-15-react-start/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="reactjs-是什么？"><a href="#reactjs-是什么？" class="headerlink" title="reactjs 是什么？"></a>reactjs 是什么？</h2><p>reactjs是来自facebook公司的用于构建用户界面的JavaScript库。</p>
+<p>GitHub地址：<a href="https://github.com/facebook/react" target="_blank" rel="noopener">https://github.com/facebook/react</a></p>
+<h2 id="reactjs的两个衍生项目也值得注意。"><a href="#reactjs的两个衍生项目也值得注意。" class="headerlink" title="reactjs的两个衍生项目也值得注意。"></a>reactjs的两个衍生项目也值得注意。</h2><ul>
+<li>react-native:用reactjs写手机app </li>
+</ul>
+<p>GitHub地址：<a href="https://github.com/facebook/react-native" target="_blank" rel="noopener">https://github.com/facebook/react-native</a></p>
+<ul>
+<li>react-canvas:用canvas代替臃肿缓慢的DOM作为UI，在移动端获得能与原生应用媲美的流畅效果<a id="more"></a>
+GitHub地址：<a href="https://github.com/Flipboard/react-canvas" target="_blank" rel="noopener">https://github.com/Flipboard/react-canvas</a> </li>
+</ul>
+<h2 id="reactjs-真的将html-xml和js代码混杂在一起吗？"><a href="#reactjs-真的将html-xml和js代码混杂在一起吗？" class="headerlink" title="reactjs 真的将html/xml和js代码混杂在一起吗？"></a>reactjs 真的将html/xml和js代码混杂在一起吗？</h2><p>reactjs的jsx语法，让许多人感觉仿佛回到了原始社会。这么多年努力地让html\css\javascript三者分离，好不容易走到今天，reactjs却走回老路，让人难以接受。我也几次三番因为jsx而放弃了解reactjs。</p>
+<p>目前体验下来，发觉那是误解。</p>
+<p>reactjs比其他前端模板引擎更彻底的分离html与javascript。前端模板引擎，绝大多数基于html字符串；而reactjs不是。能接受前端模板引擎的人，也能接受jsx。</p>
+<p>jsx的实质是：用xml的语法写函数调用。它没有拼接html字符串，也不要求一定要使用jsx，手写函数调用，也是可以的。</p>
+<p>在原生DOM中，用js构造dom的方式是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//要构造的dom：</span></span><br><span class="line">&lt;a <span class="class"><span class="keyword">class</span></span>=<span class="string">"link"</span> href=<span class="string">"https://github.com/facebook/react"</span>&gt;React&lt;a&gt;</span><br><span class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>)</span><br><span class="line">a.setAttribute(<span class="string">'class'</span>, <span class="string">'link'</span>)</span><br><span class="line">a.setAttribute(<span class="string">'href'</span>, <span class="string">'https://github.com/facebook/react'</span>)</span><br><span class="line">a.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">'React'</span>))</span><br></pre></td></tr></table></figure>
+<p>如你所见，它颇为繁琐，我们可以封装一下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个参数为node名</span></span><br><span class="line"><span class="comment">//第二个参数为一个对象，dom属性与事件都以键值对的形式书写</span></span><br><span class="line"><span class="comment">//第三个到第n个为子node，它们将按参数顺序出现，</span></span><br><span class="line"><span class="comment">//在这个例子中只有一个子元素，而且也是文本元素，所以可以直接书写，否则还得React.createElement一下</span></span><br><span class="line"><span class="keyword">var</span> a = React.createElement(<span class="string">'a'</span>, &#123;</span><br><span class="line">    className: <span class="string">'link'</span>,</span><br><span class="line">    href: <span class="string">'https://github.com/facebook/react'</span></span><br><span class="line">&#125;, <span class="string">'React'</span>)</span><br></pre></td></tr></table></figure></p>
+<p>如上，从html语法到js构造dom，再到React.createElement的封装。</p>
+<p>现在有个编译工具，可以让你用html语法来写React.createElement，部署上线前编译回来。你愿意吗？</p>
+<p>不管你的答案是什么，但这就是jsx的一半真相。</p>
+<p>正是由于jsx不是html字符串，所以有如下特点：</p>
+<ul>
+<li>html的class与for属性在js里是保留字，所以jsx里要用别名className与htmlFor</li>
+<li>不能像下面那样操作html的checked属性</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在其他前端模板引擎中，可以这么做，因为是拼接字符串</span></span><br><span class="line"><span class="keyword">var</span> checkbox = <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> &#123;<span class="attr">this.props.selected</span> ? '<span class="attr">checked</span>' <span class="attr">:</span> ''&#125; /&gt;</span></span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">//但在jsx中，这是错误的，因为无法构成键值对，一定要有个key=value的格式，所以得这样</span></span><br><span class="line">var checkbox = &lt;input className="class是js的保留字" type="checkbox" checked=&#123;this.props.selected&#125; /&gt;</span><br><span class="line"></span><br><span class="line">//编译后：</span><br><span class="line">var checkbox = React.createElement('input', &#123;</span><br><span class="line">    type: 'checkbox',</span><br><span class="line">    className: 'class是js的保留字',</span><br><span class="line">    checked: this.props.selected</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>不能直接写并列的元素</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这样写是错误的</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>first div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>second div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//因为编译后，return 两个函数调用，就算不报错，也只调用第一个函数，不合意图</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> React.createElement(<span class="string">'div'</span>, <span class="literal">null</span>, <span class="string">'first div'</span>) React.createElement(<span class="string">'div'</span>, <span class="literal">null</span>, <span class="string">'second div'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//所以有时难免要增加dom层级</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;div&gt;first div&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div&gt;second div&lt;/</span>div&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/编译后,合乎语法和编程意图了</span></span><br><span class="line"><span class="regexp">var MyComponent = React.createClass(&#123;</span></span><br><span class="line"><span class="regexp">    render: function() &#123;</span></span><br><span class="line"><span class="regexp">        return React.createElement('div', null, </span></span><br><span class="line"><span class="regexp">            React.createElement('div', null, 'first div'),</span></span><br><span class="line"><span class="regexp">            React.createElement('div', null, 'second div'))</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>jsx要求标签一定要闭合，html5中不强制要求闭合的，在jsx也都要闭合，以便识别</p>
+</li>
+<li>封装的组件要用大写字母开头，以便跟html标签区分。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不合规则</span></span><br><span class="line">&lt;tap /&gt;</span><br><span class="line"><span class="comment">//合乎规则</span></span><br><span class="line">&lt;Tap /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="reactjs与web-component"><a href="#reactjs与web-component" class="headerlink" title="reactjs与web component"></a>reactjs与web component</h2><p>web component是下一代的前端标准，提供了shadow dom、templete元素、Imports与自定义元素的功能。其中自定义元素提供了生命周期回调函数:</p>
+<ul>
+<li>createdCallback: 创建时调用</li>
+<li>attachedCallback: 添加到dom树时调用</li>
+<li>detachedCallback: 从dom树衣橱时调用</li>
+<li>attributeChangedCallback：属性改变时调用</li>
+</ul>
+<p>在reactjs中也有相似但更丰富的生命周期方法：</p>
+<ul>
+<li>componentWillMount: 初始化渲染前调用</li>
+<li>componentDidMount: 初始化渲染后调用</li>
+<li>componentWillReceiveProps： 接受新props时调用</li>
+<li>shouldComponentUpdate：接受新props或state时调用，返回值true/false决定是否更新视图</li>
+<li>componentWillUpdate: 在接收到新的 props 或者 state 之前立刻调用。在初始化渲染的时候该方法不会被调用</li>
+<li>componentDidUpdate：在组件的更新已经同步到 DOM 中之后立刻被调用</li>
+<li>componentWillUnmount: 在组件从 DOM 中移除的时候立刻被调用</li>
+</ul>
+<p>reactjs与web component的关系，在我个人看来：reactjs是纯js实现的一种component标准，它可以与DOM无关，甚至与Web无关。    </p>
+<p>在reactjs中注册组件像这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//reactjs跟objective-c在方法命名上有些相似，使劲儿用全称，与传统js编程的缩写习惯相悖</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    <span class="comment">//每个组件必须有render方法</span></span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;this.props.className&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            //jsx遇大括号就当作js表达式来看待</span></span><br><span class="line"><span class="xml">            //map返回的数组会自动展开</span></span><br><span class="line"><span class="xml">            &#123;</span></span><br><span class="line"><span class="xml">                this.props.textList.map(function(text) &#123;</span></span><br><span class="line"><span class="xml">                    return <span class="tag">&lt;<span class="name">p</span>&gt;</span>text<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">                &#125;)</span></span><br><span class="line"><span class="xml">            &#125;</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//像这样使用</span></span><br><span class="line"><span class="keyword">var</span> TestComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;MyComponent className=<span class="string">"组件内部的this.props.className来自它被调用时传递的参数，就是我啦"</span> textList=&#123;[<span class="string">'组件的this.props.textList'</span>, <span class="string">'就是我啦'</span>, <span class="string">'用花括号包裹'</span>, <span class="string">'以便让jsx将我作为数组直接量的表达式来看待'</span>]&#125; /&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/这里才是插入dom，用React.render方法</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/第一个参数为React组件，第二个参数为DOM</span></span><br><span class="line"><span class="regexp">React.render(</span></span><br><span class="line"><span class="regexp">    &lt;TestComponent /</span>&gt;,</span><br><span class="line">    <span class="built_in">document</span>.body</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<p>总的来说，reactjs允许我们用React.createClass来拓展React.createElement的参数范畴。</p>
+<ul>
+<li>默认情况下，它接受原生html标签，所以web Component普及后，reactjs也不会被淘汰，无非是多了一些html标签罢了</li>
+<li>React.createClass方法，可以提供新的html标签给React.createElement，创造了封装复杂dom结构、组件化的空间</li>
+</ul>
+<h2 id="reactjs-的虚拟dom"><a href="#reactjs-的虚拟dom" class="headerlink" title="reactjs 的虚拟dom"></a>reactjs 的虚拟dom</h2><p>之前说了jsx的一半真相，另一半是，React.createElement并没有直接了当的用js构造dom，它构造了一种数据结构。</p>
+<p>使用reactjs时，表面上我们在操作dom，其实是操作数据，reactjs通过自己的dom diff算法，对比前后的数据，找到diff差异点，按最小粒度更新视图。</p>
+<p>正因如此，reactjs的UI层才是可替换的，构造另一套从数据到视图的映射逻辑，就能应用在canvas乃至手机原生UI上。</p>
+<h2 id="reactjs-的单向数据流"><a href="#reactjs-的单向数据流" class="headerlink" title="reactjs 的单向数据流"></a>reactjs 的单向数据流</h2><p>reactjs组件内部的this.props对象，是组件实例的父级组件提供的，提供方式就像写html属性一样。</p>
+<p>如此，父级复父级，数据可以从最顶层的组件实例，层层传递到最底层的组件中去，然而反过来却不行，这就是单向数据流的意思。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最底层的todo</span></span><br><span class="line"><span class="keyword">var</span> Todo = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">//只有html属性和data-*以及aria-*才会显示在dom中，其余的key或其他，是扩展性质的，便于向下级组件传递数据</span></span><br><span class="line">            &lt;li title=&#123;<span class="keyword">this</span>.props.time&#125; key=&#123;<span class="keyword">this</span>.props.id&#125;&gt;</span><br><span class="line">                &lt;input type=<span class="string">"checkbox"</span> checked=&#123;<span class="keyword">this</span>.props.completed&#125; /&gt;</span><br><span class="line">                &lt;label&gt;&#123;<span class="keyword">this</span>.props.title&#125;&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//todo的父级组件</span></span><br><span class="line"><span class="keyword">var</span> TodoList = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (&#123;</span><br><span class="line">            &lt;ul&gt;&#123;</span><br><span class="line">                <span class="keyword">this</span>.props.todos.map(<span class="function"><span class="keyword">function</span>(<span class="params">todo</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">//形如ES6的属性展开式语法，等价于用key=value的形式一个个书写</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Todo</span> &#123;<span class="attr">...todo</span>&#125; /&gt;</span></span></span><br><span class="line"><span class="xml">                &#125;)</span></span><br><span class="line"><span class="xml">            &#125;<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span></span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//todoList的父级组件</span></span><br><span class="line"><span class="keyword">var</span> TodoApp = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;TodoList todos=&#123;<span class="keyword">this</span>.props.todos&#125; /&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//模拟的todos数据</span></span><br><span class="line"><span class="keyword">var</span> data = [&#123;</span><br><span class="line">    id: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</span><br><span class="line">    time: <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString(),</span><br><span class="line">    title: <span class="string">'第一个待办事项'</span>,</span><br><span class="line">    completed: <span class="literal">false</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    id: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</span><br><span class="line">    time: <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString(),</span><br><span class="line">    title: <span class="string">'第二个待办事项'</span>,</span><br><span class="line">    completed: <span class="literal">true</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">//渲染TodoApp组件到#todo-app，数据从TodoApp传递到TodoList,从TodoList传递到Todo,在Todo中展开为一种DOM结构并注入数据，展示在前端页面中</span></span><br><span class="line">React.render(</span><br><span class="line">    &lt;TodoApp todos=&#123;data&#125; /&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'todo-app'</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>reactjs是有趣且富有生命力与表现力的javascript库，有其适用的场景，也有许多需要注意的事项与容易踩到的坑。</p>
+<p>总体而言，学会它不会让人后悔（想想那些学angular1的同学吧）。</p>
+<p>在此，可以去<a href="http://todomvc.com/" target="_blank" rel="noopener">TodoMVC</a> 下载react制作的mvc项目来参考学习<a href="http://todomvc.com/" target="_blank" rel="noopener">React-TodoMVC</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag"># js</a>
+          
+            <a href="/tags/react/" rel="tag"># react</a>
+          
+            <a href="/tags/ReactJS/" rel="tag"># ReactJS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/12/16/use-Hexo-add-GitPage/" rel="next" title="搭建Hexo博客并部署到Github">
+                <i class="fa fa-chevron-left"></i> 搭建Hexo博客并部署到Github
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/" rel="prev" title="用Canvas来实时处理Video">
+                用Canvas来实时处理Video <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee">
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-是什么？"><span class="nav-number">1.</span> <span class="nav-text">reactjs 是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs的两个衍生项目也值得注意。"><span class="nav-number">2.</span> <span class="nav-text">reactjs的两个衍生项目也值得注意。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-真的将html-xml和js代码混杂在一起吗？"><span class="nav-number">3.</span> <span class="nav-text">reactjs 真的将html/xml和js代码混杂在一起吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs与web-component"><span class="nav-number">4.</span> <span class="nav-text">reactjs与web component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-的虚拟dom"><span class="nav-number">5.</span> <span class="nav-text">reactjs 的虚拟dom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-的单向数据流"><span class="nav-number">6.</span> <span class="nav-text">reactjs 的单向数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">7.</span> <span class="nav-text">结语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sternelee';
+      var disqus_identifier = '2016/01/15/2016-1-15-react-start/';
+
+      var disqus_title = "reactjs学习体验";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
+</body>
+</html>

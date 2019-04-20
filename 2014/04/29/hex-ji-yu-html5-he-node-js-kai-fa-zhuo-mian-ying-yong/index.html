@@ -1,0 +1,844 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ideas,h5,WebAPP,Nodejs,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE - (。・`ω´・)喜欢英文吉他的程序猿" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="简介 heX 是网易有道团队的一个开源项目，允许你采用前端技术（HTML，CSS，JavaScript）开发桌面应用软件的跨平台解决方案。heX 是你开发桌面应用的一种新的选择，意在解决传统桌面应用开发中繁琐的UI和交互开发工作，使其变的简单而高效，特别适合于开发重UI，重交互的桌面应用软件。">
+<meta name="keywords" content="ideas,h5,WebAPP,Nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="heX——基于 HTML5 和 Node.JS 开发桌面应用">
+<meta property="og:url" content="http://sternelee.github.io/2014/04/29/hex-ji-yu-html5-he-node-js-kai-fa-zhuo-mian-ying-yong/index.html">
+<meta property="og:site_name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+<meta property="og:description" content="简介 heX 是网易有道团队的一个开源项目，允许你采用前端技术（HTML，CSS，JavaScript）开发桌面应用软件的跨平台解决方案。heX 是你开发桌面应用的一种新的选择，意在解决传统桌面应用开发中繁琐的UI和交互开发工作，使其变的简单而高效，特别适合于开发重UI，重交互的桌面应用软件。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2015-06-10T05:51:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="heX——基于 HTML5 和 Node.JS 开发桌面应用">
+<meta name="twitter:description" content="简介 heX 是网易有道团队的一个开源项目，允许你采用前端技术（HTML，CSS，JavaScript）开发桌面应用软件的跨平台解决方案。heX 是你开发桌面应用的一种新的选择，意在解决传统桌面应用开发中繁琐的UI和交互开发工作，使其变的简单而高效，特别适合于开发重UI，重交互的桌面应用软件。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/2014/04/29/hex-ji-yu-html5-he-node-js-kai-fa-zhuo-mian-ying-yong/">
+
+
+
+
+
+  <title> heX——基于 HTML5 和 Node.JS 开发桌面应用 | STERNE - (。・`ω´・)喜欢英文吉他的程序猿 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE - (。・`ω´・)喜欢英文吉他的程序猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">SterneLee's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2014/04/29/hex-ji-yu-html5-he-node-js-kai-fa-zhuo-mian-ying-yong/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                heX——基于 HTML5 和 Node.JS 开发桌面应用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2014-04-29T11:58:16+08:00">
+                2014-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2014/04/29/hex-ji-yu-html5-he-node-js-kai-fa-zhuo-mian-ying-yong/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2014/04/29/hex-ji-yu-html5-he-node-js-kai-fa-zhuo-mian-ying-yong/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>简介</p>
+<p>heX 是网易有道团队的一个开源项目，允许你采用前端技术（HTML，CSS，JavaScript）开发桌面应用软件的跨平台解决方案。heX 是你开发桌面应用的一种新的选择，意在解决传统桌面应用开发中繁琐的UI和交互开发工作，使其变的简单而高效，特别适合于开发重UI，重交互的桌面应用软件。</p>
+<a id="more"></a>
+<p>Homepage: <a href="http://hex.youdao.com" target="_blank" rel="noopener">http://hex.youdao.com</a><br>Mailing list: <a href="https://groups.google.com/group/youdao_hex" target="_blank" rel="noopener">https://groups.google.com/group/youdao_hex</a><br>Documentation: <a href="http://hex.youdao.com/documentation" target="_blank" rel="noopener">http://hex.youdao.com/documentation</a><br>Wiki: <a href="https://github.com/netease-youdao/hex/wiki" target="_blank" rel="noopener">https://github.com/netease-youdao/hex/wiki</a><br>Issues: <a href="https://github.com/netease-youdao/hex/issues" target="_blank" rel="noopener">https://github.com/netease-youdao/hex/issues</a></p>
+<p>近几年，移动应用和web2.0大行其道，相比之下，传统桌面应用程序开发显得相对冷清（包括该领域技术人才的后继力量），但在一些场景下，它依然有其不可替代的优势。探索中我们尝试了一种新的办法，并给它取名heX，将HTML5和Node.JS的技术优势，应用于桌面应用程序开发，使得工作变得简单而高效。</p>
+<p>2012年前后，一位研发工程师（外号6哥，精通web前端和桌面应用开发），先后参与了两个传统桌面应用程序UI改版工作（有道云笔记和有道词典），任务是把软件界面中部分区域的浏览器渲染引擎，由IE内核替换为webkit，在这个过程中，有一种强烈的欲望：把整个软件界面的渲染都交由浏览器引擎来完成，这样一来，UI和交互部分都可以用前端技术来实现，那么，开发过程将变的简单许多，而客户端开发人员的主要精力也可放在业务逻辑上，何乐而不为！</p>
+<p>为此，我们做了大量的调研，经反复尝试，最终确定通过整合Chromium和Node.JS，来解决桌面应用开发中遇到的大量繁琐的UI和交互开发工作。期间，发现一款类似的开源项目node-webkit，调研的结论是它暂时还无法用于正式的项目，所以，于2012年6月，我们正式成立一人开发小组（确实够小），经3个月的努力，终有小成，现已经应用于有道词典最新版。</p>
+<p>选择Chromium，是因为它对HTML5的支持非常优秀，其内嵌的V8引擎，更是业内效率最好的JavaScript脚本引擎之一，且其项目开源，又有专门的社区和团队维护，作为UI渲染引擎，它是不二之选，体验上，你可以试用下google chrome浏览器，基本一致。</p>
+<p>选择Node.JS，是因为开发桌面应用，本地资源操作是必备的能力，这方面JavaScript无能为力，而Node.JS则很好的解决了这个问题，它使得JavaScript操作本地资源变的毫无障碍。另一方面，Node.JS核心也是采用V8引擎，使得其与Chromium的整合变得更顺理成章。</p>
+<p>用heX开发桌面应用的优势</p>
+<p>HTML5这几年很火，在成熟产品中的应用却极少，受各浏览器和平台的软/硬件性能问题的限制，整体感觉总是难以舒展（用的不踏实），具体原因网上可以找到一大堆，这里列举一个移动web app相关的，中英对照版，推荐抽空看一看:</p>
+<p>英文版：<a href="http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/" target="_blank" rel="noopener">http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/</a></p>
+<p>中文版：<a href="http://www.cnblogs.com/codemood/p/3213459.html" target="_blank" rel="noopener">http://www.cnblogs.com/codemood/p/3213459.html</a></p>
+<p>尽管如此，HTML5的优势依然很明显，普及程度也正逐年提高，我们对它的未来信心十足。好东西，都值得我们主动去尝试，heX做的一个事情，就是提前把它应用于桌面应用开发，而不用顾忌它的兼容性和平台性能问题（PC性能过剩）。</p>
+<p>用HTML5开发桌面应用，到底有什么样的优势呢？这里列举几项：</p>
+<p>精准还原UI设计。现在客户端软件UI设计用native方式来实现的成本越来越高，对HTML5来说却很容易，对后续的维护也非常的友好；<br>用户体验。如果你不清楚HTML5所能做到的体验效果，可以看看Chrome Experiments（<a href="http://www.chromeexperiments.com/）；" target="_blank" rel="noopener">http://www.chromeexperiments.com/）；</a><br>开发调试便利。heX保留了开发者工具（Chrome Developer Tools），让你在开发调试过程中，就如同web开发一样便利；<br>学习成本。相比传统桌面应用开发，web技术的入门成本明显偏低，你不用担心团队成员的离开，而苦于寻找后续开发力量。<br>桌面应用开发，本地资源操作能力必不可少，Node.JS提供了丰富的自带API，让你免于逐个封装C++实现，就能在heX环境下的html页面中直接使用，如：本地文件系统操作，二进制数据处理，方便的创建子进程等等，详见Node.JS API DOCS。</p>
+<p>在桌面应用开发中用Node.JS的好处（一部分来自于heX的努力）：</p>
+<p>直接用JavaScript对本地资源进行操作，相比C/C++，你无需编译，即写即用；<br>页面交互逻辑，窗体行为操作，与C++通信，用JavaScript都能搞定，开发一个桌面应用，你无需在语言之间来回切换；<br>Node.JS丰富的第三扩展，你都可以直接使用，无需从零开始；<br>继承于Node.JS优秀的扩展能力，以及它所遵循的commonjs规范，代码管理也将变的方便和易于控制。<br>从技术角度来讲，选择一个新生事物，我们持谨慎态度，需要经过充分的调研，考虑的因素众多，比如：性能，用户体验，开发效率，是否有团队在维护，文档是否完备，是否开源（如果是商业用处，还需考虑它的开源协议）等等。</p>
+<p>而heX作为桌面应用开发的一种新的选择，它在这些方面的表现如何呢？前面已经讲到一些，这里再补充几点：</p>
+<p>性能和体验，heX的基础由Chromium和Node.JS整合而成，整合后这两者的性能表现不受影响，体验方面，你可以参考google chrome浏览器，基本保持一致；<br>开发效率，如果你有过web前端开发经历，现在仅要求你支持最新版的chrome浏览器，你觉得如何？睡着了都能笑醒的事，heX做到了；<br>heX即将开源，请大家关注  <a href="http://hex.youdao.com" target="_blank" rel="noopener">http://hex.youdao.com</a> 和 @yoduao_hex<br>一种东西，只能解决一方面的需求，heX亦非万能，亦有它适合的使用场景，最适合重UI、重交互的桌面应用，比如即将推出的新版有道词典（亿级桌面应用软件）beta版，就是采用heX作为其界面的解决方案。<br>如何用heX开始一个桌面应用程序</p>
+<p>采用heX开发桌面应用程序，有两种方式：</p>
+<p>直接基于heX做开发，针对web前端开发者，不要求桌面应用开发经验；<br>以模块形式引入到现在桌面工程中，针对传统桌面应用开发者，适合有一定历史的项目，或仅在界面中局部区域支持即可的项目。<br>不管采用哪种方式，开发过程都很简单，这里就第一种方式，从零开始，一起来制作一个 hello word，如下：</p>
+<p>1、下载heX二进制包（<a href="http://codown.youdao.com/hex/hex_1453_web_develop_windows.zip），解压到本地，打开后目录结构如下图所示，其中“hexclient.exe”是主程序文件，双击即可运行heX，“manifest.json”是heX的配置文件，可配置入口文件，窗口初始大小、位置等信息" target="_blank" rel="noopener">http://codown.youdao.com/hex/hex_1453_web_develop_windows.zip），解压到本地，打开后目录结构如下图所示，其中“hexclient.exe”是主程序文件，双击即可运行heX，“manifest.json”是heX的配置文件，可配置入口文件，窗口初始大小、位置等信息</a></p>
+<p>2、创建一个用于写hello word程序的测试目录“test”，同时在其中新建html、js文件，如下图所示</p>
+<p>3、修改manifest.json文件，入口改为test/index.html，如下图所示</p>
+<p>4、双击 hexclient.exe，运行，一秒后界面由“……”变为“Hello Word！”，如下图所示，到此为止，一个简单的桌面应用就搞定了</p>
+<p>正式产品案例：目前已经应用于新版有道词典（亿级桌面客户端软件）beta版，下图的整个界面和交互都是基于heX实现，欢迎下载体验：<a href="http://download.ydstatic.com/cidian/static/6.0/20130812/YoudaoDict.exe" target="_blank" rel="noopener">http://download.ydstatic.com/cidian/static/6.0/20130812/YoudaoDict.exe</a></p>
+<p>了解更多heX信息欢迎微博 @youdao_hex 或访问<a href="http://hex.youdao.com" target="_blank" rel="noopener">http://hex.youdao.com</a></p>
+<p>原文链接：heX：用 HTML5 和 Node.JS 开发桌面应用</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ideas/" rel="tag"># ideas</a>
+          
+            <a href="/tags/h5/" rel="tag"># h5</a>
+          
+            <a href="/tags/WebAPP/" rel="tag"># WebAPP</a>
+          
+            <a href="/tags/Nodejs/" rel="tag"># Nodejs</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2014/04/20/one-ok-rockno-scared/" rel="next" title="One Ok Rock《No Scared》">
+                <i class="fa fa-chevron-left"></i> One Ok Rock《No Scared》
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/10/zai-shou-ji-liu-lan-qi-qi-dong-ni-de-app/" rel="prev" title="在手机浏览器启动你的app">
+                在手机浏览器启动你的app <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div class="overlay"></div>
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee">
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sternelee';
+      var disqus_identifier = '2014/04/29/hex-ji-yu-html5-he-node-js-kai-fa-zhuo-mian-ying-yong/';
+
+      var disqus_title = "heX——基于 HTML5 和 Node.JS 开发桌面应用";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
+</body>
+</html>

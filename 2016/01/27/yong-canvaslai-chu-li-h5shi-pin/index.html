@@ -1,0 +1,856 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="h5,WebAPP,JS,javascript,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE - (。・`ω´・)喜欢英文吉他的程序猿" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。 canvas视频播放">
+<meta name="keywords" content="h5,WebAPP,JS,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Canvas来实时处理Video">
+<meta property="og:url" content="http://sternelee.github.io/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/index.html">
+<meta property="og:site_name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+<meta property="og:description" content="结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。 canvas视频播放">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hgko9fj204g02oq2t.jpg">
+<meta property="og:image" content="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hg71voj204h02oweg.jpg">
+<meta property="og:updated_time" content="2016-01-27T06:07:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Canvas来实时处理Video">
+<meta name="twitter:description" content="结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。 canvas视频播放">
+<meta name="twitter:image" content="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hgko9fj204g02oq2t.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/">
+
+
+
+
+
+  <title> 用Canvas来实时处理Video | STERNE - (。・`ω´・)喜欢英文吉他的程序猿 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE - (。・`ω´・)喜欢英文吉他的程序猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">SterneLee's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                用Canvas来实时处理Video
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-27T13:10:17+08:00">
+                2016-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/01/27/yong-canvaslai-chu-li-h5shi-pin/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。</p>
+<h4 id="canvas视频播放"><a href="#canvas视频播放" class="headerlink" title="canvas视频播放"></a>canvas视频播放</h4><a id="more"></a>
+<p>利用sublime text 快速新建html文件，结构代码如下<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">    <span class="selector-tag">body</span>&#123;<span class="attribute">background</span>:black;<span class="attribute">color</span>:<span class="number">#CCCCCC</span>;&#125;</span></span><br><span class="line"><span class="css">    <span class="selector-tag">div</span>&#123;<span class="attribute">float</span>:left;<span class="attribute">border</span>:<span class="number">1px</span> solid <span class="number">#444444</span>;<span class="attribute">padding</span>:<span class="number">10px</span>;<span class="attribute">margin</span>:<span class="number">10px</span>;<span class="attribute">background</span>:<span class="number">#3B3B3B</span>;&#125;</span></span><br><span class="line"><span class="undefined">  </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"processor.doLoad()"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"display:none;"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">"video"</span> <span class="attr">src</span>=<span class="string">"video.ogv"</span> <span class="attr">controls</span>=<span class="string">"true"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"c1"</span> <span class="attr">width</span>=<span class="string">"160"</span> <span class="attr">height</span>=<span class="string">"96"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>由于我们播放视频用canvas来展示，因此大可把video标签隐藏，直接display:none;然后在body的后面添加播放动作：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> btn = <span class="built_in">document</span>.getElementById(<span class="string">'c1'</span>);</span><br><span class="line"><span class="keyword">var</span> video = <span class="built_in">document</span>.getElementById(<span class="string">'video'</span>);</span><br><span class="line">btn.addEventListener(<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="keyword">if</span>(video.paused)&#123;</span><br><span class="line">      video.play();</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="keyword">else</span>&#123;</span><br><span class="line">      video.pause();</span><br><span class="line">    &#125;</span><br><span class="line"> &#125;);</span><br></pre></td></tr></table></figure></p>
+<p>canvas中可以用drawImage()来绘制图片，同样我们也可以用来绘制视频画面，监听video的play事件并且用setTimeout()来不断绘制视频画面。<br>细节代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> processor = &#123;</span><br><span class="line">      timerCallback: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">this</span>.video.paused || <span class="keyword">this</span>.video.ended) &#123;</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">this</span>.computeFrame();</span><br><span class="line">        <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            self.timerCallback();</span><br><span class="line">          &#125;, <span class="number">0</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">      doLoad: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.video = <span class="built_in">document</span>.getElementById(<span class="string">"video"</span>);</span><br><span class="line">        <span class="keyword">this</span>.c1 = <span class="built_in">document</span>.getElementById(<span class="string">"c1"</span>);</span><br><span class="line">        <span class="keyword">this</span>.ctx1 = <span class="keyword">this</span>.c1.getContext(<span class="string">"2d"</span>);</span><br><span class="line">        <span class="keyword">var</span> self = <span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">this</span>.video.addEventListener(<span class="string">"play"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            self.width = self.video.videoWidth / <span class="number">2</span>;</span><br><span class="line">            self.height = self.video.videoHeight / <span class="number">2</span>;</span><br><span class="line">            self.timerCallback();</span><br><span class="line">          &#125;, <span class="literal">false</span>);</span><br><span class="line">      &#125;,</span><br><span class="line">      computeFrame: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.ctx1.drawImage(<span class="keyword">this</span>.video, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">this</span>.width, <span class="keyword">this</span>.height);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure></p>
+<p>初步播放视频的效果如下：<br><a href="http://sterne.cn/examples/canvas-video-1.html" target="_blank" rel="noopener">点击查看效果</a></p>
+<h5 id="初始化chroma-key"><a href="#初始化chroma-key" class="headerlink" title="初始化chroma-key"></a>初始化chroma-key</h5><p>doLoad()方法在XHTML文档初始加载时调用。这个方法的作用是为chroma-key处理代码准备所需的变量，设置一个事件侦听器，当用户开始播放视频时我们能检测到。</p>
+<h5 id="视频监听"><a href="#视频监听" class="headerlink" title="视频监听"></a>视频监听</h5><p>addEventListener()监听video元素，当用户按下视频上的播放按钮时被调用。为了应对用户回放，这段代码获取视频的宽度和高度，并且减半（我们将在执行chroma-keying效果时将视频的大小减半），然后调用timerCallback()方法来启动视频捕捉和视觉效果计算。</p>
+<h5 id="定时回调"><a href="#定时回调" class="headerlink" title="定时回调"></a>定时回调</h5><p>setTimeout()定时器回调函数在视频开始播放时被调用（当“播放”事件发生时），然后负责自身周期调用，为每一帧视频实现keying特效。</p>
+<h5 id="处理视频帧数据"><a href="#处理视频帧数据" class="headerlink" title="处理视频帧数据"></a>处理视频帧数据</h5><p>在canvas中，有两个图像数据处理函数getImageData()和putImageData()，获取与写入图像数据。因此，我们可以给canvas2添加一个背景，并将canvas1的图像数据处理后放入canvas2中，来实现图像叠加与色彩更换。</p>
+<p>注意图像数据的处理：<br>computeFrame()方法，如下所示，实际上负责抓取每一帧的数据和执行chroma-keying特效。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ctx1 与ctx2分别为两个canvas在context</span></span><br><span class="line"><span class="keyword">var</span> frame = <span class="keyword">this</span>.ctx1.getImageData(<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">this</span>.width, <span class="keyword">this</span>.height);</span><br><span class="line"><span class="keyword">var</span> l = frame.data.length / <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; l; i++) &#123;</span><br><span class="line">      <span class="keyword">var</span> r = frame.data[i * <span class="number">4</span> + <span class="number">0</span>];</span><br><span class="line">      <span class="keyword">var</span> g = frame.data[i * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line">      <span class="keyword">var</span> b = frame.data[i * <span class="number">4</span> + <span class="number">2</span>];</span><br><span class="line">      <span class="keyword">if</span> (g &gt; <span class="number">100</span> &amp;&amp; r &gt; <span class="number">100</span> &amp;&amp; b &lt; <span class="number">43</span>)</span><br><span class="line">           frame.data[i * <span class="number">4</span> + <span class="number">3</span>] = <span class="number">0</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">this</span>.ctx2.putImageData(frame, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过调用第一个canvas上下文的getImageData()方法，来获取原始图像数据当前视频帧的一个副本。它提供了原始的32位像素图像数据，这样我们就能够进行操作。<br><img src="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hgko9fj204g02oq2t.jpg" alt="原图像"><br>通过将帧图像数据的总长度除以4，来计算图像的总像素数。循环扫描所有像素，获取每个像素的红、绿、蓝值，同时和预定义的背景色进行比较，这些背景色将用foo.png中导入的背景图像替换。</p>
+<p>被检测成背景的每一个像素，将它的alpha值替换为零，表明该像素是完全透明的。结果，最终的图像背景部分是100%透明的，这样视频内容就叠加到静态背景上了。<br><img src="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hg71voj204h02oweg.jpg" alt="转换后的图像"></p>
+<p>利用这种方法，可以在纯色幕布中制作真人视频，然后更改背景！<br>注意，要在服务器环境下使用！</p>
+<p>最终的效果如下：<a href="http://sterne.cn/examples/canvas-video-2.html" target="_blank" rel="noopener">点击查看效果</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/h5/" rel="tag"># h5</a>
+          
+            <a href="/tags/WebAPP/" rel="tag"># WebAPP</a>
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/15/2016-1-15-react-start/" rel="next" title="reactjs学习体验">
+                <i class="fa fa-chevron-left"></i> reactjs学习体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/22/pageSwitch-use/" rel="prev" title="pageSwitch使用与修改">
+                pageSwitch使用与修改 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee">
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#canvas视频播放"><span class="nav-number">1.</span> <span class="nav-text">canvas视频播放</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化chroma-key"><span class="nav-number">1.1.</span> <span class="nav-text">初始化chroma-key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#视频监听"><span class="nav-number">1.2.</span> <span class="nav-text">视频监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时回调"><span class="nav-number">1.3.</span> <span class="nav-text">定时回调</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#处理视频帧数据"><span class="nav-number">1.4.</span> <span class="nav-text">处理视频帧数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sternelee';
+      var disqus_identifier = '2016/01/27/yong-canvaslai-chu-li-h5shi-pin/';
+
+      var disqus_title = "用Canvas来实时处理Video";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
+</body>
+</html>

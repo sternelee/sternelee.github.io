@@ -1,0 +1,881 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="ideas,h5,WebAPP,JS,ReactJS,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE - (。・`ω´・)喜欢英文吉他的程序猿" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="本文主要介绍JWT（JSON Web Token）授权机制在前后端分离中的应用与实践，包括以下三部分：1.JWT原理介绍2.JWT的安全性3.React.js+Flux架构下的实践（React-jwt example）">
+<meta name="keywords" content="ideas,h5,WebAPP,JS,ReactJS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JWT在前后端分离中的应用与实践">
+<meta property="og:url" content="http://sternelee.github.io/2015/06/12/jwtzai-qian-hou-duan-fen-chi-zhong-de-ying-yong-yu-shi-jian/index.html">
+<meta property="og:site_name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+<meta property="og:description" content="本文主要介绍JWT（JSON Web Token）授权机制在前后端分离中的应用与实践，包括以下三部分：1.JWT原理介绍2.JWT的安全性3.React.js+Flux架构下的实践（React-jwt example）">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://7xiijd.com1.z0.glb.clouddn.com/cookie_sessions.png">
+<meta property="og:image" content="http://7xiijd.com1.z0.glb.clouddn.com/json_web_token.png">
+<meta property="og:image" content="http://7xiijd.com1.z0.glb.clouddn.com/flux-diagram-white-background.png">
+<meta property="og:image" content="http://7xiijd.com1.z0.glb.clouddn.com/reflux.png">
+<meta property="og:updated_time" content="2015-06-12T03:55:41.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JWT在前后端分离中的应用与实践">
+<meta name="twitter:description" content="本文主要介绍JWT（JSON Web Token）授权机制在前后端分离中的应用与实践，包括以下三部分：1.JWT原理介绍2.JWT的安全性3.React.js+Flux架构下的实践（React-jwt example）">
+<meta name="twitter:image" content="http://7xiijd.com1.z0.glb.clouddn.com/cookie_sessions.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/2015/06/12/jwtzai-qian-hou-duan-fen-chi-zhong-de-ying-yong-yu-shi-jian/">
+
+
+
+
+
+  <title> JWT在前后端分离中的应用与实践 | STERNE - (。・`ω´・)喜欢英文吉他的程序猿 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE - (。・`ω´・)喜欢英文吉他的程序猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">SterneLee's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2015/06/12/jwtzai-qian-hou-duan-fen-chi-zhong-de-ying-yong-yu-shi-jian/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JWT在前后端分离中的应用与实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-12T10:39:58+08:00">
+                2015-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2015/06/12/jwtzai-qian-hou-duan-fen-chi-zhong-de-ying-yong-yu-shi-jian/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/12/jwtzai-qian-hou-duan-fen-chi-zhong-de-ying-yong-yu-shi-jian/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文主要介绍JWT（<a href="http://jwt.io/" target="_blank" rel="noopener">JSON Web Token</a>）授权机制在前后端分离中的应用与实践，包括以下三部分：<br>1.JWT原理介绍<br>2.JWT的安全性<br>3.React.js+Flux架构下的实践（<a href="https://github.com/rainyear/react-jwt-example.git" target="_blank" rel="noopener">React-jwt example</a>）<br><a id="more"></a></p>
+<h6 id="0-关于前后端分离"><a href="#0-关于前后端分离" class="headerlink" title="0 关于前后端分离"></a>0 关于前后端分离</h6><p>前后端分离是一个很有趣的议题，它不仅仅是指前后端工程师之间的相互独立的合作分工方式，更是前后端之间开发模式与交互模式的模块化、解耦化。计算机世界的经验告诉我们，对于复杂的事物，模块化总是好的，无论是后端API开发中越来越成为规范的<a href="http://en.wikipedia.org/wiki/Representational_state_transfer" target="_blank" rel="noopener">RESTful API</a>风格，还是Web前端越来越多的模板、框架（参见<a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html" target="_blank" rel="noopener">MVC，MVP 和 MVVM 的图示</a>），包括移动应用中前后端天然分离的特质，都证实了前后端分离的重要性与必要性（更生动的细节与实例说明可以参看赫门分享的主题<a href="http://2014.jsconf.cn/slides/herman-taobaoweb/#/" target="_blank" rel="noopener">淘宝前后端分离实践</a>）。</p>
+<p>实现前后端分离，对于后端开发人员来说是一件很幸福的事情，因为不需要再考虑怎样在HTML中套入数据，只关心数据逻辑的处理；而前端则需要承担接收数据之后界面呈现、用户交互、数据传递等所有任务。虽然这看起来加重了前端的工作量，但实际上有越来越多丰富多样的前端框架可供选择，这让前端开发变得越来越结构化、系统化，前端工程师也不再只是“套版的”。</p>
+<p>在所有前端框架中，Facebook推出的<a href="http://facebook.github.io/react" target="_blank" rel="noopener">React</a>无疑是当下最热门（之一），然而React只负责界面渲染层面，相当于MVC中的V（View），因此只靠React无法完成一个完整的单页应用（<a href="http://en.wikipedia.org/wiki/Single-page_application" target="_blank" rel="noopener">Single Page App</a>）。Facebook另外推出与之配套的<a href="http://facebook.github.io/flux" target="_blank" rel="noopener">Flux</a>架构，主要为了避免Angular.js之类MVC的架构模式，规避数据双向绑定而采用单向绑定的数据传递方式。实际上React无论是学习还是使用都是非常简单的，而Flux则需要花更多时间去理解消化，本文第3部分我采用Flux架构的一种实现<a href="https://github.com/spoike/refluxjs" target="_blank" rel="noopener">Reflux.js</a>，做了一个基于JWT授权机制的登入、登出的例子，顺便介绍Flux架构的细节。</p>
+<p>######1 JWT 介绍及其原理<br>JWT是我之前做Android应用的时候了解到的一种用户授权机制，虽然原生的移动手机应用与基于浏览器的Web应用之间存在很多差异，但很多情况下后端往往还是沿用已有的架构跟代码，所以用户授权往往还是采用Cookie+Session的方式，也就是需要原生应用中模拟浏览器对Cookie的操作。</p>
+<p>Cookie+Session的存在主要是为了解决HTTP这一无状态协议下服务器如何识别用户的问题，其原理就是在用户登录通过验证后，服务端将数据加密后保存到客户端浏览器的Cookie中，同时服务器保留相对应的Session（文件或DB）。用户之后发起的请求都会携带Cookie信息，服务端需要根据Cookie寻回对应的Session，从而完成验证，确认这是之前登陆过的用户。其工作原理如下图所示：</p>
+<p><img src="http://7xiijd.com1.z0.glb.clouddn.com/cookie_sessions.png" alt="Cookie+Session"></p>
+<p>JWT是<a href="https://auth0.com/" target="_blank" rel="noopener">Auth0</a>提出的通过对JSON进行加密签名来实现授权验证的方案，编码之后的JWT看起来是这样的一串字符：</p>
+<p><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ</code></p>
+<p>由.分为三段，通过解码可以得到：</p>
+<p><pre><code>// 1. Headers<br>// 包括类别（typ）、加密算法（alg）；<br>{<br>  “alg”: “HS256”,<br>  “typ”: “JWT”<br>}<br>// 2. Claims<br>// 包括需要传递的用户信息；<br>{<br>  “sub”: “1234567890”,<br>  “name”: “John Doe”,<br>  “admin”: true<br>}<br>// 3. Signature<br>// 根据alg算法与私有秘钥进行加密得到的签名字串；<br>// 这一段是最重要的敏感信息，只能在服务端解密；<br>HMACSHA256(<br>    base64UrlEncode(header) + “.” +<br>    base64UrlEncode(payload),<br>    SECREATE_KEY<br>)</code></pre><br>在使用过程中，服务端通过用户登录验证之后，将Header+Claim信息加密后得到第三段签名，然后将签名返回给客户端，在后续请求中，服务端只需要对用户请求中包含的JWT进行解码，即可验证是否可以授权用户获取相应信息，其原理如下图所示：</p>
+<p><img src="http://7xiijd.com1.z0.glb.clouddn.com/json_web_token.png" alt="JWT"></p>
+<p>通过比较可以看出，使用JWT可以省去服务端读取Session的步骤，这样更符合RESTful的规范。但是对于客户端（或App端）来说，为了保存用户授权信息，仍然需要通过Cookie或类似的机制进行本地保存。因此JWT是用来取代服务端的Session而非客户端Cookie的方案，当然对于客户端本地存储，HTML5提供了Cookie之外更多的解决方案（localStorage/sessionStorage），究竟采用哪种存储方式，其实从Js操作上来看没有本质上的差异，不同的选择更多是出于安全性的考虑。</p>
+<h6 id="2-JWT-安全性"><a href="#2-JWT-安全性" class="headerlink" title="2 JWT 安全性"></a>2 JWT 安全性</h6><p>用户授权这样敏感的信息，安全性当然是首先需要考虑的因素。这里主要讨论在使用JWT时如何防止XSS和XSRF两种攻击。</p>
+<p>XSS是Web中最常见的一种漏洞（我们的**学报官网就存在这个漏洞这件事我就不说了=.=），其主要原因是对用户输入信息不加过滤，导致用户（被误导）恶意输入的Js代码在访问该网页时被执行，而Js可以读取当前网站域名下保存的Cookie信息。针对这种攻击，无论是Cookie还是localStorage中的信息都有可能被窃取，但防止XSS也相对简单一些，对用户输入的所有信息进行过滤即可。另外，现在越来越多的CDN服务，让我们可以节省服务器流量，但同时也有可能引入不安全的Js脚本，例如前段时间Github被Great Cannon轰击的案例，则需要提高对某度之类服务的警惕。</p>
+<p>另外一种更加棘手的XSRF漏洞主要利用Cookie是按照域名存储，同时访问某域名时浏览器会自动携带该域名所保存的Cookie信息这一特征。如果执意要将JWT存储在Cookie中，服务端则需要额外验证请求来源，或者在提交表单中加入随机签名并在处理表单时进行验证。</p>
+<p>我在后面的实例中采用将JWT保存在localStorage中的方案，请求时将JWT放入Request Header中的Authorization位。对JWT安全性问题想要了解更多可以参考下面几篇文章：</p>
+<p>1.<a href="https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage/" target="_blank" rel="noopener">Where to Store Your JWTs - Cookies vs HTML5 Web Storage</a><br>2.<a href="https://stormpath.com/blog/jwt-the-right-way/" target="_blank" rel="noopener">Use JWT the Right Way!</a><br>3.<a href="https://auth0.com/blog/2014/01/27/ten-things-you-should-know-about-tokens-and-cookies/" target="_blank" rel="noopener">10 Things You Should Know about Tokens</a><br>4.<a href="http://stackoverflow.com/questions/27067251/where-to-store-jwt-in-browser-how-to-protect-against-csrf" target="_blank" rel="noopener">Where to store JWT in browser? How to protect against CSRF?</a></p>
+<h6 id="3-React-jwt-Example"><a href="#3-React-jwt-Example" class="headerlink" title="3 React-jwt Example"></a>3 React-jwt Example</h6><p>本节源码可见<a href="https://github.com/rainyear/react-jwt-example" target="_blank" rel="noopener">Github: react-jwt-example</a>。</p>
+<p>前面提到的React.js框架学习成本其实非常低，只要跟着官方教程走一遍，搞清楚props、states、virtual DOM几个概念，就可以开始用了。但是只有View层什么都做不了，Facebook推出配套的Flux架构，一开始看到下面这张架构图，当时我就懵逼了。</p>
+<p><img src="http://7xiijd.com1.z0.glb.clouddn.com/flux-diagram-white-background.png" alt="Flux diagram"></p>
+<p>好在Flux只是一种理论架构，虽然官方也提供了实现方案，但是我更倾向于Reflux.js的实现方式，如下图所示：</p>
+<p><img src="http://7xiijd.com1.z0.glb.clouddn.com/reflux.png" alt="Reflux.js"></p>
+<p>其中View Components即视图层由React负责，Stores用于存储数据，Actions则用于监听所有动作，所有数据的传递都是单向绑定的，在分割不同模块时，可以清楚地看到数据的流动方向。</p>
+<p>我尝试写了一个简单的登录、登出以及获取用户个人数据的例子，除了Reflux之外，还用到如下模块：</p>
+<p>1.<a href="https://github.com/rackt/react-router" target="_blank" rel="noopener">react-router</a>: SPA路由；<br>2.<a href="http://react-bootstrap.github.io/" target="_blank" rel="noopener">react-bootstrap</a>: React化的，UI样式；<br>3.<a href="https://www.npmjs.com/package/reqwest" target="_blank" rel="noopener">reqwest</a>: Ajax请求；<br>4.<a href="https://www.npmjs.com/package/jwt-decode" target="_blank" rel="noopener">jwt-decode</a>: 客户端的JWT解码；<br>另外服务端API采用<a href="https://gin-gonic.github.io/gin" target="_blank" rel="noopener">Go gin</a>框架，依赖于<a href="http://github.com/dgrijalva/jwt-go" target="_blank" rel="noopener">jwt-go</a>。代码目录结构如下：</p>
+<p><pre><code>tree -I ‘node_modules|.git’<br>.<br>├── README.md<br>├── gulpfile.js<br>├── index.html<br>├── package.json<br>├── scripts<br>│   ├── actions<br>│   │   └── actions.js<br>│   ├── app.js<br>│   ├── build<br>│   │   └── dist.js<br>│   ├── components<br>│   │   └── HelloWorld.js<br>│   ├── stores<br>│   │   ├── loginStore.js<br>│   │   └── userStore.js<br>│   └── views<br>│       ├── home.js<br>│       ├── login.js<br>│       └── profile.js<br>└── server.go</code></pre><br>完整的页面放在view中，可复用的组件放在components，用户的动作包括login、logout以及getBalance，因此需要创建相应的action来监听这些动作：</p>
+<p><pre><code>// actions.js<br>var actions = Reflux.createActions({<br>  “login”: {},<br>  “updateProfile”: {}, // login成功更新用户数据<br>  “loginError”: {}, // login失败错误信息<br>  “logout”: {},<br>  “getBalance”: {asyncResult: true}<br>});</code></pre></p>
+<p>actions.login.listen(function(data){});  <br>用户点击view中的Submit Button时，将表单信息提交给login action：</p>
+<p><pre><code>// views/login.js<br>var Login = React.createClass({<br>  …<br>  login: function (e) {<br>    e.preventDefault();<br>    actions.login({<br>      name: this.refs.name.getValue(),<br>      pass: this.refs.pass.getValue(),<br>    }),<br>  …<br>});<br>// actions.js<br>var req    = require(‘reqwest’);<br>actions.login.listen(function(data){<br>  req({<br>    url: HOST+”/user/token”,<br>    method: “post”,<br>    data: JSON.stringify(data),<br>    type: ‘json’,<br>    contentType: ‘application/json’,<br>    headers: {‘X-Requested-With’: ‘XMLHttpRequest’},<br>    success: function (resp) {<br>      if(resp.code == 200){<br>        actions.updateProfile(resp.jwt)<br>      }else{<br>        actions.updateProfile(resp.msg)<br>      }<br>    },<br>  })<br>});</code></pre><br>根据API返回结果，将再次触发updateProfile或updateProfile action，而分别由userStore和loginStore接收：</p>
+<p><pre><code>// stores/userStore.js<br>var userStore = Reflux.createStore({<br>  listenables: actions, // 声明userStore所监听的action<br>  updateProfile: function(jwt){<br>    // 注册监听actions.updateProfile<br>    localStorage.setItem(‘jwt’, jwt);<br>    this.user = jwt_decode(jwt);<br>    this.user.logd = true;<br>    this.trigger(this.user);<br>  },<br>})<br>// stores/loginStore.js<br>var loginStore = Reflux.createStore({<br>  listenables: actions,<br>  loginError: function(msg){<br>    this.trigger(msg);<br>  },<br>});</code></pre><br>store接收action数据后，通过<strong>this.trigger(msg)</strong>将处理过后的数据重新传递会view：</p>
+<p><pre><code>var Login = React.createClass({<br>  mixins : [<br>    Router.Navigation,<br>    Reflux.listenTo(userStore, ‘onLoginSucc’),<br>    Reflux.listenTo(loginStore, ‘onLoginErr’)<br>  ],<br>  onLoginSucc: function(){<br>    // 登录成功，跳转回首页<br>    this.transitionTo(‘home’);<br>  },<br>  onLoginErr: function (msg) {<br>    // 登录失败，显示错误信息<br>    this.setState({<br>      errorMsg: msg,<br>    });<br>  },<br>  …<br>});</code></pre><br>至此，从用户点击登录到登录结果传回，整个流程数据在<strong>View-&gt;Action-&gt;Store-&gt;View</strong>中完成单向传递，这就是Flux架构的基本概念。</p>
+<p>在完成登录后，API会将验证通过的JWT传回：</p>
+<p><pre><code>// server.go<br>token := jwt.New(jwt.SigningMethodHS256)<br>// Headers<br>token.Header[“alg”] = “HS256”<br>token.Header[“typ”] = “JWT”<br>// Claims<br>token.Claims[“name”] = validUser.Name<br>token.Claims[“mail”] = validUser.Mail<br>token.Claims[“exp”] = time.Now().Add(time.Hour * 72).Unix()<br>tokenString, err := token.SignedString([]byte(mySigningKey))<br>if err != nil {<br>  c.JSON(200, gin.H{“code”: 500, “msg”: “Server error!”})<br>  return<br>}<br>c.JSON(200, gin.H{“code”: 200, “msg”: “OK”, “jwt”: tokenString})  </code></pre><br>当登录之后的用户在profile页面发起getBalance请求时，存储于本地的jwt将一起传递，我这里采用Header的方式传递，具体取决于API端的协议：</p>
+<p><pre><code>// actions.js<br>actions.getBalance.listen(function(){<br>  var jwt = localStorage.getItem(‘jwt’);<br>  req({<br>    url: HOST+”/user/balance”,<br>    method: “post”,<br>    type: “json”,<br>    headers: {<br>      ‘Authorization’: “Bearer “+jwt,<br>    },<br>    success: function (resp) {<br>      if (resp.code == 200) {<br>        actions.updateProfile(resp.jwt);<br>      }else{<br>        actions.loginError(resp.msg);<br>      }<br>    }<br>  })<br>})</code></pre><br>而服务端面对任何需要验证权限的请求需要通过Token验证：</p>
+<p><pre><code>//server.go<br>token, err := jwt.ParseFromRequest(c.Request, func(token *jwt.Token) (interface{}, error) {<br>  b := ([]byte(mySigningKey))<br>  return b, nil<br>})</code></pre><br>【<a href="http://blog.rainy.im/2015/06/10/react-jwt-pretty-good-practice/" target="_blank" rel="noopener">本文摘自</a>】</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/ideas/" rel="tag"># ideas</a>
+          
+            <a href="/tags/h5/" rel="tag"># h5</a>
+          
+            <a href="/tags/WebAPP/" rel="tag"># WebAPP</a>
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/ReactJS/" rel="tag"># ReactJS</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/06/10/see-you-again/" rel="next" title="See You Again">
+                <i class="fa fa-chevron-left"></i> See You Again
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/06/12/tong-guo-jsyu-ju-pan-duan-webwang-zhan-de-fang-wen-duan-shi-dian-nao-huan-shi-shou-ji/" rel="prev" title="通过JS语句判断WEB网站的访问端是电脑还是手机">
+                通过JS语句判断WEB网站的访问端是电脑还是手机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee">
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#0-关于前后端分离"><span class="nav-number">1.</span> <span class="nav-text">0 关于前后端分离</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-JWT-安全性"><span class="nav-number">2.</span> <span class="nav-text">2 JWT 安全性</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-React-jwt-Example"><span class="nav-number">3.</span> <span class="nav-text">3 React-jwt Example</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sternelee';
+      var disqus_identifier = '2015/06/12/jwtzai-qian-hou-duan-fen-chi-zhong-de-ying-yong-yu-shi-jian/';
+
+      var disqus_title = "JWT在前后端分离中的应用与实践";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
+</body>
+</html>

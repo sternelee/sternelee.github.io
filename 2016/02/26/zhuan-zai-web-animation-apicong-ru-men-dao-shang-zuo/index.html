@@ -1,0 +1,885 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="WebAPP,JS,jsvascript,webapi,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE - (。・`ω´・)喜欢英文吉他的程序猿" type="application/atom+xml">
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
+
+
+
+
+
+
+<meta name="description" content="远观：认识WAAPI 当我们谈及网页动画时，自然联想到的是CSS3动画、JS动画、SVG动画、APNG动画等技术以及jQuery.animate()等动画封装库，根据实际动画内容设计去选择不同的实现方式。然而，每个现行的动画技术都存在一定的缺点，如CSS3动画必须通过JS去获取动态改变的值，setInterval的时间往往是不精确的而且还会卡顿，APNG动画会带来文件体积较大的困扰，引入额外的动画">
+<meta name="keywords" content="WebAPP,JS,jsvascript,webapi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】Web Animation API从入门到上座">
+<meta property="og:url" content="http://sternelee.github.io/2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/index.html">
+<meta property="og:site_name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+<meta property="og:description" content="远观：认识WAAPI 当我们谈及网页动画时，自然联想到的是CSS3动画、JS动画、SVG动画、APNG动画等技术以及jQuery.animate()等动画封装库，根据实际动画内容设计去选择不同的实现方式。然而，每个现行的动画技术都存在一定的缺点，如CSS3动画必须通过JS去获取动态改变的值，setInterval的时间往往是不精确的而且还会卡顿，APNG动画会带来文件体积较大的困扰，引入额外的动画">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://cdn2.w3cplus.com/cdn/farfuture/dsOki-8akuAh6aMvaGGTKYgx4SEwmSgNR4-5UGP1Or0/mtime:1455634587/sites/default/files/blogs/2016/1602/demo1.gif">
+<meta property="og:image" content="http://cdn1.w3cplus.com/cdn/farfuture/fy-SWNAXsFt-byMQkld5kIXhNn7GEeJHw7K8gfgx4OA/mtime:1455634593/sites/default/files/blogs/2016/1602/preview.gif">
+<meta property="og:image" content="http://cdn.w3cplus.com/cdn/farfuture/10FuXl47mkYFhds2Ht4LSJLeFAC-zIm4heeNHngcYqA/mtime:1455634589/sites/default/files/blogs/2016/1602/demo22.gif">
+<meta property="og:image" content="http://cdn.w3cplus.com/cdn/farfuture/D6WJQ6cOuVFukfWGwdeSsao4-3Onuer65CHDkS7a3pA/mtime:1455634589/sites/default/files/blogs/2016/1602/demo2.gif">
+<meta property="og:image" content="http://sterne.qiniudn.com/image/b/e9/51b3ea5c99dfb7df407bec295ec6c.png">
+<meta property="og:updated_time" content="2016-02-26T03:48:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转载】Web Animation API从入门到上座">
+<meta name="twitter:description" content="远观：认识WAAPI 当我们谈及网页动画时，自然联想到的是CSS3动画、JS动画、SVG动画、APNG动画等技术以及jQuery.animate()等动画封装库，根据实际动画内容设计去选择不同的实现方式。然而，每个现行的动画技术都存在一定的缺点，如CSS3动画必须通过JS去获取动态改变的值，setInterval的时间往往是不精确的而且还会卡顿，APNG动画会带来文件体积较大的困扰，引入额外的动画">
+<meta name="twitter:image" content="http://cdn2.w3cplus.com/cdn/farfuture/dsOki-8akuAh6aMvaGGTKYgx4SEwmSgNR4-5UGP1Or0/mtime:1455634587/sites/default/files/blogs/2016/1602/demo1.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/">
+
+
+
+
+
+  <title> 【转载】Web Animation API从入门到上座 | STERNE - (。・`ω´・)喜欢英文吉他的程序猿 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE - (。・`ω´・)喜欢英文吉他的程序猿</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">SterneLee's blog</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【转载】Web Animation API从入门到上座
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-02-26T10:26:21+08:00">
+                2016-02-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="远观：认识WAAPI"><a href="#远观：认识WAAPI" class="headerlink" title="远观：认识WAAPI"></a>远观：认识WAAPI</h4><hr>
+<p>当我们谈及网页动画时，自然联想到的是CSS3动画、JS动画、SVG动画、APNG动画等技术以及jQuery.animate()等动画封装库，根据实际动画内容设计去选择不同的实现方式。然而，每个现行的动画技术都存在一定的缺点，如CSS3动画必须通过JS去获取动态改变的值，setInterval的时间往往是不精确的而且还会卡顿，APNG动画会带来文件体积较大的困扰，引入额外的动画封装库也并非对性能敏感的业务适用。目前情形对开发者而言，鱼和熊掌似乎不可兼得，既希望获得更强大便捷的动画控制能力，又希望性能和体验上足够流畅优雅，如果能有一种浏览器原生支持的通用的动画解决方案，那将是极好极好的呢。<br><a id="more"></a><br>W3C提出Web Animation API（简称WAAPI）正缘于此，它致力于集合CSS3动画的性能、JavaScript的灵活、动画库的丰富等各家所长，将尽可能多的动画控制由原生浏览器实现，并添加许多CSS不具备的变量、控制以及或调的选项。看起来一切都很棒，是不是以后我们在动画技术选型上可以一招鲜吃遍天了呢？接下来请跟我一起敲开Web Animation API的奇妙之门。</p>
+<h4 id="入门：从实例开始"><a href="#入门：从实例开始" class="headerlink" title="入门：从实例开始"></a>入门：从实例开始</h4><hr>
+<p>WAAPI核心在于提供了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Element.animate()</span><br></pre></td></tr></table></figure></p>
+<p>方法，下面看个最简单的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.body.animate(</span><br><span class="line">    [&#123;<span class="string">'background'</span>: <span class="string">'red'</span>&#125;, &#123;<span class="string">'background'</span>: <span class="string">'green'</span>&#125;, &#123;<span class="string">'background'</span>: <span class="string">'blue'</span>&#125;]</span><br><span class="line">    , <span class="number">3000</span>);</span><br></pre></td></tr></table></figure></p>
+<p>使用Chrome 39以上的浏览器运行一下，页面背景色进行了红绿蓝的依次过渡，3s后结束。我们当然是不会满足于这么简单的控制参数，继续看下个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dot = <span class="built_in">document</span>.querySelector(<span class="string">'.dot'</span>);</span><br><span class="line">  <span class="keyword">var</span> frames = [</span><br><span class="line">    &#123;<span class="attr">transform</span>: <span class="string">'rotate(0deg) translate(80px)'</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">transform</span>: <span class="string">'rotate(360deg) translate(80px) '</span>&#125;,</span><br><span class="line">  ];</span><br><span class="line">  <span class="keyword">var</span> timing = &#123;</span><br><span class="line">    duration: <span class="number">2500</span>,         <span class="comment">//ms</span></span><br><span class="line">    delay: <span class="number">0</span>,               <span class="comment">//ms</span></span><br><span class="line">    iterations: <span class="literal">Infinity</span>,   <span class="comment">//1, 2, 3 ... Infinity</span></span><br><span class="line">    direction: <span class="string">'alternate'</span>, <span class="comment">//'normal', 'reverse'等</span></span><br><span class="line">    easing: <span class="string">'ease-in-out'</span>,  <span class="comment">//'linear', 'ease-in'等</span></span><br><span class="line">    fill: <span class="string">'forwards'</span>,       <span class="comment">//'backwards', 'both', 'none', 'auto'</span></span><br><span class="line">  &#125;;</span><br><span class="line">  dot.animate(frames, timing);</span><br></pre></td></tr></table></figure></p>
+<p>可以看到DOM节点具备全新的<strong>animate</strong>方法，第一个参数是关键帧数组<strong>frames[]</strong>，对应CSS3中的<strong>@keyframes</strong>，每一帧的描述与CSS3极其类似；第二个参数是时间控制<strong>timing</strong>，包括有<strong>duration</strong>持续时间、<strong>iterations</strong>执行次数、<strong>direction</strong>动画方向、<strong>easing</strong>缓动函数等属性。是不是很像CSS3的语法，以上<strong>timing</strong>参数等同于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.dot &#123;</span><br><span class="line">  animation: frames 2500ms ease-in-out 0ms infinite alternate forwards;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>效果如下所示：<br><img src="http://cdn2.w3cplus.com/cdn/farfuture/dsOki-8akuAh6aMvaGGTKYgx4SEwmSgNR4-5UGP1Or0/mtime:1455634587/sites/default/files/blogs/2016/1602/demo1.gif" alt="效果图1"></p>
+<h4 id="进院：细数WAAPI众妙"><a href="#进院：细数WAAPI众妙" class="headerlink" title="进院：细数WAAPI众妙"></a>进院：细数WAAPI众妙</h4><hr>
+<h5 id="动画回调与动画状态"><a href="#动画回调与动画状态" class="headerlink" title="动画回调与动画状态"></a>动画回调与动画状态</h5><p>在最初的例子中，我们可以定义一个对象来接收<strong>Element.animate()</strong>的返回值，如：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> player = <span class="built_in">document</span>.body.animate(<span class="comment">/* ... */</span>);</span><br></pre></td></tr></table></figure></p>
+<p><strong>player</strong>即成为该动画返回的一个“动画播放器”对象，同时动画开始播放。我们需要了解动画当前的状态，可以通过该对象的只读属性<strong>playState</strong>来获得：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(player.playState); <span class="comment">//"running","paused","finished"...</span></span><br></pre></td></tr></table></figure></p>
+<p>播放器共有五种状态，除了代码中注释的三种基本状态，还包括”idle”表示恢复到初始状态，”pending”表示播放或者暂停即将发生时。</p>
+<p>播放器可以通过四种方法可以改变动画当前的状态。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">player.pause(); <span class="comment">//"paused"</span></span><br><span class="line">player.play();  <span class="comment">//"running"</span></span><br><span class="line">player.cancel(); <span class="comment">//"idle"</span></span><br><span class="line">player.finish(); <span class="comment">//"finished"</span></span><br></pre></td></tr></table></figure></p>
+<p>与CSS3动画类似，<strong>player</strong>可以为动画自然结束或者手动结束时指定一个<strong>onfinish</strong>函数。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">player.onfinish = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>请注意，设置播放次数<strong>Infinity</strong>的动画没有自然结束的时机去调用<strong>onfinish</strong>函数。</p>
+<h5 id="时间控制与时间轴"><a href="#时间控制与时间轴" class="headerlink" title="时间控制与时间轴"></a>时间控制与时间轴</h5><p>播放器<strong>player</strong>具有一个读写属性<strong>playbackRate</strong>，用于控制动画的播放速度。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> player = element.animate(<span class="comment">/* ... */</span>);</span><br><span class="line"><span class="built_in">console</span>.log(player.playbackRate); <span class="comment">//1</span></span><br><span class="line">player.playbackRate = <span class="number">2</span>;</span><br></pre></td></tr></table></figure></p>
+<p>playbackRate默认值为1，可以通过设置更大的整数使得动画加速，也可以通过设置大于零的小数来使得动画减缓播放速度。</p>
+<p><strong>player</strong>还具有两个与时间相关的读写属性<strong>currentTime</strong>和<strong>startTime</strong>。前者返回动画当前过去的毫秒数，它的最大值是<strong>timing</strong>参数设置的<strong>delay+(duration*iterations)</strong>，而设置<strong>Infinity</strong>的动画没有<strong>currentTime</strong>的最大值。</p>
+<p>当设置了<strong>playbackRate</strong>时，动画的<strong>currentTime</strong>并不会发生变化，真正变化的是时间轴，播放速度改变使得时间轴被相应拉伸或者压缩。</p>
+<p>播放器可以调用<strong>reverse()</strong>倒叙播放动画，由时间轴的终点走向起点，动画结束时<strong>currentTime</strong>的值回到0。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">player.onfinish = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    player.reverse();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="多个动画"><a href="#多个动画" class="headerlink" title="多个动画"></a>多个动画</h6><p>CSS3动画是可以同时指定多个keyframes动画到一个DOM节点上，WAAPI同样具备应用多个动画的能力。在一个元素上多次调用animate方法，即实现了一个元素多个动画：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> animated = <span class="built_in">document</span>.getElementById(<span class="string">'toAnimate'</span>);</span><br><span class="line"><span class="keyword">var</span> pulseKeyframes, activateKeyframes, haveFunKeyframes;</span><br><span class="line"><span class="keyword">var</span> pulse = animated.animate(pulseKeyframes, <span class="number">1000</span>); </span><br><span class="line"><span class="keyword">var</span> activate = animated.animate(activateKeyframes, <span class="number">3000</span>);</span><br><span class="line"><span class="keyword">var</span> haveFunWithIt = animated.animate(haveFunKeyframes, <span class="number">2500</span>);</span><br></pre></td></tr></table></figure></p>
+<p>每个子动画也拥有独立的<strong>timing</strong>参数，以及独立的动画状态（播放、停止、完成、取消）和独立的时间轴（启动时间、播放速度和结束时间），方便动画进行细节控制。</p>
+<h5 id="更高级的接口"><a href="#更高级的接口" class="headerlink" title="更高级的接口"></a>更高级的接口</h5><p>WAAPI还拥有<strong>timeline</strong>属性，对动画进行分组和排序的能力，以及沿自定义路径移动（再也不是SVG的天下了）的能力，光这一点就足够令人激动不已，然而篇幅有限于是下回再表。</p>
+<h4 id="登堂：官方案例"><a href="#登堂：官方案例" class="headerlink" title="登堂：官方案例"></a>登堂：官方案例</h4><hr>
+<p><a href="https://github.com/web-animations/web-animations-codelabs" target="_blank" rel="noopener">Codelabs</a> 越来越多基于WAAPI的Codelabs实例涌现，这些实例非常适合初接触WAAPI的同学作为开始的<a href="https://github.com/web-animations/web-animations-codelabs" target="_blank" rel="noopener">范例</a>。<br><img src="http://cdn1.w3cplus.com/cdn/farfuture/fy-SWNAXsFt-byMQkld5kIXhNn7GEeJHw7K8gfgx4OA/mtime:1455634593/sites/default/files/blogs/2016/1602/preview.gif" alt="图例2"><br><img src="http://cdn.w3cplus.com/cdn/farfuture/10FuXl47mkYFhds2Ht4LSJLeFAC-zIm4heeNHngcYqA/mtime:1455634589/sites/default/files/blogs/2016/1602/demo22.gif" alt="图例3"><br><a href="http://web-animations.github.io/web-animations-demos" target="_blank" rel="noopener">Google’s demos</a> 如果你希望用WAAPI挑战更炫酷的动画，特别是遵循Material Design风格的动画效果，这将是不错的灵感来源。<br><img src="http://cdn.w3cplus.com/cdn/farfuture/D6WJQ6cOuVFukfWGwdeSsao4-3Onuer65CHDkS7a3pA/mtime:1455634589/sites/default/files/blogs/2016/1602/demo2.gif" alt="图例4"></p>
+<h4 id="上座：移动端运行"><a href="#上座：移动端运行" class="headerlink" title="上座：移动端运行"></a>上座：移动端运行</h4><hr>
+<p>看到这里，相信你已经不只一次体验到WAAPI带来的惊喜。作为一名彻头彻尾的移动端H5开发，我当然也想把WAAPI应用到移动业务上去服务用户…什么？手机上怎么没效果！<br><img src="http://sterne.qiniudn.com/image/b/e9/51b3ea5c99dfb7df407bec295ec6c.png" alt="图例5"><br>为了在现代浏览器厂商还没完全跟进到位的时候抢先用上WAAPI，我们可以选择引入针对Web Animation API的<a href="https://github.com/web-animations/web-animations-js" target="_blank" rel="noopener">Polyfill</a>库，从而在IE/Firefox/Safari等浏览器上体验到WAAPI的精彩。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=&quot;https://cdn.jsdelivr.net/web-animations/latest/web-animations.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">  document.body.animate([</span><br><span class="line">    &#123;&apos;background&apos;: &apos;red&apos;&#125;,</span><br><span class="line">    &#123;&apos;background&apos;: &apos;green&apos;&#125;</span><br><span class="line">  ], 1000);</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<p>移动端浏览器，Android 5.0以上的Android Browser和Chrome for Android本身就已经支持WAAPI了，加上Polyfill之后，iOS的Safari也支持了。别忘了，还有我大手Q的X5内核浏览器。</p>
+<p>至此，小伙伴们终于露出欣慰的笑容。敬请期待下篇《Web Animation API 从上座到书墨》。</p>
+<h4 id="品茗：参考文献"><a href="#品茗：参考文献" class="headerlink" title="品茗：参考文献"></a>品茗：参考文献</h4><hr>
+<ul>
+<li><a href="https://w3c.github.io/web-animations/" target="_blank" rel="noopener">W3C Spec</a></li>
+<li><a href="http://danielcwilson.com/blog/2015/07/animations-intro" target="_blank" rel="noopener">《Let’s talk about the Web Animations API》</a></li>
+<li><a href="http://web-animations.github.io/web-animations-demos" target="_blank" rel="noopener">Google’s Demo</a></li>
+<li><a href="https://github.com/web-animations/web-animations-codelabs" target="_blank" rel="noopener">codelabs</a></li>
+<li><a href="https://github.com/web-animations/web-animations-js" target="_blank" rel="noopener">Polyfill</a></li>
+<li><a href="https://developers.google.com/web/updates/2015/10/web-animations-resources" target="_blank" rel="noopener">Resources</a></li>
+</ul>
+<blockquote>
+<p>本文转载自AlloyTeam：<a href="http://www.alloyteam.com/2015/12/web-animation-api-from-entry-to-the-top。" target="_blank" rel="noopener">http://www.alloyteam.com/2015/12/web-animation-api-from-entry-to-the-top。</a></p>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WebAPP/" rel="tag"># WebAPP</a>
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/jsvascript/" rel="tag"># jsvascript</a>
+          
+            <a href="/tags/webapi/" rel="tag"># webapi</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/22/pageSwitch-use/" rel="next" title="pageSwitch使用与修改">
+                <i class="fa fa-chevron-left"></i> pageSwitch使用与修改
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/04/requirejsding-yi-xin-mo-kuai-define/" rel="prev" title="RequireJS定义新模块blob">
+                RequireJS定义新模块blob <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee">
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">30</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#远观：认识WAAPI"><span class="nav-number">1.</span> <span class="nav-text">远观：认识WAAPI</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#入门：从实例开始"><span class="nav-number">2.</span> <span class="nav-text">入门：从实例开始</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进院：细数WAAPI众妙"><span class="nav-number">3.</span> <span class="nav-text">进院：细数WAAPI众妙</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#动画回调与动画状态"><span class="nav-number">3.1.</span> <span class="nav-text">动画回调与动画状态</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#时间控制与时间轴"><span class="nav-number">3.2.</span> <span class="nav-text">时间控制与时间轴</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#多个动画"><span class="nav-number">3.2.1.</span> <span class="nav-text">多个动画</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#更高级的接口"><span class="nav-number">3.3.</span> <span class="nav-text">更高级的接口</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#登堂：官方案例"><span class="nav-number">4.</span> <span class="nav-text">登堂：官方案例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#上座：移动端运行"><span class="nav-number">5.</span> <span class="nav-text">上座：移动端运行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#品茗：参考文献"><span class="nav-number">6.</span> <span class="nav-text">品茗：参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驱动
+</div>
+
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'sternelee';
+      var disqus_identifier = '2016/02/26/zhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo/';
+
+      var disqus_title = "【转载】Web Animation API从入门到上座";
+
+
+      function run_disqus_script(disqus_script) {
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+
+      
+        var disqus_config = function () {
+            this.page.url = disqus_url;
+            this.page.identifier = disqus_identifier;
+            this.page.title = disqus_title;
+        };
+        run_disqus_script('embed.js');
+      
+
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
+</body>
+</html>
