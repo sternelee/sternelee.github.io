@@ -1,400 +1,390 @@
-<!doctype html>
+<!DOCTYPE HTML>
+<html lang="zh-CN">
 
 
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="手机web——自适应网页设计（html/css控制）, STERNE">
+    <meta name="description" content="######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？
+其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。
 
-  
+&amp;lt;meta name=”viewport” content=”width=dev">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>手机web——自适应网页设计（html/css控制） | STERNE</title>
+    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
+    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/matery.css">
+    <link rel="stylesheet" type="text/css" href="/css/my.css">
+    <style type="text/css">
+        
+    </style>
 
-<html class="theme-next mist use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-
-
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
 
 
+<body>
 
+<header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <!-- <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                     -->
+                    <span class="logo-span">STERNE</span>
+                </a>
+            </div>
+            
 
-  
-  
-  
-  
-
-  
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
+<ul class="right">
     
+    <li class="hide-on-med-and-down">
+        <a href="/" class="waves-effect waves-light">
+            
+            <i class="fa fa-home"></i>
+            
+            <span>首页</span>
+        </a>
+    </li>
     
-  
-
-  
-
-  
-
-  
-
-  
-
-
-
-
-
-
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
-
-<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css">
-
-
-  <meta name="keywords" content="h5,WebAPP,web,">
-
-
-
-
-
-  <link rel="alternate" href="/atom.xml" title="STERNE - (。・`ω´・)喜欢英文吉他的程序猿" type="application/atom+xml">
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0">
-
-
-
-
-
-
-<meta name="description" content="######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？ 其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。  &amp;lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&amp;gt;  &amp;nbsp;&amp;nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页">
-<meta name="keywords" content="h5,WebAPP,web">
-<meta property="og:type" content="article">
-<meta property="og:title" content="手机web——自适应网页设计（html&#x2F;css控制）">
-<meta property="og:url" content="http://sternelee.github.io/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/index.html">
-<meta property="og:site_name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
-<meta property="og:description" content="######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？ 其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。  &amp;lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&amp;gt;  &amp;nbsp;&amp;nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2015-06-12T03:20:02.000Z">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="手机web——自适应网页设计（html&#x2F;css控制）">
-<meta name="twitter:description" content="######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？ 其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。  &amp;lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&amp;gt;  &amp;nbsp;&amp;nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页">
-
-
-
-<script type="text/javascript" id="hexo.configurations">
-  var NexT = window.NexT || {};
-  var CONFIG = {
-    root: '/',
-    scheme: 'Mist',
-    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
-    fancybox: true,
-    motion: true,
-    duoshuo: {
-      userId: 'undefined',
-      author: 'Author'
-    },
-    algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
-      hits: {"per_page":10},
-      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
-    }
-  };
-</script>
-
-
-
-  <link rel="canonical" href="http://sternelee.github.io/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/">
-
-
-
-
-
-  <title> 手机web——自适应网页设计（html/css控制） | STERNE - (。・`ω´・)喜欢英文吉他的程序猿 </title>
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-
-  
-
-
-
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
-
-
-
-
-
-
-
-
-
-
-  
-  
+    <li class="hide-on-med-and-down">
+        <a href="/tags" class="waves-effect waves-light">
+            
+            <i class="fa fa-tags"></i>
+            
+            <span>标签</span>
+        </a>
+    </li>
     
-  
-
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
-    <div class="headband"></div>
-
-    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
-  <div class="site-meta ">
+    <li class="hide-on-med-and-down">
+        <a href="/categories" class="waves-effect waves-light">
+            
+            <i class="fa fa-bookmark"></i>
+            
+            <span>分类</span>
+        </a>
+    </li>
     
+    <li class="hide-on-med-and-down">
+        <a href="/archives" class="waves-effect waves-light">
+            
+            <i class="fa fa-archive"></i>
+            
+            <span>归档</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/about" class="waves-effect waves-light">
+            
+            <i class="fa fa-user-circle-o"></i>
+            
+            <span>关于</span>
+        </a>
+    </li>
+    
+    <li class="hide-on-med-and-down">
+        <a href="/friends" class="waves-effect waves-light">
+            
+            <i class="fa fa-address-book"></i>
+            
+            <span>友情链接</span>
+        </a>
+    </li>
+    
+    <li>
+        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
+        </a>
+    </li>
+</ul>
 
-    <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
-        <span class="logo-line-before"><i></i></span>
-        <span class="site-title">STERNE - (。・`ω´・)喜欢英文吉他的程序猿</span>
-        <span class="logo-line-after"><i></i></span>
-      </a>
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">STERNE</div>
+        <div class="logo-desc">
+            
+            (。・`ω´・)喜欢英文吉他的程序猿
+            
+        </div>
     </div>
-      
-        <p class="site-subtitle">SterneLee's blog</p>
-      
-  </div>
 
-  <div class="site-nav-toggle">
-    <button>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-      <span class="btn-bar"></span>
-    </button>
-  </div>
+    
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li>
+            <a href="/" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-home"></i>
+                
+                首页
+            </a>
+        </li>
+        
+        <li>
+            <a href="/tags" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-tags"></i>
+                
+                标签
+            </a>
+        </li>
+        
+        <li>
+            <a href="/categories" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-bookmark"></i>
+                
+                分类
+            </a>
+        </li>
+        
+        <li>
+            <a href="/archives" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-archive"></i>
+                
+                归档
+            </a>
+        </li>
+        
+        <li>
+            <a href="/about" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-user-circle-o"></i>
+                
+                关于
+            </a>
+        </li>
+        
+        <li>
+            <a href="/friends" class="waves-effect waves-light">
+                
+                <i class="fa fa-fw fa-address-book"></i>
+                
+                友情链接
+            </a>
+        </li>
+        
+        
+    </ul>
 </div>
 
-<nav class="site-nav">
-  
-
-  
-    <ul id="menu" class="menu">
-      
-        
-        <li class="menu-item menu-item-home">
-          <a href="/" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
-            
-            首页
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/categories" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
-            
-            分类
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
-            
-            归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/about" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
-            
-            关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
-            
-            标签
-          </a>
-        </li>
-      
-
-      
-    </ul>
-  
-
-  
-</nav>
-
-
-
- </div>
-    </header>
-
-    <main id="main" class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          <div id="content" class="content">
-            
-
-  <div id="posts" class="posts-expand">
-    
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Sterne Lee">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="STERNE - (。・`ω´・)喜欢英文吉他的程序猿">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                手机web——自适应网页设计（html/css控制）
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-06-12T11:13:22+08:00">
-                2015-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
+
+        
+    </nav>
+
+</header>
+
+
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/7.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <div class="description center-align post-title">
+                        手机web——自适应网页设计（html/css控制）
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="post-container content">
+
     
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+<style>
+    #articleContent h1::before,
+    #articleContent h2::before,
+    #articleContent h3::before,
+    #articleContent h4::before,
+    #articleContent h5::before,
+    #articleContent h6::before {
+        display: block;
+        content: " ";
+        height: 100px;
+        margin-top: -100px;
+        visibility: hidden;
+    }
 
+    #articleContent :focus {
+        outline: none;
+    }
 
-    <div class="post-body" itemprop="articleBody">
+    .toc-fixed {
+        position: fixed;
+        top: 64px;
+    }
 
-      
-      
+    .toc-widget {
+        padding-left: 20px;
+    }
 
-      
-        <p>######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？</p>
+    .toc-widget .toc-title {
+        margin: 35px 0 15px 0;
+        padding-left: 17px;
+        font-size: 1.5rem;
+        font-weight: bold;
+        line-height: 1.5rem;
+    }
+
+    .toc-widget ol {
+        padding: 0;
+        list-style: none;
+    }
+
+    #toc-content ol {
+        padding-left: 10px;
+    }
+
+    #toc-content ol li {
+        padding-left: 10px;
+    }
+
+    #toc-content .toc-link:hover {
+        color: #42b983;
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    #toc-content .toc-link::before {
+        background-color: transparent;
+        max-height: 25px;
+    }
+
+    #toc-content .is-active-link {
+        color: #42b983;
+    }
+
+    #toc-content .is-active-link::before {
+        background-color: #42b983;
+    }
+
+    #floating-toc-btn {
+        position: fixed;
+        right: 20px;
+        bottom: 76px;
+        padding-top: 15px;
+        margin-bottom: 0;
+        z-index: 998;
+    }
+
+    #floating-toc-btn .btn-floating {
+        width: 48px;
+        height: 48px;
+    }
+
+    #floating-toc-btn .btn-floating i {
+        line-height: 48px;
+        font-size: 1.4rem;
+    }
+</style>
+<div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/h5/" target="_blank">
+                                <span class="chip bg-color">h5</span>
+                            </a>
+                        
+                            <a href="/tags/WebAPP/" target="_blank">
+                                <span class="chip bg-color">WebAPP</span>
+                            </a>
+                        
+                            <a href="/tags/web/" target="_blank">
+                                <span class="chip bg-color">web</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fa fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/笔记/" class="post-category" target="_blank">
+                                笔记
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                <div class="post-date info-break-policy">
+                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2015-06-12
+                </div>
+
+                
+				
+				
+                    <div id="busuanzi_container_page_pv" class="info-break-policy">
+                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
+                        <span id="busuanzi_value_page_pv"></span>
+                    </div>
+				
+            </div>
+        </div>
+        <hr class="clearfix">
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <p>######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？</p>
 <p>其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。</p>
 <blockquote>
 <p>&lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&gt;</p>
 </blockquote>
-<p>&nbsp;&nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。 对于viewport属性，我是真正在接触移动web开发是才遇到的，一把的ps布局都是固定的960px，1000px这种。<br><a id="more"></a><br>&nbsp;&nbsp;下面三篇文章是对viewport属性详细的解释： Viewport（视区概念）——pc端的理解 Viewport（视区概念）——移动端的应用 viewport ——视区概念（转） 对于老式IE6，7，8浏览器需要js处理，由于主要平台是ios和安卓，所有可以暂时不考虑</p>
+<p>&nbsp;&nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。 对于viewport属性，我是真正在接触移动web开发是才遇到的，一把的ps布局都是固定的960px，1000px这种。</p>
+<a id="more"></a>
+<p>&nbsp;&nbsp;下面三篇文章是对viewport属性详细的解释： Viewport（视区概念）——pc端的理解 Viewport（视区概念）——移动端的应用 viewport ——视区概念（转） 对于老式IE6，7，8浏览器需要js处理，由于主要平台是ios和安卓，所有可以暂时不考虑</p>
 <h6 id="二-不使用绝对宽度-由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。"><a href="#二-不使用绝对宽度-由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。" class="headerlink" title="二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。"></a>二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。</h6><p>这一条非常重要。 具体说，CSS代码不能指定像素宽度： width:xxx px; 只能指定百分比宽度： width: xx%; 或者：width:auto; 这里开发是指一个网页不仅能用在ps上，也能同时用于移动端，但是对于webapp这种还是需要单独做一个webapp使用的页面。</p>
 <p>对于这个知识点，对于我目前做的项目有用处，主要用于控制限定数据库里读出来的图片宽度。 详见：手机webapp的jquery mobile初次使用心得和解决图片自适应大小问题</p>
 <h6 id="三-相对大小的字体-字体也不能使用绝对大小（px），而只能使用相对大小（em）。"><a href="#三-相对大小的字体-字体也不能使用绝对大小（px），而只能使用相对大小（em）。" class="headerlink" title="三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。"></a>三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。</h6><p>body { font: normal 100% Helvetica, Arial, sans-serif; }<br>上面的代码指定，字体大小是页面默认大小的100%，即16像素。</p>
 <p>h1 { font-size: 1.5em; }<br>然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）。</p>
 <p>small { font-size: 0.875em; }<br>small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。</p>
 <h6 id="四-流动布局（fluid-grid）-“流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。"><a href="#四-流动布局（fluid-grid）-“流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。" class="headerlink" title="四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　"></a>四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　</h6><p>.main { float: right; width: 70%; } .leftBar { float: left; width: 25%; }<br>float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。 另外，绝对定位（position: absolute）的使用，也要非常小心。</p>
-<h6 id="五-“自适应网页设计”的核心，就是CSS3引入的Media-Query模块。-它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。"><a href="#五-“自适应网页设计”的核心，就是CSS3引入的Media-Query模块。-它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。" class="headerlink" title="五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。"></a>五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</h6><p><link rel="stylesheet" type="text/css" media="screen and (max-device-width: 400px)" href="tinyScreen.css"><br>上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。 　</p>
-<p><link rel="stylesheet" type="text/css" media="screen and (min-width: 400px) and (max-device-width: 600px)" href="smallScreen.css"><br>如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。 除了用html标签加载CSS文件，还可以在现有CSS文件中加载。</p>
+<h6 id="五-“自适应网页设计”的核心，就是CSS3引入的Media-Query模块。-它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。"><a href="#五-“自适应网页设计”的核心，就是CSS3引入的Media-Query模块。-它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。" class="headerlink" title="五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。"></a>五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</h6><link rel="stylesheet" type="text/css" media="screen and (max-device-width: 400px)" href="tinyScreen.css">  
+上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。 　
+
+<link rel="stylesheet" type="text/css" media="screen and (min-width: 400px) and (max-device-width: 600px)" href="smallScreen.css"> 
+如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。 除了用html标签加载CSS文件，还可以在现有CSS文件中加载。
+
 <p>@import url(“tinyScreen.css”) screen and (max-device-width: 400px);<br>六. CSS的@media规则 同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。</p>
 <p>@media screen and (max-device-width: 400px) { .column { float: none; width:auto; } #sidebar { display:none; } }<br>上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、宽度自动调节（width:auto），sidebar块不显示（display:none）。</p>
 <h6 id="七-图片的自适应（fluid-image）-除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。-这只要一行CSS代码："><a href="#七-图片的自适应（fluid-image）-除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。-这只要一行CSS代码：" class="headerlink" title="七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　"></a>七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　</h6><p>img { max-width: 100%;} 这行代码对于大多数嵌入网页的视频也有效，所以可以写成：</p>
@@ -404,455 +394,552 @@
 <p>此外，windows平台缩放图片时，可能出现图像失真现象。这时，可以尝试使用IE的专有命令： 　</p>
 <p>img { -ms-interpolation-mode: bicubic; } 或者，Ethan Marcotte的imgSizer.js。 addLoadEvent(function() { var imgs = document.getElementById(“content”).getElementsByTagName(“img”); imgSizer.collate(imgs); });<br>不过，有条件的话，最好还是根据不同大小的屏幕，加载不同分辨率的图片。有很多方法可以做到这一条，服务器端和客户端都可以实现。</p>
 
-      
-    </div>
+            </div>
+            <hr/>
 
-    <div>
-      
-        
+            
+            <style>
+    #reward {
+        margin: 40px 0;
+        text-align: center;
+    }
 
-      
-    </div>
+    #reward .reward-link {
+        font-size: 1.88rem;
+    }
 
-    <div>
-      
-        
+    #reward .btn-floating:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
 
-      
-    </div>
+    #rewardModal {
+        width: 320px;
+        height: 350px;
+    }
 
+    #rewardModal .reward-title {
+        margin: 15px auto;
+        padding-bottom: 5px;
+    }
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/h5/" rel="tag"># h5</a>
-          
-            <a href="/tags/WebAPP/" rel="tag"># WebAPP</a>
-          
-            <a href="/tags/web/" rel="tag"># web</a>
-          
+    #rewardModal .modal-content {
+        padding: 10px;
+    }
+
+    #rewardModal .close {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        color: rgba(0, 0, 0, 0.5);
+        font-size: 1.3rem;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    #rewardModal .close:hover {
+        color: #ef5350;
+        transform: scale(1.3);
+        -moz-transform:scale(1.3);
+        -webkit-transform:scale(1.3);
+        -o-transform:scale(1.3);
+    }
+
+    #rewardModal .reward-tabs {
+        margin: 0 auto;
+        width: 210px;
+    }
+
+    .reward-tabs .tabs {
+        height: 38px;
+        margin: 10px auto;
+        padding-left: 0;
+    }
+
+    .reward-content ul {
+        padding-left: 0 !important;
+    }
+
+    .reward-tabs .tabs .tab {
+        height: 38px;
+        line-height: 38px;
+    }
+
+    .reward-tabs .tab a {
+        color: #fff;
+        background-color: #ccc;
+    }
+
+    .reward-tabs .tab a:hover {
+        background-color: #ccc;
+        color: #fff;
+    }
+
+    .reward-tabs .wechat-tab .active {
+        color: #fff !important;
+        background-color: #22AB38 !important;
+    }
+
+    .reward-tabs .alipay-tab .active {
+        color: #fff !important;
+        background-color: #019FE8 !important;
+    }
+
+    .reward-tabs .reward-img {
+        width: 210px;
+        height: 210px;
+    }
+</style>
+
+<div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fa fa-close"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
         </div>
-      
+    </div>
+</div>
 
-      
-        
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/06/12/tong-guo-jsyu-ju-pan-duan-webwang-zhan-de-fang-wen-duan-shi-dian-nao-huan-shi-shou-ji/" rel="next" title="通过JS语句判断WEB网站的访问端是电脑还是手机">
-                <i class="fa fa-chevron-left"></i> 通过JS语句判断WEB网站的访问端是电脑还是手机
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/06/15/shang-xin-yue-mu-shou-ji-ying-yong-dong-hua-xiao-guo-shang-xi/" rel="prev" title="赏心悦目！手机应用动画效果赏析">
-                赏心悦目！手机应用动画效果赏析 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </article>
-
-
-
-    <div class="post-spread">
-      
-        
 <script>
-  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
-</script>
-
-      
-    </div>
-  </div>
-
-          
-          </div>
-          
-
-
-          
-  <div class="comments" id="comments">
-    
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
-    
-  </div>
-
-
-        </div>
-        
-          
-  
-  <div class="sidebar-toggle">
-    <div class="sidebar-toggle-line-wrap">
-      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
-      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
-    </div>
-  </div>
-
-  <aside id="sidebar" class="sidebar">
-    
-    
-    <div class="sidebar-inner">
-
-      
-
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            本站概览
-          </li>
-        </ul>
-      
-
-      <section class="site-overview sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image" src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460" alt="Sterne Lee">
-          <p class="site-author-name" itemprop="name">Sterne Lee</p>
-           
-              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
-          
-        </div>
-        <nav class="site-state motion-element">
-        
-          
-            <div class="site-state-item site-state-posts">
-              <a href="/archives">
-                <span class="site-state-item-count">61</span>
-                <span class="site-state-item-name">文章</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-categories">
-              <a href="/categories">
-                <span class="site-state-item-count">5</span>
-                <span class="site-state-item-name">分类</span>
-              </a>
-            </div>
-          
-
-          
-            <div class="site-state-item site-state-tags">
-              <a href="/tags">
-                <span class="site-state-item-count">31</span>
-                <span class="site-state-item-name">标签</span>
-              </a>
-            </div>
-          
-
-        </nav>
-
-        
-          <div class="feed-link motion-element">
-            <a href="/atom.xml" rel="alternate">
-              <i class="fa fa-rss"></i>
-              RSS
-            </a>
-          </div>
-        
-
-        <div class="links-of-author motion-element">
-          
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
-                  
-                    <i class="fa fa-fw fa-github"></i>
-                  
-                  GitHub
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
-                  
-                    <i class="fa fa-fw fa-weibo"></i>
-                  
-                  新浪微博
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  Ghost博客
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
-                  
-                    <i class="fa fa-fw fa-twitter"></i>
-                  
-                  Twitter
-                </a>
-              </span>
-            
-              <span class="links-of-author-item">
-                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
-                  
-                    <i class="fa fa-fw fa-facebook"></i>
-                  
-                  Facebook
-                </a>
-              </span>
-            
-          
-        </div>
-
-        
-        
-
-        
-        
-
-        
-
-
-      </section>
-
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-6"><a class="nav-link" href="#二-不使用绝对宽度-由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。"><span class="nav-number">1.</span> <span class="nav-text">二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#三-相对大小的字体-字体也不能使用绝对大小（px），而只能使用相对大小（em）。"><span class="nav-number">2.</span> <span class="nav-text">三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#四-流动布局（fluid-grid）-“流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。"><span class="nav-number">3.</span> <span class="nav-text">四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 　</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#五-“自适应网页设计”的核心，就是CSS3引入的Media-Query模块。-它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。"><span class="nav-number">4.</span> <span class="nav-text">五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#七-图片的自适应（fluid-image）-除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。-这只要一行CSS代码："><span class="nav-number">5.</span> <span class="nav-text">七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： 　</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
-      
-
-      
-
-    </div>
-  </aside>
-
-
-        
-      </div>
-    </main>
-
-    <footer id="footer" class="footer">
-      <div class="footer-inner">
-        <div class="copyright">
-  
-  &copy;  2015 - 
-  <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
-</div>
-
-
-<div class="powered-by">
-  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 強力驱动
-</div>
-
-<div class="theme-info">
-  主題 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
-
-
-        
-
-        
-      </div>
-    </footer>
-
-    
-      <div class="back-to-top">
-        <i class="fa fa-arrow-up"></i>
-        
-      </div>
-    
-    
-  </div>
-
-  
-
-<script type="text/javascript">
-  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
-    window.Promise = null;
-  }
-</script>
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-  
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
-
-  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
-
-
-
-  
-  
-
-  
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
-
-
-
-  
-
-
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
-
-
-
-  
-
-
-
-  
-
-    <script type="text/javascript">
-      var disqus_shortname = 'sternelee';
-      var disqus_identifier = '2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/';
-
-      var disqus_title = "手机web——自适应网页设计（html/css控制）";
-
-
-      function run_disqus_script(disqus_script) {
-        var dsq = document.createElement('script');
-        dsq.type = 'text/javascript';
-        dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-      }
-
-      run_disqus_script('count.js');
-
-      
-        var disqus_config = function () {
-            this.page.url = disqus_url;
-            this.page.identifier = disqus_identifier;
-            this.page.title = disqus_title;
-        };
-        run_disqus_script('embed.js');
-      
-
-    </script>
-  
-
-
-
-
-
-
-
-
-
-
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-
-  
-  <script src="/js/jump.js"></script>
-  <script>
-    $(document).ready(function(){
-      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    $(function () {
+        $('.tabs').tabs();
     });
-  </script>
-  <script src="/js/segment.min.js"></script>
-  <script src="/js/d3-ease.v0.6.js"></script>
-  <script src="/js/letters.js"></script>
-  <script>
-  //选择元素
-  var el = document.querySelector('.site-title');
-  //每个选项可以定义为单个也可以定义为数组
-  var options = {
-      size: 50,         // 字体大小，决定文字的高度，px
-      weight: 6,         // 粗体，px
-      rounded: false,    // 字母结尾圆角
-      color: ['#fc6423','#222'],  // 字体颜色
-      duration: 1,       // 每个字母的动画展示时长 (seconds)
-      delay: [0, 0.4],  // 每个字母间的动画延时
-      fade: 2,         // 渐显效果的时长(seconds)
-      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
-      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
-  };
-  var myText = new Letters(el, options);
-  myText.show();
-  </script>
+</script>
+            
+
+            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+
+<div id="article-share">
+    
+    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
+    
+</div>
+
+<script src="/libs/share/js/social-share.min.js"></script>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        <p class="reprint-tip">
+            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
+            <span>转载规则</span>
+        </p>
+        
+            <div class="center-align">
+                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                    <img alt=""
+                         style="border-width:0"
+                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+                </a>
+            </div>
+            <br/>
+            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
+                  property="dct:title" rel="dct:type">
+                    《手机web——自适应网页设计（html/css控制）》
+                </span> 由
+            <a xmlns:cc="http://creativecommons.org/ns#" href="/2015/06/12/shou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi/" property="cc:attributionName"
+               rel="cc:attributionURL">
+                Sterne Lee
+            </a> 采用
+            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
+                知识共享署名 4.0 国际许可协议
+            </a>进行许可。
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2015/06/15/shang-xin-yue-mu-shou-ji-ying-yong-dong-hua-xiao-guo-shang-xi/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="赏心悦目！手机应用动画效果赏析">
+                        
+                        <span class="card-title">赏心悦目！手机应用动画效果赏析</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            &nbsp;&nbsp;&nbsp;&nbsp;随着国际大品牌苹果和谷歌的引领，最近越来越多的国内公司开始关注动效设计了，越来越多的团队已经意识到动效在产品用户体验中的重要性了，更多的射鸡师们也开始投身动效设计领域。  
+
+&nbsp;&n
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="fa fa-clock-o fa-fw icon-date"></i>2015-06-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-user fa-fw"></i>
+                            Sterne Lee
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/ideas/" target="_blank">
+                        <span class="chip bg-color">ideas</span>
+                    </a>
+                    
+                    <a href="/tags/WebAPP/" target="_blank">
+                        <span class="chip bg-color">WebAPP</span>
+                    </a>
+                    
+                    <a href="/tags/web/" target="_blank">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2015/06/12/tong-guo-jsyu-ju-pan-duan-webwang-zhan-de-fang-wen-duan-shi-dian-nao-huan-shi-shou-ji/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="通过JS语句判断WEB网站的访问端是电脑还是手机">
+                        
+                        <span class="card-title">通过JS语句判断WEB网站的访问端是电脑还是手机</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            通过JS语句判断WEB网站的访问端是电脑还是手机
+
+//平台、设备和操作系统
+        var system = {
+            win: false,
+            mac: false,
+          
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="fa fa-clock-o fa-fw icon-date"></i>2015-06-12
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fa fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/笔记/" class="post-category" target="_blank">
+                                    笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/h5/" target="_blank">
+                        <span class="chip bg-color">h5</span>
+                    </a>
+                    
+                    <a href="/tags/WebAPP/" target="_blank">
+                        <span class="chip bg-color">WebAPP</span>
+                    </a>
+                    
+                    <a href="/tags/web/" target="_blank">
+                        <span class="chip bg-color">web</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+</div>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget">
+            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fa fa-list"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            // headingsOffset: -205,
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // modify the toc link href to support Chinese.
+        let i = 0;
+        let tocHeading = 'toc-heading-';
+        $('#toc-content a').each(function () {
+            $(this).attr('href', '#' + tocHeading + (++i));
+        });
+
+        // modify the heading title id to support Chinese.
+        i = 0;
+        $('#articleContent').children('h2, h3, h4').each(function () {
+            $(this).attr('id', tocHeading + (++i));
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).slideUp(500);
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).slideDown(500);
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+    
+
+</main>
+
+
+<footer class="page-footer bg-color">
+    <div class="container row center-align">
+        <div class="col s12 m8 l8 copy-right">
+            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
+            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
+            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
+
+            
+
+            
+			
+                <br>
+                
+                <a href="http://www.beian.miit.gov.cn/" style="margin-right: 20px;">粤ICP备18150713号-1</a>
+                <!-- <span id="busuanzi_container_site_pv">
+                    <i class="fa fa-heart-o"></i>
+                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
+                </span> -->
+                
+                
+                <!-- <span id="busuanzi_container_site_uv">
+                    <i class="fa fa-users"></i>
+                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
+                </span> -->
+                
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/sternelee" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fa fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:sternelee@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fa fa-envelope-open"></i>
+    </a>
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=392419505" class="tooltipped" data-tooltip="QQ联系我: 392419505" data-position="top" data-delay="50">
+        <i class="fa fa-qq"></i>
+    </a>
+
+
+<a href="http://weibo.com/leemetoo" class="tooltipped" data-tooltip="微博关注我" data-position="top" data-delay="50">
+    <i class="fa fa-weibo"></i>
+</a>
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fa fa-rss"></i>
+    </a>
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+<!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script src="/js/search.js"></script>
+<script type="text/javascript">
+$(function () {
+    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
+});
+</script>
+<!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fa fa-angle-up"></i>
+    </a>
+</div>
+
+
+<script src="/libs/materialize/materialize.min.js"></script>
+<script src="/libs/masonry/masonry.pkgd.min.js"></script>
+<script src="/libs/aos/aos.js"></script>
+<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+<script src="/js/matery.js"></script>
+<script src="/js/segment.min.js"></script>
+<script src="/js/d3-ease.v0.6.js"></script>
+<script src="/js/letters.js"></script>
+<script src="/js/jump.js"></script>
+<script>
+$(document).ready(function(){
+    $(".hide-on-med-and-down span, #artDetail .article-tag .chip").jrumble();
+});
+//选择元素
+var el = document.querySelector('.logo-span');
+//每个选项可以定义为单个也可以定义为数组
+var options = {
+    size: 70,         // 字体大小，决定文字的高度，px
+    weight: 6,         // 粗体，px
+    rounded: false,    // 字母结尾圆角
+    color: ['#fc6423','#fff'],  // 字体颜色
+    duration: 1,       // 每个字母的动画展示时长 (seconds)
+    delay: [0, 0.4],  // 每个字母间的动画延时
+    fade: 2,         // 渐显效果的时长(seconds)
+    easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+    individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+};
+var myText = new Letters(el, options);
+myText.show();
+</script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+
+    <script src="/libs/others/clicklove.js"></script>
+
+
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+
+
 </body>
 </html>

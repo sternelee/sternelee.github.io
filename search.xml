@@ -1,0 +1,757 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title><![CDATA[shadow-dom入门]]></title>
+    <url>%2F2019%2F05%2F30%2Fshadow-dom-ru-men%2F</url>
+    <content type="text"><![CDATA[认识 Shadow DOM什么是 Shadow DOMShadow DOM 是 Web Components 定义的四大标准之一(Custom elements, Shadow DOM, HTML templates 和 HTML Imports)。 Shadow DOM是一组JavaScript API，用于将封装的“影子”DOM树附加到元素（与主文档DOM分开呈现）并控制其关联的功能。通过这种方式，您可以保持元素的功能私有，这样它们就可以被脚本化和样式化，而不用担心与文档的其他部分发生冲突。这直接解决了HTML、CSS 和 JS 的全局性污染的问题。 Shadow DOM 结构表现第一步：打开 Chrome 的开发者工具，点击右上角的“Settings”按钮，勾选“Show user agent shadow DOM”。第二步：创建包含 video 元素的页面（audio, select, progress, input 等等 都行) #shadow-root称为影子根，可以看到它在video里面，换句话说，#shadow-root寄生在video上，所以video此时称为影子宿主。可以看到上图有两个#shadow-root，这是因为#shadow-root可以嵌套，形成节点树，即称为影子树（shadow trees）。影子树对其中的内容进行了封装，有选择性的进行渲染。这就意味着我们可以插入文本、重新安排内容、添加样式等等。 Shadow DOM vs DOM vs Light DOM tip: Light DOM 组件用户编写的标记，该 DOM 不在组件 shadow DOM 之内，它是元素实际的子项。如：&lt;button is=&quot;better-button&quot;&gt;&lt;img src=&quot;gear.svg&quot; slot=&quot;icon&quot;&gt;&lt;span&gt;Settings&lt;/span&gt;&lt;/button&gt; shadow DOM 有以下优点： 隔离 DOM：组件的 DOM 是独立的（例如，document.querySelector() 不会返回组件 Shadow DOM 中的节点）。 作用域 CSS：Shadow DOM 内部定义的 CSS 在其作用域内。样式规则不会泄漏，页面样式也不会渗入。 组合：为组件设计一个声明性、基于标记的 API。 简化 CSS： 作用域 DOM 意味着您可以使用简单的 CSS 选择器，更通用的 id/class 名称，而无需担心命名冲突。 效率：将应用看成是多个 DOM 块，而不是一个大的（全局性）页面。 使用 Shadow DOM... &lt;style type="text/css"> #app { --text-color: green; } &lt;/style> &lt;div id="app"> &lt;h1>我是根元素&lt;/h1> &lt;/div> &lt;script> const app = document.getElementById('app'); const shadowRoot = app.attachShadow({mode: 'open'}); shadowRoot.innerHTML = ` &lt;style> :host {color: blue;} h2 {color: var(--text-color, black);background: red;} &lt;/style> &lt;h2>Hello Shadow DOM&lt;/h2> `; const span = document.createElement('span'); span.textContent = "你好"; shadowRoot.appendChild(span); let css = document.createTextNode("h2{ font-size: 20px}"); const style = document.createElement('style') style.appendChild(css) shadowRoot.appendChild(style) setTimeout(_ => { span.textContent = "两秒后我改变了"; span.setAttribute('style', 'color: green;'); css = document.createTextNode("h2{ font-size: 30px}"); style.appendChild(css) }, 2000) &lt;/script> 在原生dom节点上创建shadowDOM,添加样式和内容，并进行更新。 注意点： 并不是所有的元素都可以挂载 Shadow DOM，其主要原因是： 浏览器已为该元素托管其自身的内部 shadow DOM（比如 textarea、input）。 让元素托管 shadow DOM 毫无意义 (比如 img)。 Shadow DOM，一旦创建就无法删除，它只能用新的替换 在调用 attachShadow 创建 ShadowRoot 之后，attachShdow 方法会返回 ShadowRoot 对象实例 mode 有 open 和 closed 选项，当为 closed 时无法获取shadowRoot属性 增加 Shadow DOM 后原父级子元素会无效 更新内容和样式都使用原生的JavaScript API template 和 slot前面说了,shadow dom可以实现dom的隔离，比如样式的封装，那么如何实现呢？shadow规定了一种名为template的标签，这种标签类似我们经常用的&lt;script type=&#39;tpl&#39;&gt;，它不会被解析为dom树的一部分，template的内容可以被塞入到shadow dom中并且反复利用，在template中可以设置style，但只对这个template中的元素有效，看下示例： &lt;style> span { background-color:blue;/*设置页面所有span背景为蓝色，然而对shadow dom没什么卵用*/ } &lt;/style> &lt;div id="con"> 没什么卵用的文字 &lt;/div> &lt;template id="tpl"> &lt;style> span { color:red; } &lt;/style> &lt;span>hello world&lt;/span> &lt;/template> var host = document.querySelector('#con'); var root = host.attachShadow({mode:'open'}); var con = document.getElementById("tpl").content.cloneNode(true); root.appendChild(con); 可以看到，template的内容被塞入到宿主，并且其文案被设置为红色，而body 中对 span 设置为蓝色背景却没有生效；另外这里要注意document.getElementById(“tpl”).content中的content属性，它是template标签的特有属性，你可以通过嗅探该属性来判断浏览器是否支持shadow dom和template标签。这是shadow dom的组件化复用的基本方式。 由于shadow dom的内容会掩盖宿主的内容，那么现在问题来了，我就是想把宿主的内容显示出来怎么办？ 这时就需要slot了，slot是一个插槽，一个坑位，可以在template中定义坑位，然后宿主中的内容可以标记属于哪一个坑位，这样一个萝卜一个坑，宿主的内容就会被正确地插入到template所标记的位置去，还是来看一个例子： &lt;div id="con"> 没什么卵用的文字 &lt;span slot="main1"> 坑位1 &lt;/span> &lt;span slot="main2"> 坑位2 &lt;/span> 没什么卵用的文字 &lt;/div> &lt;template id="tpl">tpl begin &lt;slot name="main1"> &lt;/slot> &lt;slot name="main2"> &lt;/slot> tpl end &lt;/template> var host = document.querySelector('#con'); var root = host.attachShadow({mode:'open'}); var con = document.getElementById("tpl").content.cloneNode(true); root.appendChild(con); 看看，这就是Vue的solt插槽的方式。宿主中的两个span分别插入到了其标记的slot坑位中。在slot出现之前，仍然可以实现类似的功能，只不过标签名叫content。 基于 Shadow DOM 的前端框架 omi —— 腾讯出品 基于 Shadow Dom 设计,Web Components + JSX + HTM 融合为一个框架 Omi Shadow DOM 与 Virtual DOM 融合，Omi 既使用了虚拟 DOM，也是使用真实 Shadow DOM，让视图更新更准确更迅速 局部 CSS 最佳解决方案(Shadow DOM)，社区为局部 CSS 折腾了不少框架和库(使用js或json写样式，如:Radium，jsxstyle，react-style；与webpack绑定使用生成独特的className文件名—类名—hash值，如：CSS Modules，Vue)，还有运行时注入scoped atrr 的方式，都是 hack 技术；Shadow DOM Style 是最完美的方案 … 参考 Shadow DOM v1：独立的网络组件 神奇的Shadow DOM]]></content>
+      <tags>
+        <tag>前端</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[pwa实践]]></title>
+    <url>%2F2019%2F05%2F15%2Fpwa-shi-jian%2F</url>
+    <content type="text"><![CDATA[Progressive Web App, 简称 PWA，是提升 Web App 的体验的一种新方法，能给用户原生应用的体验。详细说明 本方从开发工具，前端框架和打包流程来实践开发PWA的过程。 准备工作环境工具由于 pwa 站点的Service Worker要求https，以及一些推荐性工具，下面一一列出来: mkcert https证书 pwa-cli 现成的初始化开发环境 开发思路 pwa是类APP的页面，需要具备响应性，推荐使用 hotcss]]></content>
+      <tags>
+        <tag>react</tag>
+        <tag>vue</tag>
+        <tag>pwa</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[我的windows工作台]]></title>
+    <url>%2F2019%2F05%2F09%2Fwo-de-windows-gong-zuo-tai%2F</url>
+    <content type="text"><![CDATA[“巨硬”的windows10其实已经是个非常实用和开发友好的系统平台了，在这里我记录下平常使用到的一些应用软件和开发工具，在Surface Pro6的使用下完善工作和学习生活的需求。 终端篇终端工具 PowerShell 其实是很强大的，在支持插件策略之后可以到 powershellgallery 安装一些非常实用的插件如下，在powershll内打开配置文件 notepad $PROFILE posh-git oh-my-posh Get-ChildItemColor 推荐文章 PowerShell 的外观 和 PowerShell优化 WSL(Linux 的Windows 子系统), 推荐选择 Ubuntu 或 Debian 终端工具 ConEmu FluentTerminal 基于uwp开发 terminus 基于Hyper的终端(支持ssh) hyper 更漂亮的终端 终端命令 scoop 更好的包安装工具,推荐安装curl, openssh, ripgrep, fzf, ctags等，使用全局安装scoop install -g, 可选添加 -a 32bit(64bit)选择平台版本 z.lua 基于Lua的快速路径切换工具 桌面软件 VSCode 最硬的IDE，相应我的插件表单 SimpleRemote 轻量级、选项卡式、免费、开源的远程连接管理工具 uTools 极简、插件化、跨平台的启动工具，同类有 wox SwitchHosts! host切换管理工具 Snipaste 截图+贴图工具 快贴 全平台复制粘贴同步工具 Everything 文件搜索工具 QuickLook 文件预览工具 phpstudy php + nginx + apache + mysql 集成管理工具 坚果云 文件同步 PicGo 图库上传工具 Fiddler 网络抓包工具 123看图器 FileZilla Proxifier 系统代理配置工具 Virgo 虚拟桌面切换工具]]></content>
+      <tags>
+        <tag>记录</tag>
+        <tag>windows</tag>
+        <tag>开发</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[node-env]]></title>
+    <url>%2F2019%2F05%2F08%2Fnodejs-env%2F</url>
+    <content type="text"><![CDATA[前端nodejs开发平台安装nodejs开发环境// 安装`npm`淘宝源 npm install -g cnpm --registry=https://registry.npm.taobao.org 安装git工具前端模块 cnpm node-tinypng usage: tinypng *.png(or folder) json-server usage: 快速构建 REST API 本地服务 bower babel-cli usage: babel example.js -o compiled.js phantomjs typescript , ts-node 与 typings usage: tsc file.ts react-native React UI构建工具 react-storybook usage: npm i -g getstorybook pm2 node应用进程管理工具 spy-debugger gulp create-react-app create-react-native-app dawn 阿里前端构建和工程化工具 prepack usage: prepack script.js jsmonkey stylus usage: stylus -w style.styl -o style.css less usage: lessc styles.less &gt; styles.css serve usage: Yarn 推荐本地静态服务 serve-here usage: here [-p 8888][-S][here -d directory][-w 3] pushstate-server usage: pushstate-server [directory] [port] yarn usage: 设置国内镜像 yarn config set registry https://registry.npm.taobao.org pnpm npm-home apollo-client 面向UI框架的GraphQL客户端 nodemon usage: npm install -g nodemon webpack koa-generator usage: (koa教程)(http://17koa.com/koa-generator-examples/koa-generator/install.html) postcss-cli autoprefixer usage: postcss --use autoprefixer *.css -d build/ npm-check gatsby requirejs (r.js) browserify express fkill-cli parcel n nrm npm源快速切换 常用JS框架 DOM操作工具 Jquery Zepto Touchjs手势 Hammer.js手势 Video.js视频 Howler音频 页面适配 flexible.js Hotcss Modernizr 翻页轮播单页面 Swiper pageSwitch 页面切换库 fullPage.js 3D制作 Three.js css3d-engine js动画引擎 anime-js TweenMax Canvas动画等 Layabox 白鹭引擎 createjs pixi.js SVG表格，图示 Echarts.js百度 Chart.js图表绘制 D3 mojs运动]]></content>
+      <tags>
+        <tag>记录</tag>
+        <tag>nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[wsl-notes]]></title>
+    <url>%2F2019%2F05%2F08%2Fwsl-notes%2F</url>
+    <content type="text"><![CDATA[wsl 使用记录 wsl 终端代理 export http_proxy=http://localhost:8123, 教程为 polipo 代理 git 平台不同时的换行符问题，可在windows平台同时执行 git config --global core.autocrlf true, 而在其他平台 git config --global core.autocrlf input, 相关阅读 默认终端字体使用 DejaVu Sans Mono for Powerline 安装oh-my-zsh 和 推荐插件]]></content>
+      <tags>
+        <tag>记录</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[about-vue]]></title>
+    <url>%2F2019%2F04%2F24%2Fabout-vue%2F</url>
+    <content type="text"><![CDATA[记录在学习和使用Vue下遇到的一些问题 遇到的bugs v-html 内的文档结构不能使用自闭包的标签，如 &lt;i /&gt;, 必须是 &lt;i&gt;&lt;/i&gt; 这样的结构，不然会出现渲染bug导致标签不匹配 Nuxt中的配置样式会全局导入，每个页面都会得复加载 一些问题的优化 使用 slot 时要注意外层标签的标签，不能出现如 p 标签包裹 div 标签的情况 Vue2 SSR 的优化之旅 vue-meta 和 axios的拦截器 可能导致内存泄漏 服务端的 api 数据缓存 和 组件的缓存 SEO 的优化，可以对 单页面里的 a 标签添加 href 对应链接，注意使用 @click.prevent.stop]]></content>
+      <tags>
+        <tag>前端</tag>
+        <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[TypeScript快速上手]]></title>
+    <url>%2F2018%2F09%2F17%2Ftypescript-kuai-su-shang-shou%2F</url>
+    <content type="text"><![CDATA[TypeScript快速上手, 深入请看 深入理解 TypeScript 上手工具工欲善其事必先利其器 微软大杀器 VSCode Node环境 Node环境模块: TypeScript, Ts-lint 和 ts-node，快速安装 npm install -g typescript tslint ts-node VSCode 插件：TSLint, Code Runner, TypeScript Hero, TypeScript Toolbox 快速码字 tsc –inittslint –initparcel 快速开发create-react-app new-app –scripts-version=react-scripts-ts声明全局 global.d.ts 使用ts来开发lib，推荐 tsxd 使用技巧 借助 VSCode 可以适当改下 tslint 规则 window 的全局方法要合理判断，如 XMLHttpRequest 方法需要 if ((window as any).XMLHttpRequest), 因为IE下是 ActiveXObject]]></content>
+      <tags>
+        <tag>前端</tag>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[react 开发手册]]></title>
+    <url>%2F2017%2F09%2F17%2Freact-kai-fa-shou-ce%2F</url>
+    <content type="text"><![CDATA[总结 react 开发是需要用到的框架和功能模块，从模块安装、脚手架、网络请求模块，到状态管理、数据库，以及原生开发的组件与UI，都简单地做了记录，方便开发时查询。 语法篇 ES6 es6 api babel 阮一峰的博客 JSX CSS Module React小书 工具篇 yarn facebook 出品的模块安装工具，国内使用阿里源 yarn config set registry &#39;https://registry.npm.taobao.org&#39; create-react-app 官方初始化脚手架 create-next-app 面向服务端渲染的 next 框架脚手架 axios http 请求模块 fetch-jsonp jsonp 请求模块 状态篇 redux Redux 是 JavaScript 状态容器，提供可预测化的状态管理。 Action, Reducer, Store mobx mobx 提供简单、可扩展的状态管理 mobx-state-tree 快速创建状态管理模型 UI篇 PC桌面UI Antd 阿里蚂蚁金服的企业级 UI框架，面向 react 和 RN material-ui 谷歌UI react desktop Mobile手机UI nativebase react-native-ui-kitten 数据篇 sequelize 快速连接数据库 faker 生成模拟数据 GraphQL 面向APP 的描述型数据库 Apolo Relay 原生篇 react-native react 开发原生 app create-react-native-app 官方的快速创建RN模板 expo 使用 RN 的通用开发工具 proton-native 使用React开发桌面应用 IDE篇 VSCode 微软出品，插件全面 Deco IDE reactotron 路由篇 React Router 用于web和native的路由框架 react-navigation react native 专用的菜单导航 后端篇 next React 后端服务渲染框架 gatsby 用于建站的后端框架 react-server 官方 组件篇 loadable-components 预加载组件，用于组件分拆，按需要加载]]></content>
+      <tags>
+        <tag>javascript</tag>
+        <tag>react</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[arraybuffer处理pictures]]></title>
+    <url>%2F2017%2F05%2F02%2Farraybuffer-chu-li-pictures%2F</url>
+    <content type="text"><![CDATA[利用 arraybuffer 来处理图片，包含图片的路径名称与数据，并把多张图片合并一个 arraybuffer 并生成单张图片，以及图片的解析。 前提了解之前看到的一个H5叫四大导师拯救麦渣 特别吸引我，使用 canvas 配合 xml 来构建页面的效果真的非常棒，但代码太多一直都没能提取出来做个React框架。 然后我简单的总结下这个H5使用 arraybuffer 来提取图片信息的方法，做个笔记啦。具体代码请看 buffer-images。 ArrayBuffer对象、TypedArray对象、DataView对象是JavaScript操作二进制数据的一个接口，具体了解有阮一峰大神很好的教程。 合并图片信息利用 arraybuffer 来处理图片，包含图片的路径名称与数据，并把多张图片合并一个 arraybuffer 并生成单张图片。 图片路径名称为兼容中文，使用 4 位字节来存储为Uint32Array，而图片信息为Uint8Array,其中有 new ArrayBuffer(l*4+4+4+q) ，即 图片路径名称的长度lx4 + 前面数据长度记录为4 + 图片信息数据长度为4 + 图片数据 合并方式利用html服务器具体可看 pics2ab.html, 由于是用 XMLHttpRequest 来加载图片必须要有服务器环境。 以及页面生成的图片不能直接保存，我的方式是用火狐浏览器打开页面，并查看时可保存，更改文件后缀即可(jpg或png 都行)。 利用nodejs读取你需要的图片来合成 node index.js读取目录下的图片来合成 node main.js解析图片用上面的方式合成的图片信息，就可以用反向的方式来生成。请看案例代码 index.html]]></content>
+      <tags>
+        <tag>jsvascript</tag>
+        <tag>Node.js</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[使用 vagrant 作为前端开发环境]]></title>
+    <url>%2F2017%2F03%2F25%2Fshi-yong-vagrant-zuo-wei-qian-duan-kai-fa-huan-jing%2F</url>
+    <content type="text"><![CDATA[Vagrant是一个基于Ruby的工具，用于创建和部署虚拟化开发环境。它 使用Oracle的开源VirtualBox虚拟化系统，使用 Chef创建自动化虚拟环境。 比Docker好一点的地方就是配置方便，支持windowsXP、7等等 作为一条前端狗，经常会需要用过一些通用的前端工具，在多个办公平台中使用，以下就是本人的一些使用笔记 vargant 使用 ubuntu/trusty64 系统包vagrant init ubuntu/trusty64; vagrant up --provider virtualbox 安装nodejs开发环境使用git-bash进入vargant目录，安装npmapt-get install npm // 安装`n`版本安装模块 npm install -g n // 使用`n`安装`6.10.0`版`nodejs` n 6.10.0 // 安装`npm`淘宝源 npm install -g cnpm --registry=https://registry.npm.taobao.org 安装git工具apt-get install git-core vagrant常用命令$ vagrant init # 初始化 $ vagrant up # 启动虚拟机 $ vagrant halt # 关闭虚拟机 $ vagrant reload # 重启虚拟机 $ vagrant ssh # SSH 至虚拟机 $ vagrant status # 查看虚拟机运行状态 $ vagrant destroy # 销毁当前虚拟机 $ vagrant package # 打包 $ vagrant box add lee box/package.box // 添加 package.box 镜像并命名为 lee $ cd vagrant // 切换到项目目录 $ vagrant init lee // 用 lee 镜像初始化。 网络端口映射在 Vagrantfile 中更改 config.vm.network &quot;forwarded_port&quot;, guest: 8080, host: 8088 config.vm.network &quot;forwarded_port&quot;, guest: 3000, host: 8083同步目录vagrant默认/vagrant 为当前目录 服务器安装redisapt-get install redis-server进入 redis 命令行 redis-cli安装sqlite3apt-get install sqlite3安装mongoddbapt-get install mongodb前端模块安装sass 和 compassgem instll sass apt-get install ruby-compassnpm其他模块 cnpm node-tinypng usage: tinypng *.png(or folder) bower babel-cli usage: babel example.js -o compiled.js react-native React UI构建工具 react-storybook usage: npm i -g getstorybook pm2 gulp create-react-app jsmonkey less usage: lessc styles.less &gt; styles.css serve-here usage: here [-p 8888][-S][here -d directory][-w 3] pushstate-server usage: pushstate-server [directory] [port] yarn usage: 设置国内镜像 yarn config set registry https://registry.npm.taobao.org webpack postcss-cli autoprefixer usage: postcss --use autoprefixer *.css -d build/ gatsby requirejs (r.js) browserify express]]></content>
+      <tags>
+        <tag>jsvascript</tag>
+        <tag>Node.js</tag>
+        <tag>vagrant</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[react-native环境开发Ubuntu篇]]></title>
+    <url>%2F2017%2F03%2F25%2Freact-native-huan-jing-kai-fa-ubuntu-pian%2F</url>
+    <content type="text"><![CDATA[由于Facebook的开发工程师都是用MacOS的，所以这React native的开发环境还是MacOS最好，其次是Linux,由于windows坑太多，这次的尝试是利用Ubuntu开发React-Native初实践 ##Ubuntu环境安装 ###JDK 环境 ubuntu下安装jdk可使用默认的openJDK，只需要以下两行代码 sudo apt-get install default-jre sudo apt-get install default-jdk 亲测可以使用，毕竟Oracle的jdk太麻烦了哈哈 Android 开发工具环境利用Android Studio来安装使用更有效率，毕竟官方认证的啦。 官方下载Android Studio，解压后看安装说明，CD到bin目录，运行 ./studio.sh 安装时，选择Custom, 勾选 Android Virtual Device 在启动界面，选择 Configure, 下面的 Create Desktop Entry, 可以创建快捷启动 相关要下载的sdk可以去 React Native 查看详细说明 注意以下两点 添加 ANDROID_HOME 路径 与 SDK 路径到 系统变量中 vi ~/.bashrc # 添加到文本中 PATH="~/Android/Sdk/tools:~/Android/Sdk/platform-tools:${PATH}" export PATH export ANDROID_HOME=~/Android/Sdk 必须安装以下依赖, 且必须在安装Android Studio 前安装好 sudo apt-get install lib32stdc++6 sudo apt-get install lib32ncurses5 ia32-libs Node.js开发环境众所周知，React-Native是利用前端JavaScript的技术来开发原生APP应用，而nodejs是前端开发的基础环境，是JavaScript作为服务器语言的环境基础，当然也是目前最火的技术啦。 推荐安装git sudo apt-get install git 安装nodejs与npm curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash - sudo apt-get install nodejs 安装 react-native-cli sudo npm install -g react-native-cli # 如果出现权限问题可以加上命令 --unsafe-perm --verbose ，同时适用gulp, bower, webpack等库 sudo npm install -g react-native-cli --unsafe-perm --verbose 开发启动React Native 项目 启动Android模拟器，推荐Android 5.1以上 初始化目录, react-native init AwesomeProject, cd AwesomeProject, 3. react-native start, react-native run-android 等待下载编译器并开始编译 如看到模拟器打开了一上React Native应用，则表示你已经成功完成开发环境了。更多的开发使用请参考官网React Native .]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>WebAPP</tag>
+        <tag>jsvascript</tag>
+        <tag>ReactNative</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Create-React-App配合使用Antd组件]]></title>
+    <url>%2F2017%2F03%2F25%2Fcreate-react-app-pei-he-shi-yong-antd-zu-jian%2F</url>
+    <content type="text"><![CDATA[简介Create-React-APP 是 Facebook 官方的 react 页面生成工具，可以实现零配置就能使用 react来开发页面，使用起来非常方便。而 Antd 是阿里巴巴的一个 UI 设计语言，设计非常全面的大师级页面组件，当然比 Bootstrap 牛逼多了啊。 注：已过期，具体使用请看antd官网使用方法 在 create-react-app 中使用 使用下面就来利用 creact-react-app 快速生成 react 页面， 并配合使用 antd 作为 页面的组件来开发。 安装首先安装 create-react-app打开命令行输入 npm install create-react-app -g create-react-app 是属于全局的命令脚手架工具，需要 -g 来安装然后初始化 react 页面 create-react-app react-app cd react-app npm start 这样就可以运行 react-app 页面 了 在 react-app 项目目录，安装 antd npm install antd --save 这时我们试着在 src 目录下打开编辑 App.js , 比如添加 import { Row, Col, Button, Icon } from 'antd'; // ... &lt;div className="antd"> &lt;Row> &lt;Col span={12}> &lt;Button>默认按钮&lt;Button> &lt;/Col> &lt;Col span={8}> &lt;Icon type="check-circle" /> &lt;/Col> &lt;/Row> &lt;/div> 然后运行 npm start ，我们会发现，页面结构已经用 antd 来展示了，但没有样式。 配置 create-react-app在 antd 的使用介绍中，我们发现配合 webpack 与 babel 时需要利用插件babel-plugin-antd ,而在 react-app 项目中并没有发现 配置文件。 在 create-react-app 官方教程中，我们看到有个命令 eject，意思是弹出完整项目实现自主配置。运行 npm run eject 这时我们就可以发现生成一个文件配置的目录，打开 babel.dev.js并编辑将 plugins后面的代码改成下面 plugins: [ 'babel-plugin-syntax-trailing-function-commas', 'babel-plugin-transform-class-properties', 'babel-plugin-transform-object-rest-spread' ].map(require.resolve).concat([ [require.resolve('babel-plugin-transform-runtime'), { helpers: false, polyfill: false, regenerator: true }] ]).concat([ [require.resolve('babel-plugin-antd'), { style: "css", }] ]) 再次运行 npm start 我们就看到了 antd 组件的样式了。好了，之后就是专心制作页面吧。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>WebAPP</tag>
+        <tag>JS</tag>
+        <tag>jsvascript</tag>
+        <tag>React</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[My tasks]]></title>
+    <url>%2F2016%2F04%2F07%2Fsina-tasks%2F</url>
+    <content type="text"><![CDATA[迅雷工作经历从2017年后7月至今，基于前端开发的项目总结。 PC页面 大天使之剑H5游戏官网模板 大天使之剑H5游戏进入页 活动充值组件与专题 新版金钻充值官网 迅雷游戏盒子下载页 迅雷游戏盒子官网 手机端页面 夹娃娃游戏 竞猜大富翁 微信礼包商城 H5游戏手机版 新浪经历从2014年11月4号入新浪实习2017年6月，从页面制作的工作开始，,包括PC页面与移动端页面切图与制作、CSS动画与js交互、以及当中的H5 宣传页面，主要完成的任务总表，从新到旧开始(不断总结更新中) 新浪汽车 React 项目 2017宝沃 2017奔腾B30B50 2017奔腾G-glass 2017AMG非凡驾驭50年 2017宝马BX5 2017东风日产 2017梅赛德斯-AMG 重新定义自驾 2017初 开新车过新年 2017 寺庙自驾 第四期 海拉尔国境线之旅 第三期 漠河极光之旅 第二期 八闽财情 第一期 驾游徽州 新浪跑步项目 第三期 牛到里给，跑到中国 第二期 新浪疯跑-荧光夜跑PC Wap 最美工厂 最美工厂 H5宣传与移动页面 精品目的地 2015微博白皮书 2015油菜花任性指数 2016漠河极光之旅 新浪内部产品鲜城下载页面 2015新浪营销整合 2015移动营销驱动引擎 2015新浪智库 线上链接：新浪智库 2015自媒体帐号录入系统 2014 All In One营销聚合页 线上链接：All in one H5快搭平台 糖果盒产品集 线上链接：糖果盒 2014新浪营销驱动案例 线上链接：新浪营销驱动案例]]></content>
+      <tags>
+        <tag>工作</tag>
+        <tag>生活</tag>
+        <tag>作品</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[RequireJS定义新模块blob]]></title>
+    <url>%2F2016%2F03%2F04%2Frequirejsding-yi-xin-mo-kuai-define%2F</url>
+    <content type="text"><![CDATA[RequireJS是一个非常小巧的JavaScript模块载入框架，目标为实现浏览器端的模块化开发。 Require使用入门在RequireJS中下载最新版require.js文件，在index.html中加载 Require Blob 其中，data-main所指向的为函数代码入口，即是main.js require.config({ paths: { jquery:'jquery.min' } }); 详细配置请看官方文档 define模块定义在RequireJS中，require()是用来加载和使用模块，define()是用来定义新模块(注册为requirejs中模块)，define(“”,[], function(){})中第一个参数是定义模块的名字，第二个参数是依赖的名称数组，第三个参数是函数，在模块的所有依赖加载完毕后，该函数会被调用来定义该模块。依赖关系会以参数的形式注入到该函数上，参数列表与依赖名称列表一一对应。一个简单的例子: define('app',['jquery'],function($){ return { log: function(msg){ if(window.console &amp;&amp; console.log){ console.log(msg); }else{ alert(msg); } }, hello: function(){ this.log("hello, I'm powered by jquery"+$().jquery+"!"); } }; }); 然后在使用该模块: require(['app'],function(sub){ sub.hello(); }); 我们可以看到，新模块以及在定义是依赖了jQuery，在使用中已经实现了jQuery模块的依赖并实现了新模块的操作。 定义blob模块详细blob的介绍在此不再重复，以下直接上代码: define("blob",[],function(){ var t = function(e){ var that = e; window.URL = window.URL || window.webkitURL; if(typeof history.pushState == "function"){ var xhr = new XMLHttpRequest(); xhr.open("get",that.src,true); xhr.responseType="blob"; xhr.onload=function(){ if(this.status == 200){ var blob = this.response; that.src = window.URL.createObjectURL(blob); } } xhr.send(); }else{ console.log("不支持blob,请更新浏览器哈"); } }; return t }); require(["jquery","blob"],function($,blob){ $(document).ready(function(){ blob($("img")[0]); }); }); 此模块的功能是将页面图片的src链接转化成blob对象链接，define用返回一个函数对象来实现require中依赖的实例化。 注意：blob是属于XMLHttpRequest()返回的对象，因此需要在服务器中运行才能获取得对象链接。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>WebAPP</tag>
+        <tag>JS</tag>
+        <tag>jsvascript</tag>
+        <tag>webapi</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【转载】Web Animation API从入门到上座]]></title>
+    <url>%2F2016%2F02%2F26%2Fzhuan-zai-web-animation-apicong-ru-men-dao-shang-zuo%2F</url>
+    <content type="text"><![CDATA[远观：认识WAAPI 当我们谈及网页动画时，自然联想到的是CSS3动画、JS动画、SVG动画、APNG动画等技术以及jQuery.animate()等动画封装库，根据实际动画内容设计去选择不同的实现方式。然而，每个现行的动画技术都存在一定的缺点，如CSS3动画必须通过JS去获取动态改变的值，setInterval的时间往往是不精确的而且还会卡顿，APNG动画会带来文件体积较大的困扰，引入额外的动画封装库也并非对性能敏感的业务适用。目前情形对开发者而言，鱼和熊掌似乎不可兼得，既希望获得更强大便捷的动画控制能力，又希望性能和体验上足够流畅优雅，如果能有一种浏览器原生支持的通用的动画解决方案，那将是极好极好的呢。 W3C提出Web Animation API（简称WAAPI）正缘于此，它致力于集合CSS3动画的性能、JavaScript的灵活、动画库的丰富等各家所长，将尽可能多的动画控制由原生浏览器实现，并添加许多CSS不具备的变量、控制以及或调的选项。看起来一切都很棒，是不是以后我们在动画技术选型上可以一招鲜吃遍天了呢？接下来请跟我一起敲开Web Animation API的奇妙之门。 入门：从实例开始 WAAPI核心在于提供了 Element.animate() 方法，下面看个最简单的例子： document.body.animate( [{'background': 'red'}, {'background': 'green'}, {'background': 'blue'}] , 3000); 使用Chrome 39以上的浏览器运行一下，页面背景色进行了红绿蓝的依次过渡，3s后结束。我们当然是不会满足于这么简单的控制参数，继续看下个例子： var dot = document.querySelector('.dot'); var frames = [ {transform: 'rotate(0deg) translate(80px)'}, {transform: 'rotate(360deg) translate(80px) '}, ]; var timing = { duration: 2500, //ms delay: 0, //ms iterations: Infinity, //1, 2, 3 ... Infinity direction: 'alternate', //'normal', 'reverse'等 easing: 'ease-in-out', //'linear', 'ease-in'等 fill: 'forwards', //'backwards', 'both', 'none', 'auto' }; dot.animate(frames, timing); 可以看到DOM节点具备全新的animate方法，第一个参数是关键帧数组frames[]，对应CSS3中的@keyframes，每一帧的描述与CSS3极其类似；第二个参数是时间控制timing，包括有duration持续时间、iterations执行次数、direction动画方向、easing缓动函数等属性。是不是很像CSS3的语法，以上timing参数等同于： .dot { animation: frames 2500ms ease-in-out 0ms infinite alternate forwards; } 效果如下所示： 进院：细数WAAPI众妙 动画回调与动画状态在最初的例子中，我们可以定义一个对象来接收Element.animate()的返回值，如： var player = document.body.animate(/* ... */); player即成为该动画返回的一个“动画播放器”对象，同时动画开始播放。我们需要了解动画当前的状态，可以通过该对象的只读属性playState来获得： console.log(player.playState); //"running","paused","finished"... 播放器共有五种状态，除了代码中注释的三种基本状态，还包括”idle”表示恢复到初始状态，”pending”表示播放或者暂停即将发生时。 播放器可以通过四种方法可以改变动画当前的状态。 player.pause(); //"paused" player.play(); //"running" player.cancel(); //"idle" player.finish(); //"finished" 与CSS3动画类似，player可以为动画自然结束或者手动结束时指定一个onfinish函数。 player.onfinish = function(e) { // ... } 请注意，设置播放次数Infinity的动画没有自然结束的时机去调用onfinish函数。 时间控制与时间轴播放器player具有一个读写属性playbackRate，用于控制动画的播放速度。 var player = element.animate(/* ... */); console.log(player.playbackRate); //1 player.playbackRate = 2; playbackRate默认值为1，可以通过设置更大的整数使得动画加速，也可以通过设置大于零的小数来使得动画减缓播放速度。 player还具有两个与时间相关的读写属性currentTime和startTime。前者返回动画当前过去的毫秒数，它的最大值是timing参数设置的delay+(duration*iterations)，而设置Infinity的动画没有currentTime的最大值。 当设置了playbackRate时，动画的currentTime并不会发生变化，真正变化的是时间轴，播放速度改变使得时间轴被相应拉伸或者压缩。 播放器可以调用reverse()倒叙播放动画，由时间轴的终点走向起点，动画结束时currentTime的值回到0。 player.onfinish = function() { player.reverse(); } 多个动画CSS3动画是可以同时指定多个keyframes动画到一个DOM节点上，WAAPI同样具备应用多个动画的能力。在一个元素上多次调用animate方法，即实现了一个元素多个动画： var animated = document.getElementById('toAnimate'); var pulseKeyframes, activateKeyframes, haveFunKeyframes; var pulse = animated.animate(pulseKeyframes, 1000); var activate = animated.animate(activateKeyframes, 3000); var haveFunWithIt = animated.animate(haveFunKeyframes, 2500); 每个子动画也拥有独立的timing参数，以及独立的动画状态（播放、停止、完成、取消）和独立的时间轴（启动时间、播放速度和结束时间），方便动画进行细节控制。 更高级的接口WAAPI还拥有timeline属性，对动画进行分组和排序的能力，以及沿自定义路径移动（再也不是SVG的天下了）的能力，光这一点就足够令人激动不已，然而篇幅有限于是下回再表。 登堂：官方案例 Codelabs 越来越多基于WAAPI的Codelabs实例涌现，这些实例非常适合初接触WAAPI的同学作为开始的范例。Google’s demos 如果你希望用WAAPI挑战更炫酷的动画，特别是遵循Material Design风格的动画效果，这将是不错的灵感来源。 上座：移动端运行 看到这里，相信你已经不只一次体验到WAAPI带来的惊喜。作为一名彻头彻尾的移动端H5开发，我当然也想把WAAPI应用到移动业务上去服务用户…什么？手机上怎么没效果！为了在现代浏览器厂商还没完全跟进到位的时候抢先用上WAAPI，我们可以选择引入针对Web Animation API的Polyfill库，从而在IE/Firefox/Safari等浏览器上体验到WAAPI的精彩。 document.body.animate([ {'background': 'red'}, {'background': 'green'} ], 1000); 移动端浏览器，Android 5.0以上的Android Browser和Chrome for Android本身就已经支持WAAPI了，加上Polyfill之后，iOS的Safari也支持了。别忘了，还有我大手Q的X5内核浏览器。 至此，小伙伴们终于露出欣慰的笑容。敬请期待下篇《Web Animation API 从上座到书墨》。 品茗：参考文献 W3C Spec 《Let’s talk about the Web Animations API》 Google’s Demo codelabs Polyfill Resources 本文转载自AlloyTeam：http://www.alloyteam.com/2015/12/web-animation-api-from-entry-to-the-top。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>WebAPP</tag>
+        <tag>JS</tag>
+        <tag>jsvascript</tag>
+        <tag>webapi</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[pageSwitch使用与修改]]></title>
+    <url>%2F2016%2F02%2F22%2F2016-2-22-pageswitch-use%2F</url>
+    <content type="text"><![CDATA[pageSwitch 简介pageSwitch适用场景为全屏切换，即一切一屏，移动与web端单页切换，制作翻页H5等等，并且在此基础上实现了超过一百种切换效果。 GitHub地址：https://github.com/qiqiboy/pageSwitch pageSwitch修改由于原作者版本没有区别当前页面的标签， 因此在原基本上修改了firePlay函数，大约在840行左右。原firePlay函数 firePlay:function(){ var self=this; if(this.playing){ this.playTimer=setTimeout(function(){ self.slide((self.current+1)%(self.loop?Infinity:self.length)); },this.interval); } return this; } 在此基本上，为了让当前显示页面添加标识，为便当前操作，内容动画更改等提供接口，修改如下 firePlay:function(){ var self=this; each(self.pages,function(page){ var pcn=page.className.replace(/\s+current/g,""); page.className=pcn; }); self.pages[self.current].className +=' current'; if(this.playing){ this.playTimer=setTimeout(function(){ self.slide((self.current+1)%(self.loop?Infinity:self.length)); },this.interval); } return this; } 也就在给予当前显示页面加上class=current，这样更方便页面内元素与动画的操作与实现。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>H5</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[用Canvas来实时处理Video]]></title>
+    <url>%2F2016%2F01%2F27%2Fyong-canvaslai-chu-li-h5shi-pin%2F</url>
+    <content type="text"><![CDATA[结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。 canvas视频播放 利用sublime text 快速新建html文件，结构代码如下 &lt;!DOCTYPE html> &lt;html lang="en"> &lt;head> &lt;style> body{background:black;color:#CCCCCC;} div{float:left;border:1px solid #444444;padding:10px;margin:10px;background:#3B3B3B;} &lt;/style> &lt;/head> &lt;body onload="processor.doLoad()"> &lt;div style="display:none;"> &lt;video id="video" src="video.ogv" controls="true"/> &lt;/div> &lt;div> &lt;canvas id="c1" width="160" height="96"/> &lt;/div> &lt;/body> &lt;/html> 由于我们播放视频用canvas来展示，因此大可把video标签隐藏，直接display:none;然后在body的后面添加播放动作： var btn = document.getElementById('c1'); var video = document.getElementById('video'); btn.addEventListener('click',function(){ if(video.paused){ video.play(); } else{ video.pause(); } }); canvas中可以用drawImage()来绘制图片，同样我们也可以用来绘制视频画面，监听video的play事件并且用setTimeout()来不断绘制视频画面。细节代码如下： var processor = { timerCallback: function() { if (this.video.paused || this.video.ended) { return; } this.computeFrame(); var self = this; setTimeout(function () { self.timerCallback(); }, 0); }, doLoad: function() { this.video = document.getElementById("video"); this.c1 = document.getElementById("c1"); this.ctx1 = this.c1.getContext("2d"); var self = this; this.video.addEventListener("play", function() { self.width = self.video.videoWidth / 2; self.height = self.video.videoHeight / 2; self.timerCallback(); }, false); }, computeFrame: function() { this.ctx1.drawImage(this.video, 0, 0, this.width, this.height); return; } }; 初步播放视频的效果如下：点击查看效果 初始化chroma-keydoLoad()方法在XHTML文档初始加载时调用。这个方法的作用是为chroma-key处理代码准备所需的变量，设置一个事件侦听器，当用户开始播放视频时我们能检测到。 视频监听addEventListener()监听video元素，当用户按下视频上的播放按钮时被调用。为了应对用户回放，这段代码获取视频的宽度和高度，并且减半（我们将在执行chroma-keying效果时将视频的大小减半），然后调用timerCallback()方法来启动视频捕捉和视觉效果计算。 定时回调setTimeout()定时器回调函数在视频开始播放时被调用（当“播放”事件发生时），然后负责自身周期调用，为每一帧视频实现keying特效。 处理视频帧数据在canvas中，有两个图像数据处理函数getImageData()和putImageData()，获取与写入图像数据。因此，我们可以给canvas2添加一个背景，并将canvas1的图像数据处理后放入canvas2中，来实现图像叠加与色彩更换。 注意图像数据的处理：computeFrame()方法，如下所示，实际上负责抓取每一帧的数据和执行chroma-keying特效。 //ctx1 与ctx2分别为两个canvas在context var frame = this.ctx1.getImageData(0, 0, this.width, this.height); var l = frame.data.length / 4; for (var i = 0; i &lt; l; i++) { var r = frame.data[i * 4 + 0]; var g = frame.data[i * 4 + 1]; var b = frame.data[i * 4 + 2]; if (g > 100 &amp;&amp; r > 100 &amp;&amp; b &lt; 43) frame.data[i * 4 + 3] = 0; } this.ctx2.putImageData(frame, 0, 0); } 通过调用第一个canvas上下文的getImageData()方法，来获取原始图像数据当前视频帧的一个副本。它提供了原始的32位像素图像数据，这样我们就能够进行操作。通过将帧图像数据的总长度除以4，来计算图像的总像素数。循环扫描所有像素，获取每个像素的红、绿、蓝值，同时和预定义的背景色进行比较，这些背景色将用foo.png中导入的背景图像替换。 被检测成背景的每一个像素，将它的alpha值替换为零，表明该像素是完全透明的。结果，最终的图像背景部分是100%透明的，这样视频内容就叠加到静态背景上了。 利用这种方法，可以在纯色幕布中制作真人视频，然后更改背景！注意，要在服务器环境下使用！ 最终的效果如下：点击查看效果]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+        <tag>JS</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[reactjs学习体验]]></title>
+    <url>%2F2016%2F01%2F15%2F2016-1-15-react-start%2F</url>
+    <content type="text"><![CDATA[reactjs 是什么？reactjs是来自facebook公司的用于构建用户界面的JavaScript库。 GitHub地址：https://github.com/facebook/react reactjs的两个衍生项目也值得注意。 react-native:用reactjs写手机app GitHub地址：https://github.com/facebook/react-native react-canvas:用canvas代替臃肿缓慢的DOM作为UI，在移动端获得能与原生应用媲美的流畅效果 GitHub地址：https://github.com/Flipboard/react-canvas reactjs 真的将html/xml和js代码混杂在一起吗？reactjs的jsx语法，让许多人感觉仿佛回到了原始社会。这么多年努力地让html\css\javascript三者分离，好不容易走到今天，reactjs却走回老路，让人难以接受。我也几次三番因为jsx而放弃了解reactjs。 目前体验下来，发觉那是误解。 reactjs比其他前端模板引擎更彻底的分离html与javascript。前端模板引擎，绝大多数基于html字符串；而reactjs不是。能接受前端模板引擎的人，也能接受jsx。 jsx的实质是：用xml的语法写函数调用。它没有拼接html字符串，也不要求一定要使用jsx，手写函数调用，也是可以的。 在原生DOM中，用js构造dom的方式是这样的： //要构造的dom： &lt;a class="link" href="https://github.com/facebook/react">React&lt;a> var a = document.createElement('a') a.setAttribute('class', 'link') a.setAttribute('href', 'https://github.com/facebook/react') a.appendChild(document.createTextNode('React')) 如你所见，它颇为繁琐，我们可以封装一下： //第一个参数为node名 //第二个参数为一个对象，dom属性与事件都以键值对的形式书写 //第三个到第n个为子node，它们将按参数顺序出现， //在这个例子中只有一个子元素，而且也是文本元素，所以可以直接书写，否则还得React.createElement一下 var a = React.createElement('a', { className: 'link', href: 'https://github.com/facebook/react' }, 'React') 如上，从html语法到js构造dom，再到React.createElement的封装。 现在有个编译工具，可以让你用html语法来写React.createElement，部署上线前编译回来。你愿意吗？ 不管你的答案是什么，但这就是jsx的一半真相。 正是由于jsx不是html字符串，所以有如下特点： html的class与for属性在js里是保留字，所以jsx里要用别名className与htmlFor 不能像下面那样操作html的checked属性 //在其他前端模板引擎中，可以这么做，因为是拼接字符串 var checkbox = &lt;input type="checkbox" {this.props.selected ? 'checked' : ''} /> //但在jsx中，这是错误的，因为无法构成键值对，一定要有个key=value的格式，所以得这样 var checkbox = &lt;input className="class是js的保留字" type="checkbox" checked={this.props.selected} /> //编译后： var checkbox = React.createElement('input', { type: 'checkbox', className: 'class是js的保留字', checked: this.props.selected }) 不能直接写并列的元素//这样写是错误的 var MyComponent = React.createClass({ render: function() { return &lt;div>first div&lt;/div>&lt;div>second div&lt;/div> } }) //因为编译后，return 两个函数调用，就算不报错，也只调用第一个函数，不合意图 var MyComponent = React.createClass({ render: function() { return React.createElement('div', null, 'first div') React.createElement('div', null, 'second div') } }) //所以有时难免要增加dom层级var MyComponent = React.createClass({ render: function() { return ( first div second div ) }}) //编译后,合乎语法和编程意图了var MyComponent = React.createClass({ render: function() { return React.createElement(‘div’, null, React.createElement(‘div’, null, ‘first div’), React.createElement(‘div’, null, ‘second div’)) }}) * jsx要求标签一定要闭合，html5中不强制要求闭合的，在jsx也都要闭合，以便识别 * 封装的组件要用大写字母开头，以便跟html标签区分。 ```javascript //不合规则 &lt;tap /&gt; //合乎规则 &lt;Tap /&gt;reactjs与web componentweb component是下一代的前端标准，提供了shadow dom、templete元素、Imports与自定义元素的功能。其中自定义元素提供了生命周期回调函数: createdCallback: 创建时调用 attachedCallback: 添加到dom树时调用 detachedCallback: 从dom树衣橱时调用 attributeChangedCallback：属性改变时调用 在reactjs中也有相似但更丰富的生命周期方法： componentWillMount: 初始化渲染前调用 componentDidMount: 初始化渲染后调用 componentWillReceiveProps： 接受新props时调用 shouldComponentUpdate：接受新props或state时调用，返回值true/false决定是否更新视图 componentWillUpdate: 在接收到新的 props 或者 state 之前立刻调用。在初始化渲染的时候该方法不会被调用 componentDidUpdate：在组件的更新已经同步到 DOM 中之后立刻被调用 componentWillUnmount: 在组件从 DOM 中移除的时候立刻被调用 reactjs与web component的关系，在我个人看来：reactjs是纯js实现的一种component标准，它可以与DOM无关，甚至与Web无关。 在reactjs中注册组件像这样： //reactjs跟objective-c在方法命名上有些相似，使劲儿用全称，与传统js编程的缩写习惯相悖 var MyComponent = React.createClass({ //每个组件必须有render方法 render: function() { return &lt;div className={this.props.className}> //jsx遇大括号就当作js表达式来看待 //map返回的数组会自动展开 { this.props.textList.map(function(text) { return &lt;p>text&lt;/p> }) } &lt;/div> } }) //像这样使用 var TestComponent = React.createClass({ render: function() { return ( &lt;div> &lt;MyComponent className="组件内部的this.props.className来自它被调用时传递的参数，就是我啦" textList={['组件的this.props.textList', '就是我啦', '用花括号包裹', '以便让jsx将我作为数组直接量的表达式来看待']} /> &lt;/div> ) } }) //这里才是插入dom，用React.render方法 //第一个参数为React组件，第二个参数为DOM React.render( &lt;TestComponent />, document.body ) 总的来说，reactjs允许我们用React.createClass来拓展React.createElement的参数范畴。 默认情况下，它接受原生html标签，所以web Component普及后，reactjs也不会被淘汰，无非是多了一些html标签罢了 React.createClass方法，可以提供新的html标签给React.createElement，创造了封装复杂dom结构、组件化的空间 reactjs 的虚拟dom之前说了jsx的一半真相，另一半是，React.createElement并没有直接了当的用js构造dom，它构造了一种数据结构。 使用reactjs时，表面上我们在操作dom，其实是操作数据，reactjs通过自己的dom diff算法，对比前后的数据，找到diff差异点，按最小粒度更新视图。 正因如此，reactjs的UI层才是可替换的，构造另一套从数据到视图的映射逻辑，就能应用在canvas乃至手机原生UI上。 reactjs 的单向数据流reactjs组件内部的this.props对象，是组件实例的父级组件提供的，提供方式就像写html属性一样。 如此，父级复父级，数据可以从最顶层的组件实例，层层传递到最底层的组件中去，然而反过来却不行，这就是单向数据流的意思。 //最底层的todo var Todo = React.createClass({ render: function() { return ( //只有html属性和data-*以及aria-*才会显示在dom中，其余的key或其他，是扩展性质的，便于向下级组件传递数据 &lt;li title={this.props.time} key={this.props.id}> &lt;input type="checkbox" checked={this.props.completed} /> &lt;label>{this.props.title}&lt;/label> &lt;/li> ) } }) //todo的父级组件 var TodoList = React.createClass({ render: function() { return ({ &lt;ul>{ this.props.todos.map(function(todo) { //形如ES6的属性展开式语法，等价于用key=value的形式一个个书写 return &lt;Todo {...todo} /> }) }&lt;/ul> }) } }) //todoList的父级组件 var TodoApp = React.createClass({ render: function() { return ( &lt;TodoList todos={this.props.todos} /> ) } }) //模拟的todos数据 var data = [{ id: new Date().getTime(), time: new Date().toLocaleString(), title: '第一个待办事项', completed: false }, { id: new Date().getTime(), time: new Date().toLocaleString(), title: '第二个待办事项', completed: true }] //渲染TodoApp组件到#todo-app，数据从TodoApp传递到TodoList,从TodoList传递到Todo,在Todo中展开为一种DOM结构并注入数据，展示在前端页面中 React.render( &lt;TodoApp todos={data} />, document.getElementById('todo-app') ) 结语reactjs是有趣且富有生命力与表现力的javascript库，有其适用的场景，也有许多需要注意的事项与容易踩到的坑。 总体而言，学会它不会让人后悔（想想那些学angular1的同学吧）。 在此，可以去TodoMVC 下载react制作的mvc项目来参考学习React-TodoMVC]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+        <tag>ReactJS</tag>
+        <tag>react</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[搭建Hexo博客并部署到Github]]></title>
+    <url>%2F2015%2F12%2F16%2Fuse-hexo-add-gitpage%2F</url>
+    <content type="text"><![CDATA[搭建Hexo博客并部署到Github的小细节 git SSH-key在本地添加ssh-key的过程中，最好是直接回车使用默认的配置比如在passphrase时应直接回车，不然会生成SHA:256的key而还需要相关的转化 然后添加到github的ssh-key表单进行登记 hexo 配置在_config.yml文件里面的repo里，在windows下最好用https而不要用ssh链接hexo命令更新博客时要求按照下列步骤进行hexo clean hexo generate hexo deploy 详细操作可参考博客园文章]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>hexo</tag>
+        <tag>github</tag>
+        <tag>git</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[npm国内被墙的解决方法]]></title>
+    <url>%2F2015%2F12%2F16%2Fnpmguo-nei-bei-qiang-de-jie-jue-fang-fa%2F</url>
+    <content type="text"><![CDATA[上网四处搜索，发现有一个cnpm的方法似乎可以解决问题，但是发现cnpm上镜像好像并不齐全，而且也是各种卡住，所以这种方式也只能放弃 ，于是搜到了一篇npm使用代理的文章，顿时醒悟。首先，我们的npm包无所谓安全性，所以不要使用性能和效率更慢的https，转而使用http，相关命令如下：1、关闭npm的https npm config set strict-ssl false 2、设置npm的获取地址 npm config set registry "http://registry.npmjs.org/" 一般这样运气的好的话，速度就会快许多，可能会安装成功。如果你还脸黑，这样设置还是一直卡住无法下载依赖，那就只能使用proxy代理方式来解决了，命令如下：3、设置npm获取的代理服务器地址： npm config set proxy=http://代理服务器ip:代理服务器端口 希望本文能让一直无法正常下载npm而抓狂的同学有所帮助。 清除npm的代理命令如下： npm config delete http-proxy npm config delete https-proxy 最终发现cnpm其实是这么用的，我太傻了，还是cnpm靠谱 npm install -g cnpm --registry=http://r.cnpmjs.org npm install microtime --registry=http://r.cnpmjs.org --disturl=http://dist.cnpmjs.org]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>WebAPP</tag>
+        <tag>Nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hello World]]></title>
+    <url>%2F2015%2F12%2F08%2F2015-12-8-hello-world%2F</url>
+    <content type="text"><![CDATA[Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick StartCreate a new post$ hexo new "My New Post" More info: Writing Run server$ hexo server More info: Server Generate static files$ hexo generate More info: Generating Deploy to remote sites$ hexo deploy More info: Deployment]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[关于缓存问题：js清除缓存]]></title>
+    <url>%2F2015%2F11%2F23%2Fguan-yu-huan-cun-wen-ti-jsqing-chu-huan-cun%2F</url>
+    <content type="text"><![CDATA[css并行加载，js串行加载（会阻塞页面） 清除缓存的问题:1、一般手动清除，浏览器缓存 2、js代码清除缓存 js文件: 路径后面加一个随机数如下： &lt;script src="lib/gMarker.js?random=120211">&lt;/script> css文件 &lt;link rel='stylesheet' href='css/index.css?t=120224'> 加一个标识 强制浏览器重新加载此文件 图片文件： background:url(**.png?20150421) 加一个标识号，使图片不被缓存]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>web</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[利用canvas 导出图片]]></title>
+    <url>%2F2015%2F11%2F23%2Fli-yong-canvas-dao-chu-tu-pian%2F</url>
+    <content type="text"><![CDATA[######1、使用canvas绘制图片，并将图片导出。在本地直接访问静态网页时，无法使用toDataURL（），需要将网页发布后，canvas才能使用toDataURL获取画布上的内容。因为canvas不允许使用toDataURL来获取异域图片原因：将不同域下图片绘制到canvas上时，不能使用toDataURL来获取imgdata，因为 canvas 使用了没有权限的跨域图片在使用canvas.toDataURL()等数据导出函数的时候会报错！ img.crossOrigin = “Anonymous” ，它开启了本地的跨域允许。当然服务器存储那边也要开放相应的权限才行，如果是设置了防盗链的图片在服务端就没有相应的权限的话你本地端开启了权限也是没有用的。 function downloadImg(){ var a = document.createElement('a'); a.href = canvas.toDataURL('image/png'); //下载图片 a.download = '未命名.png'; console.log(a); a.click(); } function drawImg(ctx){ var img2 = new Image(); img2.setAttribute('crossOrigin','anonymous'); img2.src = 'img/1.png'; img2.onload = function (){ ctx.drawImage(this,0,0); } } 绘制跨域图片： 创建一张图片，设置其跨域属性crossOrigin,将这个临时图片绘制到canvas上 for(var i=0,len=dyns.length;i&lt;len;i++){ var dynDiv = dyns[i].getLayerContainer(); var dynimg = dynDiv.getElementsByTagName('img')[0]; //dynimg.setAttribute('crossOrigin', 'anonymous'); //ctx.drawImage(dynimg,0,0,canvas.width,canvas.height); // canvas.toDataURL(); //出错 直接绘制不同域下的图片，无法通过toDataURL获取图片信息 // 重新创建一张图片，设置其跨域属性crossOrigin,将这个临时图片绘制到canvas上，则可以使用toDataURL方法获取其图片内容数据，在生成图片 var img = new Image(); img.setAttribute('crossOrigin','anonymous'); img.src = dynimg.src; img.onload =function (){ ctx.drawImage(this,0,0,canvas.width,canvas.height); canvas.toDataURL(); //成功获取 }; }]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>JS</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[HTML5 Audio/Video 标签,属性,方法,事件汇总]]></title>
+    <url>%2F2015%2F11%2F11%2Fhtml5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong%2F</url>
+    <content type="text"><![CDATA[#####&lt;audio&gt; 标签属性： src：音乐的URLpreload：预加载autoplay：自动播放loop：循环播放controls：浏览器自带的控制条 &lt;audio id="media" src="http://www.abc.com/test.mp3" controls> &lt;source src="http://www.abc.com/test.mp3" type="audio/mp3">&lt;/source> &lt;source src="http://www.abc.com/test.ogg" type="audio/ogg">&lt;/source> &lt;/audio> #####&lt;video&gt;标签属性： src：视频的URLposter：视频封面，没有播放时显示的图片preload：预加载autoplay：自动播放loop：循环播放controls：浏览器自带的控制条width：视频宽度height：视频高度 &lt;video id="media" src="http://www.abc.com/test.mp4" controls width="400px" heigt="400px">&lt;/video> 获取HTMLVideoElement和HTMLAudioElement对象 //audio可以直接通过new创建对象 Media = new Audio("http://www.abc.com/test.mp3"); //audio和video都可以通过标签获取对象 Media = document.getElementById("media"); ######Media方法和属性： HTMLVideoElement 和 HTMLAudioElement 均继承自 HTMLMediaElement //错误状态 Media.error; //null:正常 Media.error.code; //1.用户终止 2.网络错误 3.解码错误 4.URL无效 //网络状态 Media.currentSrc; //返回当前资源的URL Media.src = value; //返回或设置当前资源的URL Media.canPlayType(type); //是否能播放某种格式的资源 Media.networkState; //0.此元素未初始化 1.正常但没有使用网络 2.正在下载数据 3.没有找到资源 Media.load(); //重新加载src指定的资源 Media.buffered; //返回已缓冲区域，TimeRanges Media.preload; //none:不预载 metadata:预载资源信息 auto: //准备状态 Media.readyState; //1:HAVE_NOTHING 2:HAVE_METADATA 3.HAVE_CURRENT_DATA 4.HAVE_FUTURE_DATA 5.HAVE_ENOUGH_DATA Media.seeking; //是否正在seeking //回放状态 Media.currentTime = value; //当前播放的位置，赋值可改变位置 Media.startTime; //一般为0，如果为流媒体或者不从0开始的资源，则不为0 Media.duration; //当前资源长度 流返回无限 Media.paused; //是否暂停 Media.defaultPlaybackRate = value; //默认的回放速度，可以设置 Media.playbackRate = value; //当前播放速度，设置后马上改变 Media.played; //返回已经播放的区域，TimeRanges，关于此对象见下文 Media.seekable; //返回可以seek的区域 TimeRanges Media.ended; //是否结束 Media.autoPlay; //是否自动播放 Media.loop; //是否循环播放 Media.play(); //播放 Media.pause(); //暂停 //控制 Media.controls; //是否有默认控制条 Media.volume = value; //音量 Media.muted = value; //静音 //TimeRanges(区域)对象 TimeRanges.length; //区域段数 TimeRanges.start(index) //第index段区域的开始位置 TimeRanges.end(index) //第index段区域的结束位置 事件： eventTester = function(e){ Media.addEventListener(e,function(){ console.log((new Date()).getTime(),e); }); } eventTester("loadstart"); //客户端开始请求数据 eventTester("progress"); //客户端正在请求数据 eventTester("suspend"); //延迟下载 eventTester("abort"); //客户端主动终止下载（不是因为错误引起）， eventTester("error"); //请求数据时遇到错误 eventTester("stalled"); //网速失速 eventTester("play"); //play()和autoplay开始播放时触发 eventTester("pause"); //pause()触发 eventTester("loadedmetadata"); //成功获取资源长度 eventTester("loadeddata"); //提示当前帧的数据是可用的 eventTester("waiting"); //等待数据，并非错误 eventTester("playing"); //开始回放 eventTester("canplay"); //可以播放，但中途可能因为加载而暂停 eventTester("canplaythrough"); //可以播放，歌曲全部加载完毕 eventTester("seeking"); //寻找中 eventTester("seeked"); //寻找完毕 eventTester("timeupdate"); //播放时间改变 eventTester("ended"); //播放结束 eventTester("ratechange"); //播放速率改变 eventTester("durationchange"); //资源长度改变 eventTester("volumechange"); //音量改变]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>JS</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[自适应设计与响应式网页设计]]></title>
+    <url>%2F2015%2F11%2F10%2Fzi-gua-ying-she-ji-yu-xiang-ying-shi-wang-ye-she-ji%2F</url>
+    <content type="text"><![CDATA[目前非常流行自适应设计与响应式设计，而且经常让人混淆，自适应设计不应与自适应布局混为一谈，它们是完全不一样的概念。######在这先说明下这两者的异同： 自从移动终端飞速发展以来，各种各样的机型突飞猛进，很多网站的解决方法，是为不同的设备提供不同的网页，比如专门提供一个mobile版本，或者iPhone/iPad版本。这样做固然保证了效果，但是比较麻烦，同时要维护好几个版本，而且如果一个网站有多个portal（入口），会大大增加架构设计的复杂度。 于是，很早就有人设想，能不能”一次设计，普遍适用”，让同一张网页自动适应不同大小的屏幕，根据屏幕宽度，自动调整布局（layout）？ 2010年，Ethan Marcotte提出了”自适应网页设计“（Responsive Web Design）这个名词，指可以自动识别屏幕宽度、并做出相应调整的网页设计。图片来源http://mashable.com/2012/12/11/responsive-web-design/ 如图所示就叫做自适应布局。自适应布局有它的使用价值，在于它能够提供一种更加实用的解决方案，使得项目的实现成本更低，并且更加易于测试。一个自适应布局可以被看作是响应式布局的一个更加廉价的替代品，会在项目资源紧缺的情况下更具有吸引力。######而在响应式布局中你却要考虑上百种不同的状态: 响应式网页设计是自适应网页设计的子集。响应式网页设计指的是页面的布局（流动网格、灵活的图像及媒介查询）。总体目标就是去解决设备多样化问题。 响应式布局等于流动网格布局，而自适应布局等于使用固定分割点来进行布局。 当固定宽度与流动宽度结合起来时，自适应布局就是一种响应式设计，而不仅仅是它的一种替代方法。​######那么如何进行响应式布局呢？下面就一步步为你揭开响应式布局的面纱： Skill 1 学会运用 Css3 Media Queries，根据不同的屏幕分辨率，选择应用不同的Css规则 Media Queries语法简介：max-width：若浏览区域的宽度小于400像素，则下方的CSS描述就会立即被套用： @media screen and (max-width:400px){ .class { background:#ccc; } } 也可以把要套用的描述独立成外部档案： &lt;link rel="stylesheet" media="screen and (max-width: 400px)" href="mini.css" /> Min Width：若浏览区域的宽度大于800像素，则下方的CSS描述就会立即被套用： @media screen and (min-width:800px){ .class { background:#666; } } Device Width：若浏览设备的可视范围最大为480px，则下方的CSS描述就会立即被套用：(注：移动手机目前常见最大宽度为480px，如iPhone or Android Phone) @media screen and (max-device-width:480px){ .class { background:#000; } } 针对iPhone4提供专用的css设定档： &lt;link rel= "stylesheet" media= "only screen and (-webkit-min-device-pixel-ratio: 2)" type= "text/css" href= "iphone4.css" /> 针对iPad的Portrait Mode(直立)与Landscape Mode(横躺)两种浏览模式给予不同的css设定档： &lt;link rel="stylesheet" media="all and (orientation:portrait)" href="portrait.css"> ``` * Skill 2 在网页头部加上viewport标签 ```html ``` 浏览器推出了“viewport meta”标签，许多移动浏览器现在都支持这个标签，W3C 协议定义 viewport meta 目前还属于草案，很多人都會在html head 处加上 viewport 这个meta data，一个典型的移动端viewport如上。 该属性可以控制视窗口宽度的大小。它可以被设置为实际的具体像素 width= 600或为特殊设备设置宽度值。 viewport设置属性如下： width：可设定数值，或者指定为 device-width height：可设定数值，或者指定為 device-height initial-scale：第一次进入页面的初始比例 minimum-scale：允许缩小最小比例 maximum-scale：允许放大最大比例 user-scalable：允许使用者缩放，1 or 0 (yes or no) 编译过程会转化成如下的语义： ```css @viewport { width: device-width; initial-scale: 1.0 } ``` * device-width ，主要是为了让整个页面宽度与手机可视宽度相同，这样就可以简单相容于不同机型屏幕大小，如果这边width沒有设定的话，就会依照html/css给予的width当作预设值。 * 因为解析度不同，device-width有时候不一定是view width，所以在类似iphone 4高解析度机器上，device-width=320 ，可是实际解析度为480，这时候就需要利用javascript针对UA下去做动态调整。 * user-scalable，这个属性可以让使用者能否放大、缩小页面，如果页面不允许手机使用者缩放，就直接设定0或者no，反之要启动缩放功能，就设置1或者是yes。 * 接下来将说明几种常用的方式，以及具体例子提供给大家參考。 如果在手机端我们希望网页呈现固定，不希望使用者随意缩放，直接设定如下 ```html ``` 如果希望在不同device使用不同缩放大小，就必须使用javascript，检测UA(User agent)，动态设定viewport，如下： ```javascript viewport = document.querySelector("meta[name=viewport]"); viewport.setAttribute('content', 'width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;'); ``` * Skill 3 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度（margin-left:5px）的布局，也不能使用具有绝对宽度(例如：width：200px)的元素,而最好使用百分比宽度width:20%;或者with:auto; Skill 4 字体最好不要用绝对大小(px)，而使用相对大小(em) ```css body { font: normal 100% Helvetica, Arial, sans-serif; } ``` 上面的代码指定，字体大小是页面默认大小的100%，即16像素。 ```css h1 { font-size: 1.5em; } ``` h1的大小是默认大小的1.5倍，即24像素（24/16=1.5） ```css .small { font-size: 0.875em; } ``` small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875） 这里顺便说说 px pt em rem区别： px是pixel，像素，是屏幕上显示数据的最基本的点，在HTML中，默认的单位就是px； pt是point，是印刷行业常用单位，等于1/72英寸。 em才是真正的“相对单位”（百分比嘛，当然是相对），而px和pt都是绝对单位（都有固定值）。所以，一般移动终端布局用em比较合适。 rem是css3的出现，同时引进新的单位,而rem是相对于根元素&lt;html&gt;，这样就意味着，我们只需要在根元素确定一个参考值，在根元素中设置多大的字体，这完全可以根据您自己的需要。 Skill 5 流动布局（fluid grid）流动布局的含义是各个位置都是浮动的，不是固定不变的 .main { float: right; width: 70%; } .leftBar { float: left; width: 25%; } float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。 Skill 6 图片的自动缩放，等比缩放 img{ max-width: 100%; } 要使图片按等比缩放，一般不需要规定图片高度。且最好不用background-image,因为这样不会按照等比缩放。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>web</tag>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[12 个 CSS 高级技巧汇总]]></title>
+    <url>%2F2015%2F10%2F30%2F12-ge-css-gao-ji-ji-qiao-hui-zong%2F</url>
+    <content type="text"><![CDATA[下面这些CSS高级技巧，一般人我可不告诉他哦。 使用 :not() 在菜单上应用/取消应用边框 给body添加行高 所有一切都垂直居中 逗号分隔的列表 使用负的 nth-child 选择项目 对图标使用SVG 优化显示文本 对纯CSS滑块使用 max-height 继承 box-sizing 表格单元格等宽 用Flexbox摆脱外边距的各种hack 使用属性选择器用于空链接 使用 :not() 在菜单上应用/取消应用边框 先给每一个菜单项添加边框 .nav li { border-right: 1px solid #666; } ……然后再除去最后一个元素…… // remove border / .nav li:last-child { border-right: none; } ……可以直接使用 :not() 伪类来应用元素： .nav li:not(:last-child) { border-right: 1px solid #666; } 这样代码就干净，易读，易于理解了。 当然，如果你的新元素有兄弟元素的话，也可以使用通用的兄弟选择符（~）： .nav li:first-child ~ li { border-left: 1px solid #666; } 给 body添加行高你不需要分别添加 line-height 到每个 ，&lt;h*&gt;等。只要添加到 body 即可： body { line-height: 1; } 这样文本元素就可以很容易地从 body 继承。所有一切都垂直居中要将所有元素垂直居中，太简单了： html, body { height: 100%; margin: 0; } body { -webkit-align-items: center; -ms-flex-align: center; align-items: center; display: -webkit-flex; display: flex; } 看，是不是很简单。 注：在IE11中要小心flexbox。 逗号分隔的列表让HTML列表项看上去像一个真正的，用逗号分隔的列表： ul > li:not(:last-child)::after { content: ","; } 对最后一个列表项使用 :not() 伪类。 使用负的 nth-child 选择项目在CSS中使用负的 nth-child 选择项目1到项目n。 li { display: none; } /* select items 1 through 3 and display them */ li:nth-child(-n+3) { display: block; } 就是这么容易。对图标使用SVG我们没有理由不对图标使用SVG： .logo { background: url("logo.svg"); } SVG对所有的分辨率类型都具有良好的扩展性，并支持所有浏览器都回归到IE9。这样可以避开.png、.jpg或.gif文件了。 优化显示文本有时，字体并不能在所有设备上都达到最佳的显示，所以可以让设备浏览器来帮助你： html { -moz-osx-font-smoothing: grayscale; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; } 注：请负责任地使用 optimizeLegibility。此外，IE /Edge没有 text-rendering 支持。 对纯CSS滑块使用 max-height使用 max-height 和溢出隐藏来实现只有CSS的滑块： .slider ul { max-height: 0; overlow: hidden; } .slider:hover ul { max-height: 1000px; transition: .3s ease; } 继承 box-sizing让 box-sizing 继承 html： html { box-sizing: border-box; } *,*:before,*:after { box-sizing: inherit; } 这样在插件或杠杆其他行为的其他组件中就能更容易地改变 box-sizing 了。 表格单元格等宽表格工作起来很麻烦，所以务必尽量使用 table-layout: fixed 来保持单元格的等宽： .calendar { table-layout: fixed; } 用Flexbox摆脱外边距的各种hack当需要用到列分隔符时，通过flexbox的 space-between 属性，你就可以摆脱nth-，first-，和 last-child 的hack了： .list { display: flex; justify-content: space-between; } .list .person { flex-basis: 23%; } 现在，列表分隔符就会在均匀间隔的位置出现。使用属性选择器用于空链接 当 &lt;a&gt; 元素没有文本值，但 href 属性有链接的时候显示链接： a[href^="http"]:empty::before { content: attr(href); } 相当方便。 支持这些高级技巧在Chrome、Firefox、Safari、Edge的当前版本，以及IE11中都能有效工作。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>CSS3</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[简单的H5翻页实现]]></title>
+    <url>%2F2015%2F10%2F20%2Fjian-dan-de-h5fan-ye-shi-xian%2F</url>
+    <content type="text"><![CDATA[随着着微信的广泛应用，H5应该得到了大量的使用传播，现在咱就来做一个简单的H5翻页动作。 首先，页面的结构如下：在content里面设置四个class=page的div然后在javascript中使用（主要写往下翻） $('.page').on('touchstart',function(ev){ var touch = ev.touches ? ev.touches[0] : ev; this.pageX = touch.pageX; this.pageY = touch.pageY;}).on('touchmove',function(ev){ ev.preventDefault(); var touch = ev.touches ? ev.touches[0] : ev; this.distX = touch.pageX - this.pageX; this.distY = touch.pageY - this.pageY; this.style.webkitTransform = 'translateY('+this.distY+'px)';}).on(''touchend touchcancel',function(ev){ ev.preventDefault(); if(this.distx < -30){ $('.content').style.webkitTransform = 'translateY('+ -100% +'px)';}});]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>web</tag>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[把HTML插入canvas实现网页截图]]></title>
+    <url>%2F2015%2F09%2F29%2Fba-htmlcha-ru-canvasshi-xian-wang-ye-jie-tu%2F</url>
+    <content type="text"><![CDATA[将DOM内容HTML绘制到画布中是有可能的，但如何有把握并且安全地实现它，就应该按照规范行事。你不能把HTML画到canvas上。相反，你需要使用一个SVG图像，其中包含你想要呈现的内容。可以使用＜foreignobject&gt;元素包含HTML内容，之后把这个svg绘制到你的canvas中。 唯一真正棘手的事情可能是创建SVG图像，所有你需要做的是创建一个包含XML字符串的SVG，然后按照下面的步骤构造一个Blob： blob对象的媒体类型mime为 “image/svg+xml”&lt;svg&gt; 元素. 在svg元素中包含 &lt;foreignobject&gt; 元素. （格式化好的）HTML，被包裹到&lt;foreignobject&gt;中. 如上所述通过使用一个object URL，我们可以内联HTML而不是从外部源加载它。当然，如果你喜欢，可以使用外部源，只要域与原始文件相同，比如： &lt;!DOCTYPE html> &lt;html> &lt;body> &lt;p>&lt;canvas id="canvas" style="border:2px solid black;" width="200" height="200">&lt;/canvas> &lt;script> var canvas = document.getElementById("canvas"); var ctx = canvas.getContext("2d"); var data = "&lt;svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'>" + "&lt;foreignObject width='100%' height='100%'>" + "&lt;div xmlns='http://www.w3.org/1999/xhtml' style='font-size:40px'>" + "&lt;em>I&lt;/em> like &lt;span style='color:white; text-shadow:0 0 2px blue;'>cheese&lt;/span>" + "&lt;/div>" + "&lt;/foreignObject>" + "&lt;/svg>"; var DOMURL = self.URL || self.webkitURL || self; var img = new Image(); var svg = new Blob([data], {type: "image/svg+xml;charset=utf-8"}); var url = DOMURL.createObjectURL(svg); img.onload = function() { ctx.drawImage(img, 0, 0); DOMURL.revokeObjectURL(url); }; img.src = url; &lt;/script> &lt;/body> &lt;/html> data变量设置了SVG图像的内容（这包括HTML），我们希望绘制到我们的canvas中。通过调用 new Image()我们建立一个新的html &lt; img&gt;元素，添加数据进去，指定一个object URL，之后在图片onload的时候调用 drawImage() 来把图片绘制到画布中。 您可能想知道这种方式是否安全，担心canvas会读取敏感数据。答案是这样的：这个解决方案的实现依赖的SVG图像是非常严格的。SVG图像不允许加载任何外部资源，即使似乎来自同一个域。资源如栅格图像（如JPEG图像）或&lt; iframe&gt;s 需要用 data: URIs来内联引入。 此外，你不能在一个SVG图像中引入脚本文件，所以没有从其他脚本访问DOM的风险，而且DOM元素在SVG图像中不能接收事件的输入，所以没有办法通过把隐私信息加载到一个表单控件（如一个文件的完整路径&lt; input&gt; 元素）然后渲染出来，之后通过读取像素把这些信息取出。 访问过的链接风格并不应用于SVG图像中呈现的链接，所以历史信息也不能被检索，本地的主题也不呈现在SVG图像中，这使得它很难确定用户的平台。 生成的canvas元素是纯净的，意味着你可以通过调用 toBlob(function(blob){…})来返回canvas的blob，或者toDataURL()来返回Base64-编码的data: URI。 SVG必须是合法的XML，你需要解析并把HTML转为规范的符合格式的。下面的代码可以很方便地解析HTML： var doc = document.implementation.createHTMLDocument(""); doc.write(html); // You must manually set the xmlns if you intend to immediately serialize the HTML // document to a string as opposed to appending it to a &lt;foreignObject> in the DOM doc.documentElement.setAttribute("xmlns", doc.documentElement.namespaceURI); // Get well-formed markup html = (new XMLSerializer).serializeToString(doc); 本文为Anyforweb技术分享博客，需要了解网站建设及更多Web应用相关信息，请访问anyforweb.com。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>javascript</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[requestAnimationFrame，Web中写动画的另一种选择]]></title>
+    <url>%2F2015%2F08%2F27%2Frequestanimationframewebzhong-xie-dong-hua-de-ling-chong-xuan-ze%2F</url>
+    <content type="text"><![CDATA[HTML5/CSS3时代，我们要在web里做动画选择其实已经很多了:你可以用CSS3的animattion+keyframes;你也可以用css3的transition;你还可以用通过在canvas上作图来实现动画，也可以借助jQuery动画相关的API方便地实现; 当然最原始的你还可以使用window.setTimout()或者window.setInterval()通过不断更新元素的状态位置等来实现动画，前提是画面的更新频率要达到每秒60次才能让肉眼看到流畅的动画效果。现在又多了一种实现动画的方案，那就是还在草案当中的window.requestAnimationFrame()方法。####初识requestAnimationFrame来看MDN上对其给出的诠释：The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint.The method takes as an argument a callback to be invoked before the repaint. window.requestAnimationFrame() 将告知浏览器你马上要开始动画效果了，后者需要在下次动画前调用相应方法来更新画面。这个方法就是传递给window.requestAnimationFrame()的回调函数。 也可这个方法原理其实也就跟setTimeout/setInterval差不多，通过递归调用同一方法来不断更新画面以达到动起来的效果，但它优于setTimeout/setInterval的地方在于它是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销。####基本语法可以直接调用，也可以通过window来调用，接收一个函数作为回调，返回一个ID值，通过把这个ID值传给window.cancelAnimationFrame()可以取消该次动画。 requestAnimationFrame(callback)//callback为回调函数 #####一个简单的例子模拟一个进度条动画，初始div宽度为1px,在step函数中将进度加1然后再更新到div宽度上，在进度达到100之前，一直重复这一过程。 &lt;div id="test" style="width:1px;height:17px;background:#0f0;">0%&lt;/div> &lt;input type="button" value="Run" id="run"/> window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame; var start = null; var ele = document.getElementById("test"); var progress = 0; function step(timestamp) { progress += 1; ele.style.width = progress + "%"; ele.innerHTML=progress + "%"; if (progress &lt; 100) { requestAnimationFrame(step); } } requestAnimationFrame(step); document.getElementById("run").addEventListener("click", function() { ele.style.width = "1px"; progress = 0; requestAnimationFrame(step); }, false); ####浏览器支持情况既然还是草案状态下引入的一个功能，在使用全我们就需要关心一下各浏览器对它的支持情况了。就目前来说，主流现代浏览器都对它提供了支持。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>web</tag>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[判断浏览器类型来选择网址]]></title>
+    <url>%2F2015%2F07%2F23%2Fpan-duan-liu-lan-qi-lei-xing-lai-xuan-ze-wang-zhi%2F</url>
+    <content type="text"><![CDATA[在HTML文档的头部head加入以下代码 if((/android|webos|ip(hone|ad|od)|opera (mini|mobi|tablet)|iemobile|windows.+(phone|touch)|mobile|fennec|kindle (Fire)|Silk|maemo|blackberry|playbook|bb10\; (touch|kbd)|Symbian(OS)|Ubuntu Touch/i.test(navigator.userAgent)) || window.navigator.userAgent.indexOf('baidumap_IPHO') != -1 || window.navigator.userAgent.indexOf('baidumap_ANDR') != -1){ location.replace('mobile/index.html'); } 其中的baidumap_*表示在百度地图中打开网址时的跳转。使用navigator.userAgent来判断浏览器类型。]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[赏心悦目！手机应用动画效果赏析]]></title>
+    <url>%2F2015%2F06%2F15%2Fshang-xin-yue-mu-shou-ji-ying-yong-dong-hua-xiao-guo-shang-xi%2F</url>
+    <content type="text"><![CDATA[&nbsp;&nbsp;&nbsp;&nbsp;随着国际大品牌苹果和谷歌的引领，最近越来越多的国内公司开始关注动效设计了，越来越多的团队已经意识到动效在产品用户体验中的重要性了，更多的射鸡师们也开始投身动效设计领域。 &nbsp;&nbsp;&nbsp;&nbsp;但是说到底，我们到底为什么需要动效设计？或者说我们到底需要什么样的动效？做动效设计也有段时间了，于是尝试用一些案例，从产品本身出发来说说我所思考的动效设计。（文中部分案例为设计师个人作品，部分为线上产品，都是我非常非常欣赏的作品。如不慎冒犯请戳我替换掉） 一、加强体验舒适度嗯，就是让用户更加爽更加爽的用你的产品。具体表现在： 1.表现层级关系为了展现层与层的关系，是抽屉，是打开，还是平级切换等等，让用户知道这个界面和上一个、下一个的关系。这已经是非常最常见的运用了。 2.与用户手势结合，更自然的动画表现当用户手势操作的时候，让界面的动态走向更符合手指的运动，从而让用户感觉到是自己控制了界面的动向，而不是机械化的跳转。City guide app 用手势可以向左向右扔卡片 3.愉快的提示功能在某些需要提醒的时候能吸引用户的注意，但是又不会生硬，符合预期的出现。Action button feedback 出错提示City Guides 启动时提示用户可以左右滑动卡片 4.额外增加界面的活力在用户预期之外增加的惊喜，可以是帅气的，可以是卖萌，可以有些物理属性，总之让用户感知到产品的生命力。readme.io 萌萌的输入框amazon Q弹的菜单tumblr 不喜欢我心都碎了呢~ 5.吸引用户持久的注意力也是属于增加用户的惊喜感，在某些数据量较大的界面中添加一些动效，让用户保持注意力。Bubbles 以动态的形式展现数据点#####二、减弱不可避免的不适感虽然我们的产品，我们的交互，我们的设计，我们的工程狮都在努力把产品打造的更加优秀，更加完美，但是总有一些无法避免的问题、或者有可能会出现的bug、外界条件的不给力等因素，造成我们的产品体验下降。这些时候适当的增加一些动效可以弥补在出现这些情况时的不适体验。比如下面这些： 1.让等待变得更愉快常出现在加载、刷新、发送等界面中，让等待变得可视化，甚至不再那么无聊。Download Progress 让下载不再枯燥App loader 有趣的loading动画gear-powered 拉了还想拉的下拉刷新 2.失败界面的动效比如刷新失败、页面错误、未联网提示这些。download 就算失败了还是感觉萌萌哒~######3.增加界面与界面衔接的延续感界面的跳转不可以避免，但是如果让本来分别独立的2个界面或者事件拥有了某种特定的联系，可以显得更加好玩，不再是生硬的跳转。iOS Animation Download 界面跳转时保留部分元素到下一个界面Filter Menu 保留需要的条目移走不再用的Elevate#####三、不易被察觉的动效特意把这一类单独说一下，由于不容易被发现，普通用户通常会忽略它们的存在，但很多时候这些小细节让交互变得更加有趣。######1.默默增加反馈感为用户的操作提供有趣的正反馈。Twitter 收藏的点击反馈######2.去除用户不再需要的元素随着用户的操作，有的内容已经是用户不再关注的。这时候可以将他们隐藏起来。CityHour Calendar Animated InteractionSteller &nbsp;&nbsp;&nbsp;&nbsp;上面的例子大部分都是比较特色鲜明的，但是大多数实际情况中的优秀动效设计都会涉及到好几点同时都满足。总的来说动效还是为用户体验而服务的，动效设计师尤其要注意交互逻辑，才能让你的作品看起来不但动效帅气逼人而且真正发挥了实际的作用。 最后要提醒的是，千万不要牺牲了用户宝贵的时间用来看你毫无目的的动效。]]></content>
+      <tags>
+        <tag>ideas</tag>
+        <tag>WebAPP</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[手机web——自适应网页设计（html/css控制）]]></title>
+    <url>%2F2015%2F06%2F12%2Fshou-ji-web-zi-gua-ying-wang-ye-she-ji-htmlcsskong-zhi%2F</url>
+    <content type="text"><![CDATA[######一. 允许网页宽度自动调整： “自适应网页设计”到底是怎么做到的？ 其实并不难。 首先，在网页代码的头部，加入一行viewport元标签。 &lt;meta name=”viewport” content=”width=device-width, initial-scale=1” /&gt; &nbsp;&nbsp;viewport是网页默认的宽度和高度，上面这行代码的意思是，网页宽度默认等于屏幕宽度（width=device-width），原始缩放比例（initial-scale=1）为1.0，即网页初始大小占屏幕面积的100%。 对于viewport属性，我是真正在接触移动web开发是才遇到的，一把的ps布局都是固定的960px，1000px这种。 &nbsp;&nbsp;下面三篇文章是对viewport属性详细的解释： Viewport（视区概念）——pc端的理解 Viewport（视区概念）——移动端的应用 viewport ——视区概念（转） 对于老式IE6，7，8浏览器需要js处理，由于主要平台是ios和安卓，所有可以暂时不考虑 二. 不使用绝对宽度 由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度的布局，也不能使用具有绝对宽度的元素。这一条非常重要。 具体说，CSS代码不能指定像素宽度： width:xxx px; 只能指定百分比宽度： width: xx%; 或者：width:auto; 这里开发是指一个网页不仅能用在ps上，也能同时用于移动端，但是对于webapp这种还是需要单独做一个webapp使用的页面。 对于这个知识点，对于我目前做的项目有用处，主要用于控制限定数据库里读出来的图片宽度。 详见：手机webapp的jquery mobile初次使用心得和解决图片自适应大小问题 三. 相对大小的字体 字体也不能使用绝对大小（px），而只能使用相对大小（em）。body { font: normal 100% Helvetica, Arial, sans-serif; }上面的代码指定，字体大小是页面默认大小的100%，即16像素。 h1 { font-size: 1.5em; }然后，h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）。 small { font-size: 0.875em; }small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）。 四. 流动布局（fluid grid） “流动布局”的含义是，各个区块的位置都是浮动的，不是固定不变的。 .main { float: right; width: 70%; } .leftBar { float: left; width: 25%; }float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。 另外，绝对定位（position: absolute）的使用，也要非常小心。 五. “自适应网页设计”的核心，就是CSS3引入的Media Query模块。 它的意思就是，自动探测屏幕宽度，然后加载相应的CSS文件。 上面的代码意思是，如果屏幕宽度小于400像素（max-device-width: 400px），就加载tinyScreen.css文件。 如果屏幕宽度在400像素到600像素之间，则加载smallScreen.css文件。 除了用html标签加载CSS文件，还可以在现有CSS文件中加载。 @import url(“tinyScreen.css”) screen and (max-device-width: 400px);六. CSS的@media规则 同一个CSS文件中，也可以根据不同的屏幕分辨率，选择应用不同的CSS规则。 @media screen and (max-device-width: 400px) { .column { float: none; width:auto; } #sidebar { display:none; } }上面的代码意思是，如果屏幕宽度小于400像素，则column块取消浮动（float:none）、宽度自动调节（width:auto），sidebar块不显示（display:none）。 七. 图片的自适应（fluid image） 除了布局和文本，”自适应网页设计”还必须实现图片的自动缩放。 这只要一行CSS代码： img { max-width: 100%;} 这行代码对于大多数嵌入网页的视频也有效，所以可以写成： img, object { max-width: 100%;} 老版本的IE不支持max-width， 所以只好写成： img { width: 100%; } 此外，windows平台缩放图片时，可能出现图像失真现象。这时，可以尝试使用IE的专有命令： img { -ms-interpolation-mode: bicubic; } 或者，Ethan Marcotte的imgSizer.js。 addLoadEvent(function() { var imgs = document.getElementById(“content”).getElementsByTagName(“img”); imgSizer.collate(imgs); });不过，有条件的话，最好还是根据不同大小的屏幕，加载不同分辨率的图片。有很多方法可以做到这一条，服务器端和客户端都可以实现。]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[通过JS语句判断WEB网站的访问端是电脑还是手机]]></title>
+    <url>%2F2015%2F06%2F12%2Ftong-guo-jsyu-ju-pan-duan-webwang-zhan-de-fang-wen-duan-shi-dian-nao-huan-shi-shou-ji%2F</url>
+    <content type="text"><![CDATA[通过JS语句判断WEB网站的访问端是电脑还是手机 //平台、设备和操作系统 var system = { win: false, mac: false, xll: false, ipad:false }; //检测平台 var p = navigator.platform; system.win = p.indexOf("Win") == 0; system.mac = p.indexOf("Mac") == 0; system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); system.ipad = (navigator.userAgent.match(/iPad/i) != null)?true:false; //跳转语句，如果是手机访问就自动跳转到wap.baidu.com页面 if (system.win || system.mac || system.xll||system.ipad) { } else { window.location.href = "http://www.jdpatro.com/3g/"; } 腾讯网的适配代码if(/AppleWebKit.*Mobile/i.test(navigator.userAgent) || (/MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent))){ if(window.location.href.indexOf("?mobile") -1, //IE内核 presto : u.indexOf('Presto') > -1, //opera内核 webKit : u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核 gecko : u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核 mobile : !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端 ios : !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端 android : u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器 iPhone : u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器 iPad: u.indexOf('iPad') > -1, //是否iPad webApp : u.indexOf('Safari') == -1,//是否web应该程序，没有头部与底部 google:u.indexOf('Chrome')>-1 }; }(), language : (navigator.browserLanguage || navigator.language).toLowerCase() } document.writeln("语言版本: "+browser.language); document.writeln(" 是否为移动终端: "+browser.versions.mobile); 如何判断访问网站的机器类型-如何判断ipad如何判断是否是 iPad 浏览器呢，关键是看它的 User Agent 中是否有 iPad。iPad 使用的是 Safari Mobile 浏览器，他的的 User Agent 是： Mozilla/5.0 (iPad; U; CPU OS 3_2 like Mac OS X; en-us) AppleWebKit/531.21.10 (KHTML, like Gecko) Version/4.0.4 Mobile/7B334b Safari/531.21.10 function is_iPad(){ [object Object] [object Object] [object Object]var ua = navigator.userAgent.toLowerCase(); [object Object] [object Object] [object Object]if(ua.match(/iPad/i)=="ipad") { [object Object] [object Object] [object Object] [object Object] [object Object] [object Object]return true; [object Object] [object Object] [object Object]} else { [object Object] [object Object] [object Object] [object Object] [object Object] [object Object]return false; [object Object] [object Object] [object Object]} } $is_iPad = (bool) strpos($_SERVER['HTTP_USER_AGENT'],'iPad'); RewriteCond %{HTTP_USER_AGENT} ^.*iPad.*$ RewriteRule ^(.*)$ http://ipad.fairyfish.net [R=301] JS 判断浏览器客户端类型(ipad,iphone,android)var bForcepc = fGetQuery("dv") == "pc"; function fBrowserRedirect(){ var sUserAgent = navigator.userAgent.toLowerCase(); var bIsIpad = sUserAgent.match(/ipad/i) == "ipad"; var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os"; var bIsMidp = sUserAgent.match(/midp/i) == "midp"; var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4"; var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb"; var bIsAndroid = sUserAgent.match(/android/i) == "android"; var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce"; var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile"; if(bIsIpad){ var sUrl = location.href; if(!bForcepc){ window.location.href = "http://ipad.mail.163.com/"; } } if(bIsIphoneOs || bIsAndroid){ var sUrl = location.href; if(!bForcepc){ window.location.href = "http://smart.mail.163.com/"; } } if(bIsMidp||bIsUc7||bIsUc||bIsCE||bIsWM){ var sUrl = location.href; if(!bForcepc){ window.location.href = "http://m.mail.163.com/"; } } } function fGetQuery(name){//获取参数值 var sUrl = window.location.search.substr(1); var r = sUrl.match(new RegExp("(^|&)" + name + "=([^&]*)(&|$)")); return (r == null ? null : (r[2])); } function fShowVerBlock(){ if(bForcepc){ document.getElementByIdx_x("dv_block").style.display = "block"; } else{ document.getElementByIdx_x("ad_block").style.display = "block"; } } fBrowserRedirect();]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+        <tag>web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JWT在前后端分离中的应用与实践]]></title>
+    <url>%2F2015%2F06%2F12%2Fjwtzai-qian-hou-duan-fen-chi-zhong-de-ying-yong-yu-shi-jian%2F</url>
+    <content type="text"><![CDATA[本文主要介绍JWT（JSON Web Token）授权机制在前后端分离中的应用与实践，包括以下三部分：1.JWT原理介绍2.JWT的安全性3.React.js+Flux架构下的实践（React-jwt example） 0 关于前后端分离前后端分离是一个很有趣的议题，它不仅仅是指前后端工程师之间的相互独立的合作分工方式，更是前后端之间开发模式与交互模式的模块化、解耦化。计算机世界的经验告诉我们，对于复杂的事物，模块化总是好的，无论是后端API开发中越来越成为规范的RESTful API风格，还是Web前端越来越多的模板、框架（参见MVC，MVP 和 MVVM 的图示），包括移动应用中前后端天然分离的特质，都证实了前后端分离的重要性与必要性（更生动的细节与实例说明可以参看赫门分享的主题淘宝前后端分离实践）。 实现前后端分离，对于后端开发人员来说是一件很幸福的事情，因为不需要再考虑怎样在HTML中套入数据，只关心数据逻辑的处理；而前端则需要承担接收数据之后界面呈现、用户交互、数据传递等所有任务。虽然这看起来加重了前端的工作量，但实际上有越来越多丰富多样的前端框架可供选择，这让前端开发变得越来越结构化、系统化，前端工程师也不再只是“套版的”。 在所有前端框架中，Facebook推出的React无疑是当下最热门（之一），然而React只负责界面渲染层面，相当于MVC中的V（View），因此只靠React无法完成一个完整的单页应用（Single Page App）。Facebook另外推出与之配套的Flux架构，主要为了避免Angular.js之类MVC的架构模式，规避数据双向绑定而采用单向绑定的数据传递方式。实际上React无论是学习还是使用都是非常简单的，而Flux则需要花更多时间去理解消化，本文第3部分我采用Flux架构的一种实现Reflux.js，做了一个基于JWT授权机制的登入、登出的例子，顺便介绍Flux架构的细节。 ######1 JWT 介绍及其原理JWT是我之前做Android应用的时候了解到的一种用户授权机制，虽然原生的移动手机应用与基于浏览器的Web应用之间存在很多差异，但很多情况下后端往往还是沿用已有的架构跟代码，所以用户授权往往还是采用Cookie+Session的方式，也就是需要原生应用中模拟浏览器对Cookie的操作。 Cookie+Session的存在主要是为了解决HTTP这一无状态协议下服务器如何识别用户的问题，其原理就是在用户登录通过验证后，服务端将数据加密后保存到客户端浏览器的Cookie中，同时服务器保留相对应的Session（文件或DB）。用户之后发起的请求都会携带Cookie信息，服务端需要根据Cookie寻回对应的Session，从而完成验证，确认这是之前登陆过的用户。其工作原理如下图所示： JWT是Auth0提出的通过对JSON进行加密签名来实现授权验证的方案，编码之后的JWT看起来是这样的一串字符： eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ 由.分为三段，通过解码可以得到： // 1. Headers // 包括类别（typ）、加密算法（alg）； { "alg": "HS256", "typ": "JWT" } // 2. Claims // 包括需要传递的用户信息； { "sub": "1234567890", "name": "John Doe", "admin": true } // 3. Signature // 根据alg算法与私有秘钥进行加密得到的签名字串； // 这一段是最重要的敏感信息，只能在服务端解密； HMACSHA256( base64UrlEncode(header) + "." + base64UrlEncode(payload), SECREATE_KEY ) 在使用过程中，服务端通过用户登录验证之后，将Header+Claim信息加密后得到第三段签名，然后将签名返回给客户端，在后续请求中，服务端只需要对用户请求中包含的JWT进行解码，即可验证是否可以授权用户获取相应信息，其原理如下图所示： 通过比较可以看出，使用JWT可以省去服务端读取Session的步骤，这样更符合RESTful的规范。但是对于客户端（或App端）来说，为了保存用户授权信息，仍然需要通过Cookie或类似的机制进行本地保存。因此JWT是用来取代服务端的Session而非客户端Cookie的方案，当然对于客户端本地存储，HTML5提供了Cookie之外更多的解决方案（localStorage/sessionStorage），究竟采用哪种存储方式，其实从Js操作上来看没有本质上的差异，不同的选择更多是出于安全性的考虑。 2 JWT 安全性用户授权这样敏感的信息，安全性当然是首先需要考虑的因素。这里主要讨论在使用JWT时如何防止XSS和XSRF两种攻击。 XSS是Web中最常见的一种漏洞（我们的**学报官网就存在这个漏洞这件事我就不说了=.=），其主要原因是对用户输入信息不加过滤，导致用户（被误导）恶意输入的Js代码在访问该网页时被执行，而Js可以读取当前网站域名下保存的Cookie信息。针对这种攻击，无论是Cookie还是localStorage中的信息都有可能被窃取，但防止XSS也相对简单一些，对用户输入的所有信息进行过滤即可。另外，现在越来越多的CDN服务，让我们可以节省服务器流量，但同时也有可能引入不安全的Js脚本，例如前段时间Github被Great Cannon轰击的案例，则需要提高对某度之类服务的警惕。 另外一种更加棘手的XSRF漏洞主要利用Cookie是按照域名存储，同时访问某域名时浏览器会自动携带该域名所保存的Cookie信息这一特征。如果执意要将JWT存储在Cookie中，服务端则需要额外验证请求来源，或者在提交表单中加入随机签名并在处理表单时进行验证。 我在后面的实例中采用将JWT保存在localStorage中的方案，请求时将JWT放入Request Header中的Authorization位。对JWT安全性问题想要了解更多可以参考下面几篇文章： 1.Where to Store Your JWTs - Cookies vs HTML5 Web Storage2.Use JWT the Right Way!3.10 Things You Should Know about Tokens4.Where to store JWT in browser? How to protect against CSRF? 3 React-jwt Example本节源码可见Github: react-jwt-example。 前面提到的React.js框架学习成本其实非常低，只要跟着官方教程走一遍，搞清楚props、states、virtual DOM几个概念，就可以开始用了。但是只有View层什么都做不了，Facebook推出配套的Flux架构，一开始看到下面这张架构图，当时我就懵逼了。 好在Flux只是一种理论架构，虽然官方也提供了实现方案，但是我更倾向于Reflux.js的实现方式，如下图所示： 其中View Components即视图层由React负责，Stores用于存储数据，Actions则用于监听所有动作，所有数据的传递都是单向绑定的，在分割不同模块时，可以清楚地看到数据的流动方向。 我尝试写了一个简单的登录、登出以及获取用户个人数据的例子，除了Reflux之外，还用到如下模块： 1.react-router: SPA路由；2.react-bootstrap: React化的，UI样式；3.reqwest: Ajax请求；4.jwt-decode: 客户端的JWT解码；另外服务端API采用Go gin框架，依赖于jwt-go。代码目录结构如下： tree -I 'node_modules|.git' . ├── README.md ├── gulpfile.js ├── index.html ├── package.json ├── scripts │ ├── actions │ │ └── actions.js │ ├── app.js │ ├── build │ │ └── dist.js │ ├── components │ │ └── HelloWorld.js │ ├── stores │ │ ├── loginStore.js │ │ └── userStore.js │ └── views │ ├── home.js │ ├── login.js │ └── profile.js └── server.go 完整的页面放在view中，可复用的组件放在components，用户的动作包括login、logout以及getBalance，因此需要创建相应的action来监听这些动作： // actions.js var actions = Reflux.createActions({ "login": {}, "updateProfile": {}, // login成功更新用户数据 "loginError": {}, // login失败错误信息 "logout": {}, "getBalance": {asyncResult: true} }); actions.login.listen(function(data){}); 用户点击view中的Submit Button时，将表单信息提交给login action： // views/login.js var Login = React.createClass({ ... login: function (e) { e.preventDefault(); actions.login({ name: this.refs.name.getValue(), pass: this.refs.pass.getValue(), }), ... }); // actions.js var req = require('reqwest'); actions.login.listen(function(data){ req({ url: HOST+"/user/token", method: "post", data: JSON.stringify(data), type: 'json', contentType: 'application/json', headers: {'X-Requested-With': 'XMLHttpRequest'}, success: function (resp) { if(resp.code == 200){ actions.updateProfile(resp.jwt) }else{ actions.updateProfile(resp.msg) } }, }) }); 根据API返回结果，将再次触发updateProfile或updateProfile action，而分别由userStore和loginStore接收： // stores/userStore.js var userStore = Reflux.createStore({ listenables: actions, // 声明userStore所监听的action updateProfile: function(jwt){ // 注册监听actions.updateProfile localStorage.setItem('jwt', jwt); this.user = jwt_decode(jwt); this.user.logd = true; this.trigger(this.user); }, }) // stores/loginStore.js var loginStore = Reflux.createStore({ listenables: actions, loginError: function(msg){ this.trigger(msg); }, }); store接收action数据后，通过this.trigger(msg)将处理过后的数据重新传递会view： var Login = React.createClass({ mixins : [ Router.Navigation, Reflux.listenTo(userStore, 'onLoginSucc'), Reflux.listenTo(loginStore, 'onLoginErr') ], onLoginSucc: function(){ // 登录成功，跳转回首页 this.transitionTo('home'); }, onLoginErr: function (msg) { // 登录失败，显示错误信息 this.setState({ errorMsg: msg, }); }, ... }); 至此，从用户点击登录到登录结果传回，整个流程数据在View-&gt;Action-&gt;Store-&gt;View中完成单向传递，这就是Flux架构的基本概念。 在完成登录后，API会将验证通过的JWT传回： // server.go token := jwt.New(jwt.SigningMethodHS256) // Headers token.Header["alg"] = "HS256" token.Header["typ"] = "JWT" // Claims token.Claims["name"] = validUser.Name token.Claims["mail"] = validUser.Mail token.Claims["exp"] = time.Now().Add(time.Hour * 72).Unix() tokenString, err := token.SignedString([]byte(mySigningKey)) if err != nil { c.JSON(200, gin.H{"code": 500, "msg": "Server error!"}) return } c.JSON(200, gin.H{"code": 200, "msg": "OK", "jwt": tokenString}) 当登录之后的用户在profile页面发起getBalance请求时，存储于本地的jwt将一起传递，我这里采用Header的方式传递，具体取决于API端的协议： // actions.js actions.getBalance.listen(function(){ var jwt = localStorage.getItem('jwt'); req({ url: HOST+"/user/balance", method: "post", type: "json", headers: { 'Authorization': "Bearer "+jwt, }, success: function (resp) { if (resp.code == 200) { actions.updateProfile(resp.jwt); }else{ actions.loginError(resp.msg); } } }) }) 而服务端面对任何需要验证权限的请求需要通过Token验证： //server.go token, err := jwt.ParseFromRequest(c.Request, func(token *jwt.Token) (interface{}, error) { b := ([]byte(mySigningKey)) return b, nil }) 【本文摘自】]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>ideas</tag>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+        <tag>JS</tag>
+        <tag>ReactJS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[See You Again]]></title>
+    <url>%2F2015%2F06%2F10%2Fsee-you-again%2F</url>
+    <content type="text"><![CDATA[《See You Again》是由美国著名说唱歌手Wiz Khalifa和新人Charlie Puth共同演唱的一首歌曲。这首歌收录于电影《速度与激情7》的原声带中，也是该电影的片尾曲兼主题曲。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Let Her Go - Passenger]]></title>
+    <url>%2F2015%2F06%2F10%2Flet-her-go-passenger%2F</url>
+    <content type="text"><![CDATA[《Let Her Go》是英国民谣创作歌手Passenger（Mike Rosenberg）首张个人专辑《All The Little Lights》的第二支单曲，发行于2012年7月]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Rude - Magic!]]></title>
+    <url>%2F2015%2F06%2F10%2Frude-magic%2F</url>
+    <content type="text"><![CDATA[《Rude》是加拿大雷鬼乐队MAGIC!发行的首支单曲，收录于专辑《Don´t Kill the Magic》中。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Every Breath You Take - The Police]]></title>
+    <url>%2F2015%2F06%2F10%2Fevery-breath-you-take-the-police%2F</url>
+    <content type="text"><![CDATA[1983年，The Police乐队发行了《Synchronicity 》专辑，主打歌《Every Breath You Take》成为了经典之作。主唱及作者Sting表示，这首歌的写作灵感源自于在牙买加度假期间，对美国里根政府发动的以“星球大战计划”为首的美苏太空军备竞赛的反感和憎恶。与此同时，斯汀本人的婚姻也遇到了麻烦，这两个因素促使他写了这首歌。[1]这首歌推出后风行全球，影响了世界各国流行音乐的创作方向，国内当时的玉女歌手杨林就有一首歌，明显的受到这首歌曲的「启发」。90年代的西洋乐坛，饶舌音乐逐渐成为主流，Puff Daddy 吹牛老爹也曾在一九九七年改编这首歌，成为另一首畅销单曲” I’ll be missing you “，证明好歌果然不会寂寞。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[What's Up - 4 Non Blondes]]></title>
+    <url>%2F2015%2F06%2F10%2Fwhats-up-4-non-blondes%2F</url>
+    <content type="text"><![CDATA[4 Non Blondes成立于1989年，美国的San Francisco市，当时Christa Hillhouse（贝司手）和Shaunna Hall（吉他手）同为室友，他们当时和Wanda Day（鼓手）想组一个临时性的乐队，但缺一个主唱，Christa在一个名为Nightbreak的俱乐部的舞台上发现了Linda Perry，他立刻被Linda那充满力量和梦幻般的嗓音迷住了，于是他邀请Linda担当他们乐队的主唱，Linda当时并未当回事，直到她亲眼看到了他们三位的现场演出后，才决定加入乐队，这支乐队的首场演出是在1989年10月17日Nightbreak俱乐部里一个每周固定节目“Female Trouble”里，这个节目推出的乐队都是以女性为核心的乐队，如：She Devils, Spokepoker, Stone Fox, Mermaid Tattoo, Lovedog……这些乐队都很不错，音乐也很猛烈。这个俱乐部也是整个SF市最好的，里面都是有着摇滚激情的人。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Sky Full Of Stars - Coldplay]]></title>
+    <url>%2F2015%2F06%2F10%2Fsky-full-of-stars-coldplay%2F</url>
+    <content type="text"><![CDATA[《A Sky Full of Stars》是英国摇滚乐队Coldplay于2014年5月2日发行的单曲。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Counting Stars - OneRepublic]]></title>
+    <url>%2F2015%2F06%2F10%2Fcounting-stars-onerepublic%2F</url>
+    <content type="text"><![CDATA[《Counting Stars》是美国流行摇滚乐队OneRepublic的单曲，该曲出自于他们的第三张录音专辑《Native》，也是该专辑下发放的第三首单曲，该单曲发行不久后便迅速进入美国、英国、澳大利亚等多个国家的单曲排行榜中，并在美国、澳大利亚、德国、爱尔兰和新西兰等国的单曲榜中达到了前5的排名，在英国单曲榜与加拿大单曲榜更是获得了冠军歌曲的成绩，在某些方面，《Counting Stars》甚至已经超过了OneRepublic在2007年发布的神曲《Apologize》。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Fix You - Coldplay]]></title>
+    <url>%2F2015%2F06%2F10%2Ffix-you-coldplay%2F</url>
+    <content type="text"><![CDATA[“Fix You”是英国另类摇滚乐队Coldplay创作的一首歌曲。由乐队四位成员为其第三张专辑“X&amp;Y”共同创作。整首歌的声带在一架环绕着缓慢鼓点与声乐的管风琴制作旁而成。这首歌于2005年9月5日作为“X&amp;Y”的第二首单曲发行，随即便取得英国单曲排行榜的第四位的好成绩，并且曾在美国“Billboard Hot Modern Rock Tracks”中排行第18位。随后的商业版单曲在英美市场发行。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Drive - Incubus吉他教学]]></title>
+    <url>%2F2015%2F06%2F10%2Fdrive-incubusji-ta-jiao-xue%2F</url>
+    <content type="text"><![CDATA[Incubus是一支成立相当早，但是直到进入新世纪之后才逐渐真正成名的另类金属乐队，他们不仅是商业上最受欢迎的另类金属乐队之一，同时也在评论界拥有良好的口碑。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Wind of Change - Scorpions]]></title>
+    <url>%2F2015%2F06%2F10%2Fwind-of-change-scorpions%2F</url>
+    <content type="text"><![CDATA[这首歌是八十年代末蝎子乐队演唱的，背景是苏联的解体和东西德的合并，导致了原先社会主义国家的青年对前途向往的同时，也存在着迷茫。自由的向往是大家的共同愿望，但是太多的现实问题要摆在所有人面前，难免让人有所惆怅。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Perfect - Simple Plan]]></title>
+    <url>%2F2015%2F06%2F10%2Fperfect-simple-plan%2F</url>
+    <content type="text"><![CDATA[简单计划（Simple Plan）是一支来自加拿大蒙特利尔的流行朋克乐团。乐队歌曲核心部分的突出特点是低沉圆润而抒情，2002年推出首张专辑一炮打响，仅仅一年，他们周游了五大洲，演出300多场，被众多媒体与乐迷誉为流行乐坛的新一代天王，被纽约时报喻为“朋克摇滚复兴”。2011年乐队积蓄三年能量推出的第四张兼具朋克与流行多重音乐元素的专辑《Get Your Hearts On》，让他们不但成为加拿大电台票选的年度风云人物，以及2012年法国NRJ电台音乐奖（被誉为法国“格莱美”）最佳年度组合，亦开启了与专辑同名的世界巡演之旅。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Bonfire Heart - James Blunt]]></title>
+    <url>%2F2015%2F06%2F10%2Fbonfire-heart-james-blunt%2F</url>
+    <content type="text"><![CDATA[上尉诗人James Blunt 最新超赞单曲 Bonfire Heart，mv中的James Blunt帅气十足，标志性的嗓音道出了许多人的心声：平凡如你我，要求并不多，只盼望对的人出现 彼此点燃心中的火焰！]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Far Away - Nickelback]]></title>
+    <url>%2F2015%2F06%2F10%2Ffar-away-nickelback%2F</url>
+    <content type="text"><![CDATA[Nickelback的专辑的一支歌曲This time, This place。。。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Sitting, Waiting, Wishing - Jack Johnson]]></title>
+    <url>%2F2015%2F06%2F10%2Fsitting-waiting-wishing-jack-johnson%2F</url>
+    <content type="text"><![CDATA[杰克·约翰逊是美国冲浪手，民谣歌手，导演。从小在夏威夷长大，Jack Johnson会走路的时候也会冲浪，17岁的时候他已经是冲浪界的天才，以最年轻的年纪扬名于世界级冲浪大赛(Pipeline Masters)，正当体坛将他锁定成海滩明日之星，比赛后一个月，Jack Johnson在冲浪时发生严重意外，脸上缝了150针，让他整整三个月无法出门，却也给了他三个月抱着吉他、创作音乐的时光；但是Jack Johnson并没有一鼓作气成为创作歌手，18岁的他选择到加州大学念电影，99年导演并且担任电影配乐完成了冲浪电影《Thicker Than Water》，初执导演筒的他，赢得各影展最佳导演等大奖，眼见着Jack Johnson就要加入电影界，新的一波浪潮却迎面来袭；杰克自弹自唱的歌曲，早期就被冲浪巨星们作成卡带复制流传，2005年的今天，Jack Johnson，这个海滩男孩，不只是冲浪天才、不只是得奖导演、他是全球销量300万张的创作才子。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Somebody That I Used To Know]]></title>
+    <url>%2F2015%2F06%2F10%2Fsomebody-that-i-used-to-know%2F</url>
+    <content type="text"><![CDATA[《Somebody That I Used to Know》收录自澳大利亚独立流行歌手Gotye的第三张录音室专辑《Making Mirrors》，单曲邀请新西兰歌手Kimbra作为客座合唱歌手。该单曲在澳大利亚单曲榜上意外的取得了8周冠军的成绩，成为自1997年野人花园的”Truly Madly Deeply”后占领榜首最长的单曲，在欧洲多个国家的排行榜上登顶，在Kimbra的祖国新西兰，该单曲同样成功登顶。在波兰，该单曲占领榜首长达18周，成为波兰单曲榜史上夺得榜首位置时间最长的单曲。2013年（第55届）格莱美奖上获年度最佳制作和最佳流行乐队/组合两项大奖。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[【html5构建触屏网站】之touch事件]]></title>
+    <url>%2F2015%2F06%2F10%2Fhtml5gou-jian-hong-ping-wang-zhan-zhi-touchshi-jian%2F</url>
+    <content type="text"><![CDATA[前言一个触屏网站到底和传统的pc端网站有什么区别呢，交互方式的改变首当其冲。例如我们常用的click事件，在触屏设备下是如此无力。手机上的大部分交互都是通过touch来实现的，于是，对于触屏的交互式网站，触摸事件是相当重要的。 Apple在iOS 2.0中引入了触摸事件API，Android正迎头赶上这一事实标准，缩小差距。最近一个W3C工作组正合力制定这一触摸事件规范。 规范这里我们介绍几种普及得比较好的触摸事件，你可以在绝大多数现代浏览器中来测试这一事件（必须是触屏设备哦）： touchstart：触摸开始的时候触发 touchmove：手指在屏幕上滑动的时候触发 touchend：触摸结束的时候触发 而每个触摸事件都包括了三个触摸列表，每个列表里包含了对应的一系列触摸点（用来实现多点触控）： touches：当前位于屏幕上的所有手指的列表。 targetTouches：位于当前DOM元素上手指的列表。 changedTouches：涉及当前事件手指的列表。 每个触摸点由包含了如下触摸信息（常用）： identifier：一个数值，唯一标识触摸会话（touch session）中的当前手指。一般为从0开始的流水号（android4.1，uc） target：DOM元素，是动作所针对的目标。 pageX/pageX/clientX/clientY/screenX/screenY：一个数值，动作在屏幕上发生的位置（page包含滚动距离,client不包含滚动距离，screen则以屏幕为基准）。 radiusX/radiusY/rotationAngle：画出大约相当于手指形状的椭圆形，分别为椭圆形的两个半径和旋转角度。初步测试浏览器不支持，好在功能不常用，欢迎大家反馈。 有了这些信息，我们就可以依据这些事件信息为用户提供不同的反馈了。 下面，我将为大家展示一个小demo，用touchmove实现的单指拖动: /*单指拖动*/ var obj = document.getElementById('id'); obj.addEventListener('touchmove', function(event) { // 如果这个元素的位置内只有一个手指的话 if (event.targetTouches.length == 1) { event.preventDefault();// 阻止浏览器默认事件，重要 var touch = event.targetTouches[0]; // 把元素放在手指所在的位置 obj.style.left = touch.pageX-50 + 'px'; obj.style.top = touch.pageY-50 + 'px'; } }, false); 关于a标签四个伪类在触屏设备中的小技巧：我们都知道a标签的四个伪类link，visited，active，hover是专为click事件设计的，所以在触屏网站中尽量不要使用它们。经测试大部分也是不可用的。但是这里有一个关于hover的小技巧，当你点击过一个按钮之后，这个按钮就会一直处于hover的状态，此时你基于这个伪类所设置的css也是起作用的，直到你用手指点击另外一个按钮，hover状态就会转移到另一个按钮。利用这一点，我们可以做出一些小效果。此技巧在大多数浏览器中还是可用的。 理想很丰满，现实很骨感！虽然w3c为多点触控做好了准备，遗憾的是鲜有浏览器支持多点触控的特性，尤其是android平台上的浏览器，也就让上文介绍的手指列表变为了空谈，捕获两个触摸点会直接导致触摸失效！好在ios设备自带的safari浏览器能够支持这一特性，让我们对未来充满希望。毕竟，我们被鼠标的单点操作禁锢了太久，多指操作一个网站是多么令人兴奋！ 本文摘自]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>ideas</tag>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[在手机浏览器启动你的app]]></title>
+    <url>%2F2015%2F06%2F10%2Fzai-shou-ji-liu-lan-qi-qi-dong-ni-de-app%2F</url>
+    <content type="text"><![CDATA[说起来有点凄凉，当我满怀信心进入手机开发的时候，我觉得是手机web应用会像web在pc那样火起来，谁知道我接到的第一个需求竟然能是在浏览器上推广客户端。甭管我们自己怎么觉得h5怎么怎么火，但是老大们的中心其实还是在app上。但是我们也不能自怨自艾，相信有一天我们一定会成为主流。 废话少说吧，由于浏览器限制，我们是不可能直接访问本地资源的，更别说去判断用户到底装没装客户端。只能通过其他方式。 准备首先需要app进行Schema注册，具体怎么弄，这里就不说了。好弄。 原理代码原理是当通过schema方式打开客户端后，手机当前聚焦的视图就不是浏览器了，浏览器就暂时不会执行setTimeout和setInterval方法 下面以腾讯微博为例 function redirect(){ location.href="TencentWeibo://xxx"; var t = Date.now(); setTimeout(function(){ // 之所以加个100 是因为settimeout不是那么准时 if(Date.now()-t < 600){ location.href="http://t.qq.com" } },500) } 实际应用如果直接应用上诉代码，会发现在android和ios部分浏览器中，如果用户未安装app，会直接跳到报错页面。所以我采用iframe的方式。通过iframe方式启动app var loadIframe = null; function createIframe(){ var iframe = document.createElement("iframe"); iframe.style.cssText = "display:none;width:0px;height:0px;"; document.body.appendChild(iframe); loadIframe = iframe; } function redirect(){ loadIframe.src="TencentWeibo://xxx"; var t = Date.now(); setTimeout(function(){ if(Date.now()-t < 600){ location.href="http://t.qq.com" } },500) } createIframe(); 这种写法在大部分浏览器中是没问题的，不过还有以下问题： 1、在ios低版本的safari上会提示一个未找到页面的提示，然后执行setTimeout方法。 2、在Android的chrome上没效果 第一个bug暂时没有解决，如果有同学碰到的话，告诉俺一下哈。产品追着我改这个bug呢 第二个需要去查看下chrome的资料,参考：(Android Intents with Chrome) 修改写法如下： /** * 移动浏览器上app下载 * */ ; var mobileAppInstall = (function(){ var ua = navigator.userAgent, loadIframe, win = window; function getIntentIframe(){ if(!loadIframe){ var iframe = document.createElement("iframe"); iframe.style.cssText = "display:none;width:0px;height:0px;"; document.body.appendChild(iframe); loadIframe = iframe; } return loadIframe; } function getChromeIntent(url){ // 根据自己的产品修改吧 return "intent://t.qq.com/#Intent;scheme="+url+";package=com.tencent.WBlog;end"; } var appInstall = { isChrome:ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/), isAndroid:ua.match(/(Android);?[\s\/]+([\d.]+)?/), timeout:500, /** * 尝试跳转appurl,如果跳转失败，进入h5url * @param {Object} appurl 应用地址 * @param {Object} h5url http地址 */ open:function(appurl,h5url){ var t = Date.now(); appInstall.openApp(appurl); setTimeout(function(){ if(Date.now() - t < appInstall.timeout+100){ h5url && appInstall.openH5(h5url); } },appInstall.timeout) }, openApp:function(appurl){ if(appInstall.isChrome){ if(appInstall.isAndroid){ win.location.href = getChromeIntent(appurl); }else{ win.location.href = appurl; } }else{ getIntentIframe().src = appurl; } }, openH5:function(h5url){ win.location.href = h5url; } } return appInstall; })(); 其他safariios 6.0 以上app推荐&lt;meta name=”apple-itunes-app” content=”app-id=432274380”&gt; 微信中判断是否安装app在微信中如果想通过Schema方式打开应用，貌似除腾讯以外的是不行了。 // 判断是否安装 WeixinJSBridge.invoke("getInstallState", {packageName: "com.tencent.WBlog",packageUrl: "TencentWeibo://"}, function(e) { var n = e.err_msg; if(n.indexOf("get_install_state:yes") > -1){ alert("已经安装"); } }) // 安装 WeixinJSBridge.invoke("addDownloadTask", {task_name: "腾讯微博",task_url: "http://softfile.3g.qq.com/msoft/180/2104/2104/WBlog_4.2.1_100000024_131210163458a.apk",file_md5: "31C49560B20057ECBB4C7C52D35B00DB"}, function(t) { })]]></content>
+      <categories>
+        <category>笔记</category>
+      </categories>
+      <tags>
+        <tag>ideas</tag>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[heX——基于 HTML5 和 Node.JS 开发桌面应用]]></title>
+    <url>%2F2014%2F04%2F29%2Fhex-ji-yu-html5-he-node-js-kai-fa-zhuo-mian-ying-yong%2F</url>
+    <content type="text"><![CDATA[简介 heX 是网易有道团队的一个开源项目，允许你采用前端技术（HTML，CSS，JavaScript）开发桌面应用软件的跨平台解决方案。heX 是你开发桌面应用的一种新的选择，意在解决传统桌面应用开发中繁琐的UI和交互开发工作，使其变的简单而高效，特别适合于开发重UI，重交互的桌面应用软件。 Homepage: http://hex.youdao.comMailing list: https://groups.google.com/group/youdao_hexDocumentation: http://hex.youdao.com/documentationWiki: https://github.com/netease-youdao/hex/wikiIssues: https://github.com/netease-youdao/hex/issues 近几年，移动应用和web2.0大行其道，相比之下，传统桌面应用程序开发显得相对冷清（包括该领域技术人才的后继力量），但在一些场景下，它依然有其不可替代的优势。探索中我们尝试了一种新的办法，并给它取名heX，将HTML5和Node.JS的技术优势，应用于桌面应用程序开发，使得工作变得简单而高效。 2012年前后，一位研发工程师（外号6哥，精通web前端和桌面应用开发），先后参与了两个传统桌面应用程序UI改版工作（有道云笔记和有道词典），任务是把软件界面中部分区域的浏览器渲染引擎，由IE内核替换为webkit，在这个过程中，有一种强烈的欲望：把整个软件界面的渲染都交由浏览器引擎来完成，这样一来，UI和交互部分都可以用前端技术来实现，那么，开发过程将变的简单许多，而客户端开发人员的主要精力也可放在业务逻辑上，何乐而不为！ 为此，我们做了大量的调研，经反复尝试，最终确定通过整合Chromium和Node.JS，来解决桌面应用开发中遇到的大量繁琐的UI和交互开发工作。期间，发现一款类似的开源项目node-webkit，调研的结论是它暂时还无法用于正式的项目，所以，于2012年6月，我们正式成立一人开发小组（确实够小），经3个月的努力，终有小成，现已经应用于有道词典最新版。 选择Chromium，是因为它对HTML5的支持非常优秀，其内嵌的V8引擎，更是业内效率最好的JavaScript脚本引擎之一，且其项目开源，又有专门的社区和团队维护，作为UI渲染引擎，它是不二之选，体验上，你可以试用下google chrome浏览器，基本一致。 选择Node.JS，是因为开发桌面应用，本地资源操作是必备的能力，这方面JavaScript无能为力，而Node.JS则很好的解决了这个问题，它使得JavaScript操作本地资源变的毫无障碍。另一方面，Node.JS核心也是采用V8引擎，使得其与Chromium的整合变得更顺理成章。 用heX开发桌面应用的优势 HTML5这几年很火，在成熟产品中的应用却极少，受各浏览器和平台的软/硬件性能问题的限制，整体感觉总是难以舒展（用的不踏实），具体原因网上可以找到一大堆，这里列举一个移动web app相关的，中英对照版，推荐抽空看一看: 英文版：http://sealedabstract.com/rants/why-mobile-web-apps-are-slow/ 中文版：http://www.cnblogs.com/codemood/p/3213459.html 尽管如此，HTML5的优势依然很明显，普及程度也正逐年提高，我们对它的未来信心十足。好东西，都值得我们主动去尝试，heX做的一个事情，就是提前把它应用于桌面应用开发，而不用顾忌它的兼容性和平台性能问题（PC性能过剩）。 用HTML5开发桌面应用，到底有什么样的优势呢？这里列举几项： 精准还原UI设计。现在客户端软件UI设计用native方式来实现的成本越来越高，对HTML5来说却很容易，对后续的维护也非常的友好；用户体验。如果你不清楚HTML5所能做到的体验效果，可以看看Chrome Experiments（http://www.chromeexperiments.com/）；开发调试便利。heX保留了开发者工具（Chrome Developer Tools），让你在开发调试过程中，就如同web开发一样便利；学习成本。相比传统桌面应用开发，web技术的入门成本明显偏低，你不用担心团队成员的离开，而苦于寻找后续开发力量。桌面应用开发，本地资源操作能力必不可少，Node.JS提供了丰富的自带API，让你免于逐个封装C++实现，就能在heX环境下的html页面中直接使用，如：本地文件系统操作，二进制数据处理，方便的创建子进程等等，详见Node.JS API DOCS。 在桌面应用开发中用Node.JS的好处（一部分来自于heX的努力）： 直接用JavaScript对本地资源进行操作，相比C/C++，你无需编译，即写即用；页面交互逻辑，窗体行为操作，与C++通信，用JavaScript都能搞定，开发一个桌面应用，你无需在语言之间来回切换；Node.JS丰富的第三扩展，你都可以直接使用，无需从零开始；继承于Node.JS优秀的扩展能力，以及它所遵循的commonjs规范，代码管理也将变的方便和易于控制。从技术角度来讲，选择一个新生事物，我们持谨慎态度，需要经过充分的调研，考虑的因素众多，比如：性能，用户体验，开发效率，是否有团队在维护，文档是否完备，是否开源（如果是商业用处，还需考虑它的开源协议）等等。 而heX作为桌面应用开发的一种新的选择，它在这些方面的表现如何呢？前面已经讲到一些，这里再补充几点： 性能和体验，heX的基础由Chromium和Node.JS整合而成，整合后这两者的性能表现不受影响，体验方面，你可以参考google chrome浏览器，基本保持一致；开发效率，如果你有过web前端开发经历，现在仅要求你支持最新版的chrome浏览器，你觉得如何？睡着了都能笑醒的事，heX做到了；heX即将开源，请大家关注 http://hex.youdao.com 和 @yoduao_hex一种东西，只能解决一方面的需求，heX亦非万能，亦有它适合的使用场景，最适合重UI、重交互的桌面应用，比如即将推出的新版有道词典（亿级桌面应用软件）beta版，就是采用heX作为其界面的解决方案。如何用heX开始一个桌面应用程序 采用heX开发桌面应用程序，有两种方式： 直接基于heX做开发，针对web前端开发者，不要求桌面应用开发经验；以模块形式引入到现在桌面工程中，针对传统桌面应用开发者，适合有一定历史的项目，或仅在界面中局部区域支持即可的项目。不管采用哪种方式，开发过程都很简单，这里就第一种方式，从零开始，一起来制作一个 hello word，如下： 1、下载heX二进制包（http://codown.youdao.com/hex/hex_1453_web_develop_windows.zip），解压到本地，打开后目录结构如下图所示，其中“hexclient.exe”是主程序文件，双击即可运行heX，“manifest.json”是heX的配置文件，可配置入口文件，窗口初始大小、位置等信息 2、创建一个用于写hello word程序的测试目录“test”，同时在其中新建html、js文件，如下图所示 3、修改manifest.json文件，入口改为test/index.html，如下图所示 4、双击 hexclient.exe，运行，一秒后界面由“……”变为“Hello Word！”，如下图所示，到此为止，一个简单的桌面应用就搞定了 正式产品案例：目前已经应用于新版有道词典（亿级桌面客户端软件）beta版，下图的整个界面和交互都是基于heX实现，欢迎下载体验：http://download.ydstatic.com/cidian/static/6.0/20130812/YoudaoDict.exe 了解更多heX信息欢迎微博 @youdao_hex 或访问http://hex.youdao.com 原文链接：heX：用 HTML5 和 Node.JS 开发桌面应用]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>ideas</tag>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+        <tag>Nodejs</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[One Ok Rock《No Scared》]]></title>
+    <url>%2F2014%2F04%2F20%2Fone-ok-rockno-scared%2F</url>
+    <content type="text"><![CDATA[MV最爱One Ok Rock《No Scared》]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+        <tag>life</tag>
+        <tag>Music</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[教你弹Coldplay的Yellow]]></title>
+    <url>%2F2014%2F04%2F20%2Fjiao-ni-dan-coldplayde-yellow%2F</url>
+    <content type="text"><![CDATA[《Yellow》为玩酷乐队2000年EP里的同名主打歌，关于yellow的翻译一直争议不断，有说歌颂母亲的，有说描摹吸毒者心境的。酷玩乐队的魅力正在于此。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Someone Like You 原唱：Adele 来源：CifraClub]]></title>
+    <url>%2F2014%2F04%2F20%2Fsomeone-like-you-yuan-chang-adele-lai-yuan-cifraclub%2F</url>
+    <content type="text"><![CDATA[《Someone Like You》是英国著名流行女歌手Adele的第二张个人录音室专辑《21》的第二首单曲，这首单曲的创作灵感来源于Adele自身的一段破碎的恋情。该单曲也是Adele在美国的第二首冠军单曲，在2011年Billboard单曲排行榜中一共夺得5周单曲冠军，并且是公告牌史上第一支只有钢琴而无其他乐器伴奏的冠军单曲。2012年第54届格莱美颁奖晚会上，Adele凭借该单曲获得最佳流行歌手。《Someone Like You》旋律优美而忧伤，这首歌不仅在向人们诉说着失恋的痛苦；同时也告诉人们要勇敢去追寻爱情，即使最后爱情破碎也要勇敢走下去。Adele那富有磁性的声音将这首伤心的情歌演绎的完美无瑕，在2011年感动了无数的乐迷。这首歌在包括美国和英国在内的14个国家夺得冠军，亦是Adele的代表歌曲之一。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Hotel California-Eagles吉他教学]]></title>
+    <url>%2F2014%2F04%2F20%2Fhotel-california-eaglesji-ta-jiao-xue%2F</url>
+    <content type="text"><![CDATA[《Hotel California》是二十世纪七十年代美国著名乡村摇滚乐队Eagles（老鹰乐队）的巅峰之作，单曲发行于1977年2月，收录在乐队第五张录音室专辑《Hotel California》中。歌曲在The 500 Greatest Songs of All Time中排列第49位，2004年《Guitar World》杂志评选的100 Greatest Rock Guitar Solos中排行第八。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[《need you now 》吉他弹唱]]></title>
+    <url>%2F2014%2F04%2F20%2Fneed-you-now-ji-ta-dan-chang%2F</url>
+    <content type="text"><![CDATA[Need You Now是美国乡村乐队Lady Antebellum第二张录音室专辑《Need You Now》（2010年）中的同名主打单曲，于2009年8月首发，登上Billboard Hot 100亚军位置，为乐队最好成绩，歌曲带有60年代R&amp;B灵魂乐和富于感情表达的70年代的独特风格的音乐穿梭在格莱美激动之夜。获得第53届格莱美年度制作、年度歌曲、年度最佳乡村歌曲、年度最佳乡村乐队/组合四项大奖。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[吉他教学Viva La Vida 原唱：Coldplay]]></title>
+    <url>%2F2014%2F04%2F20%2Fji-ta-jiao-xue-viva-la-vida-yuan-chang-coldplay%2F</url>
+    <content type="text"><![CDATA[《Viva la Vida or Death and All His Friends》 是Coldplay出道10年来第四张专辑，于2008年6月12日发行。专辑的名称来自于西班牙语，Viva la Vida or Death and All His Friends可以直译为生命万岁或死亡和他的所有朋友们。这也反映了这一专辑的主题“生与死”。专辑的封面是描述法国七月革命时期的名画自由引导人民。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Set Fire to the Rain吉他教学]]></title>
+    <url>%2F2014%2F04%2F20%2Fset-fire-to-the-rainji-ta-jiao-xue%2F</url>
+    <content type="text"><![CDATA[《Set Fire to the Rain》收录于Adele的第二张录音室专辑《21》中，作为专辑的第三首主打单曲，《Set Fire to the Rain》在没有MV，没有宣传的情况下，连续夺得Billboard单曲榜2周冠军，实现了一张专辑诞生三首冠军单曲的壮举。而Adele是第一位也是唯一一位在美国取得该成绩的英国女歌手。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[AngularJS：在Windows上安装Yeoman]]></title>
+    <url>%2F2014%2F04%2F19%2Fangularjszai-windowsshang-an-zhuang-yeoman%2F</url>
+    <content type="text"><![CDATA[Yeoman 是 Google 官方推荐的一款 AngularJS 开发工具，详细描述参见以下站点： http://yeoman.io/index.html 它 github 上的路径位于： https://github.com/yeoman/yeoman 大家都知道，跟我天朝上国相比，老外们都比较穷，所以他们都很喜欢在 Linux 上折腾，所以 Yeoman 这个东西是针对 Linux 设计的，想要在 Windows 上安装使用有点麻烦。 网上有很多安装教程，经小僧实测都无法安装成功。 没办法啦，只能亲自动手了。 好，看我的。【注意】请严格按照下面的安装步骤进行，否则不保证能安装成功： 1、安装 Ruby 自己到 Ruby 官方下载最新安装包： http://rubyinstaller.org/downloads/注意看好自己的操作系统版本，比如我的是 Win7 64 位，选的就是 Ruby 2.0.0-p195 (x64) 。 注意把上面三个框都勾起。 安装完成之后，打开命令行，输入以下命令： ruby –v 如果成功打出了版本号，说明 Ruby 安装成功，如下图： 2、 安装 Compass Compass 是一个用来开发 CSS 的工具，官方站点： http://compass-style.org/ 。后面 Yeoman 启动的时候需要依赖这个工具，所以是必须安装的。 官方介绍了使用 gem 自动安装的方式，可惜，这种方法不成功，因为自动获取的那个 URL 被墙掉了！！！（跟我一起高呼：方校长威武荡漾！方校长永垂不朽！） 再看我口型儿： WQNMLGB ！ 次奥！既然没法自动安装，那咱就手动吧。 进入以下站点： http://rubygems.org/gems/compass ，向下拉，找到“ Runtime Dependencies ”，先把那 3 个需要依赖的东西装上（分别点击那 3 个链接，找到安装命令）。 然后下载【最新的】 compass 的 gem 包，下载完成之后，从本地来安装它，命令如下： gem install –local G:\compass***.gem （注意你自己的存放路径！） 3、安装 NodeJS http://nodejs.org/download/ 选好版本自己装。 4、 安装 python 环境 http://www.python.org/download/ 选好版本自己装，装完自己确认 python 的环境变量有没有配好。5、开始安装 Yeoman 从命令行进入 nodejs 的安装目录，例如我的目录是： E:\Program Files\nodejs\node_modules 【注意】如果你把 Yeoman 安装到了其它目录，请记好安装路径（等会儿要配环境变量）。 输入以下命令开始安装 Yeoman ： npm install yeoman如果你网速比较慢可能会下载很久，等吧！ 看到下面这张图说明 Yeoman 安装成功： 6、开始测试 Yeoman 首先把 Yeoman 的环境变量加上，例如我的位于： E:\Program Files\nodejs\node_modules\.bin 加上之后就可以在任意目录运行 yeoman 了，你懂的。 好，还是在下面的目录里面： E:\Program Files\nodejs\node_modules 运行 yeoman init 所有问题全部输入 y ，然后回车。 yeoman 会自动创建一些目录和文件。 完成之后输入： yeoman server 启动服务器。 启动成功之后会自动弹出你的默认浏览器，显示如下内容： 如果看到以上内容，说明 yeoman 环境已经 OK 了！！！ 如果有报错起不来，使用以下命令尝试强制启动： yeoman server –force 如果强制启动成功，就算 ok ，有一些小错误可以无视，不影响开发的（ Yeoman 官方一直在更新一些鸟东西，版本不是太稳定）。如果有其它开发环境方面的问题或者 AngularJS 相关的问题，可以加入我们进行讨论。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>ideas</tag>
+        <tag>h5</tag>
+        <tag>WebAPP</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[青春，彩色的单调]]></title>
+    <url>%2F2014%2F04%2F17%2Fqing-chun-cai-se-de-dan-diao%2F</url>
+    <content type="text"><![CDATA[一下子，大学就准备结束了，青春也就跟着结束了。其实呢，学到的还是挺多的，懂到的还是挺深的，生活真的还蛮精彩了。笑也多，泪水也多。有追求，有回报。知己闺蜜都有。 只是，有一个故事，一个人生最重要的故事，却似乎从没开始——爱情！ 我喜欢过蛮多人的，也追求过蛮多人的，努力过，坚持过，一起笑过一起哭过，却全都只能叫友情。]]></content>
+      <categories>
+        <category>生活</category>
+      </categories>
+      <tags>
+        <tag>life</tag>
+        <tag>青春</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[She_Will_Be_Loved_原唱：Maroon_5_来源：CifraCl]]></title>
+    <url>%2F2014%2F04%2F10%2Fshe-will-be-loved-yuan-chang-maroon-5-lai-yuan-cifracl%2F</url>
+    <content type="text"><![CDATA[吉他教学：She_Will_Be_Loved_原唱：Maroon_5_来源：CifraCl]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[吉他教学Heaven - Bryan Adams]]></title>
+    <url>%2F2014%2F04%2F10%2Fji-ta-jiao-xue-heaven-bryan-adams%2F</url>
+    <content type="text"><![CDATA[布莱恩-亚当斯(Bryan Adams)是八十年代崛起的最受欢迎的摇滚歌手之一，他制作了一系列白金唱片并多次入围十大流行歌曲排行榜。在他演唱生涯的最初阶段，他主要唱摇滚歌曲，随着事业的进展，他却以民歌而广为人知。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[In My Life原唱：The Beatles]]></title>
+    <url>%2F2014%2F04%2F10%2Fin-my-lifeyuan-chang-the-beatles%2F</url>
+    <content type="text"><![CDATA[The Beatles是一支成立于1960年的英国利物浦摇滚乐队，乐队在流行音乐史的商业和艺术上都取得了巨大成功。乐队最著名的成员为John Lennon，Paul McCartney，George Harrison，以及Ringo Starr。The Beatles在20世纪60年代掀起了一阵“Beatlemania”（披头士狂热），引领了英伦入侵（British Invasion），是20世纪60年代的文化标志之一。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[wake me up when September ends吉他教程]]></title>
+    <url>%2F2014%2F04%2F10%2Fwake-me-up-when-september-endsji-ta-jiao-cheng%2F</url>
+    <content type="text"><![CDATA[Wake Me Up When September Ends是收藏在Green Day（绿日乐队）《American Idiot 》专辑里一首非常好听的歌曲，中文名称《在九月结束的时候唤醒我》（《九月末叫醒我》），也有网友幽默地将该歌曲名翻译成《一觉睡到国庆节》。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[93 MILLION MILES吉他弹唱教学]]></title>
+    <url>%2F2014%2F04%2F10%2Fmillion-milesji-ta-dan-chang-jiao-xue%2F</url>
+    <content type="text"><![CDATA[93 Million Miles是美国知名摇滚乐队30 Seconds To Mars于2002年8月27日推出的乐队首张同名专辑《30 Seconds To Mars》的一首歌曲。]]></content>
+      <categories>
+        <category>吉他</category>
+      </categories>
+      <tags>
+        <tag>guitar</tag>
+      </tags>
+  </entry>
+</search>
