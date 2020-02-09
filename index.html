@@ -1,1173 +1,2422 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
+<!doctype html>
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="STERNE">
-    <meta name="description" content="STERNE">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>STERNE</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
-    <style type="text/css">
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="STERNE, 前端开发, 学习笔记" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="(。・&#96;ω´・)喜欢英文吉他的程序猿">
+<meta property="og:type" content="website">
+<meta property="og:title" content="STERNE">
+<meta property="og:url" content="http:&#x2F;&#x2F;sternelee.github.io&#x2F;index.html">
+<meta property="og:site_name" content="STERNE">
+<meta property="og:description" content="(。・&#96;ω´・)喜欢英文吉他的程序猿">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/"/>
+
+
+
+
+
+  <title> STERNE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-49890486-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">斯特恩*李</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
         
-    </style>
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
 
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
 
 
-<body>
 
-<header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <!-- <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                     -->
-                    <span class="logo-span">STERNE</span>
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2020/02/03/strapi%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2020/02/03/strapi%E5%AE%9E%E8%B7%B5/" itemprop="url">
+                  strapi实践
                 </a>
-            </div>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-02-03T16:39:17+08:00">
+                2020-02-03
+              </time>
             
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
-<ul class="right">
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-    <li class="hide-on-med-and-down">
-        <a href="/" class="waves-effect waves-light">
-            
-            <i class="fa fa-home"></i>
-            
-            <span>首页</span>
-        </a>
-    </li>
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="https://strapi.io/" target="_blank" rel="noopener">strapi</a> 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。<br>下面就是我的新手引导的记录。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>按照官方说明，使用下列命令：</p>
+<pre><code class="bash">yarn create strapi-app &lt;project-name&gt;</code></pre>
+<p>会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库mysql时，要求5.7及以上版本才行），安装依赖结束后启动。</p>
+<pre><code class="bash">yarn develop</code></pre>
+<p>即可。</p>
+<p>按照官方的新手引导即可完成内容的类型创建和添加。</p>
+<h2 id="使用-Graphql"><a href="#使用-Graphql" class="headerlink" title="使用 Graphql"></a>使用 Graphql</h2><p><a href="https://strapi.io/documentation/3.0.0-alpha.x/guides/graphql.html#graphql" target="_blank" rel="noopener">strapi使用Graphql</a> 也十分方便。</p>
+<pre><code class="bash">yarn strapi install graphql</code></pre>
+<h2 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h2><ol>
+<li>使用 <code>nginx</code> 的 <code>proxy_pass</code> 来代理， 如 <code>/api/</code> 配置到 <code>http://127.0.0.1:1337/</code></li>
+<li>更改页面的js为相对路径，在 <code>build</code> 目录下的 <code>index.html</code> 文件，如 <code>/admin/runtime~main.08b11d8f.js</code> 改成 <code>./admin/runtime~main.08b11d8f.js</code></li>
+<li>更改<code>config/environments/相应环境/server.json</code> 中的 <code>host</code> 为你的子目录地址，如 <code>leeapps.cn/api/</code></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-    <li class="hide-on-med-and-down">
-        <a href="/tags" class="waves-effect waves-light">
-            
-            <i class="fa fa-tags"></i>
-            
-            <span>标签</span>
-        </a>
-    </li>
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2019/05/30/shadow-dom%E5%85%A5%E9%97%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
     
-    <li class="hide-on-med-and-down">
-        <a href="/categories" class="waves-effect waves-light">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
             
-            <i class="fa fa-bookmark"></i>
             
-            <span>分类</span>
-        </a>
-    </li>
+              
+                
+                <a class="post-title-link" href="/2019/05/30/shadow-dom%E5%85%A5%E9%97%A8/" itemprop="url">
+                  shadow-dom入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-30T14:02:31+08:00">
+                2019-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-    <li class="hide-on-med-and-down">
-        <a href="/archives" class="waves-effect waves-light">
-            
-            <i class="fa fa-archive"></i>
-            
-            <span>归档</span>
-        </a>
-    </li>
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="认识-Shadow-DOM"><a href="#认识-Shadow-DOM" class="headerlink" title="认识 Shadow DOM"></a>认识 Shadow DOM</h2><h3 id="什么是-Shadow-DOM"><a href="#什么是-Shadow-DOM" class="headerlink" title="什么是 Shadow DOM"></a>什么是 Shadow DOM</h3><p>Shadow DOM 是 Web Components 定义的四大标准之一(Custom elements, Shadow DOM, HTML templates 和 HTML Imports)。</p>
+<p>Shadow DOM是一组<strong>JavaScript API</strong>，用于将封装的“影子”DOM树附加到元素（与主文档DOM分开呈现）并控制其关联的功能。通过这种方式，您可以保持元素的功能私有，这样它们就可以被脚本化和样式化，而不用担心与文档的其他部分发生冲突。这直接解决了HTML、CSS 和 JS 的<strong>全局性</strong>污染的问题。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/30/shadow-dom%E5%85%A5%E9%97%A8/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
-    <li class="hide-on-med-and-down">
-        <a href="/about" class="waves-effect waves-light">
-            
-            <i class="fa fa-user-circle-o"></i>
-            
-            <span>关于</span>
-        </a>
-    </li>
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2019/05/15/pwa%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
     
-    <li class="hide-on-med-and-down">
-        <a href="/friends" class="waves-effect waves-light">
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
             
-            <i class="fa fa-address-book"></i>
             
-            <span>友情链接</span>
-        </a>
-    </li>
+              
+                
+                <a class="post-title-link" href="/2019/05/15/pwa%E5%AE%9E%E8%B7%B5/" itemprop="url">
+                  pwa实践
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-15T19:28:53+08:00">
+                2019-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
     
-    <li>
-        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
-        </a>
-    </li>
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Progressive Web App, 简称 PWA，是提升 Web App 的体验的一种新方法，能给用户原生应用的体验。<br><a href="https://lavas.baidu.com/pwa/README" target="_blank" rel="noopener">详细说明</a></p>
+<p>本方从开发工具，前端框架和打包流程来实践开发PWA的过程。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="环境工具"><a href="#环境工具" class="headerlink" title="环境工具"></a>环境工具</h3><p>由于 pwa 站点的Service Worker要求https，以及一些推荐性工具，下面一一列出来:</p>
+<ol>
+<li><a href="https://github.com/FiloSottile/mkcert" target="_blank" rel="noopener">mkcert</a> https证书</li>
+<li><a href="https://pwa.cafe/" target="_blank" rel="noopener">pwa-cli</a> 现成的初始化开发环境</li>
+</ol>
+<h3 id="开发思路"><a href="#开发思路" class="headerlink" title="开发思路"></a>开发思路</h3><ol>
+<li>pwa是类APP的页面，需要具备响应性，推荐使用 <a href="https://github.com/sternelee/hotcss" target="_blank" rel="noopener">hotcss</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2019/05/09/%E6%88%91%E7%9A%84windows%E5%B7%A5%E4%BD%9C%E5%8F%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/05/09/%E6%88%91%E7%9A%84windows%E5%B7%A5%E4%BD%9C%E5%8F%B0/" itemprop="url">
+                  我的windows工作台
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-09T10:02:01+08:00">
+                2019-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>“巨硬”的windows10其实已经是个非常实用和开发友好的系统平台了，在这里我记录下平常使用到的一些应用软件和开发工具，在Surface Pro6的使用下完善工作和学习生活的需求。</p>
+<h2 id="终端篇"><a href="#终端篇" class="headerlink" title="终端篇"></a>终端篇</h2><h3 id="终端工具"><a href="#终端工具" class="headerlink" title="终端工具"></a>终端工具</h3><ul>
+<li><p>PowerShell 其实是很强大的，在支持插件策略之后可以到 <a href="https://www.powershellgallery.com/" target="_blank" rel="noopener">powershellgallery</a> 安装一些非常实用的插件如下，在powershll内打开配置文件 <code>notepad $PROFILE</code></p>
+<ul>
+<li>posh-git</li>
+<li>oh-my-posh</li>
+<li>Get-ChildItemColor</li>
+<li>推荐文章 <a href="https://sspai.com/post/52868" target="_blank" rel="noopener">PowerShell 的外观</a> 和 <a href="http://zhzyx.me/2019/02/PowerShell-%E4%BC%98%E5%8C%96-%E6%9B%B4%E5%A5%BD%E7%9A%84-Windows-%E7%BB%88%E7%AB%AF/" target="_blank" rel="noopener">PowerShell优化</a></li>
+</ul>
+</li>
+<li><p>WSL(Linux 的Windows 子系统), 推荐选择 Ubuntu 或 Debian</p>
+</li>
+<li><p>终端工具</p>
+<ul>
+<li><a href="https://conemu.github.io/" target="_blank" rel="noopener">ConEmu</a></li>
+<li><a href="https://github.com/felixse/FluentTerminal" target="_blank" rel="noopener">FluentTerminal</a> 基于uwp开发</li>
+<li><a href="https://github.com/Eugeny/terminus" target="_blank" rel="noopener">terminus</a> 基于Hyper的终端(支持ssh)</li>
+<li><a href="https://github.com/bnb/awesome-hyper" target="_blank" rel="noopener">hyper</a> 更漂亮的终端</li>
+</ul>
+</li>
+</ul>
+<h3 id="终端命令"><a href="#终端命令" class="headerlink" title="终端命令"></a>终端命令</h3><ul>
+<li><a href="https://github.com/lukesampson/scoop/wiki/Quick-Start" target="_blank" rel="noopener">scoop</a> 更好的包安装工具,推荐安装<code>curl</code>, <code>openssh</code>, <code>ripgrep</code>, <code>fzf</code>, <code>ctags</code>等，使用全局安装<code>scoop install -g</code>, 可选添加 <code>-a 32bit(64bit)</code>选择平台版本</li>
+<li><a href="https://github.com/skywind3000/z.lua/blob/master/README.cn.md" target="_blank" rel="noopener">z.lua</a> 基于Lua的快速路径切换工具</li>
+</ul>
+<h2 id="桌面软件"><a href="#桌面软件" class="headerlink" title="桌面软件"></a>桌面软件</h2><ul>
+<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">VSCode</a> 最硬的IDE，相应我的插件表单</li>
+<li><a href="http://www.91fk.net/" target="_blank" rel="noopener">SimpleRemote</a> 轻量级、选项卡式、免费、开源的远程连接管理工具</li>
+<li><a href="https://u.tools/" target="_blank" rel="noopener">uTools</a> 极简、插件化、跨平台的启动工具，同类有 <a href="http://www.wox.one/" target="_blank" rel="noopener">wox</a></li>
+<li><a href="https://github.com/oldj/SwitchHosts" target="_blank" rel="noopener">SwitchHosts!</a> host切换管理工具</li>
+<li>Snipaste 截图+贴图工具</li>
+<li><a href="http://clipber.com/" target="_blank" rel="noopener">快贴</a> 全平台复制粘贴同步工具</li>
+<li>Everything 文件搜索工具</li>
+<li>QuickLook 文件预览工具</li>
+<li><a href="http://phpstudy.php.cn/" target="_blank" rel="noopener">phpstudy</a> php + nginx + apache + mysql 集成管理工具</li>
+<li>坚果云 文件同步</li>
+<li>PicGo 图库上传工具</li>
+<li>Fiddler 网络抓包工具</li>
+<li>123看图器</li>
+<li>FileZilla</li>
+<li>Proxifier 系统代理配置工具</li>
+<li><a href="https://github.com/henkman/virgo" target="_blank" rel="noopener">Virgo</a> 虚拟桌面切换工具</li>
 </ul>
 
-<div id="mobile-nav" class="side-nav sidenav">
-
-    <div class="mobile-head bg-color">
+          
         
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">STERNE</div>
-        <div class="logo-desc">
-            
-            (。・`ω´・)喜欢英文吉他的程序猿
-            
-        </div>
+      
     </div>
 
-    
-
-    <ul class="menu-list mobile-menu-list">
-        
-        <li>
-            <a href="/" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-home"></i>
-                
-                首页
-            </a>
-        </li>
-        
-        <li>
-            <a href="/tags" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-tags"></i>
-                
-                标签
-            </a>
-        </li>
-        
-        <li>
-            <a href="/categories" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-bookmark"></i>
-                
-                分类
-            </a>
-        </li>
-        
-        <li>
-            <a href="/archives" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-archive"></i>
-                
-                归档
-            </a>
-        </li>
-        
-        <li>
-            <a href="/about" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-user-circle-o"></i>
-                
-                关于
-            </a>
-        </li>
-        
-        <li>
-            <a href="/friends" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-address-book"></i>
-                
-                友情链接
-            </a>
-        </li>
-        
-        
-    </ul>
-</div>
-
-        </div>
-
-        
-    </nav>
-
-</header>
-
-
-<style>
-    .carousel-control {
-        width: 45px;
-        height: 45px;
-        line-height: 55px;
-        border-radius: 45px;
-        background: transparent;
-        cursor: pointer;
-        z-index: 100;
-    }
-
-    #prev-cover {
-        position: absolute;
-        top: 48%;
-        left: 8px;
-    }
-
-    #next-cover {
-        position: absolute;
-        top: 48%;
-        right: 8px;;
-    }
-
-    #prev-cover i {
-        margin-right: 3px;
-    }
-
-    #next-cover i {
-        margin-left: 3px;
-    }
-
-    .carousel-control:hover {
-        background-color:rgba(0, 0, 0, .4);
-    }
-
-    .carousel-control i {
-        color: #fff;
-        font-size: 2.4rem;
-    }
-</style>
-
-
-
-<div class="carousel carousel-slider center index-cover" data-indicators="true" style="margin-top: -64px;">
-    
-
-    <div class="carousel-item red white-text bg-cover about-cover">
-        <div class="container">
-            <div class="row">
-    <div class="col s10 offset-s1 m8 offset-m2 l8 offset-l2">
-        <div class="brand">
-            <div class="title center-align">
-                
-                    斯特恩*李
-                
-            </div>
-
-            <div class="description center-align">
-                
-                    (。・`ω´・)喜欢英文吉他的程序猿
-                
-            </div>
-        </div>
+    <div>
+      
     </div>
-</div>
-<script>
-// 每天切换 banner 图.  Switch banner image every day.
-$('.bg-cover').css('background-image', 'url(/medias/banner/timg.gif)');
-</script>
 
-            <div class="cover-btns">
-                <a href="#indexCard" class="waves-effect waves-light btn">
-                    <i class="fa fa-angle-double-down"></i>开始阅读
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2019/05/08/nodejs-env/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/05/08/nodejs-env/" itemprop="url">
+                  node-env
                 </a>
-
-                
-            </div>
-            <div class="cover-social-link">
-    <a href="https://github.com/sternelee" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fa fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:sternelee@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fa fa-envelope-open"></i>
-    </a>
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=392419505" class="tooltipped" data-tooltip="QQ联系我: 392419505" data-position="top" data-delay="50">
-        <i class="fa fa-qq"></i>
-    </a>
-
-
-<a href="http://weibo.com/leemetoo" class="tooltipped" data-tooltip="微博关注我" data-position="top" data-delay="50">
-    <i class="fa fa-weibo"></i>
-</a>
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fa fa-rss"></i>
-    </a>
-</div>
-        </div>
-    </div>
-
-    
-</div>
-
-<script>
-$(function () {
-    let coverSlider = $('.carousel');
-    coverSlider.carousel({
-        duration: Number('120'),
-        fullWidth: true,
-        indicators: 'true' === 'true'
-    });
-
-    let carouselIntervalId;
-    
-    // Loop to call the next cover article picture.
-    let autoCarousel = function() {
-        carouselIntervalId = setInterval(function () {
-            coverSlider.carousel('next');
-        }, 5000);
-    };
-    autoCarousel();
-    
-
-    let restartPlay = function () {
+              
+            
+          </h1>
         
-        clearInterval(carouselIntervalId);
-        autoCarousel();
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-08T17:12:20+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
         
-    };
-
-    
-    // prev and next cover post.
-    $('#prev-cover').click(function () {
-        coverSlider.carousel('prev');
-        restartPlay();
-    });
-    $('#next-cover').click(function () {
-        coverSlider.carousel('next');
-        restartPlay();
-    });
-    
-});
-</script>
-
-
-
-<main class="content">
-
-    
-    <div id="indexCard" class="index-card">
-        <div class="container ">
-            <div class="card">
-                <div class="card-content">
-                    
-
-                    
-
-                    
-
-                    <div id="recommend-sections" class="recommend">
-                        
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-
-    
-
-    <!-- 所有文章卡片 -->
-    <article id="articles" class="container articles">
-        <div class="row article-row">
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/05/30/shadow-dom-ru-men/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="shadow-dom入门">
-                            
-                            <span class="card-title">shadow-dom入门</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                认识 Shadow DOM什么是 Shadow DOMShadow DOM 是 Web Components 定义的四大标准之一(Custom elements, Shadow DOM, HTML templates 和 HTML Impo
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-30
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/前端/" target="_blank">
-                            <span class="chip bg-color">前端</span>
-                        </a>
-                        
-                        <a href="/tags/JavaScript/" target="_blank">
-                            <span class="chip bg-color">JavaScript</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/05/15/pwa-shi-jian/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="pwa实践">
-                            
-                            <span class="card-title">pwa实践</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Progressive Web App, 简称 PWA，是提升 Web App 的体验的一种新方法，能给用户原生应用的体验。详细说明
-本方从开发工具，前端框架和打包流程来实践开发PWA的过程。
-准备工作环境工具由于 pwa 站点的Servi
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-15
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/react/" target="_blank">
-                            <span class="chip bg-color">react</span>
-                        </a>
-                        
-                        <a href="/tags/vue/" target="_blank">
-                            <span class="chip bg-color">vue</span>
-                        </a>
-                        
-                        <a href="/tags/pwa/" target="_blank">
-                            <span class="chip bg-color">pwa</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/05/09/wo-de-windows-gong-zuo-tai/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="我的windows工作台">
-                            
-                            <span class="card-title">我的windows工作台</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                “巨硬”的windows10其实已经是个非常实用和开发友好的系统平台了，在这里我记录下平常使用到的一些应用软件和开发工具，在Surface Pro6的使用下完善工作和学习生活的需求。
-终端篇终端工具
-PowerShell 其实是很强大的，在
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-09
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/记录/" target="_blank">
-                            <span class="chip bg-color">记录</span>
-                        </a>
-                        
-                        <a href="/tags/windows/" target="_blank">
-                            <span class="chip bg-color">windows</span>
-                        </a>
-                        
-                        <a href="/tags/开发/" target="_blank">
-                            <span class="chip bg-color">开发</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/05/08/nodejs-env/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="node-env">
-                            
-                            <span class="card-title">node-env</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                前端nodejs开发平台安装nodejs开发环境// 安装`npm`淘宝源
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-安装git工具前端模块
-cnpm
-no
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/记录/" target="_blank">
-                            <span class="chip bg-color">记录</span>
-                        </a>
-                        
-                        <a href="/tags/nodejs/" target="_blank">
-                            <span class="chip bg-color">nodejs</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/05/08/wsl-notes/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="wsl-notes">
-                            
-                            <span class="card-title">wsl-notes</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                wsl 使用记录
-wsl 终端代理 export http_proxy=http://localhost:8123, 教程为 polipo 代理
-git 平台不同时的换行符问题，可在windows平台同时执行 git config --gl
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-05-08
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/记录/" target="_blank">
-                            <span class="chip bg-color">记录</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2019/04/24/about-vue/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="about-vue">
-                            
-                            <span class="card-title">about-vue</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                记录在学习和使用Vue下遇到的一些问题
-遇到的bugs
-v-html 内的文档结构不能使用自闭包的标签，如 &lt;i /&gt;, 必须是 &lt;i&gt;&lt;/i&gt; 这样的结构，不然会出现渲染bug导致标签不匹配
-Nuxt中
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2019-04-24
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/前端/" target="_blank">
-                            <span class="chip bg-color">前端</span>
-                        </a>
-                        
-                        <a href="/tags/vue/" target="_blank">
-                            <span class="chip bg-color">vue</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2018/09/17/typescript-kuai-su-shang-shou/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/10.jpg" class="responsive-img" alt="TypeScript快速上手">
-                            
-                            <span class="card-title">TypeScript快速上手</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                TypeScript快速上手, 深入请看 深入理解 TypeScript
-上手工具工欲善其事必先利其器
-
-微软大杀器 VSCode
-Node环境
-Node环境模块: TypeScript, Ts-lint 和 ts-node，快速安装
-np
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2018-09-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/前端/" target="_blank">
-                            <span class="chip bg-color">前端</span>
-                        </a>
-                        
-                        <a href="/tags/JavaScript/" target="_blank">
-                            <span class="chip bg-color">JavaScript</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2017/09/17/react-kai-fa-shou-ce/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/11.jpg" class="responsive-img" alt="react 开发手册">
-                            
-                            <span class="card-title">react 开发手册</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                总结 react 开发是需要用到的框架和功能模块，从模块安装、脚手架、网络请求模块，到状态管理、数据库，以及原生开发的组件与UI，都简单地做了记录，方便开发时查询。
-
-
-语法篇
-ES6  es6 api
-babel
-阮一峰的博客
-
-
-JSX
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-09-17
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/javascript/" target="_blank">
-                            <span class="chip bg-color">javascript</span>
-                        </a>
-                        
-                        <a href="/tags/react/" target="_blank">
-                            <span class="chip bg-color">react</span>
-                        </a>
-                        
-                        <a href="/tags/前端/" target="_blank">
-                            <span class="chip bg-color">前端</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2017/05/02/arraybuffer-chu-li-pictures/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="arraybuffer处理pictures">
-                            
-                            <span class="card-title">arraybuffer处理pictures</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                利用 arraybuffer 来处理图片，包含图片的路径名称与数据，并把多张图片合并一个 arraybuffer 并生成单张图片，以及图片的解析。
-
-
-前提了解之前看到的一个H5叫四大导师拯救麦渣 特别吸引我，使用 canvas 配合 xm
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-05-02
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/jsvascript/" target="_blank">
-                            <span class="chip bg-color">jsvascript</span>
-                        </a>
-                        
-                        <a href="/tags/Node-js/" target="_blank">
-                            <span class="chip bg-color">Node.js</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2017/03/25/shi-yong-vagrant-zuo-wei-qian-duan-kai-fa-huan-jing/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="使用 vagrant 作为前端开发环境">
-                            
-                            <span class="card-title">使用 vagrant 作为前端开发环境</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                Vagrant是一个基于Ruby的工具，用于创建和部署虚拟化开发环境。它 使用Oracle的开源VirtualBox虚拟化系统，使用 Chef创建自动化虚拟环境。
-比Docker好一点的地方就是配置方便，支持windowsXP、7等等
-作为
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-03-25
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-user fa-fw"></i>
-                                Sterne Lee
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/jsvascript/" target="_blank">
-                            <span class="chip bg-color">jsvascript</span>
-                        </a>
-                        
-                        <a href="/tags/Node-js/" target="_blank">
-                            <span class="chip bg-color">Node.js</span>
-                        </a>
-                        
-                        <a href="/tags/vagrant/" target="_blank">
-                            <span class="chip bg-color">vagrant</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2017/03/25/react-native-huan-jing-kai-fa-ubuntu-pian/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="react-native环境开发Ubuntu篇">
-                            
-                            <span class="card-title">react-native环境开发Ubuntu篇</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                由于Facebook的开发工程师都是用MacOS的，所以这React native的开发环境还是MacOS最好，其次是Linux,由于windows坑太多，这次的尝试是利用Ubuntu开发React-Native初实践
-
-
-##Ubuntu
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-03-25
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/前端/" class="post-category" target="_blank">
-                                    前端
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/WebAPP/" target="_blank">
-                            <span class="chip bg-color">WebAPP</span>
-                        </a>
-                        
-                        <a href="/tags/jsvascript/" target="_blank">
-                            <span class="chip bg-color">jsvascript</span>
-                        </a>
-                        
-                        <a href="/tags/ReactNative/" target="_blank">
-                            <span class="chip bg-color">ReactNative</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-            <div class="article col s12 m6 l4" data-aos="zoom-in">
-                <div class="card">
-                    <a href="/2017/03/25/create-react-app-pei-he-shi-yong-antd-zu-jian/">
-                        <div class="card-image">
-                            
-                            
-                            <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="Create-React-App配合使用Antd组件">
-                            
-                            <span class="card-title">Create-React-App配合使用Antd组件</span>
-                        </div>
-                    </a>
-
-                    <div class="card-content article-content">
-                        <div class="summary block-with-text">
-                            
-                                简介Create-React-APP 是 Facebook 官方的 react 页面生成工具，可以实现零配置就能使用 react来开发页面，使用起来非常方便。而 Antd 是阿里巴巴的一个 UI 设计语言，设计非常全面的大师级页面组件，当然
-                            
-                        </div>
-                        <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2017-03-25
-                            </span>
-                            <span class="publish-author">
-                                
-                                <i class="fa fa-bookmark fa-fw icon-category"></i>
-                                
-                                <a href="/categories/前端/" class="post-category" target="_blank">
-                                    前端
-                                </a>
-                                
-                                
-                            </span>
-                        </div>
-                    </div>
-
-                    
-                    <div class="card-action article-tags">
-                        
-                        <a href="/tags/WebAPP/" target="_blank">
-                            <span class="chip bg-color">WebAPP</span>
-                        </a>
-                        
-                        <a href="/tags/JS/" target="_blank">
-                            <span class="chip bg-color">JS</span>
-                        </a>
-                        
-                        <a href="/tags/jsvascript/" target="_blank">
-                            <span class="chip bg-color">jsvascript</span>
-                        </a>
-                        
-                        <a href="/tags/React/" target="_blank">
-                            <span class="chip bg-color">React</span>
-                        </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-            
-        </div>
-    </article>
-
-</main>
-
-
-<div class="container paging">
-    <div class="row">
-        <div class="col s6 m4 l4">
-            
-            <a class="left btn-floating btn-large disabled">
-                <i class="fa fa-angle-left"></i>
+          <h1 id="前端nodejs开发平台"><a href="#前端nodejs开发平台" class="headerlink" title="前端nodejs开发平台"></a>前端<code>nodejs</code>开发平台</h1><h2 id="安装nodejs开发环境"><a href="#安装nodejs开发环境" class="headerlink" title="安装nodejs开发环境"></a>安装<code>nodejs</code>开发环境</h2><pre><code class="bash">// 安装`npm`淘宝源
+npm install -g cnpm --registry=https://registry.npm.taobao.org</code></pre>
+<h2 id="安装git工具"><a href="#安装git工具" class="headerlink" title="安装git工具"></a>安装<code>git</code>工具</h2><h2 id="前端模块"><a href="#前端模块" class="headerlink" title="前端模块"></a>前端模块</h2><ul>
+<li><a href="https://npm.taobao.org/" target="_blank" rel="noopener">cnpm</a></li>
+<li><a href="https://www.npmjs.com/package/node-tinypng" target="_blank" rel="noopener">node-tinypng</a><ul>
+<li>usage: <code>tinypng *.png(or folder)</code></li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/json-server" target="_blank" rel="noopener">json-server</a><ul>
+<li>usage: 快速构建 <code>REST API</code> 本地服务</li>
+</ul>
+</li>
+<li>bower</li>
+<li>babel-cli<ul>
+<li>usage: <code>babel example.js -o compiled.js</code></li>
+</ul>
+</li>
+<li><a href="http://javascript.ruanyifeng.com/tool/phantomjs.html" target="_blank" rel="noopener">phantomjs</a></li>
+<li><a href="https://www.tslang.cn/docs/tutorial.html" target="_blank" rel="noopener">typescript</a> , <a href="https://github.com/TypeStrong/ts-node" target="_blank" rel="noopener">ts-node</a> 与 <a href="https://github.com/typings/typings" target="_blank" rel="noopener">typings</a><ul>
+<li>usage: <code>tsc file.ts</code></li>
+</ul>
+</li>
+<li>react-native</li>
+<li><a href="https://getstorybook.io/" target="_blank" rel="noopener">React UI构建工具 react-storybook</a><ul>
+<li>usage: <code>npm i -g getstorybook</code></li>
+</ul>
+</li>
+<li><a href="https://pm2.io/doc/en/runtime/overview/" target="_blank" rel="noopener">pm2</a>  node应用进程管理工具</li>
+<li><a href="https://www.npmjs.com/package/spy-debugger" target="_blank" rel="noopener">spy-debugger</a></li>
+<li><a href="https://gulpjs.com/" target="_blank" rel="noopener">gulp</a></li>
+<li><a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="noopener">create-react-app</a></li>
+<li><a href="https://github.com/react-community/create-react-native-app" target="_blank" rel="noopener">create-react-native-app</a></li>
+<li><a href="https://alibaba.github.io/dawn/docs/" target="_blank" rel="noopener">dawn</a><ul>
+<li>阿里前端构建和工程化工具</li>
+</ul>
+</li>
+<li><a href="https://prepack.io/getting-started.html" target="_blank" rel="noopener">prepack</a><ul>
+<li>usage: <code>prepack script.js</code></li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/jsmonkey" target="_blank" rel="noopener">jsmonkey</a></li>
+<li>stylus<ul>
+<li>usage: <code>stylus -w style.styl -o style.css</code></li>
+</ul>
+</li>
+<li>less<ul>
+<li>usage: <code>lessc styles.less &gt; styles.css</code></li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/serve" target="_blank" rel="noopener">serve</a><ul>
+<li>usage: <code>Yarn</code> 推荐本地静态服务</li>
+</ul>
+</li>
+<li><a href="https://www.npmjs.com/package/serve-here" target="_blank" rel="noopener">serve-here</a><ul>
+<li>usage: <code>here [-p 8888][-S][here -d directory][-w 3]</code></li>
+</ul>
+</li>
+<li>pushstate-server<ul>
+<li>usage: <code>pushstate-server [directory] [port]</code></li>
+</ul>
+</li>
+<li>yarn<ul>
+<li>usage: 设置国内镜像  <code>yarn config set registry https://registry.npm.taobao.org</code></li>
+</ul>
+</li>
+<li>pnpm</li>
+<li><a href="https://github.com/sindresorhus/npm-home" target="_blank" rel="noopener">npm-home</a></li>
+<li><a href="https://github.com/apollographql/apollo-client" target="_blank" rel="noopener">apollo-client</a> 面向UI框架的GraphQL客户端</li>
+<li>nodemon<ul>
+<li>usage: <code>npm install -g nodemon</code></li>
+</ul>
+</li>
+<li>webpack</li>
+<li><a href="https://github.com/17koa/koa-generator" target="_blank" rel="noopener">koa-generator</a><ul>
+<li>usage: (koa教程)(<a href="http://17koa.com/koa-generator-examples/koa-generator/install.html" target="_blank" rel="noopener">http://17koa.com/koa-generator-examples/koa-generator/install.html</a>)</li>
+</ul>
+</li>
+<li>postcss-cli</li>
+<li>autoprefixer<ul>
+<li>usage: <code>postcss --use autoprefixer *.css -d build/</code></li>
+</ul>
+</li>
+<li>npm-check</li>
+<li>gatsby</li>
+<li>requirejs (r.js)</li>
+<li>browserify</li>
+<li>express</li>
+<li><a href="https://github.com/sindresorhus/fkill-cli" target="_blank" rel="noopener">fkill-cli</a></li>
+<li><a href="https://parceljs.org/" target="_blank" rel="noopener">parcel</a></li>
+<li><a href="https://www.npmjs.com/package/n" target="_blank" rel="noopener">n</a></li>
+<li><a href="https://www.npmjs.com/package/nrm" target="_blank" rel="noopener">nrm</a> npm源快速切换</li>
+</ul>
+<h2 id="常用JS框架"><a href="#常用JS框架" class="headerlink" title="常用JS框架"></a>常用<code>JS</code>框架</h2>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/05/08/nodejs-env/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2019/05/08/wsl-notes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
             
-        </div>
-        <div class="page-info col m4 l4 hide-on-small-only">
-            <div class="center-align b-text-gray">1 / 6</div>
-        </div>
-        <div class="col s6 m4 l4">
             
-            <a href="/page/2/"
-               class="right btn-floating btn-large waves-effect waves-light bg-color">
-                <i class="fa fa-angle-right"></i>
+              
+                
+                <a class="post-title-link" href="/2019/05/08/wsl-notes/" itemprop="url">
+                  wsl-notes
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-05-08T17:07:45+08:00">
+                2019-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="wsl-使用记录"><a href="#wsl-使用记录" class="headerlink" title="wsl 使用记录"></a>wsl 使用记录</h3><ol>
+<li>wsl 终端代理 <code>export http_proxy=http://localhost:8123</code>, 教程为 <a href="https://liuzhilin.io/archives/46" target="_blank" rel="noopener">polipo 代理</a></li>
+<li><code>git</code> 平台不同时的换行符问题，可在windows平台同时执行 <code>git config --global core.autocrlf true</code>, 而在其他平台 <code>git config --global core.autocrlf input</code>, <a href="https://www.jianshu.com/p/38f04aef1c9d" target="_blank" rel="noopener">相关阅读</a></li>
+<li>默认终端字体使用 <a href="https://github.com/powerline/fonts/blob/master/DejaVuSansMono/DejaVu%20Sans%20Mono%20for%20Powerline.ttf" target="_blank" rel="noopener">DejaVu Sans Mono for Powerline</a></li>
+<li>安装<a href="https://github.com/robbyrussell/oh-my-zsh" target="_blank" rel="noopener">oh-my-zsh</a> 和 <a href="https://juejin.im/entry/5ae00e54f265da0b8635ea5c" target="_blank" rel="noopener">推荐插件</a></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2019/04/24/about-vue/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2019/04/24/about-vue/" itemprop="url">
+                  about-vue
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-24T19:45:10+08:00">
+                2019-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>记录在学习和使用Vue下遇到的一些问题</p>
+<h3 id="遇到的bugs"><a href="#遇到的bugs" class="headerlink" title="遇到的bugs"></a>遇到的bugs</h3><ol>
+<li><code>v-html</code> 内的文档结构不能使用自闭包的标签，如 <code>&lt;i /&gt;</code>, 必须是 <code>&lt;i&gt;&lt;/i&gt;</code> 这样的结构，不然会出现渲染bug导致标签不匹配</li>
+<li><code>Nuxt</code>中的配置样式会全局导入，每个页面都会得复加载</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/04/24/about-vue/#more" rel="contents">
+              阅读全文 &raquo;
             </a>
-            
-        </div>
+          </div>
+          <!--/noindex-->
+        
+      
     </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2018/09/17/TypeScript%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/09/17/TypeScript%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/" itemprop="url">
+                  TypeScript快速上手
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T22:36:53+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>TypeScript快速上手, 深入请看 <a href="https://jkchao.github.io/typescript-book-chinese/" target="_blank" rel="noopener">深入理解 TypeScript</a></p>
+<h3 id="上手工具"><a href="#上手工具" class="headerlink" title="上手工具"></a>上手工具</h3><p>工欲善其事必先利其器</p>
+<ol>
+<li><a href="https://code.visualstudio.com/" target="_blank" rel="noopener">微软大杀器 VSCode</a></li>
+<li><a href="https://nodejs.org/zh-cn/" target="_blank" rel="noopener">Node环境</a></li>
+<li>Node环境模块: TypeScript, Ts-lint 和 ts-node，快速安装<blockquote>
+<p>npm install -g typescript tslint ts-node</p>
+</blockquote>
+</li>
+<li>VSCode 插件：TSLint, Code Runner, TypeScript Hero, TypeScript Toolbox</li>
+<li>快速码字<blockquote>
+<p>tsc –init<br>tslint –init<br>parcel 快速开发<br>create-react-app new-app –scripts-version=react-scripts-ts<br>声明全局 global.d.ts</p>
+</blockquote>
+</li>
+<li>使用ts来开发lib，推荐 <a href="https://github.com/palmerhq/tsdx" target="_blank" rel="noopener">tsxd</a></li>
+</ol>
+<h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3><ol>
+<li>借助 VSCode 可以适当改下 <code>tslint</code> 规则</li>
+<li><code>window</code> 的全局方法要合理判断，如 <code>XMLHttpRequest</code> 方法需要 <code>if ((window as any).XMLHttpRequest)</code>, 因为IE下是 <code>ActiveXObject</code></li>
+</ol>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2017/09/17/react-%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/09/17/react-%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" itemprop="url">
+                  react 开发手册
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-17T11:58:25+08:00">
+                2017-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>总结 <a href="https://reactjs.org/" target="_blank" rel="noopener">react</a> 开发是需要用到的框架和功能模块，从模块安装、脚手架、网络请求模块，到状态管理、数据库，以及原生开发的组件与UI，都简单地做了记录，方便开发时查询。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/09/17/react-%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2017/05/02/arraybuffer%E5%A4%84%E7%90%86pictures/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/05/02/arraybuffer%E5%A4%84%E7%90%86pictures/" itemprop="url">
+                  arraybuffer处理pictures
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-05-02T19:48:34+08:00">
+                2017-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>利用 <code>arraybuffer</code> 来处理图片，包含图片的路径名称与数据，并把多张图片合并一个 <code>arraybuffer</code> 并生成单张图片，以及图片的解析。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/05/02/arraybuffer%E5%A4%84%E7%90%86pictures/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2017/03/25/%E4%BD%BF%E7%94%A8-vagrant-%E4%BD%9C%E4%B8%BA%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/25/%E4%BD%BF%E7%94%A8-vagrant-%E4%BD%9C%E4%B8%BA%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/" itemprop="url">
+                  使用 vagrant 作为前端开发环境
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-25T23:03:52+08:00">
+                2017-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><code>Vagrant</code>是一个基于<code>Ruby</code>的工具，用于创建和部署虚拟化开发环境。它 使用<code>Oracle</code>的开源<code>VirtualBox</code>虚拟化系统，使用 <code>Chef</code>创建自动化虚拟环境。</p>
+<p>比<code>Docker</code>好一点的地方就是配置方便，支持<code>windowsXP、7</code>等等</p>
+<p>作为一条前端狗，经常会需要用过一些通用的前端工具，在多个办公平台中使用，以下就是本人的一些使用笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/25/%E4%BD%BF%E7%94%A8-vagrant-%E4%BD%9C%E4%B8%BA%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2017/03/25/react-native%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91Ubuntu%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/03/25/react-native%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91Ubuntu%E7%AF%87/" itemprop="url">
+                  react-native环境开发Ubuntu篇
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-03-25T22:44:37+08:00">
+                2017-03-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>由于<code>Facebook</code>的开发工程师都是用<code>MacOS</code>的，所以这<code>React native</code>的开发环境还是<code>MacOS</code>最好，其次是<code>Linux</code>,由于<code>windows</code>坑太多，这次的尝试是利用<code>Ubuntu</code>开发<code>React-Native</code>初实践</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/03/25/react-native%E7%8E%AF%E5%A2%83%E5%BC%80%E5%8F%91Ubuntu%E7%AF%87/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/">&lt;i class=&quot;fa fa-angle-right&quot;&gt;&lt;&#x2F;i&gt;</a>
+  </nav>
+
+
+          
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div class="overlay"></div>
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460"
+               alt="Sterne Lee" />
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
 </div>
 
 
-
-<footer class="page-footer bg-color">
-    <div class="container row center-align">
-        <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
-            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
-
-            
-
-            
-			
-                <br>
-                
-                <a href="http://www.beian.miit.gov.cn/" style="margin-right: 20px;">粤ICP备18150713号-1</a>
-                <!-- <span id="busuanzi_container_site_pv">
-                    <i class="fa fa-heart-o"></i>
-                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
-                </span> -->
-                
-                
-                <!-- <span id="busuanzi_container_site_uv">
-                    <i class="fa fa-users"></i>
-                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
-                </span> -->
-                
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/sternelee" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fa fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:sternelee@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fa fa-envelope-open"></i>
-    </a>
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=392419505" class="tooltipped" data-tooltip="QQ联系我: 392419505" data-position="top" data-delay="50">
-        <i class="fa fa-qq"></i>
-    </a>
-
-
-<a href="http://weibo.com/leemetoo" class="tooltipped" data-tooltip="微博关注我" data-position="top" data-delay="50">
-    <i class="fa fa-weibo"></i>
-</a>
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fa fa-rss"></i>
-    </a>
-</div>
-    </div>
-</footer>
-
-<div class="progress-bar"></div>
-
-
-<!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 強力驱动
 </div>
 
-<script src="/js/search.js"></script>
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
 <script type="text/javascript">
-$(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
-});
-</script>
-<!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fa fa-angle-up"></i>
-    </a>
-</div>
-
-
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-<script src="/js/matery.js"></script>
-<script src="/js/segment.min.js"></script>
-<script src="/js/d3-ease.v0.6.js"></script>
-<script src="/js/letters.js"></script>
-<script src="/js/jump.js"></script>
-<script>
-$(document).ready(function(){
-    $(".hide-on-med-and-down span, #artDetail .article-tag .chip").jrumble();
-});
-//选择元素
-var el = document.querySelector('.logo-span');
-//每个选项可以定义为单个也可以定义为数组
-var options = {
-    size: 70,         // 字体大小，决定文字的高度，px
-    weight: 6,         // 粗体，px
-    rounded: false,    // 字母结尾圆角
-    color: ['#fc6423','#fff'],  // 字体颜色
-    duration: 1,       // 每个字母的动画展示时长 (seconds)
-    delay: [0, 0.4],  // 每个字母间的动画延时
-    fade: 2,         // 渐显效果的时长(seconds)
-    easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
-    individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
-};
-var myText = new Letters(el, options);
-myText.show();
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
 
 
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="local-search-pop-overlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
 </body>
 </html>

@@ -1,996 +1,1058 @@
-<!DOCTYPE HTML>
-<html lang="zh-CN">
+<!doctype html>
 
 
-<head><meta name="generator" content="Hexo 3.9.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="用Canvas来实时处理Video, STERNE">
-    <meta name="description" content="结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="renderer" content="webkit|ie-stand|ie-comp">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>用Canvas来实时处理Video | STERNE</title>
-    <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="/libs/awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
-    <link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
-    <link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/matery.css">
-    <link rel="stylesheet" type="text/css" href="/css/my.css">
-    <style type="text/css">
-        
-    </style>
-
-    <script src="/libs/jquery/jquery-2.2.0.min.js"></script>
-<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+  
 
 
-<body>
+<html class="theme-next mist use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<header class="navbar-fixed">
-    <nav id="headNav" class="bg-color nav-transparent">
-        <div id="navContainer" class="nav-wrapper container">
-            <div class="brand-logo">
-                <a href="/" class="waves-effect waves-light">
-                    
-                    <!-- <img src="/medias/logo.png" class="logo-img" alt="LOGO">
-                     -->
-                    <span class="logo-span">STERNE</span>
-                </a>
-            </div>
-            
 
-<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fa fa-navicon"></i></a>
-<ul class="right">
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
     
-    <li class="hide-on-med-and-down">
-        <a href="/" class="waves-effect waves-light">
-            
-            <i class="fa fa-home"></i>
-            
-            <span>首页</span>
-        </a>
-    </li>
     
-    <li class="hide-on-med-and-down">
-        <a href="/tags" class="waves-effect waves-light">
-            
-            <i class="fa fa-tags"></i>
-            
-            <span>标签</span>
-        </a>
-    </li>
-    
-    <li class="hide-on-med-and-down">
-        <a href="/categories" class="waves-effect waves-light">
-            
-            <i class="fa fa-bookmark"></i>
-            
-            <span>分类</span>
-        </a>
-    </li>
-    
-    <li class="hide-on-med-and-down">
-        <a href="/archives" class="waves-effect waves-light">
-            
-            <i class="fa fa-archive"></i>
-            
-            <span>归档</span>
-        </a>
-    </li>
-    
-    <li class="hide-on-med-and-down">
-        <a href="/about" class="waves-effect waves-light">
-            
-            <i class="fa fa-user-circle-o"></i>
-            
-            <span>关于</span>
-        </a>
-    </li>
-    
-    <li class="hide-on-med-and-down">
-        <a href="/friends" class="waves-effect waves-light">
-            
-            <i class="fa fa-address-book"></i>
-            
-            <span>友情链接</span>
-        </a>
-    </li>
-    
-    <li>
-        <a href="#searchModal" class="modal-trigger waves-effect waves-light">
-            <i id="searchIcon" class="fa fa-search" title="搜索"></i>
-        </a>
-    </li>
-</ul>
+  
 
-<div id="mobile-nav" class="side-nav sidenav">
+  
 
-    <div class="mobile-head bg-color">
-        
-        <img src="/medias/logo.png" class="logo-img circle responsive-img">
-        
-        <div class="logo-name">STERNE</div>
-        <div class="logo-desc">
-            
-            (。・`ω´・)喜欢英文吉他的程序猿
-            
-        </div>
+  
+
+  
+
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="h5,WebAPP,JS,javascript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="STERNE" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。 canvas视频播放">
+<meta name="keywords" content="h5,WebAPP,JS,javascript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Canvas来实时处理Video">
+<meta property="og:url" content="http:&#x2F;&#x2F;sternelee.github.io&#x2F;2016&#x2F;01&#x2F;27&#x2F;yong-canvaslai-chu-li-h5shi-pin&#x2F;index.html">
+<meta property="og:site_name" content="STERNE">
+<meta property="og:description" content="结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。 canvas视频播放">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http:&#x2F;&#x2F;7j1z9o.com1.z0.glb.clouddn.com&#x2F;6941baebgw1evu0hgko9fj204g02oq2t.jpg">
+<meta property="og:image" content="http:&#x2F;&#x2F;7j1z9o.com1.z0.glb.clouddn.com&#x2F;6941baebgw1evu0hg71voj204h02oweg.jpg">
+<meta property="og:updated_time" content="2016-01-27T06:07:12.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;7j1z9o.com1.z0.glb.clouddn.com&#x2F;6941baebgw1evu0hgko9fj204g02oq2t.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://sternelee.github.io/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/"/>
+
+
+
+
+
+  <title> 用Canvas来实时处理Video | STERNE </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-49890486-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?3d7b971cdcecc20a9a4fede5c34e4b52";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">STERNE</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
+      
+        <p class="site-subtitle">斯特恩*李</p>
+      
+  </div>
 
-    
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
 
-    <ul class="menu-list mobile-menu-list">
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
         
-        <li>
-            <a href="/" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-home"></i>
-                
-                首页
-            </a>
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
         </li>
+      
         
-        <li>
-            <a href="/tags" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-tags"></i>
-                
-                标签
-            </a>
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
         </li>
+      
         
-        <li>
-            <a href="/categories" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-bookmark"></i>
-                
-                分类
-            </a>
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
         </li>
+      
         
-        <li>
-            <a href="/archives" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-archive"></i>
-                
-                归档
-            </a>
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
         </li>
+      
         
-        <li>
-            <a href="/about" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-user-circle-o"></i>
-                
-                关于
-            </a>
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
         </li>
-        
-        <li>
-            <a href="/friends" class="waves-effect waves-light">
-                
-                <i class="fa fa-fw fa-address-book"></i>
-                
-                友情链接
-            </a>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="_blank" rel="noopener" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
         </li>
-        
-        
+      
     </ul>
-</div>
+  
 
-        </div>
-
-        
-    </nav>
-
-</header>
-
-
-
-
-
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="brand">
-                    <div class="description center-align post-title">
-                        用Canvas来实时处理Video
-                    </div>
-                </div>
-            </div>
-        </div>
+  
+    <div class="site-search">
+      
+  <div class="popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
     </div>
+  </div>
+  <div id="local-search-result"></div>
 </div>
 
 
 
-<main class="post-container content">
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://sternelee.github.io/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Sterne Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="STERNE">
+    </span>
 
     
-    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
-<style>
-    #articleContent h1::before,
-    #articleContent h2::before,
-    #articleContent h3::before,
-    #articleContent h4::before,
-    #articleContent h5::before,
-    #articleContent h6::before {
-        display: block;
-        content: " ";
-        height: 100px;
-        margin-top: -100px;
-        visibility: hidden;
-    }
+      <header class="post-header">
 
-    #articleContent :focus {
-        outline: none;
-    }
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                用Canvas来实时处理Video
+              
+            
+          </h1>
+        
 
-    .toc-fixed {
-        position: fixed;
-        top: 64px;
-    }
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-01-27T13:10:17+08:00">
+                2016-01-27
+              </time>
+            
 
-    .toc-widget {
-        padding-left: 20px;
-    }
+            
 
-    .toc-widget .toc-title {
-        margin: 35px 0 15px 0;
-        padding-left: 17px;
-        font-size: 1.5rem;
-        font-weight: bold;
-        line-height: 1.5rem;
-    }
+            
+          </span>
 
-    .toc-widget ol {
-        padding: 0;
-        list-style: none;
-    }
-
-    #toc-content ol {
-        padding-left: 10px;
-    }
-
-    #toc-content ol li {
-        padding-left: 10px;
-    }
-
-    #toc-content .toc-link:hover {
-        color: #42b983;
-        font-weight: 700;
-        text-decoration: underline;
-    }
-
-    #toc-content .toc-link::before {
-        background-color: transparent;
-        max-height: 25px;
-    }
-
-    #toc-content .is-active-link {
-        color: #42b983;
-    }
-
-    #toc-content .is-active-link::before {
-        background-color: #42b983;
-    }
-
-    #floating-toc-btn {
-        position: fixed;
-        right: 20px;
-        bottom: 76px;
-        padding-top: 15px;
-        margin-bottom: 0;
-        z-index: 998;
-    }
-
-    #floating-toc-btn .btn-floating {
-        width: 48px;
-        height: 48px;
-    }
-
-    #floating-toc-btn .btn-floating i {
-        line-height: 48px;
-        font-size: 1.4rem;
-    }
-</style>
-<div class="row">
-    <div id="main-content" class="col s12 m12 l9">
-        <!-- 文章内容详情 -->
-<div id="artDetail">
-    <div class="card">
-        <div class="card-content article-info">
-            <div class="row tag-cate">
-                <div class="col s7">
-                    
-                    <div class="article-tag">
-                        
-                            <a href="/tags/h5/" target="_blank">
-                                <span class="chip bg-color">h5</span>
-                            </a>
-                        
-                            <a href="/tags/WebAPP/" target="_blank">
-                                <span class="chip bg-color">WebAPP</span>
-                            </a>
-                        
-                            <a href="/tags/JS/" target="_blank">
-                                <span class="chip bg-color">JS</span>
-                            </a>
-                        
-                            <a href="/tags/javascript/" target="_blank">
-                                <span class="chip bg-color">javascript</span>
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-                <div class="col s5 right-align">
-                    
-                    <div class="post-cate">
-                        <i class="fa fa-bookmark fa-fw icon-category"></i>
-                        
-                            <a href="/categories/前端/" class="post-category" target="_blank">
-                                前端
-                            </a>
-                        
-                    </div>
-                    
-                </div>
-            </div>
-
-            <div class="post-info">
-                <div class="post-date info-break-policy">
-                    <i class="fa fa-calendar-minus-o fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2016-01-27
-                </div>
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
 
                 
-				
-				
-                    <div id="busuanzi_container_page_pv" class="info-break-policy">
-                        <i class="fa fa-eye fa-fw"></i>阅读次数:&nbsp;&nbsp;
-                        <span id="busuanzi_value_page_pv"></span>
-                    </div>
-				
-            </div>
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
         </div>
-        <hr class="clearfix">
-        <div class="card-content article-card-content">
-            <div id="articleContent">
-                <p>结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。</p>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>结合HTML5下的video和canvas的功能，你可以实时处理视频数据，如播放暂停等，解决各平台的H5播放视频的bug，并为正在播放的视频添加各种各样的视觉效果，以使用JavaScript代码实现chroma-keying特效（也被称为“绿色屏幕效应”）。</p>
 <h4 id="canvas视频播放"><a href="#canvas视频播放" class="headerlink" title="canvas视频播放"></a>canvas视频播放</h4><a id="more"></a>
 <p>利用sublime text 快速新建html文件，结构代码如下</p>
-<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span><span class="token punctuation">></span></span><span class="token style language-css">
-    <span class="token selector">body</span><span class="token punctuation">{</span><span class="token property">background</span><span class="token punctuation">:</span>black<span class="token punctuation">;</span><span class="token property">color</span><span class="token punctuation">:</span><span class="token hexcode">#CCCCCC</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
-    <span class="token selector">div</span><span class="token punctuation">{</span><span class="token property">float</span><span class="token punctuation">:</span>left<span class="token punctuation">;</span><span class="token property">border</span><span class="token punctuation">:</span><span class="token number">1</span>px solid <span class="token hexcode">#444444</span><span class="token punctuation">;</span><span class="token property">padding</span><span class="token punctuation">:</span><span class="token number">10</span>px<span class="token punctuation">;</span><span class="token property">margin</span><span class="token punctuation">:</span><span class="token number">10</span>px<span class="token punctuation">;</span><span class="token property">background</span><span class="token punctuation">:</span><span class="token hexcode">#3B3B3B</span><span class="token punctuation">;</span><span class="token punctuation">}</span>
-  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span> <span class="token attr-name">onload</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>processor.doLoad()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">display</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>video</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>video<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>video.ogv<span class="token punctuation">"</span></span> <span class="token attr-name">controls</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>true<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>canvas</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>c1<span class="token punctuation">"</span></span> <span class="token attr-name">width</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>160<span class="token punctuation">"</span></span> <span class="token attr-name">height</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>96<span class="token punctuation">"</span></span><span class="token punctuation">/></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span></code></pre>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;style&gt;
+    body{background:black;color:#CCCCCC;}
+    div{float:left;border:1px solid #444444;padding:10px;margin:10px;background:#3B3B3B;}
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body onload=&quot;processor.doLoad()&quot;&gt;
+  &lt;div style=&quot;display:none;&quot;&gt;
+    &lt;video id=&quot;video&quot; src=&quot;video.ogv&quot; controls=&quot;true&quot;/&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;canvas id=&quot;c1&quot; width=&quot;160&quot; height=&quot;96&quot;/&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>由于我们播放视频用canvas来展示，因此大可把video标签隐藏，直接display:none;然后在body的后面添加播放动作：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> btn <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'c1'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> video <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'video'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-btn<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'click'</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
-  <span class="token keyword">if</span><span class="token punctuation">(</span>video<span class="token punctuation">.</span>paused<span class="token punctuation">)</span><span class="token punctuation">{</span>
-      video<span class="token punctuation">.</span><span class="token function">play</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
-  <span class="token keyword">else</span><span class="token punctuation">{</span>
-      video<span class="token punctuation">.</span><span class="token function">pause</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-    <span class="token punctuation">}</span>
- <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre><code class="javascript">var btn = document.getElementById(&#39;c1&#39;);
+var video = document.getElementById(&#39;video&#39;);
+btn.addEventListener(&#39;click&#39;,function(){
+  if(video.paused){
+      video.play();
+    }
+  else{
+      video.pause();
+    }
+ });</code></pre>
 <p>canvas中可以用drawImage()来绘制图片，同样我们也可以用来绘制视频画面，监听video的play事件并且用setTimeout()来不断绘制视频画面。<br>细节代码如下：</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token keyword">var</span> processor <span class="token operator">=</span> <span class="token punctuation">{</span>
-      timerCallback<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>video<span class="token punctuation">.</span>paused <span class="token operator">||</span> <span class="token keyword">this</span><span class="token punctuation">.</span>video<span class="token punctuation">.</span>ended<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-          <span class="token keyword">return</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">computeFrame</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">var</span> self <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-        <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            self<span class="token punctuation">.</span><span class="token function">timerCallback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      doLoad<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>video <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"video"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>c1 <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">"c1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>ctx1 <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>c1<span class="token punctuation">.</span><span class="token function">getContext</span><span class="token punctuation">(</span><span class="token string">"2d"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">var</span> self <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>video<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">"play"</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            self<span class="token punctuation">.</span>width <span class="token operator">=</span> self<span class="token punctuation">.</span>video<span class="token punctuation">.</span>videoWidth <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            self<span class="token punctuation">.</span>height <span class="token operator">=</span> self<span class="token punctuation">.</span>video<span class="token punctuation">.</span>videoHeight <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            self<span class="token punctuation">.</span><span class="token function">timerCallback</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-          <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span><span class="token punctuation">,</span>
-      computeFrame<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-        <span class="token keyword">this</span><span class="token punctuation">.</span>ctx1<span class="token punctuation">.</span><span class="token function">drawImage</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>video<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token keyword">return</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+<pre><code class="javascript">var processor = {
+      timerCallback: function() {
+        if (this.video.paused || this.video.ended) {
+          return;
+        }
+        this.computeFrame();
+        var self = this;
+        setTimeout(function () {
+            self.timerCallback();
+          }, 0);
+      },
+      doLoad: function() {
+        this.video = document.getElementById(&quot;video&quot;);
+        this.c1 = document.getElementById(&quot;c1&quot;);
+        this.ctx1 = this.c1.getContext(&quot;2d&quot;);
+        var self = this;
+        this.video.addEventListener(&quot;play&quot;, function() {
+            self.width = self.video.videoWidth / 2;
+            self.height = self.video.videoHeight / 2;
+            self.timerCallback();
+          }, false);
+      },
+      computeFrame: function() {
+        this.ctx1.drawImage(this.video, 0, 0, this.width, this.height);
+        return;
+      }
+    };</code></pre>
 <p>初步播放视频的效果如下：<br><a href="http://sterne.cn/examples/canvas-video-1.html" target="_blank" rel="noopener">点击查看效果</a></p>
 <h5 id="初始化chroma-key"><a href="#初始化chroma-key" class="headerlink" title="初始化chroma-key"></a>初始化chroma-key</h5><p>doLoad()方法在XHTML文档初始加载时调用。这个方法的作用是为chroma-key处理代码准备所需的变量，设置一个事件侦听器，当用户开始播放视频时我们能检测到。</p>
 <h5 id="视频监听"><a href="#视频监听" class="headerlink" title="视频监听"></a>视频监听</h5><p>addEventListener()监听video元素，当用户按下视频上的播放按钮时被调用。为了应对用户回放，这段代码获取视频的宽度和高度，并且减半（我们将在执行chroma-keying效果时将视频的大小减半），然后调用timerCallback()方法来启动视频捕捉和视觉效果计算。</p>
 <h5 id="定时回调"><a href="#定时回调" class="headerlink" title="定时回调"></a>定时回调</h5><p>setTimeout()定时器回调函数在视频开始播放时被调用（当“播放”事件发生时），然后负责自身周期调用，为每一帧视频实现keying特效。</p>
 <h5 id="处理视频帧数据"><a href="#处理视频帧数据" class="headerlink" title="处理视频帧数据"></a>处理视频帧数据</h5><p>在canvas中，有两个图像数据处理函数getImageData()和putImageData()，获取与写入图像数据。因此，我们可以给canvas2添加一个背景，并将canvas1的图像数据处理后放入canvas2中，来实现图像叠加与色彩更换。</p>
 <p>注意图像数据的处理：<br>computeFrame()方法，如下所示，实际上负责抓取每一帧的数据和执行chroma-keying特效。</p>
-<pre class=" language-javascript"><code class="language-javascript"><span class="token comment" spellcheck="true">//ctx1 与ctx2分别为两个canvas在context</span>
-<span class="token keyword">var</span> frame <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>ctx1<span class="token punctuation">.</span><span class="token function">getImageData</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>width<span class="token punctuation">,</span> <span class="token keyword">this</span><span class="token punctuation">.</span>height<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">var</span> l <span class="token operator">=</span> frame<span class="token punctuation">.</span>data<span class="token punctuation">.</span>length <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">;</span>
+<pre><code class="javascript">//ctx1 与ctx2分别为两个canvas在context
+var frame = this.ctx1.getImageData(0, 0, this.width, this.height);
+var l = frame.data.length / 4;
 
-<span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> l<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-      <span class="token keyword">var</span> r <span class="token operator">=</span> frame<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">4</span> <span class="token operator">+</span> <span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">var</span> g <span class="token operator">=</span> frame<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">4</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">var</span> b <span class="token operator">=</span> frame<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">4</span> <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
-      <span class="token keyword">if</span> <span class="token punctuation">(</span>g <span class="token operator">></span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> r <span class="token operator">></span> <span class="token number">100</span> <span class="token operator">&amp;&amp;</span> b <span class="token operator">&lt;</span> <span class="token number">43</span><span class="token punctuation">)</span>
-           frame<span class="token punctuation">.</span>data<span class="token punctuation">[</span>i <span class="token operator">*</span> <span class="token number">4</span> <span class="token operator">+</span> <span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-      <span class="token punctuation">}</span>
-      <span class="token keyword">this</span><span class="token punctuation">.</span>ctx2<span class="token punctuation">.</span><span class="token function">putImageData</span><span class="token punctuation">(</span>frame<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span></code></pre>
+for (var i = 0; i &lt; l; i++) {
+      var r = frame.data[i * 4 + 0];
+      var g = frame.data[i * 4 + 1];
+      var b = frame.data[i * 4 + 2];
+      if (g &gt; 100 &amp;&amp; r &gt; 100 &amp;&amp; b &lt; 43)
+           frame.data[i * 4 + 3] = 0;
+      }
+      this.ctx2.putImageData(frame, 0, 0);
+}</code></pre>
 <p>通过调用第一个canvas上下文的getImageData()方法，来获取原始图像数据当前视频帧的一个副本。它提供了原始的32位像素图像数据，这样我们就能够进行操作。<br><img src="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hgko9fj204g02oq2t.jpg" alt="原图像"><br>通过将帧图像数据的总长度除以4，来计算图像的总像素数。循环扫描所有像素，获取每个像素的红、绿、蓝值，同时和预定义的背景色进行比较，这些背景色将用foo.png中导入的背景图像替换。</p>
 <p>被检测成背景的每一个像素，将它的alpha值替换为零，表明该像素是完全透明的。结果，最终的图像背景部分是100%透明的，这样视频内容就叠加到静态背景上了。<br><img src="http://7j1z9o.com1.z0.glb.clouddn.com/6941baebgw1evu0hg71voj204h02oweg.jpg" alt="转换后的图像"></p>
 <p>利用这种方法，可以在纯色幕布中制作真人视频，然后更改背景！<br>注意，要在服务器环境下使用！</p>
 <p>最终的效果如下：<a href="http://sterne.cn/examples/canvas-video-2.html" target="_blank" rel="noopener">点击查看效果</a></p>
 
-            </div>
-            <hr/>
-
-            
-            <style>
-    #reward {
-        margin: 40px 0;
-        text-align: center;
-    }
-
-    #reward .reward-link {
-        font-size: 1.88rem;
-    }
-
-    #reward .btn-floating:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2), 0 5px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    #rewardModal {
-        width: 320px;
-        height: 350px;
-    }
-
-    #rewardModal .reward-title {
-        margin: 15px auto;
-        padding-bottom: 5px;
-    }
-
-    #rewardModal .modal-content {
-        padding: 10px;
-    }
-
-    #rewardModal .close {
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        color: rgba(0, 0, 0, 0.5);
-        font-size: 1.3rem;
-        line-height: 20px;
-        cursor: pointer;
-    }
-
-    #rewardModal .close:hover {
-        color: #ef5350;
-        transform: scale(1.3);
-        -moz-transform:scale(1.3);
-        -webkit-transform:scale(1.3);
-        -o-transform:scale(1.3);
-    }
-
-    #rewardModal .reward-tabs {
-        margin: 0 auto;
-        width: 210px;
-    }
-
-    .reward-tabs .tabs {
-        height: 38px;
-        margin: 10px auto;
-        padding-left: 0;
-    }
-
-    .reward-content ul {
-        padding-left: 0 !important;
-    }
-
-    .reward-tabs .tabs .tab {
-        height: 38px;
-        line-height: 38px;
-    }
-
-    .reward-tabs .tab a {
-        color: #fff;
-        background-color: #ccc;
-    }
-
-    .reward-tabs .tab a:hover {
-        background-color: #ccc;
-        color: #fff;
-    }
-
-    .reward-tabs .wechat-tab .active {
-        color: #fff !important;
-        background-color: #22AB38 !important;
-    }
-
-    .reward-tabs .alipay-tab .active {
-        color: #fff !important;
-        background-color: #019FE8 !important;
-    }
-
-    .reward-tabs .reward-img {
-        width: 210px;
-        height: 210px;
-    }
-</style>
-
-<div id="reward">
-    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-large waves-effect waves-light red">赏</a>
-
-    <!-- Modal Structure -->
-    <div id="rewardModal" class="modal">
-        <div class="modal-content">
-            <a class="close modal-close"><i class="fa fa-close"></i></a>
-            <h4 class="reward-title">你的赏识是我前进的动力</h4>
-            <div class="reward-content">
-                <div class="reward-tabs">
-                    <ul class="tabs row">
-                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
-                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
-                    </ul>
-                    <div id="alipay">
-                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
-                    </div>
-                    <div id="wechat">
-                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
-                    </div>
-                </div>
-            </div>
-        </div>
+      
     </div>
-</div>
 
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/h5/" rel="tag"># h5</a>
+          
+            <a href="/tags/WebAPP/" rel="tag"># WebAPP</a>
+          
+            <a href="/tags/JS/" rel="tag"># JS</a>
+          
+            <a href="/tags/javascript/" rel="tag"># javascript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/15/2016-1-15-react-start/" rel="next" title="reactjs学习体验">
+                <i class="fa fa-chevron-left"></i> reactjs学习体验
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/02/22/2016-2-22-pageSwitch-use/" rel="prev" title="pageSwitch使用与修改">
+                pageSwitch使用与修改 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
 <script>
-    $(function () {
-        $('.tabs').tabs();
-    });
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
 </script>
-            
 
-            <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+      
+    </div>
+  </div>
 
-<div id="article-share">
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
     
-    <div class="social-share" data-disabled="qzone" data-wechat-qrcode-helper="<p>微信里点“发现”->“扫一扫”二维码便可查看分享。</p>"></div>
-    
-</div>
+  </div>
 
-<script src="/libs/share/js/social-share.min.js"></script>
 
-            
-
-    <div class="reprint" id="reprint-statement">
-        <p class="reprint-tip">
-            <i class="fa fa-exclamation-triangle"></i>&nbsp;&nbsp;
-            <span>转载规则</span>
-        </p>
+        </div>
         
-            <div class="center-align">
-                <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
-                    <img alt=""
-                         style="border-width:0"
-                         src="https://i.creativecommons.org/l/by/4.0/88x31.png"/>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            本站概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/6971752?v=3&s=460"
+               alt="Sterne Lee" />
+          <p class="site-author-name" itemprop="name">Sterne Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">(。・`ω´・)喜欢英文吉他的程序猿</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">67</span>
+                <span class="site-state-item-name">文章</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/sternelee" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
                 </a>
-            </div>
-            <br/>
-            <span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text"
-                  property="dct:title" rel="dct:type">
-                    《用Canvas来实时处理Video》
-                </span> 由
-            <a xmlns:cc="http://creativecommons.org/ns#" href="/2016/01/27/yong-canvaslai-chu-li-h5shi-pin/" property="cc:attributionName"
-               rel="cc:attributionURL">
-                Sterne Lee
-            </a> 采用
-            <a rel="license" href="https://creativecommons.org/licenses/by/4.0/deed.zh">
-                知识共享署名 4.0 国际许可协议
-            </a>进行许可。
-        
-    </div>
-
-    <script async defer>
-      document.addEventListener("copy", function (e) {
-        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
-        M.toast({html: toastHTML})
-      });
-
-      function navToReprintStatement() {
-        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
-      }
-    </script>
-
-
-        </div>
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-<article id="prenext-posts" class="prev-next articles">
-    <div class="row article-row">
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge left-badge text-color">
-                <i class="fa fa-chevron-left"></i>&nbsp;上一篇</div>
-            <div class="card">
-                <a href="/2016/02/22/2016-2-22-pageswitch-use/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/21.jpg" class="responsive-img" alt="pageSwitch使用与修改">
-                        
-                        <span class="card-title">pageSwitch使用与修改</span>
-                    </div>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/leemetoo" target="_blank" title="新浪微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  新浪微博
                 </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            pageSwitch 简介pageSwitch适用场景为全屏切换，即一切一屏，移动与web端单页切换，制作翻页H5等等，并且在此基础上实现了超过一百种切换效果。
-GitHub地址：https://github.com/qiqiboy/pag
-                        
-                    </div>
-                    <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="fa fa-clock-o fa-fw icon-date"></i>2016-02-22
-                        </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/前端/" class="post-category" target="_blank">
-                                    前端
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/js/" target="_blank">
-                        <span class="chip bg-color">js</span>
-                    </a>
-                    
-                    <a href="/tags/H5/" target="_blank">
-                        <span class="chip bg-color">H5</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fa fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2016/01/15/2016-1-15-react-start/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="reactjs学习体验">
-                        
-                        <span class="card-title">reactjs学习体验</span>
-                    </div>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://sterne.cn" target="_blank" title="Ghost博客">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Ghost博客
                 </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            reactjs 是什么？reactjs是来自facebook公司的用于构建用户界面的JavaScript库。
-GitHub地址：https://github.com/facebook/react
-reactjs的两个衍生项目也值得注意。
-r
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="fa fa-clock-o fa-fw icon-date"></i>2016-01-15
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fa fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/前端/" class="post-category" target="_blank">
-                                    前端
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/js/" target="_blank">
-                        <span class="chip bg-color">js</span>
-                    </a>
-                    
-                    <a href="/tags/ReactJS/" target="_blank">
-                        <span class="chip bg-color">ReactJS</span>
-                    </a>
-                    
-                    <a href="/tags/react/" target="_blank">
-                        <span class="chip bg-color">react</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/SterneLee" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.facebook.com/sterne.lee" target="_blank" title="Facebook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  Facebook
+                </a>
+              </span>
+            
+          
         </div>
+
         
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#canvas视频播放"><span class="nav-number">1.</span> <span class="nav-text">canvas视频播放</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#初始化chroma-key"><span class="nav-number">1.1.</span> <span class="nav-text">初始化chroma-key</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#视频监听"><span class="nav-number">1.2.</span> <span class="nav-text">视频监听</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#定时回调"><span class="nav-number">1.3.</span> <span class="nav-text">定时回调</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#处理视频帧数据"><span class="nav-number">1.4.</span> <span class="nav-text">处理视频帧数据</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
     </div>
-</article>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Sterne Lee</span>
 </div>
 
 
-
-    </div>
-    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
-        <div class="toc-widget">
-            <div class="toc-title"><i class="fa fa-list-alt"></i>&nbsp;&nbsp;目录</div>
-            <div id="toc-content"></div>
-        </div>
-    </div>
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 強力驱动
 </div>
 
-<!-- TOC 悬浮按钮. -->
-
-<div id="floating-toc-btn" class="hide-on-med-and-down">
-    <a class="btn-floating btn-large bg-color">
-        <i class="fa fa-list"></i>
-    </a>
+<div class="theme-info">
+  主題 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
 </div>
 
 
-<script src="/libs/tocbot/tocbot.min.js"></script>
-<script>
-    $(function () {
-        tocbot.init({
-            tocSelector: '#toc-content',
-            contentSelector: '#articleContent',
-            headingsOffset: -($(window).height() * 0.4 - 45),
-            // headingsOffset: -205,
-            headingSelector: 'h2, h3, h4'
-        });
-
-        // modify the toc link href to support Chinese.
-        let i = 0;
-        let tocHeading = 'toc-heading-';
-        $('#toc-content a').each(function () {
-            $(this).attr('href', '#' + tocHeading + (++i));
-        });
-
-        // modify the heading title id to support Chinese.
-        i = 0;
-        $('#articleContent').children('h2, h3, h4').each(function () {
-            $(this).attr('id', tocHeading + (++i));
-        });
-
-        // Set scroll toc fixed.
-        let tocHeight = parseInt($(window).height() * 0.4 - 64);
-        let $tocWidget = $('.toc-widget');
-        $(window).scroll(function () {
-            let scroll = $(window).scrollTop();
-            /* add post toc fixed. */
-            if (scroll > tocHeight) {
-                $tocWidget.addClass('toc-fixed');
-            } else {
-                $tocWidget.removeClass('toc-fixed');
-            }
-        });
+        
 
         
-        /* 修复文章卡片 div 的宽度. */
-        let fixPostCardWidth = function (srcId, targetId) {
-            let srcDiv = $('#' + srcId);
-            if (srcDiv.length === 0) {
-                return;
-            }
+      </div>
+    </footer>
 
-            let w = srcDiv.width();
-            if (w >= 450) {
-                w = w + 21;
-            } else if (w >= 350 && w < 450) {
-                w = w + 18;
-            } else if (w >= 300 && w < 350) {
-                w = w + 16;
-            } else {
-                w = w + 14;
-            }
-            $('#' + targetId).width(w);
-        };
-
-        // 切换TOC目录展开收缩的相关操作.
-        const expandedClass = 'expanded';
-        let $tocAside = $('#toc-aside');
-        let $mainContent = $('#main-content');
-        $('#floating-toc-btn .btn-floating').click(function () {
-            if ($tocAside.hasClass(expandedClass)) {
-                $tocAside.removeClass(expandedClass).slideUp(500);
-                $mainContent.removeClass('l9');
-            } else {
-                $tocAside.addClass(expandedClass).slideDown(500);
-                $mainContent.addClass('l9');
-            }
-            fixPostCardWidth('artDetail', 'prenext-posts');
-        });
-        
-    });
-</script>
     
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
 
-</main>
+  
 
-
-<footer class="page-footer bg-color">
-    <div class="container row center-align">
-        <div class="col s12 m8 l8 copy-right">
-            本站由&copy;<a href="https://blinkfox.github.io/" target="_blank">Blinkfox</a>基于
-            <a href="https://hexo.io/" target="_blank">Hexo</a> 的
-            <a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">hexo-theme-matery</a>主题搭建.
-
-            
-
-            
-			
-                <br>
-                
-                <a href="http://www.beian.miit.gov.cn/" style="margin-right: 20px;">粤ICP备18150713号-1</a>
-                <!-- <span id="busuanzi_container_site_pv">
-                    <i class="fa fa-heart-o"></i>
-                    本站总访问量 <span id="busuanzi_value_site_pv" class="white-color"></span>
-                </span> -->
-                
-                
-                <!-- <span id="busuanzi_container_site_uv">
-                    <i class="fa fa-users"></i>
-                    次,&nbsp;访客数 <span id="busuanzi_value_site_uv" class="white-color"></span> 人.
-                </span> -->
-                
-            
-        </div>
-        <div class="col s12 m4 l4 social-link social-statis">
-    <a href="https://github.com/sternelee" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
-        <i class="fa fa-github"></i>
-    </a>
-
-
-
-    <a href="mailto:sternelee@gmail.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
-        <i class="fa fa-envelope-open"></i>
-    </a>
-
-
-
-    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=392419505" class="tooltipped" data-tooltip="QQ联系我: 392419505" data-position="top" data-delay="50">
-        <i class="fa fa-qq"></i>
-    </a>
-
-
-<a href="http://weibo.com/leemetoo" class="tooltipped" data-tooltip="微博关注我" data-position="top" data-delay="50">
-    <i class="fa fa-weibo"></i>
-</a>
-
-
-    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
-        <i class="fa fa-rss"></i>
-    </a>
-</div>
-    </div>
-</footer>
-
-<div class="progress-bar"></div>
-
-
-<!-- 搜索遮罩框 -->
-<div id="searchModal" class="modal">
-    <div class="modal-content">
-        <div class="search-header">
-            <span class="title"><i class="fa fa-search"></i>&nbsp;&nbsp;搜索</span>
-            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
-                   class="search-input">
-        </div>
-        <div id="searchResult"></div>
-    </div>
-</div>
-
-<script src="/js/search.js"></script>
 <script type="text/javascript">
-$(function () {
-    searchFunc("/" + "search.xml", 'searchInput', 'searchResult');
-});
-</script>
-<!-- 回到顶部按钮 -->
-<div id="backTop" class="top-scroll">
-    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
-        <i class="fa fa-angle-up"></i>
-    </a>
-</div>
-
-
-<script src="/libs/materialize/materialize.min.js"></script>
-<script src="/libs/masonry/masonry.pkgd.min.js"></script>
-<script src="/libs/aos/aos.js"></script>
-<script src="/libs/scrollprogress/scrollProgress.min.js"></script>
-<script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
-<script src="/js/matery.js"></script>
-<script src="/js/segment.min.js"></script>
-<script src="/js/d3-ease.v0.6.js"></script>
-<script src="/js/letters.js"></script>
-<script src="/js/jump.js"></script>
-<script>
-$(document).ready(function(){
-    $(".hide-on-med-and-down span, #artDetail .article-tag .chip").jrumble();
-});
-//选择元素
-var el = document.querySelector('.logo-span');
-//每个选项可以定义为单个也可以定义为数组
-var options = {
-    size: 70,         // 字体大小，决定文字的高度，px
-    weight: 6,         // 粗体，px
-    rounded: false,    // 字母结尾圆角
-    color: ['#fc6423','#fff'],  // 字体颜色
-    duration: 1,       // 每个字母的动画展示时长 (seconds)
-    delay: [0, 0.4],  // 每个字母间的动画延时
-    fade: 2,         // 渐显效果的时长(seconds)
-    easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
-    individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
-};
-var myText = new Letters(el, options);
-myText.show();
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
 </script>
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
 
 
 
-    <script src="/libs/others/clicklove.js"></script>
 
 
-    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
 
 
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="local-search-pop-overlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
 </body>
 </html>
