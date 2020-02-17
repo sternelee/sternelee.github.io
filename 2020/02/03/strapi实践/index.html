@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="STERNE">
 <meta property="og:description" content="strapi 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。下面就是我的新手引导的记录。 安装按照官方说明，使用下列命令： yarn create strapi-app &amp;lt;project-name&amp;gt; 会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库m">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-09T03:22:08.121Z">
+<meta property="og:updated_time" content="2020-02-17T02:12:00.453Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -402,6 +402,10 @@
 <li>更改页面的js为相对路径，在 <code>build</code> 目录下的 <code>index.html</code> 文件，如 <code>/admin/runtime~main.08b11d8f.js</code> 改成 <code>./admin/runtime~main.08b11d8f.js</code></li>
 <li>更改<code>config/environments/相应环境/server.json</code> 中的 <code>host</code> 为你的子目录地址，如 <code>leeapps.cn/api/</code></li>
 </ol>
+<h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><ol>
+<li>首次安装使用mysql数据库时，必须<code>yarn develop</code>来运行才能创建管理员登陆帐号</li>
+<li>进入管理页会加载比较久，主要资源js文件太大，在<code>build</code>目录下有个8.5M的js文件，而安装更多其他插件时则不太影响，整个build目录足足28M多；</li>
+</ol>
 
       
     </div>
@@ -635,7 +639,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Graphql"><span class="nav-number">2.</span> <span class="nav-text">使用 Graphql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义二级域名"><span class="nav-number">3.</span> <span class="nav-text">自定义二级域名</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Graphql"><span class="nav-number">2.</span> <span class="nav-text">使用 Graphql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义二级域名"><span class="nav-number">3.</span> <span class="nav-text">自定义二级域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际使用"><span class="nav-number">4.</span> <span class="nav-text">实际使用</span></a></li></ol></div>
             
 
           </div>

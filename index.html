@@ -407,6 +407,10 @@
 <li>更改页面的js为相对路径，在 <code>build</code> 目录下的 <code>index.html</code> 文件，如 <code>/admin/runtime~main.08b11d8f.js</code> 改成 <code>./admin/runtime~main.08b11d8f.js</code></li>
 <li>更改<code>config/environments/相应环境/server.json</code> 中的 <code>host</code> 为你的子目录地址，如 <code>leeapps.cn/api/</code></li>
 </ol>
+<h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><ol>
+<li>首次安装使用mysql数据库时，必须<code>yarn develop</code>来运行才能创建管理员登陆帐号</li>
+<li>进入管理页会加载比较久，主要资源js文件太大，在<code>build</code>目录下有个8.5M的js文件，而安装更多其他插件时则不太影响，整个build目录足足28M多；</li>
+</ol>
 
           
         
