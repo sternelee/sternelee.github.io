@@ -402,6 +402,7 @@
 <p>按照官方的新手引导即可完成内容的类型创建和添加。</p>
 <h2 id="使用-Graphql"><a href="#使用-Graphql" class="headerlink" title="使用 Graphql"></a>使用 Graphql</h2><p><a href="https://strapi.io/documentation/3.0.0-alpha.x/guides/graphql.html#graphql" target="_blank" rel="noopener">strapi使用Graphql</a> 也十分方便。</p>
 <pre><code class="bash">yarn strapi install graphql</code></pre>
+<h2 id="使用图片服务端"><a href="#使用图片服务端" class="headerlink" title="使用图片服务端"></a>使用图片服务端</h2><p>七牛云、阿里云、腾讯云都有相应的<code>npm</code>插件包（strapi-provider-upload-qiniu，strapi-provider-upload-oss 和 strapi-provider-upload-tencent），安装即可。这些适应器以 <code>strapi-provider-[type]</code> 来区分， <code>type</code> 如 <code>upload</code>, <code>email</code>, 可直接在<code>npm</code>官方搜索到。<br>之后我们就可以在 <code>插件</code> -&gt; <code>FILES UPLOAD — 多媒体档案管理</code> 右侧配置按钮即可进入配置项。</p>
 <h2 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h2><ol>
 <li>使用 <code>nginx</code> 的 <code>proxy_pass</code> 来代理， 如 <code>/api/</code> 配置到 <code>http://127.0.0.1:1337/</code></li>
 <li>更改页面的js为相对路径，在 <code>build</code> 目录下的 <code>index.html</code> 文件，如 <code>/admin/runtime~main.08b11d8f.js</code> 改成 <code>./admin/runtime~main.08b11d8f.js</code></li>
@@ -409,7 +410,9 @@
 </ol>
 <h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><ol>
 <li>首次安装使用mysql数据库时，必须<code>yarn develop</code>来运行才能创建管理员登陆帐号</li>
-<li>进入管理页会加载比较久，主要资源js文件太大，在<code>build</code>目录下有个8.5M的js文件，而安装更多其他插件时则不太影响，整个build目录足足28M多；</li>
+<li>进入管理页会加载比较久，主要资源js文件太大，在<code>build</code>目录下有个8.5M的js文件，而安装更多其他插件时则不太影响，整个build目录足足28M多（未启动gzip压缩）；</li>
+<li><code>角色和权限</code> 可以配置所有接口的使用权限</li>
+<li>目测 <code>strapi</code> 提供的 第三方用户授权是面向接口内容的用户的，可以在<code>角色和权限</code>中的提供者内配置或添加自己的第三方用户授权，注意不是管理员用户。</li>
 </ol>
 
           
