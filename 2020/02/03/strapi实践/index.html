@@ -91,7 +91,7 @@
 <meta property="og:site_name" content="STERNE">
 <meta property="og:description" content="strapi 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。下面就是我的新手引导的记录。 安装按照官方说明，使用下列命令： yarn create strapi-app &amp;lt;project-name&amp;gt; 会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库m">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-02-19T07:30:45.295Z">
+<meta property="og:updated_time" content="2020-02-19T07:34:31.595Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -410,33 +410,21 @@
   &quot;redis&quot;: {
     &quot;enable&quot;: true
   }
-}
-
-```
-
-然而,根据`strapi-hook-redis` 的 `index.js` 文件说明, 在database.json中添加如 `connector: &#39;strapi-hook-redis&#39;` 的数据库字段,却无法跑起来去❌，难😣!
-
-## [policies 使用](https://strapi.io/documentation/3.0.0-beta.x/concepts/policies.html#concept)
-
-policies 是用来处理路由请求的规则，可以做校验或对其他的接口操作（如定时器，logger等）。
-
-## [CLI工具](https://strapi.io/documentation/3.0.0-beta.x/cli/CLI.html)
-
-如果是全局安装了 strapi, 则直接使用;
-局部安装可执行 ` .\node_modules\.bin\strapi`
-
-## 自定义二级域名
-
-1. 使用 `nginx` 的 `proxy_pass` 来代理， 如 `/api/` 配置到 `http://127.0.0.1:1337/`
-2. 更改页面的js为相对路径，在 `build` 目录下的 `index.html` 文件，如 `/admin/runtime~main.08b11d8f.js` 改成 `./admin/runtime~main.08b11d8f.js`
-3. 更改`config/environments/相应环境/server.json` 中的 `host` 为你的子目录地址，如 `leeapps.cn/api/`
-
-## 实际使用
-
-1. 首次安装使用mysql数据库时，必须`yarn develop`来运行才能创建管理员登陆帐号
-2. 进入管理页会加载比较久，主要资源js文件太大，在`build`目录下有个8.5M的js文件，(启用gzip后为5.66M, 在````./config/environments/**/response.json`````````)而安装更多其他插件时则不太影响，整个build目录足足28M多（未启动gzip压缩）；
-3. `角色和权限` 可以配置所有接口的使用权限
-4. 目测 `strapi` 提供的 第三方用户授权是面向接口内容的用户的，可以在`角色和权限`中的提供者内配置或添加自己的第三方用户授权，注意不是管理员用户。</code></pre>
+}</code></pre>
+<p>然而,根据<code>strapi-hook-redis</code> 的 <code>index.js</code> 文件说明, 在database.json中添加如 <code>connector: &#39;strapi-hook-redis&#39;</code> 的数据库字段,却无法跑起来去❌，难😣!</p>
+<h2 id="policies-使用"><a href="#policies-使用" class="headerlink" title="policies 使用"></a><a href="https://strapi.io/documentation/3.0.0-beta.x/concepts/policies.html#concept" target="_blank" rel="noopener">policies 使用</a></h2><p>policies 是用来处理路由请求的规则，可以做校验或对其他的接口操作（如定时器，logger等）。</p>
+<h2 id="CLI工具"><a href="#CLI工具" class="headerlink" title="CLI工具"></a><a href="https://strapi.io/documentation/3.0.0-beta.x/cli/CLI.html" target="_blank" rel="noopener">CLI工具</a></h2><p>如果是全局安装了 strapi, 则直接使用;<br>局部安装可执行 <code>.\node_modules\.bin\strapi</code></p>
+<h2 id="自定义二级域名"><a href="#自定义二级域名" class="headerlink" title="自定义二级域名"></a>自定义二级域名</h2><ol>
+<li>使用 <code>nginx</code> 的 <code>proxy_pass</code> 来代理， 如 <code>/api/</code> 配置到 <code>http://127.0.0.1:1337/</code></li>
+<li>更改页面的js为相对路径，在 <code>build</code> 目录下的 <code>index.html</code> 文件，如 <code>/admin/runtime~main.08b11d8f.js</code> 改成 <code>./admin/runtime~main.08b11d8f.js</code></li>
+<li>更改<code>config/environments/相应环境/server.json</code> 中的 <code>host</code> 为你的子目录地址，如 <code>leeapps.cn/api/</code></li>
+</ol>
+<h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><ol>
+<li>首次安装使用mysql数据库时，必须<code>yarn develop</code>来运行才能创建管理员登陆帐号</li>
+<li>进入管理页会加载比较久，主要资源js文件太大，在<code>build</code>目录下有个8.5M的js文件，(启用gzip后为5.66M, 在````./config/environments/**/response.json`````````)而安装更多其他插件时则不太影响，整个build目录足足28M多（未启动gzip压缩）；</li>
+<li><code>角色和权限</code> 可以配置所有接口的使用权限</li>
+<li>目测 <code>strapi</code> 提供的 第三方用户授权是面向接口内容的用户的，可以在<code>角色和权限</code>中的提供者内配置或添加自己的第三方用户授权，注意不是管理员用户。</li>
+</ol>
 
       
     </div>
@@ -670,7 +658,7 @@ policies 是用来处理路由请求的规则，可以做校验或对其他的�
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Graphql"><span class="nav-number">2.</span> <span class="nav-text">使用 Graphql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用图片服务端"><span class="nav-number">3.</span> <span class="nav-text">使用图片服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多数据库-😣"><span class="nav-number">4.</span> <span class="nav-text">多数据库 😣</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Graphql"><span class="nav-number">2.</span> <span class="nav-text">使用 Graphql</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用图片服务端"><span class="nav-number">3.</span> <span class="nav-text">使用图片服务端</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多数据库-😣"><span class="nav-number">4.</span> <span class="nav-text">多数据库 😣</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#policies-使用"><span class="nav-number">5.</span> <span class="nav-text">policies 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CLI工具"><span class="nav-number">6.</span> <span class="nav-text">CLI工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义二级域名"><span class="nav-number">7.</span> <span class="nav-text">自定义二级域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际使用"><span class="nav-number">8.</span> <span class="nav-text">实际使用</span></a></li></ol></div>
             
 
           </div>
