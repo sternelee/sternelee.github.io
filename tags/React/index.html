@@ -86,7 +86,7 @@
 <meta name="description" content="(。・&#96;ω´・)喜欢英文吉他的程序猿">
 <meta property="og:type" content="website">
 <meta property="og:title" content="STERNE">
-<meta property="og:url" content="http:&#x2F;&#x2F;sternelee.github.io&#x2F;tags&#x2F;react&#x2F;index.html">
+<meta property="og:url" content="http:&#x2F;&#x2F;sternelee.github.io&#x2F;tags&#x2F;React&#x2F;index.html">
 <meta property="og:site_name" content="STERNE">
 <meta property="og:description" content="(。・&#96;ω´・)喜欢英文吉他的程序猿">
 <meta property="og:locale" content="zh-CN">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://sternelee.github.io/tags/react/"/>
+  <link rel="canonical" href="http://sternelee.github.io/tags/React/"/>
 
 
 
 
 
-  <title> 标签: react | STERNE </title>
+  <title> 标签: React | STERNE </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
@@ -307,7 +307,7 @@
   <div id="posts" class="posts-collapse">
     <div class="collection-title">
       <h2 >
-        react
+        React
         <small>标签</small>
       </h2>
     </div>
@@ -320,37 +320,9 @@
 
       <h1 class="post-title">
         
-            <a class="post-title-link" href="/2019/05/15/pwa%E5%AE%9E%E8%B7%B5/" itemprop="url">
+            <a class="post-title-link" href="/2017/03/25/Create-React-App%E9%85%8D%E5%90%88%E4%BD%BF%E7%94%A8Antd%E7%BB%84%E4%BB%B6/" itemprop="url">
               
-                <span itemprop="name">pwa实践</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-05-15T19:28:53+08:00"
-              content="2019-05-15" >
-          05-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/17/react-%E5%BC%80%E5%8F%91%E6%89%8B%E5%86%8C/" itemprop="url">
-              
-                <span itemprop="name">react 开发手册</span>
+                <span itemprop="name">Create-React-App配合使用Antd组件</span>
               
             </a>
         
@@ -358,37 +330,9 @@
 
       <div class="post-meta">
         <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-17T11:58:25+08:00"
-              content="2017-09-17" >
-          09-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-    
-      
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h1 class="post-title">
-        
-            <a class="post-title-link" href="/2016/01/15/2016-1-15-react-start/" itemprop="url">
-              
-                <span itemprop="name">reactjs学习体验</span>
-              
-            </a>
-        
-      </h1>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-01-15T11:46:56+08:00"
-              content="2016-01-15" >
-          01-15
+              datetime="2017-03-25T22:22:09+08:00"
+              content="2017-03-25" >
+          03-25
         </time>
       </div>
 
@@ -816,6 +760,50 @@
     });
     $('.popup').click(function(e){
       e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+  <script src="/js/jump.js"></script>
+  <script>
+    $(document).ready(function(){
+      $(".site-author-image,.menu-item a,.post-button .btn").jrumble();
+    });
+  </script>
+  <script src="/js/segment.min.js"></script>
+  <script src="/js/d3-ease.v0.6.js"></script>
+  <script src="/js/letters.js"></script>
+  <script>
+  //选择元素
+  var el = document.querySelector('.site-title');
+  //每个选项可以定义为单个也可以定义为数组
+  var options = {
+      size: 50,         // 字体大小，决定文字的高度，px
+      weight: 6,         // 粗体，px
+      rounded: false,    // 字母结尾圆角
+      color: ['#fc6423','#222'],  // 字体颜色
+      duration: 1,       // 每个字母的动画展示时长 (seconds)
+      delay: [0, 0.4],  // 每个字母间的动画延时
+      fade: 2,         // 渐显效果的时长(seconds)
+      easing: d3_ease.easeCubicInOut.ease,   // 缓冲动画效果
+      individualDelays: false     // 默认false，如果设置成false，则动画效果会从左到右过度展示，如果是true，字母动画效果是同步展示
+  };
+  var myText = new Letters(el, options);
+  myText.show();
+  </script>
+</body>
+</html>
+stopPropagation();
     });
   </script>
 
