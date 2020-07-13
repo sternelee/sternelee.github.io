@@ -395,9 +395,32 @@
 
       
         
-          
-            
-          
+          <h1 id="web-worker-实践"><a href="#web-worker-实践" class="headerlink" title="web worker 实践"></a><a href="https://gitee.com/sternelee/example-worker" target="_blank" rel="noopener">web worker 实践</a></h1><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>通过使用Web Workers，Web应用程序可以在独立于主线程的后台线程中，运行一个脚本操作。这样做的好处是可以在独立线程中执行费时的处理任务，从而允许主线程（通常是UI线程）不会因此被阻塞/放慢，从页实现多线程。</p>
+<p>主线程 =&gt; 创建 <code>worker</code> (<code>new Worker</code>(同源<code>js</code>链接)) -&gt; 发送通知<code>postMessage</code> -&gt; 接收通知<code>onmessage</code> -&gt; 关闭<code>close</code></p>
+<p><code>worker</code>线程 =&gt; 程序逻辑 -&gt; 接收命令<code>onmessage</code> -&gt; 处理数据 -&gt; 发送通知<code>postMessage</code> -&gt; 关闭<code>terminate</code></p>
+<h4 id="不可使用点"><a href="#不可使用点" class="headerlink" title="不可使用点"></a>不可使用点</h4><ol>
+<li>与主线程不在同一个上下文</li>
+<li>不可以操作 DOM，一切与 DOM 操作相关的函数、类都不能使用</li>
+<li><code>window</code> 对象的某些属性和方法, 重点注意 <code>XMLHttpRequest</code> 只会返回 <code>null</code><blockquote>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Web_Workers_API/Functions_and_classes_available_to_workers" target="_blank" rel="noopener">Web Workers可以使用的函数和类</a></p>
+</blockquote>
+</li>
+</ol>
+<h4 id="Blob-使用"><a href="#Blob-使用" class="headerlink" title="Blob 使用"></a><code>Blob</code> 使用</h4><blockquote>
+<p>学习参考：<a href="https://zhuanlan.zhihu.com/p/59981684" target="_blank" rel="noopener">动态创建 Web Worker 实践指南</a></p>
+</blockquote>
+<p><code>Web Worker</code> 常用构造函数来加载 <code>js</code> 链接文件，而我们知道：</p>
+<ol>
+<li><code>Blob</code>对象是一个不可变、原始数据的类文件对象，但不局限于 JavaScript 原生格式的数据，常被用来存储体量很大的二进制编码格式的数据，因此我们可以存入 <code>worker.js</code> 的逻辑代码。</li>
+<li><code>URL.createObjectURL</code> 则可以创建链接。</li>
+</ol>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2020/07/13/web-worker/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
