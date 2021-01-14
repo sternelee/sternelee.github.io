@@ -93,7 +93,7 @@
 <meta property="og:description" content="WebAssembly动态内存分配WebAssembly中的内存管理：C和Rust指南，动态内存分配是指通过一组C语言以C编程语言对动态内存分配执行手动内存管理。对于WebAssembly中动态内存分配的简单示例，让我们考虑一下记录数据类型，该数据类型具有与之关联的任意字段。例如，说一个ID，一个X和一个Y值。为了动态创建这些记录之一，我们将使用createRecord函数，该函数将其字段作为其参">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-12T13:33:04.000Z">
-<meta property="article:modified_time" content="2021-01-12T05:49:02.248Z">
+<meta property="article:modified_time" content="2021-01-14T03:30:49.882Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="webassembly">
@@ -396,6 +396,8 @@
         <h3 id="WebAssembly动态内存分配"><a href="#WebAssembly动态内存分配" class="headerlink" title="WebAssembly动态内存分配"></a><a href="https://www.xspdf.com/resolution/56019003.html" target="_blank" rel="noopener">WebAssembly动态内存分配</a></h3><p><strong>WebAssembly中的内存管理：C和Rust指南</strong>，动态内存分配是指通过一组C语言以C编程语言对动态内存分配执行手动内存管理。对于WebAssembly中动态内存分配的简单示例，让我们考虑一下记录数据类型，该数据类型具有与之关联的任意字段。例如，说一个ID，一个X和一个Y值。为了动态创建这些记录之一，我们将使用createRecord函数，该函数将其字段作为其参数。</p>
 <p><strong>WebAssembly和动态内存</strong>，我们演示了如何构建依赖于malloc的WebAssembly模块，在运行时链接到预构建的malloc实现中，使用JS绑定技巧来使WebAssembly模块不了解有关对象大小的任何线索在内存中创建。WebAssembly需要分配内存。我们必须手动编写内存的分配和释放。在此步骤中，我们发送数组的长度并分配该内存。这将为我们提供一个指向内存位置的指针。</p>
 <p><strong>使用中的Malloc在WebAssembly中分配动态内存</strong>，了解WebAssembly的内存模型在反向功能中将很重要，最初，此堆已用输入数组填充。WebAssembly线性内存对象的大小以页为单位。每页为65536（2 ^ 16）字节。在WebAssembly版本1中，线性内存最多可以有65536页，总共2 ^ 32字节（4吉字节）。除了该页数限制，当前所有内存指令都将i32类型用作内存索引。</p>
+<a id="more"></a>
+
 <h3 id="Web装配体内存"><a href="#Web装配体内存" class="headerlink" title="Web装配体内存"></a>Web装配体内存</h3><p><strong><code>WebAssembly.Memory</code></strong>， WebAssembly.Memory对象是可调整大小的ArrayBuffer或SharedArrayBuffer，用于保存由A访问的内存的原始字节。JavaScript或WebAssembly代码创建的内存将可以从JavaScript和WebAssembly访问并可变。语法new WebAssembly.Memory（memoryDe​​scriptor）; 参数memoryDe​​scriptor一个对象，可以包含以下成员：initial WebAssembly内存的初始大小，以WebAssembly页面为单位。maximum可选允许WebAssembly内存增加到的最大大小，以WebAssembly页面为单位。如果存在，则最大值参数用作提示</p>
 <p><strong>WebAssembly.Memory（）构造函数</strong>， WebAssembly.Memory（）构造函数创建一个新的Memory对象，其缓冲区属性是可调整大小的ArrayBuffer或SharedArrayBuffer。WebAssembly模块的memory部分是线性内存的向量。</p>
 <p><strong>WebAssembly中的内存（以及为什么它比您想象的更安全）</strong>，什么是内存对象？实例化WebAssembly模块时，它需要一个内存对象。您可以创建一个新的WebAssembly。WebAssembly线性内存对象的大小以页为单位。每页为65536（2 ^ 16）字节。在WebAssembly版本1中，线性内存最多可以有65536页，总共2 ^ 32字节（4吉字节）。除了该页数限制，当前所有内存指令都将i32类型用作内存索引。</p>
@@ -486,6 +488,10 @@ for (var i = 0; i &lt; linearMemory.length; i++) { linearMemory[i] = i; }
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2021/01/12/fe-build%E5%89%8D%E7%AB%AF%E6%89%93%E5%8C%85%E6%96%B0%E8%B6%8B%E5%8A%BF/" rel="prev" title="fe-build-前端打包新趋势">
+                fe-build-前端打包新趋势 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -564,7 +570,7 @@ for (var i = 0; i &lt; linearMemory.length; i++) { linearMemory[i] = i; }
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">文章</span>
               </a>
             </div>
@@ -582,7 +588,7 @@ for (var i = 0; i &lt; linearMemory.length; i++) { linearMemory[i] = i; }
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">38</span>
+                <span class="site-state-item-count">40</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
