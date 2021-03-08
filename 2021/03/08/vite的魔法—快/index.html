@@ -93,7 +93,7 @@
 <meta property="og:description" content="简介vite —— 一个由 vue 作者尤雨溪开发的 web 开发工具，他基于浏览器原生 ES imports 的开发服务器。利用浏览器去解析 imports，在服务器端按需编译返回，完全跳过了打包这个概念，服务器随起随用。它具有以下特点：  快速的冷启动 即时的模块热更新 真正的按需编译  原理在过去的 Webpack、Rollup 等构建工具的时代，我们所写的代码一般都是基于 ES Modul">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-08T11:29:35.000Z">
-<meta property="article:modified_time" content="2021-03-08T10:19:10.524Z">
+<meta property="article:modified_time" content="2021-03-08T13:28:50.690Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="nodejs">
@@ -444,6 +444,7 @@ export default defineConfig({
     vue()
   ]
 })</code></pre>
+<h4 id="vite-plugin-components"><a href="#vite-plugin-components" class="headerlink" title="vite-plugin-components"></a><a href="https://github.com/antfu/vite-plugin-components" target="_blank" rel="noopener"><code>vite-plugin-components</code></a></h4><p>这是个自动导入<code>components</code>组件的插件，还能配置多个ui组件库, 支持 Vue2 和 Vue3 (墙裂推荐!)</p>
 <h4 id="nuxt-vite"><a href="#nuxt-vite" class="headerlink" title="nuxt-vite"></a><a href="https://github.com/nuxt/vite" target="_blank" rel="noopener"><code>nuxt-vite</code></a></h4><p>针对 <code>Nuxt</code> 项目的打包插件<br>在 <code>vscode</code> 中全局正则匹配加上文件缀: 勾选 使用正式表达式 (Alt+R)<br>@/components/([^’]*)<br>@/components/$1.vue</p>
 <h3 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h3><ol>
 <li><a href="https://segmentfault.com/a/1190000038999784" target="_blank" rel="noopener">Vue3.0 + Vite 初体验（一）项目配置</a></li>
@@ -692,7 +693,7 @@ export default defineConfig({
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易上手的插件"><span class="nav-number">3.</span> <span class="nav-text">易上手的插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">3.1.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">3.2.</span> <span class="nav-text">nuxt-vite</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关阅读"><span class="nav-number">4.</span> <span class="nav-text">相关阅读</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易上手的插件"><span class="nav-number">3.</span> <span class="nav-text">易上手的插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">3.1.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-components"><span class="nav-number">3.2.</span> <span class="nav-text">vite-plugin-components</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">3.3.</span> <span class="nav-text">nuxt-vite</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关阅读"><span class="nav-number">4.</span> <span class="nav-text">相关阅读</span></a></li></ol></div>
             
 
           </div>
