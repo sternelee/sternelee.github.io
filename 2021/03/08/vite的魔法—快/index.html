@@ -93,7 +93,7 @@
 <meta property="og:description" content="简介vite —— 一个由 vue 作者尤雨溪开发的 web 开发工具，他基于浏览器原生 ES imports 的开发服务器。利用浏览器去解析 imports，在服务器端按需编译返回，完全跳过了打包这个概念，服务器随起随用。它具有以下特点：  快速的冷启动 即时的模块热更新 真正的按需编译  原理在过去的 Webpack、Rollup 等构建工具的时代，我们所写的代码一般都是基于 ES Modul">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-08T11:29:35.000Z">
-<meta property="article:modified_time" content="2021-03-08T04:29:38.921Z">
+<meta property="article:modified_time" content="2021-03-08T10:19:10.524Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="nodejs">
@@ -417,8 +417,16 @@
 <p>这就保证了只有在真正使用到这个模块的时候，浏览器才会请求并且解析这个模块，最大程度的做到了按需加载。</p>
 <p>具体参考：<a href="https://zhuanlan.zhihu.com/p/352403391?utm_oi=44058902790144" target="_blank" rel="noopener">浅谈 Vite 2.0 原理，依赖预编译，插件机制是如何兼容 Rollup 的？</a></p>
 <p>基于浏览器 <code>ES module</code> 来开发 web 应用还有snowpack。不同的是， <code>vite</code> 收集和处理模块依赖采用了 <code>esbuild</code>——使用 Go 编写，并且比以 JavaScript 编写的打包器预构建依赖快 10-100 倍。</p>
+<p>我们截取部分开发环境生成的代码:</p>
+<pre><code class="html">// index.html
+&lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;</code></pre>
+<pre><code class="javascript">// main.js
+import { createApp } from &#39;/node_modules/.vite/vue.js?v=0ec597b3&#39;
+import App from &#39;/src/App.vue&#39;
+
+createApp(App).mount(&#39;#app&#39;)</code></pre>
 <h3 id="易上手的插件"><a href="#易上手的插件" class="headerlink" title="易上手的插件"></a>易上手的插件</h3><p>Vite 从 preact 的 WMR 中得到了启发，把插件机制做成兼容 Rollup 的格式。<br>目前和 vite 兼容或者内置的插件，可以查看<a href="https://vite-rollup-plugins.patak.dev/" target="_blank" rel="noopener">vite-rollup-plugins</a>。</p>
-<h4 id="rollup-plugin-alias"><a href="#rollup-plugin-alias" class="headerlink" title="@rollup/plugin-alias"></a><code>@rollup/plugin-alias</code></h4><p>在 <code>vite</code>，仍至下一版本的<code>vue-cli</code>，尤大都会建议在引入文件的同时要写下文件后缀，不带文件后缀下 <code>vite</code>会报错找不到模块。</p>
+<h4 id="rollup-plugin-alias"><a href="#rollup-plugin-alias" class="headerlink" title="@rollup/plugin-alias"></a><code>@rollup/plugin-alias</code></h4><p>在 <code>vite</code>，仍至下一版本的<code>vue-cli</code>，尤大都会建议在引入文件的同时要写下文件后缀(<a href="https://github.com/vitejs/vite/issues/178" target="_blank" rel="noopener">相关issue</a>)，不带文件后缀下 <code>vite</code>会报错找不到模块。</p>
 <p>使用 <code>@rollup/plugin-alias</code> 后：</p>
 <pre><code class="javascript">import { defineConfig } from &#39;vite&#39;
 import vue from &#39;@vitejs/plugin-vue&#39;
@@ -436,7 +444,10 @@ export default defineConfig({
     vue()
   ]
 })</code></pre>
-<h4 id="nuxt-vite"><a href="#nuxt-vite" class="headerlink" title="nuxt-vite"></a><a href="https://github.com/nuxt/vite" target="_blank" rel="noopener"><code>nuxt-vite</code></a></h4><p>针对 <code>Nuxt</code> 项目的打包插件</p>
+<h4 id="nuxt-vite"><a href="#nuxt-vite" class="headerlink" title="nuxt-vite"></a><a href="https://github.com/nuxt/vite" target="_blank" rel="noopener"><code>nuxt-vite</code></a></h4><p>针对 <code>Nuxt</code> 项目的打包插件<br>在 <code>vscode</code> 中全局正则匹配加上文件缀: 勾选 使用正式表达式 (Alt+R)<br>@/components/([^’]*)<br>@/components/$1.vue</p>
+<h3 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h3><ol>
+<li><a href="https://segmentfault.com/a/1190000038999784" target="_blank" rel="noopener">Vue3.0 + Vite 初体验（一）项目配置</a></li>
+</ol>
 
       
     </div>
@@ -681,7 +692,7 @@ export default defineConfig({
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易上手的插件"><span class="nav-number">3.</span> <span class="nav-text">易上手的插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">3.1.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">3.2.</span> <span class="nav-text">nuxt-vite</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易上手的插件"><span class="nav-number">3.</span> <span class="nav-text">易上手的插件</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">3.1.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">3.2.</span> <span class="nav-text">nuxt-vite</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关阅读"><span class="nav-number">4.</span> <span class="nav-text">相关阅读</span></a></li></ol></div>
             
 
           </div>
