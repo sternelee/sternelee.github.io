@@ -94,7 +94,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/Snipaste_2021-03-09_10-28-27.png">
 <meta property="article:published_time" content="2021-03-08T11:29:35.000Z">
-<meta property="article:modified_time" content="2021-03-09T05:50:53.273Z">
+<meta property="article:modified_time" content="2021-03-10T10:42:53.616Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="nodejs">
@@ -417,8 +417,7 @@
 &lt;/script&gt;</code></pre>
 <p>Vite 会在本地帮你启动一个服务器，当浏览器读取到这个 html 文件之后，会在执行到 import 的时候才去向服务端发送 <code>Main.vue</code> 模块的请求，Vite 此时在利用内部的一系列黑魔法，包括 <code>Vue</code> 的 <code>template</code> 解析，代码的编译等等，解析成浏览器可以执行的 js 文件返回到浏览器端。</p>
 <p>这就保证了只有在真正使用到这个模块的时候，浏览器才会请求并且解析这个模块，最大程度的做到了按需加载。</p>
-<p>具体参考：<a href="https://zhuanlan.zhihu.com/p/352403391?utm_oi=44058902790144" target="_blank" rel="noopener">浅谈 Vite 2.0 原理，依赖预编译，插件机制是如何兼容 Rollup 的？</a></p>
-<p>基于浏览器 <code>ES module</code> 来打包 web 应用还有<a href="https://www.snowpack.dev/" target="_blank" rel="noopener"><code>snowpack</code></a>。不同的是, <code>vite</code> 收集和处理模块依赖采用了 <code>esbuild</code>——使用 Go 编写，并且比以 JavaScript 编写的打包器预构建依赖快 10-100 倍。</p>
+<p>基于浏览器 <code>ES module</code> 来打包 web 应用还有<a href="https://www.snowpack.dev/" target="_blank" rel="noopener"><code>snowpack</code></a>。不同的是, <code>vite</code> 对依赖预处理采用了 <a href="https://esbuild.github.io/" target="_blank" rel="noopener"><code>esbuild</code></a> 打包——使用 Go 编写，并且比以 JavaScript 编写的打包器预构建依赖快 10-100 倍。</p>
 <p>我们截取部分开发环境生成的代码:</p>
 <pre><code class="html">// index.html
 &lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;</code></pre>
@@ -432,7 +431,8 @@ createApp(App).mount(&#39;#app&#39;)</code></pre>
 <pre><code class="bash">npm init @vitejs/app</code></pre>
 <p>后会得到如图:</p>
 <p><img src="./2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/Snipaste_2021-03-09_10-28-27.png" alt=""></p>
-<h4 id="vite-plugin-vue2-支持-vue2-目前大部分的支持vue2的模板仓库都依赖此插件"><a href="#vite-plugin-vue2-支持-vue2-目前大部分的支持vue2的模板仓库都依赖此插件" class="headerlink" title="vite-plugin-vue2 支持 vue2, 目前大部分的支持vue2的模板仓库都依赖此插件"></a><a href="https://github.com/underfin/vite-plugin-vue2" target="_blank" rel="noopener">vite-plugin-vue2</a> 支持 vue2, 目前大部分的支持vue2的模板仓库都依赖此插件</h4><h4 id="rollup-plugin-alias"><a href="#rollup-plugin-alias" class="headerlink" title="@rollup/plugin-alias"></a><code>@rollup/plugin-alias</code></h4><p>在 <code>vite</code>，仍至下一版本的<code>vue-cli</code>，尤大都会建议在引入文件的同时要写下文件后缀(<a href="https://github.com/vitejs/vite/issues/178" target="_blank" rel="noopener">相关issue</a>)，不带文件后缀下 <code>vite</code>会报错找不到模块。</p>
+<h4 id="vite-plugin-vue2"><a href="#vite-plugin-vue2" class="headerlink" title="vite-plugin-vue2"></a><a href="https://github.com/underfin/vite-plugin-vue2" target="_blank" rel="noopener">vite-plugin-vue2</a></h4><p>支持 vue2, 目前大部分的支持vue2的模板仓库都依赖此插件</p>
+<h4 id="rollup-plugin-alias"><a href="#rollup-plugin-alias" class="headerlink" title="@rollup/plugin-alias"></a><code>@rollup/plugin-alias</code></h4><p>在 <code>vite</code>，仍至下一版本的<code>vue-cli</code>，尤大都会建议在引入文件的同时要写下文件后缀(<a href="https://github.com/vitejs/vite/issues/178" target="_blank" rel="noopener">相关issue</a>)，不带文件后缀下 <code>vite</code>会报错找不到模块。</p>
 <p>使用 <code>@rollup/plugin-alias</code> 后：</p>
 <pre><code class="javascript">import { defineConfig } from &#39;vite&#39;
 import vue from &#39;@vitejs/plugin-vue&#39;
@@ -444,25 +444,35 @@ export default defineConfig({
     alias({
       entries: [
         { find: /@utils\/(.*)/, replacement: &#39;./utils/$1.js&#39;},
-        { find: /@components\/(.*)/, replacement: &#39;./components/$1.vue&#39;}
+        { find: /@\/components\/([^&#39;]*)/, replacement: &#39;./components/$1.vue&#39;}
       ]
     }),
     vue()
   ]
 })</code></pre>
 <h4 id="vite-plugin-components"><a href="#vite-plugin-components" class="headerlink" title="vite-plugin-components"></a><a href="https://github.com/antfu/vite-plugin-components" target="_blank" rel="noopener"><code>vite-plugin-components</code></a></h4><p>这是个自动导入<code>components</code>组件的插件，还能配置多个ui组件库, 支持 Vue2 (基于vite-plugin-vue2) 和 Vue3，墙裂推荐</p>
-<h4 id="nuxt-vite"><a href="#nuxt-vite" class="headerlink" title="nuxt-vite"></a><a href="https://github.com/nuxt/vite" target="_blank" rel="noopener"><code>nuxt-vite</code></a></h4><p>针对 <code>Nuxt</code> 项目的打包插件<br>在 <code>vscode</code> 中全局正则匹配加上文件缀: 勾选 使用正式表达式 (Alt+R)<br>@/components/([^’]*)<br>@/components/$1.vue</p>
+<h4 id="nuxt-vite"><a href="#nuxt-vite" class="headerlink" title="nuxt-vite"></a><a href="https://github.com/nuxt/vite" target="_blank" rel="noopener"><code>nuxt-vite</code></a></h4><p>针对 <code>Nuxt</code> 项目的打包插件<br>在这里使用 <code>@rollup/plugin-alias</code> 和 <code>vite</code>的配置<code>alias</code>均无效, 只能在 <code>vscode</code> 中全局正则匹配替换来加上文件缀: 勾选 使用正式表达式 (Alt+R)</p>
+<pre><code class="text">@\/components\/([^&#39;]*)
+@/components/$1.vue</code></pre>
+<h4 id="vite-plugin-vue-gql"><a href="#vite-plugin-vue-gql" class="headerlink" title="vite-plugin-vue-gql"></a><a href="https://github.com/jacobclevenger/vite-plugin-vue-gql" target="_blank" rel="noopener"><code>vite-plugin-vue-gql</code></a></h4><p>支持vue3和graphql语法声明</p>
 <h4 id="vite-awesome"><a href="#vite-awesome" class="headerlink" title="vite-awesome"></a><a href="https://github.com/vitejs/awesome-vite" target="_blank" rel="noopener">vite-awesome</a></h4><p>每个框架和工具都应该有自己的Awesome，才算是合格的产品。</p>
 <h3 id="上手步骤"><a href="#上手步骤" class="headerlink" title="上手步骤"></a>上手步骤</h3><ol>
 <li>编写<code>vite</code>配置文件<code>vite.config.js</code>, 使用<code>typescript</code>时为 <code>vite.config.ts</code>,这时需要 <code>tsconfig.ts</code>,可使用<code>vite-tsconfig-paths</code>来处理处理 typescript 路径映射</li>
 <li>编写入口文件 <code>index.html</code>, 注意要使用 ES Module 方式引入 <code>main.js</code> 或 <code>main.ts</code> 等逻辑代码入口</li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
 <li>不可使用 <code>process.env</code>，而是使用 <code>import.meta.env</code> 来判断开发环境</li>
+<li><a href="https://github.com/vitejs/vite/issues/135" target="_blank" rel="noopener">默认情况下，Vite 期望所有依赖项都运送 ES 模块，在这种情况下，有关依赖项使用 cjs 语法。</a></li>
+<li>对SSR的支持不足</li>
 </ol>
 <h3 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h3><ol>
+<li><a href="https://zhuanlan.zhihu.com/p/112440861" target="_blank" rel="noopener">esbuild：一款快 10-100 倍的 JavaScript 打包 / 压缩工具推荐给你</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/352403391?utm_oi=44058902790144" target="_blank" rel="noopener">浅谈 Vite 2.0 原理，依赖预编译，插件机制是如何兼容 Rollup 的？</a></li>
 <li><a href="https://www.zhihu.com/question/394062839/answer/1496127786?utm_oi=44058902790144" target="_blank" rel="noopener">如何看待 Web 开发构建工具 Vite？</a></li>
 <li><a href="https://segmentfault.com/a/1190000038999784" target="_blank" rel="noopener">Vue3.0 + Vite 初体验（一）项目配置</a></li>
 <li><a href="https://zhuanlan.zhihu.com/p/353601634?utm_oi=44058902790144" target="_blank" rel="noopener">vue-cli 迁移 vite2 实践小结</a></li>
+<li><a href="https://www.skypack.dev/" target="_blank" rel="noopener">Skypack 无需构建工具的CDN方式</a></li>
+<li><a href="https://segmentfault.com/a/1190000039210683" target="_blank" rel="noopener">Vite 依赖预编译，缩短数倍的冷启动时间</a></li>
 </ol>
 
       
@@ -708,7 +718,7 @@ export default defineConfig({
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易上手的插件"><span class="nav-number">3.</span> <span class="nav-text">易上手的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方-vitejs-app"><span class="nav-number">4.</span> <span class="nav-text">官方@vitejs&#x2F;app</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-vue2-支持-vue2-目前大部分的支持vue2的模板仓库都依赖此插件"><span class="nav-number">4.1.</span> <span class="nav-text">vite-plugin-vue2 支持 vue2, 目前大部分的支持vue2的模板仓库都依赖此插件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">4.2.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-components"><span class="nav-number">4.3.</span> <span class="nav-text">vite-plugin-components</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">4.4.</span> <span class="nav-text">nuxt-vite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-awesome"><span class="nav-number">4.5.</span> <span class="nav-text">vite-awesome</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上手步骤"><span class="nav-number">5.</span> <span class="nav-text">上手步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关阅读"><span class="nav-number">6.</span> <span class="nav-text">相关阅读</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易上手的插件"><span class="nav-number">3.</span> <span class="nav-text">易上手的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方-vitejs-app"><span class="nav-number">4.</span> <span class="nav-text">官方@vitejs&#x2F;app</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-vue2"><span class="nav-number">4.1.</span> <span class="nav-text">vite-plugin-vue2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">4.2.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-components"><span class="nav-number">4.3.</span> <span class="nav-text">vite-plugin-components</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">4.4.</span> <span class="nav-text">nuxt-vite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-vue-gql"><span class="nav-number">4.5.</span> <span class="nav-text">vite-plugin-vue-gql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-awesome"><span class="nav-number">4.6.</span> <span class="nav-text">vite-awesome</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上手步骤"><span class="nav-number">5.</span> <span class="nav-text">上手步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关阅读"><span class="nav-number">7.</span> <span class="nav-text">相关阅读</span></a></li></ol></div>
             
 
           </div>
