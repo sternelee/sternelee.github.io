@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310204426.jpg">
 <meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/Snipaste_2021-03-09_10-28-27.png">
 <meta property="article:published_time" content="2021-03-08T11:29:35.000Z">
-<meta property="article:modified_time" content="2021-03-10T13:44:48.119Z">
+<meta property="article:modified_time" content="2021-03-10T13:48:57.720Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="nodejs">
@@ -423,8 +423,8 @@
 <p>基于浏览器 <code>ES module</code> 来打包 web 应用还有<a href="https://www.snowpack.dev/" target="_blank" rel="noopener"><code>snowpack</code></a>。不同的是, <code>vite</code> 对依赖预处理采用了 <a href="https://esbuild.github.io/" target="_blank" rel="noopener"><code>esbuild</code></a> 打包——使用 Go 编写，并且比以 JavaScript 编写的打包器预构建依赖快 10-100 倍。</p>
 <p>我们截取部分开发环境生成的代码:</p>
 <pre><code class="html">// index.html
-&lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;</code></pre>
-<pre><code class="javascript">// main.js
+&lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;
+// main.js
 import { createApp } from &#39;/node_modules/.vite/vue.js?v=0ec597b3&#39;
 import App from &#39;/src/App.vue&#39;
 
