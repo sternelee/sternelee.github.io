@@ -92,17 +92,18 @@
 <meta property="og:site_name" content="STERNE">
 <meta property="og:description" content="简介vite —— 一个由 vue 作者尤雨溪开发的 web 开发工具，他基于浏览器原生 ES imports 的开发服务器。利用浏览器去解析 imports，在服务器端按需编译返回，完全跳过了打包这个概念，服务器随起随用。它具有以下特点：  快速的冷启动 即时的模块热更新 真正的按需编译  原理在过去的 Webpack、Rollup 等构建工具的时代，我们所写的代码一般都是基于 ES Modul">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310205536.jpg">
-<meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310204426.jpg">
-<meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/Snipaste_2021-03-09_10-28-27.png">
+<meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310205536.jpg">
+<meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310204426.jpg">
+<meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/Snipaste_2021-03-09_10-28-27.png">
+<meta property="og:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/Snipaste_2021-03-11_10-50-05.png">
 <meta property="article:published_time" content="2021-03-08T11:29:35.000Z">
-<meta property="article:modified_time" content="2021-03-10T13:48:57.720Z">
+<meta property="article:modified_time" content="2021-03-11T03:55:39.548Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="nodejs">
 <meta property="article:tag" content="前端打开">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310205536.jpg">
+<meta name="twitter:image" content="http://sternelee.github.io/2021/03/08/vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310205536.jpg">
 
 
 
@@ -430,7 +431,7 @@ import App from &#39;/src/App.vue&#39;
 
 createApp(App).mount(&#39;#app&#39;)</code></pre>
 <h4 id="启动方式"><a href="#启动方式" class="headerlink" title="启动方式"></a>启动方式</h4><p>原生 ESM 依赖时的链路图：</p>
-<p><img src="./2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310205536.jpg" alt=""></p>
+<p><img src="20210310205536.jpg" alt=""></p>
 <p>vite 只启动一台静态页面的服务器，对文件代码不打包，服务器会根据客户端的请求加载不同的模块处理，实现真正的按需加载。</p>
 <p>一个特别典型的技术方案——skypack 的例子:</p>
 <pre><code class="html">&lt;script type=&quot;module&quot;&gt;
@@ -441,7 +442,7 @@ createApp(App).mount(&#39;#app&#39;)</code></pre>
     const app = html`&lt;h1&gt;Hello World!&lt;/h1&gt;`;
     render(app, document.body);
   &lt;/script&gt;</code></pre>
-<p><code>对于热更新问题</code>，vite 采用立即编译当前修改文件的办法。同时 vite 还会使用缓存机制( http 缓存 =&gt; vite 内置缓存 )，加载更新后的文件内容。</p>
+<p><code>对于热更新问题</code>，vite 采用立即编译当前修改文件的办法。同时 vite 还会使用缓存机制( http 缓存 =&gt; vite 内置缓存 )，加载更新后的文件内容。<a href="https://vitejs.dev/guide/dep-pre-bundling.html" target="_blank" rel="noopener">详情</a></p>
 <p>所以，vite 具有了快速冷启动、按需编译、模块热更新等优良特质。</p>
 <p>综上所述，vite 构建项目与 vue-cli 构建的项目在开发模式下还是有比较大的区别：</p>
 <ol>
@@ -451,7 +452,7 @@ createApp(App).mount(&#39;#app&#39;)</code></pre>
 </li>
 </ol>
 <h3 id="上手步骤"><a href="#上手步骤" class="headerlink" title="上手步骤"></a>上手步骤</h3><p>当前官方文档已经很详细了</p>
-<p><img src="./2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/20210310204426.jpg" alt=""></p>
+<p><img src="20210310204426.jpg" alt=""></p>
 <ol>
 <li>编写<code>vite</code>配置文件<code>vite.config.js</code>, 使用<code>typescript</code>时为 <code>vite.config.ts</code>,这时需要 <code>tsconfig.ts</code>,可使用<code>vite-tsconfig-paths</code>来处理处理 typescript 路径映射</li>
 <li>编写入口文件 <code>index.html</code>, 注意要使用 ES Module 方式引入 <code>main.js</code> 或 <code>main.ts</code> 等逻辑代码入口</li>
@@ -460,7 +461,7 @@ createApp(App).mount(&#39;#app&#39;)</code></pre>
 <h3 id="官方-vitejs-app"><a href="#官方-vitejs-app" class="headerlink" title="官方@vitejs/app"></a>官方<code>@vitejs/app</code></h3><p>当前官方<code>@vitejs</code>支持的模板有限，并且还<a href="https://github.com/vitejs/vite/issues/305" target="_blank" rel="noopener">不支持Vue2</a>。</p>
 <pre><code class="bash">npm init @vitejs/app</code></pre>
 <p>后会得到如图:</p>
-<p><img src="./2021-03-08-vite%E7%9A%84%E9%AD%94%E6%B3%95%E2%80%94%E5%BF%AB/Snipaste_2021-03-09_10-28-27.png" alt=""></p>
+<p><img src="Snipaste_2021-03-09_10-28-27.png" alt=""></p>
 <h4 id="vite-plugin-vue2"><a href="#vite-plugin-vue2" class="headerlink" title="vite-plugin-vue2"></a><a href="https://github.com/underfin/vite-plugin-vue2" target="_blank" rel="noopener">vite-plugin-vue2</a></h4><p>支持 vue2, 目前大部分的支持vue2的模板仓库都依赖此插件</p>
 <h4 id="rollup-plugin-alias"><a href="#rollup-plugin-alias" class="headerlink" title="@rollup/plugin-alias"></a><code>@rollup/plugin-alias</code></h4><p>在 <code>vite</code>，仍至下一版本的<code>vue-cli</code>，尤大都会建议在引入文件的同时要写下文件后缀(<a href="https://github.com/vitejs/vite/issues/178" target="_blank" rel="noopener">相关issue</a>)，不带文件后缀下 <code>vite</code>会报错找不到模块。</p>
 <p>使用 <code>@rollup/plugin-alias</code> 后：</p>
@@ -484,7 +485,10 @@ export default defineConfig({
 <h4 id="nuxt-vite"><a href="#nuxt-vite" class="headerlink" title="nuxt-vite"></a><a href="https://github.com/nuxt/vite" target="_blank" rel="noopener"><code>nuxt-vite</code></a></h4><p>针对 <code>Nuxt</code> 项目的打包插件<br>在这里使用 <code>@rollup/plugin-alias</code> 和 <code>vite</code>的配置<code>alias</code>均无效, 只能在 <code>vscode</code> 中全局正则匹配替换来加上文件缀: 勾选 使用正式表达式 (Alt+R)</p>
 <pre><code class="text">@\/components\/([^&#39;]*)
 @/components/$1.vue</code></pre>
+<p>问题较多</p>
 <h4 id="vite-plugin-vue-gql"><a href="#vite-plugin-vue-gql" class="headerlink" title="vite-plugin-vue-gql"></a><a href="https://github.com/jacobclevenger/vite-plugin-vue-gql" target="_blank" rel="noopener"><code>vite-plugin-vue-gql</code></a></h4><p>支持vue3和graphql语法声明</p>
+<h3 id="create-xc-app"><a href="#create-xc-app" class="headerlink" title="create-xc-app"></a><a href="https://github.com/lencx/create-xc-app" target="_blank" rel="noopener">create-xc-app</a></h3><p>支持 <code>Rust</code> 和 <code>Deno</code> 的开发模板</p>
+<p><img src="Snipaste_2021-03-11_10-50-05.png" alt=""></p>
 <h4 id="vite-awesome"><a href="#vite-awesome" class="headerlink" title="vite-awesome"></a><a href="https://github.com/vitejs/awesome-vite" target="_blank" rel="noopener">vite-awesome</a></h4><p>每个框架和工具都应该有自己的Awesome，才算是合格的产品。</p>
 <h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
 <li>不可使用 <code>process.env</code>，而是使用 <code>import.meta.env</code> 来判断开发环境</li>
@@ -753,7 +757,7 @@ export default defineConfig({
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动方式"><span class="nav-number">2.1.</span> <span class="nav-text">启动方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上手步骤"><span class="nav-number">3.</span> <span class="nav-text">上手步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易于上手的插件"><span class="nav-number">4.</span> <span class="nav-text">易于上手的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方-vitejs-app"><span class="nav-number">5.</span> <span class="nav-text">官方@vitejs&#x2F;app</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-vue2"><span class="nav-number">5.1.</span> <span class="nav-text">vite-plugin-vue2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">5.2.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-components"><span class="nav-number">5.3.</span> <span class="nav-text">vite-plugin-components</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">5.4.</span> <span class="nav-text">nuxt-vite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-vue-gql"><span class="nav-number">5.5.</span> <span class="nav-text">vite-plugin-vue-gql</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-awesome"><span class="nav-number">5.6.</span> <span class="nav-text">vite-awesome</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">6.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关阅读"><span class="nav-number">7.</span> <span class="nav-text">相关阅读</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动方式"><span class="nav-number">2.1.</span> <span class="nav-text">启动方式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上手步骤"><span class="nav-number">3.</span> <span class="nav-text">上手步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#易于上手的插件"><span class="nav-number">4.</span> <span class="nav-text">易于上手的插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#官方-vitejs-app"><span class="nav-number">5.</span> <span class="nav-text">官方@vitejs&#x2F;app</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-vue2"><span class="nav-number">5.1.</span> <span class="nav-text">vite-plugin-vue2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rollup-plugin-alias"><span class="nav-number">5.2.</span> <span class="nav-text">@rollup&#x2F;plugin-alias</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-components"><span class="nav-number">5.3.</span> <span class="nav-text">vite-plugin-components</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#nuxt-vite"><span class="nav-number">5.4.</span> <span class="nav-text">nuxt-vite</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-plugin-vue-gql"><span class="nav-number">5.5.</span> <span class="nav-text">vite-plugin-vue-gql</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#create-xc-app"><span class="nav-number">6.</span> <span class="nav-text">create-xc-app</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#vite-awesome"><span class="nav-number">6.1.</span> <span class="nav-text">vite-awesome</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">7.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#相关阅读"><span class="nav-number">8.</span> <span class="nav-text">相关阅读</span></a></li></ol></div>
             
 
           </div>
