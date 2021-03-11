@@ -93,7 +93,7 @@
 <meta property="og:description" content="pageSwitch 简介pageSwitch适用场景为全屏切换，即一切一屏，移动与web端单页切换，制作翻页H5等等，并且在此基础上实现了超过一百种切换效果。 GitHub地址：https:&#x2F;&#x2F;github.com&#x2F;qiqiboy&#x2F;pageSwitch pageSwitch修改由于原作者版本没有区别当前页面的标签，">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-02-22T18:08:23.000Z">
-<meta property="article:modified_time" content="2021-03-11T03:55:39.531Z">
+<meta property="article:modified_time" content="2021-03-11T05:54:00.636Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="js">
 <meta property="article:tag" content="H5">
@@ -420,30 +420,10 @@
 <h2 id="pageSwitch修改"><a href="#pageSwitch修改" class="headerlink" title="pageSwitch修改"></a>pageSwitch修改</h2><p>由于原作者版本没有区别当前页面的标签，</p>
 <a id="more"></a>
 <p>因此在原基本上修改了firePlay函数，大约在840行左右。原firePlay函数</p>
-<pre><code class="javascript">firePlay:function(){
-    var self=this;
-        if(this.playing){
-            this.playTimer=setTimeout(function(){
-                self.slide((self.current+1)%(self.loop?Infinity:self.length));
-                },this.interval);
-            }
-        return this;
-    }</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">firePlay:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> self=<span class="keyword">this</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.playing)&#123;</span><br><span class="line">            <span class="keyword">this</span>.playTimer=setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                self.slide((self.current+<span class="number">1</span>)%(self.loop?<span class="literal">Infinity</span>:self.length));</span><br><span class="line">                &#125;,<span class="keyword">this</span>.interval);</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>在此基本上，为了让当前显示页面添加标识，为便当前操作，内容动画更改等提供接口，修改如下</p>
-<pre><code class="javascript">firePlay:function(){
-        var self=this;
-        each(self.pages,function(page){
-            var pcn=page.className.replace(/\s+current/g,&quot;&quot;);
-            page.className=pcn;
-        });
-        self.pages[self.current].className +=&#39; current&#39;;
-        if(this.playing){
-            this.playTimer=setTimeout(function(){
-                self.slide((self.current+1)%(self.loop?Infinity:self.length));
-            },this.interval);
-        }
-        return this;
-    }</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">firePlay:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> self=<span class="keyword">this</span>;</span><br><span class="line">        each(self.pages,<span class="function"><span class="keyword">function</span>(<span class="params">page</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">var</span> pcn=page.className.replace(<span class="regexp">/\s+current/g</span>,<span class="string">""</span>);</span><br><span class="line">            page.className=pcn;</span><br><span class="line">        &#125;);</span><br><span class="line">        self.pages[self.current].className +=<span class="string">' current'</span>;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">this</span>.playing)&#123;</span><br><span class="line">            <span class="keyword">this</span>.playTimer=setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                self.slide((self.current+<span class="number">1</span>)%(self.loop?<span class="literal">Infinity</span>:self.length));</span><br><span class="line">            &#125;,<span class="keyword">this</span>.interval);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <p>也就在给予当前显示页面加上class=current，这样更方便页面内元素与动画的操作与实现。</p>
 
       

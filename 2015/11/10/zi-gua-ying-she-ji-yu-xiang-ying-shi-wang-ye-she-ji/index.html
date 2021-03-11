@@ -437,86 +437,39 @@
 <li><p>Skill 1 学会运用 Css3 Media Queries，根据不同的屏幕分辨率，选择应用不同的Css规则</p>
 </li>
 <li><p>Media Queries语法简介：<br>max-width：若浏览区域的宽度小于400像素，则下方的CSS描述就会立即被套用：</p>
-<pre><code class="css">@media screen and (max-width:400px){ 
- .class  {
-      background:#ccc; 
-  }
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-width:</span><span class="number">400px</span>)&#123; </span><br><span class="line">    <span class="selector-class">.class</span>  &#123;</span><br><span class="line">         <span class="attribute">background</span>:<span class="number">#ccc</span>; </span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>也可以把要套用的描述独立成外部档案：</p>
-<pre><code class="html">&lt;link rel=&quot;stylesheet&quot; media=&quot;screen and (max-width: 400px)&quot; href=&quot;mini.css&quot; /&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"screen and (max-width: 400px)"</span> <span class="attr">href</span>=<span class="string">"mini.css"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>Min Width：若浏览区域的宽度大于800像素，则下方的CSS描述就会立即被套用：</p>
-<pre><code class="css">@media screen and (min-width:800px){
-.class
-{
- background:#666;
-}
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">min-width:</span><span class="number">800px</span>)&#123;</span><br><span class="line">  <span class="selector-class">.class</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#666</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Device Width：若浏览设备的可视范围最大为480px，则下方的CSS描述就会立即被套用：(注：移动手机目前常见最大宽度为480px，如iPhone or Android Phone)</p>
-<pre><code class="css">@media screen and (max-device-width:480px){
-.class
-{
- background:#000;
-}
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@media</span> screen <span class="keyword">and</span> (<span class="attribute">max-device-width:</span><span class="number">480px</span>)&#123;</span><br><span class="line">  <span class="selector-class">.class</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="attribute">background</span>:<span class="number">#000</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>针对iPhone4提供专用的css设定档：</p>
-<pre><code class="html">&lt;link rel= &quot;stylesheet&quot;  media= &quot;only screen and (-webkit-min-device-pixel-ratio: 2)&quot;  type= &quot;text/css&quot;  href= &quot;iphone4.css&quot;  /&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>= <span class="string">"stylesheet"</span>  <span class="attr">media</span>= <span class="string">"only screen and (-webkit-min-device-pixel-ratio: 2)"</span>  <span class="attr">type</span>= <span class="string">"text/css"</span>  <span class="attr">href</span>= <span class="string">"iphone4.css"</span>  /&gt;</span></span><br></pre></td></tr></table></figure>
 <p>针对iPad的Portrait Mode(直立)与Landscape Mode(横躺)两种浏览模式给予不同的css设定档：</p>
-<pre><code class="html">&lt;link rel=&quot;stylesheet&quot; media=&quot;all and (orientation:portrait)&quot; href=&quot;portrait.css&quot;&gt;
-</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"all and (orientation:portrait)"</span> <span class="attr">href</span>=<span class="string">"portrait.css"</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">media</span>=<span class="string">"all and (orientation:landscape)"</span> <span class="attr">href</span>=<span class="string">"landscape.css"</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+<li><p>Skill 2 在网页头部加上viewport标签</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>浏览器推出了“viewport meta”标签，许多移动浏览器现在都支持这个标签，W3C 协议定义 viewport meta 目前还属于草案，很多人都會在html head 处加上 viewport 这个meta data，一个典型的移动端viewport如上。<br>该属性可以控制视窗口宽度的大小。它可以被设置为实际的具体像素    width= 600或为特殊设备设置宽度值。<br>viewport设置属性如下：<br>width：可设定数值，或者指定为 device-width<br>height：可设定数值，或者指定為 device-height<br>initial-scale：第一次进入页面的初始比例<br>minimum-scale：允许缩小最小比例<br>maximum-scale：允许放大最大比例<br>user-scalable：允许使用者缩放，1 or 0 (yes or no)<br>编译过程会转化成如下的语义：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@viewport</span> &#123;</span><br><span class="line">    <span class="selector-tag">width</span>: <span class="selector-tag">device-width</span>;</span><br><span class="line">    <span class="selector-tag">initial-scale</span>: 1<span class="selector-class">.0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>device-width ，主要是为了让整个页面宽度与手机可视宽度相同，这样就可以简单相容于不同机型屏幕大小，如果这边width沒有设定的话，就会依照html/css给予的width当作预设值。</p>
 </li>
-</ul>
-<link rel="stylesheet" media="all and (orientation:landscape)" href="landscape.css">
-```
- * Skill 2 在网页头部加上viewport标签
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-```
-浏览器推出了“viewport meta”标签，许多移动浏览器现在都支持这个标签，W3C 协议定义 viewport meta 目前还属于草案，很多人都會在html head 处加上 viewport 这个meta data，一个典型的移动端viewport如上。  
-该属性可以控制视窗口宽度的大小。它可以被设置为实际的具体像素    width= 600或为特殊设备设置宽度值。
-viewport设置属性如下：
-width：可设定数值，或者指定为 device-width
-height：可设定数值，或者指定為 device-height
-initial-scale：第一次进入页面的初始比例
-minimum-scale：允许缩小最小比例
-maximum-scale：允许放大最大比例
-user-scalable：允许使用者缩放，1 or 0 (yes or no)
-编译过程会转化成如下的语义：
-```css
-@viewport {
-    width: device-width;
-    initial-scale: 1.0
-}
-```
- * device-width ，主要是为了让整个页面宽度与手机可视宽度相同，这样就可以简单相容于不同机型屏幕大小，如果这边width沒有设定的话，就会依照html/css给予的width当作预设值。
- * 因为解析度不同，device-width有时候不一定是view width，所以在类似iphone 4高解析度机器上，device-width=320 ，可是实际解析度为480，这时候就需要利用javascript针对UA下去做动态调整。
- * user-scalable，这个属性可以让使用者能否放大、缩小页面，如果页面不允许手机使用者缩放，就直接设定0或者no，反之要启动缩放功能，就设置1或者是yes。
- * 接下来将说明几种常用的方式，以及具体例子提供给大家參考。
-如果在手机端我们希望网页呈现固定，不希望使用者随意缩放，直接设定如下
-```html
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-```
-如果希望在不同device使用不同缩放大小，就必须使用javascript，检测UA(User agent)，动态设定viewport，如下：
-```javascript
-viewport = document.querySelector("meta[name=viewport]");
-viewport.setAttribute('content', 'width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;');
-```
- * Skill 3 不使用绝对宽度  
-由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度（margin-left:5px）的布局，也不能使用具有绝对宽度(例如：width：200px)的元素,而最好使用百分比宽度width:20%;或者with:auto;
-Skill 4 字体最好不要用绝对大小(px)，而使用相对大小(em)
-```css
-body { font: normal 100% Helvetica, Arial, sans-serif; } 
-```
-上面的代码指定，字体大小是页面默认大小的100%，即16像素。
-```css
-h1 { font-size: 1.5em; }  
-```
-h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）
-```css
-.small { font-size: 0.875em; } 
-```
-small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）
-
-<ul>
+<li><p>因为解析度不同，device-width有时候不一定是view width，所以在类似iphone 4高解析度机器上，device-width=320 ，可是实际解析度为480，这时候就需要利用javascript针对UA下去做动态调整。</p>
+</li>
+<li><p>user-scalable，这个属性可以让使用者能否放大、缩小页面，如果页面不允许手机使用者缩放，就直接设定0或者no，反之要启动缩放功能，就设置1或者是yes。</p>
+</li>
+<li><p>接下来将说明几种常用的方式，以及具体例子提供给大家參考。<br>如果在手机端我们希望网页呈现固定，不希望使用者随意缩放，直接设定如下</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果希望在不同device使用不同缩放大小，就必须使用javascript，检测UA(User agent)，动态设定viewport，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">viewport = <span class="built_in">document</span>.querySelector(<span class="string">"meta[name=viewport]"</span>);</span><br><span class="line">viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;'</span>);</span><br></pre></td></tr></table></figure></li>
+<li><p>Skill 3 不使用绝对宽度<br>由于网页会根据屏幕宽度调整布局，所以不能使用绝对宽度（margin-left:5px）的布局，也不能使用具有绝对宽度(例如：width：200px)的元素,而最好使用百分比宽度width:20%;或者with:auto;<br>Skill 4 字体最好不要用绝对大小(px)，而使用相对大小(em)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123; <span class="attribute">font</span>: normal <span class="number">100%</span> Helvetica, Arial, sans-serif; &#125;</span><br></pre></td></tr></table></figure>
+<p>上面的代码指定，字体大小是页面默认大小的100%，即16像素。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">h1</span> &#123; <span class="attribute">font-size</span>: <span class="number">1.5em</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>h1的大小是默认大小的1.5倍，即24像素（24/16=1.5）</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.small</span> &#123; <span class="attribute">font-size</span>: <span class="number">0.875em</span>; &#125;</span><br></pre></td></tr></table></figure>
+<p>small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）</p>
+</li>
 <li><p>这里顺便说说 px  pt em  rem区别：</p>
 <ul>
 <li>px是pixel，像素，是屏幕上显示数据的最基本的点，在HTML中，默认的单位就是px；</li>
@@ -526,14 +479,11 @@ small元素的大小是默认大小的0.875倍，即14像素（14/16=0.875）
 </ul>
 </li>
 <li><p>Skill 5 流动布局（fluid grid）<br>流动布局的含义是各个位置都是浮动的，不是固定不变的</p>
-<pre><code class="css">.main { float: right; width: 70%; } 
-.leftBar { float: left; width: 25%; } </code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.main</span> &#123; <span class="attribute">float</span>: right; <span class="attribute">width</span>: <span class="number">70%</span>; &#125; </span><br><span class="line"><span class="selector-class">.leftBar</span> &#123; <span class="attribute">float</span>: left; <span class="attribute">width</span>: <span class="number">25%</span>; &#125;</span><br></pre></td></tr></table></figure>
 <p>float的好处是，如果宽度太小，放不下两个元素，后面的元素会自动滚动到前面元素的下方，不会在水平方向overflow（溢出），避免了水平滚动条的出现。</p>
 </li>
 <li><p>Skill 6 图片的自动缩放，等比缩放</p>
-<pre><code class="css">img{
- max-width: 100%;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">img</span>&#123;</span><br><span class="line">    <span class="attribute">max-width</span>: <span class="number">100%</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 <p>要使图片按等比缩放，一般不需要规定图片高度。且最好不用background-image,因为这样不会按照等比缩放。</p>
 </li>
 </ul>

@@ -418,7 +418,7 @@
       
         
           <p>上网四处搜索，发现有一个cnpm的方法似乎可以解决问题，但是发现cnpm上镜像好像并不齐全，而且也是各种卡住，所以这种方式也只能放弃 ，于是搜到了一篇npm使用代理的文章，顿时醒悟。<br>首先，我们的npm包无所谓安全性，所以不要使用性能和效率更慢的https，转而使用http，相关命令如下：<br>1、关闭npm的https</p>
-<pre><code class="bash">npm config set strict-ssl false</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> strict-ssl <span class="literal">false</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/12/16/npmguo-nei-bei-qiang-de-jie-jue-fang-fa/#more" rel="contents">
@@ -541,7 +541,7 @@
       
         
           <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre><code class="bash">$ hexo new &quot;My New Post&quot;</code></pre>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/12/08/2015-12-8-hello-world/#more" rel="contents">
@@ -688,9 +688,9 @@
           <p>css并行加载，js串行加载（会阻塞页面）</p>
 <p>清除缓存的问题:1、一般手动清除，浏览器缓存  2、js代码清除缓存</p>
 <p>js文件:  路径后面加一个随机数如下：</p>
-<pre><code class="javascript">&lt;script src=&quot;lib/gMarker.js?random=120211&quot;&gt;&lt;/script&gt;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">"lib/gMarker.js?random=120211"</span>&gt;&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 <p> css文件</p>
-<pre><code class="html"> &lt;link rel=&#39;stylesheet&#39; href=&#39;css/index.css?t=120224&#39;&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">'stylesheet'</span> <span class="attr">href</span>=<span class="string">'css/index.css?t=120224'</span>&gt;</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2015/11/23/guan-yu-huan-cun-wen-ti-jsqing-chu-huan-cun/#more" rel="contents">
@@ -980,10 +980,7 @@
         
           <p>#####&lt;audio&gt; 标签属性：</p>
 <p>src：音乐的URL<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条</p>
-<pre><code class="html">&lt;audio id=&quot;media&quot; src=&quot;http://www.abc.com/test.mp3&quot; controls&gt;
-&lt;source src=&quot;http://www.abc.com/test.mp3&quot; type=&quot;audio/mp3&quot;&gt;&lt;/source&gt;
-&lt;source src=&quot;http://www.abc.com/test.ogg&quot; type=&quot;audio/ogg&quot;&gt;&lt;/source&gt;
-&lt;/audio&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">id</span>=<span class="string">"media"</span> <span class="attr">src</span>=<span class="string">"http://www.abc.com/test.mp3"</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"http://www.abc.com/test.mp3"</span> <span class="attr">type</span>=<span class="string">"audio/mp3"</span>&gt;</span><span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"http://www.abc.com/test.ogg"</span> <span class="attr">type</span>=<span class="string">"audio/ogg"</span>&gt;</span><span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>#####&lt;video&gt;标签属性：</p>
           <!--noindex-->
           <div class="post-button text-center">

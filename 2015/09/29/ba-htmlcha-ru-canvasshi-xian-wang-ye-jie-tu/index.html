@@ -422,47 +422,14 @@
 在svg元素中包含 &lt;foreignobject&gt; 元素.
 （格式化好的）HTML，被包裹到&lt;foreignobject&gt;中.</code>  </p>
 <p>如上所述通过使用一个object URL，我们可以内联HTML而不是从外部源加载它。当然，如果你喜欢，可以使用外部源，只要域与原始文件相同，比如：  </p>
-<pre><code class="html">&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-&lt;body&gt;
-&lt;p&gt;&lt;canvas id=&quot;canvas&quot; style=&quot;border:2px solid black;&quot; width=&quot;200&quot; height=&quot;200&quot;&gt;&lt;/canvas&gt;
-&lt;script&gt;
-var canvas = document.getElementById(&quot;canvas&quot;);
-var ctx = canvas.getContext(&quot;2d&quot;);
-var data = &quot;&lt;svg xmlns=&#39;http://www.w3.org/2000/svg&#39; width=&#39;200&#39; height=&#39;200&#39;&gt;&quot; +
-             &quot;&lt;foreignObject width=&#39;100%&#39; height=&#39;100%&#39;&gt;&quot; +
-               &quot;&lt;div xmlns=&#39;http://www.w3.org/1999/xhtml&#39; style=&#39;font-size:40px&#39;&gt;&quot; +
-                 &quot;&lt;em&gt;I&lt;/em&gt; like &lt;span style=&#39;color:white; text-shadow:0 0 2px blue;&#39;&gt;cheese&lt;/span&gt;&quot; +
-               &quot;&lt;/div&gt;&quot; +
-             &quot;&lt;/foreignObject&gt;&quot; +
-           &quot;&lt;/svg&gt;&quot;;
-var DOMURL = self.URL || self.webkitURL || self;
-var img = new Image();
-var svg = new Blob([data], {type: &quot;image/svg+xml;charset=utf-8&quot;});
-var url = DOMURL.createObjectURL(svg);
-img.onload = function() {
-    ctx.drawImage(img, 0, 0);
-    DOMURL.revokeObjectURL(url);
-};
-img.src = url;
-&lt;/script&gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">canvas</span> <span class="attr">id</span>=<span class="string">"canvas"</span> <span class="attr">style</span>=<span class="string">"border:2px solid black;"</span> <span class="attr">width</span>=<span class="string">"200"</span> <span class="attr">height</span>=<span class="string">"200"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">"canvas"</span>);</span></span><br><span class="line"><span class="actionscript"><span class="keyword">var</span> ctx = canvas.getContext(<span class="string">"2d"</span>);</span></span><br><span class="line"><span class="handlebars"><span class="xml">var data = "<span class="tag">&lt;<span class="name">svg</span> <span class="attr">xmlns</span>=<span class="string">'http://www.w3.org/2000/svg'</span> <span class="attr">width</span>=<span class="string">'200'</span> <span class="attr">height</span>=<span class="string">'200'</span>&gt;</span>" +</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">             "<span class="tag">&lt;<span class="name">foreignObject</span> <span class="attr">width</span>=<span class="string">'100%'</span> <span class="attr">height</span>=<span class="string">'100%'</span>&gt;</span>" +</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">               "<span class="tag">&lt;<span class="name">div</span> <span class="attr">xmlns</span>=<span class="string">'http://www.w3.org/1999/xhtml'</span> <span class="attr">style</span>=<span class="string">'font-size:40px'</span>&gt;</span>" +</span></span></span><br><span class="line"><span class="handlebars"><span class="xml">                 "<span class="tag">&lt;<span class="name">em</span>&gt;</span>I<span class="tag">&lt;/<span class="name">em</span>&gt;</span> like <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">'color:white; text-shadow:0 0 2px blue;'</span>&gt;</span>cheese<span class="tag">&lt;/<span class="name">span</span>&gt;</span>" +</span></span></span><br><span class="line"><span class="actionscript">               <span class="string">"&lt;/div&gt;"</span> +</span></span><br><span class="line"><span class="actionscript">             <span class="string">"&lt;/foreignObject&gt;"</span> +</span></span><br><span class="line"><span class="actionscript">           <span class="string">"&lt;/svg&gt;"</span>;</span></span><br><span class="line"><span class="actionscript"><span class="keyword">var</span> DOMURL = self.URL || self.webkitURL || self;</span></span><br><span class="line"><span class="actionscript"><span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span></span><br><span class="line"><span class="actionscript"><span class="keyword">var</span> svg = <span class="keyword">new</span> Blob([data], &#123;type: <span class="string">"image/svg+xml;charset=utf-8"</span>&#125;);</span></span><br><span class="line"><span class="actionscript"><span class="keyword">var</span> url = DOMURL.createObjectURL(svg);</span></span><br><span class="line"><span class="actionscript">img.onload = <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line">    ctx.drawImage(img, 0, 0);</span><br><span class="line">    DOMURL.revokeObjectURL(url);</span><br><span class="line">&#125;;</span><br><span class="line">img.src = url;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>data变量设置了SVG图像的内容（这包括HTML），我们希望绘制到我们的canvas中。通过调用 new Image()我们建立一个新的html &lt; img&gt;元素，添加数据进去，指定一个object URL，之后在图片onload的时候调用 drawImage() 来把图片绘制到画布中。</p>
 <p>您可能想知道这种方式是否安全，担心canvas会读取敏感数据。答案是这样的：这个解决方案的实现依赖的SVG图像是非常严格的。SVG图像不允许加载任何外部资源，即使似乎来自同一个域。资源如栅格图像（如JPEG图像）或&lt; iframe&gt;s 需要用 data: URIs来内联引入。</p>
 <p>此外，你不能在一个SVG图像中引入脚本文件，所以没有从其他脚本访问DOM的风险，而且DOM元素在SVG图像中不能接收事件的输入，所以没有办法通过把隐私信息加载到一个表单控件（如一个文件的完整路径&lt; input&gt; 元素）然后渲染出来，之后通过读取像素把这些信息取出。</p>
 <p>访问过的链接风格并不应用于SVG图像中呈现的链接，所以历史信息也不能被检索，本地的主题也不呈现在SVG图像中，这使得它很难确定用户的平台。</p>
 <p>生成的canvas元素是纯净的，意味着你可以通过调用 toBlob(function(blob){…})来返回canvas的blob，或者toDataURL()来返回Base64-编码的data: URI。</p>
 <p>SVG必须是合法的XML，你需要解析并把HTML转为规范的符合格式的。下面的代码可以很方便地解析HTML：</p>
-<pre><code class="javascript">var doc = document.implementation.createHTMLDocument(&quot;&quot;);
-doc.write(html);
-
-// You must manually set the xmlns if you intend to immediately serialize the HTML
-// document to a string as opposed to appending it to a &lt;foreignObject&gt; in the DOM
-doc.documentElement.setAttribute(&quot;xmlns&quot;, doc.documentElement.namespaceURI);
-
-// Get well-formed markup
-html = (new XMLSerializer).serializeToString(doc);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> doc = <span class="built_in">document</span>.implementation.createHTMLDocument(<span class="string">""</span>);</span><br><span class="line">doc.write(html);</span><br><span class="line"></span><br><span class="line"><span class="comment">// You must manually set the xmlns if you intend to immediately serialize the HTML</span></span><br><span class="line"><span class="comment">// document to a string as opposed to appending it to a &lt;foreignObject&gt; in the DOM</span></span><br><span class="line">doc.documentElement.setAttribute(<span class="string">"xmlns"</span>, doc.documentElement.namespaceURI);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Get well-formed markup</span></span><br><span class="line">html = (<span class="keyword">new</span> XMLSerializer).serializeToString(doc);</span><br></pre></td></tr></table></figure>
 <p>本文为Anyforweb技术分享博客，需要了解网站建设及更多Web应用相关信息，请访问anyforweb.com。</p>
 
       

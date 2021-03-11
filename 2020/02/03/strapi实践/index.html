@@ -85,15 +85,15 @@
 
 
 
-<meta name="description" content="strapi 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。下面就是我的新手引导的记录。 安装按照官方说明，使用下列命令： yarn create strapi-app &lt;project-name&gt; 会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库m">
+<meta name="description" content="strapi 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。下面就是我的新手引导的记录。 安装按照官方说明，使用下列命令： 1yarn create strapi-app &lt;project-name&gt; 会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="strapi实践">
 <meta property="og:url" content="http://sternelee.github.io/2020/02/03/strapi%E5%AE%9E%E8%B7%B5/index.html">
 <meta property="og:site_name" content="STERNE">
-<meta property="og:description" content="strapi 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。下面就是我的新手引导的记录。 安装按照官方说明，使用下列命令： yarn create strapi-app &lt;project-name&gt; 会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库m">
+<meta property="og:description" content="strapi 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。下面就是我的新手引导的记录。 安装按照官方说明，使用下列命令： 1yarn create strapi-app &lt;project-name&gt; 会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-02-03T16:39:17.000Z">
-<meta property="article:modified_time" content="2021-03-11T03:55:39.548Z">
+<meta property="article:modified_time" content="2021-03-11T05:54:00.636Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="后端api">
@@ -395,27 +395,24 @@
       
         <p><a href="https://strapi.io/" target="_blank" rel="noopener">strapi</a> 是一套用于图形化构建和管理后端数据的平台，同时也是基于前端技术的内容管理工具CMS，可以实现RESTful和GraphQL无缝接入。<br>下面就是我的新手引导的记录。</p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>按照官方说明，使用下列命令：</p>
-<pre><code class="bash">yarn create strapi-app &lt;project-name&gt;</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn create strapi-app &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
 <p>会有两种安装方式：快速和自定义，其实就是数据库的选择。在这里我使用mysql配置下来（注意使用数据库mysql时，要求5.7及以上版本才行），安装依赖结束后启动。</p>
-<pre><code class="bash">yarn develop</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn develop</span><br></pre></td></tr></table></figure>
 <p>即可。</p>
 <p>按照官方的新手引导即可完成内容的类型创建和添加。</p>
 <a id="more"></a>
 
 <h2 id="使用-Graphql"><a href="#使用-Graphql" class="headerlink" title="使用 Graphql"></a>使用 Graphql</h2><p><a href="https://strapi.io/documentation/3.0.0-alpha.x/guides/graphql.html#graphql" target="_blank" rel="noopener">strapi使用Graphql</a> 也十分方便。</p>
-<pre><code class="bash">yarn strapi install graphql</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn strapi install graphql</span><br></pre></td></tr></table></figure>
+
 <h2 id="使用图片服务端"><a href="#使用图片服务端" class="headerlink" title="使用图片服务端"></a>使用图片服务端</h2><p>七牛云、阿里云、腾讯云都有相应的<code>npm</code>插件包（strapi-provider-upload-qiniu，strapi-provider-upload-oss 和 strapi-provider-upload-tencent），安装即可。这些适应器以 <code>strapi-provider-[type]</code> 来区分， <code>type</code> 如 <code>upload</code>, <code>email</code>, 可直接在<code>npm</code>官方搜索到。<br>之后我们就可以在 <code>插件</code> -&gt; <code>FILES UPLOAD — 多媒体档案管理</code> 右侧配置按钮即可进入配置项。</p>
 <h2 id="多数据库-😣"><a href="#多数据库-😣" class="headerlink" title="多数据库 😣"></a>多数据库 😣</h2><p>在 <code>./config/environments/**/database.json</code> 中，可以添加多个数据库，然而在图形化添加数据类型时，没有选择数据库的选项，而在添加完后在相应的目录下 <code>modules/[name].settings.json</code>中有相应的字段<code>connection</code>;</p>
 <p>*** 临时更改默认连接数据库</p>
 <p>在 <code>database.json</code> 中配置多个数据库后, 临时更改 <code>defaultConnection</code> 再去创建类型模型即可.<br>网上说在选择内容类型名称时会看到要使用的连接的下拉列表,然而我一直没找到.</p>
 <p>*** 利用 <code>hook</code> 来使用 <code>redis</code> 数据库</p>
 <p><a href="https://strapi.io/documentation/3.0.0-beta.x/concepts/hooks.html#structure" target="_blank" rel="noopener">官方 <code>strapi</code></a> 规定 <code>strapi-hook-[name]</code> 的npm模块包会自动引入 <code>hook</code> 系统;<br>因此安装<code>npm i strapi-hook-redis</code>, 然后启用: <code>config/hook.json</code> 添加:</p>
-<pre><code class="json">{
-  ...
-  &quot;redis&quot;: {
-    &quot;enable&quot;: true
-  }
-}</code></pre>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  ...</span><br><span class="line">  "redis": &#123;</span><br><span class="line">    "enable": true</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>然而,根据<code>strapi-hook-redis</code> 的 <code>index.js</code> 文件说明, 在database.json中添加如 <code>connector: &#39;strapi-hook-redis&#39;</code> 的数据库字段,却无法跑起来去❌，难😣!</p>
 <h2 id="policies-使用"><a href="#policies-使用" class="headerlink" title="policies 使用"></a><a href="https://strapi.io/documentation/3.0.0-beta.x/concepts/policies.html#concept" target="_blank" rel="noopener">policies 使用</a></h2><p>policies 是用来处理路由请求的规则，可以做校验或对其他的接口操作（如定时器，logger等）。</p>
 <h2 id="CLI工具"><a href="#CLI工具" class="headerlink" title="CLI工具"></a><a href="https://strapi.io/documentation/3.0.0-beta.x/cli/CLI.html" target="_blank" rel="noopener">CLI工具</a></h2><p>如果是全局安装了 strapi, 则直接使用;<br>局部安装可执行 <code>.\node_modules\.bin\strapi</code></p>

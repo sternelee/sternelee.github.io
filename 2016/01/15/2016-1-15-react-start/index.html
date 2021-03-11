@@ -93,7 +93,7 @@
 <meta property="og:description" content="reactjs 是什么？reactjs是来自facebook公司的用于构建用户界面的JavaScript库。 GitHub地址：https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react reactjs的两个衍生项目也值得注意。 react-native:用reactjs写手机app   GitHub地址：https:&#x2F;&#x2F;github.com&#x2F;facebook&#x2F;react-native">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2016-01-15T11:46:56.000Z">
-<meta property="article:modified_time" content="2021-03-11T03:55:39.531Z">
+<meta property="article:modified_time" content="2021-03-11T05:54:00.636Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="js">
 <meta property="article:tag" content="react">
@@ -431,21 +431,9 @@ GitHub地址：<a href="https://github.com/Flipboard/react-canvas" target="_blan
 <p>reactjs比其他前端模板引擎更彻底的分离html与javascript。前端模板引擎，绝大多数基于html字符串；而reactjs不是。能接受前端模板引擎的人，也能接受jsx。</p>
 <p>jsx的实质是：用xml的语法写函数调用。它没有拼接html字符串，也不要求一定要使用jsx，手写函数调用，也是可以的。</p>
 <p>在原生DOM中，用js构造dom的方式是这样的：</p>
-<pre><code class="javascript">//要构造的dom：
-&lt;a class=&quot;link&quot; href=&quot;https://github.com/facebook/react&quot;&gt;React&lt;a&gt;
-var a = document.createElement(&#39;a&#39;)
-a.setAttribute(&#39;class&#39;, &#39;link&#39;)
-a.setAttribute(&#39;href&#39;, &#39;https://github.com/facebook/react&#39;)
-a.appendChild(document.createTextNode(&#39;React&#39;))</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//要构造的dom：</span></span><br><span class="line">&lt;a <span class="class"><span class="keyword">class</span></span>=<span class="string">"link"</span> href=<span class="string">"https://github.com/facebook/react"</span>&gt;React&lt;a&gt;</span><br><span class="line"><span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>)</span><br><span class="line">a.setAttribute(<span class="string">'class'</span>, <span class="string">'link'</span>)</span><br><span class="line">a.setAttribute(<span class="string">'href'</span>, <span class="string">'https://github.com/facebook/react'</span>)</span><br><span class="line">a.appendChild(<span class="built_in">document</span>.createTextNode(<span class="string">'React'</span>))</span><br></pre></td></tr></table></figure>
 <p>如你所见，它颇为繁琐，我们可以封装一下：</p>
-<pre><code class="javascript">//第一个参数为node名
-//第二个参数为一个对象，dom属性与事件都以键值对的形式书写
-//第三个到第n个为子node，它们将按参数顺序出现，
-//在这个例子中只有一个子元素，而且也是文本元素，所以可以直接书写，否则还得React.createElement一下
-var a = React.createElement(&#39;a&#39;, {
-    className: &#39;link&#39;,
-    href: &#39;https://github.com/facebook/react&#39;
-}, &#39;React&#39;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//第一个参数为node名</span></span><br><span class="line"><span class="comment">//第二个参数为一个对象，dom属性与事件都以键值对的形式书写</span></span><br><span class="line"><span class="comment">//第三个到第n个为子node，它们将按参数顺序出现，</span></span><br><span class="line"><span class="comment">//在这个例子中只有一个子元素，而且也是文本元素，所以可以直接书写，否则还得React.createElement一下</span></span><br><span class="line"><span class="keyword">var</span> a = React.createElement(<span class="string">'a'</span>, &#123;</span><br><span class="line">    className: <span class="string">'link'</span>,</span><br><span class="line">    href: <span class="string">'https://github.com/facebook/react'</span></span><br><span class="line">&#125;, <span class="string">'React'</span>)</span><br></pre></td></tr></table></figure>
 <p>如上，从html语法到js构造dom，再到React.createElement的封装。</p>
 <p>现在有个编译工具，可以让你用html语法来写React.createElement，部署上线前编译回来。你愿意吗？</p>
 <p>不管你的答案是什么，但这就是jsx的一半真相。</p>
@@ -454,43 +442,15 @@ var a = React.createElement(&#39;a&#39;, {
 <li>html的class与for属性在js里是保留字，所以jsx里要用别名className与htmlFor</li>
 <li>不能像下面那样操作html的checked属性</li>
 </ul>
-<pre><code class="javascript">//在其他前端模板引擎中，可以这么做，因为是拼接字符串
-var checkbox = &lt;input type=&quot;checkbox&quot; {this.props.selected ? &#39;checked&#39; : &#39;&#39;} /&gt;
-
-//但在jsx中，这是错误的，因为无法构成键值对，一定要有个key=value的格式，所以得这样
-var checkbox = &lt;input className=&quot;class是js的保留字&quot; type=&quot;checkbox&quot; checked={this.props.selected} /&gt;
-
-//编译后：
-var checkbox = React.createElement(&#39;input&#39;, {
-    type: &#39;checkbox&#39;,
-    className: &#39;class是js的保留字&#39;,
-    checked: this.props.selected
-})</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在其他前端模板引擎中，可以这么做，因为是拼接字符串</span></span><br><span class="line"><span class="keyword">var</span> checkbox = <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> &#123;<span class="attr">this.props.selected</span> ? '<span class="attr">checked</span>' <span class="attr">:</span> ''&#125; /&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//但在jsx中，这是错误的，因为无法构成键值对，一定要有个key=value的格式，所以得这样</span></span><br><span class="line"><span class="keyword">var</span> checkbox = <span class="xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">className</span>=<span class="string">"class是js的保留字"</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">checked</span>=<span class="string">&#123;this.props.selected&#125;</span> /&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//编译后：</span></span><br><span class="line"><span class="keyword">var</span> checkbox = React.createElement(<span class="string">'input'</span>, &#123;</span><br><span class="line">    type: <span class="string">'checkbox'</span>,</span><br><span class="line">    className: <span class="string">'class是js的保留字'</span>,</span><br><span class="line">    checked: <span class="keyword">this</span>.props.selected</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <ul>
-<li>不能直接写并列的元素<pre><code class="javascript">//这样写是错误的
-var MyComponent = React.createClass({
-  render: function() {
-      return &lt;div&gt;first div&lt;/div&gt;&lt;div&gt;second div&lt;/div&gt;
-  }
-})
-//因为编译后，return 两个函数调用，就算不报错，也只调用第一个函数，不合意图
-var MyComponent = React.createClass({
-  render: function() {
-      return React.createElement(&#39;div&#39;, null, &#39;first div&#39;) React.createElement(&#39;div&#39;, null, &#39;second div&#39;)
-  }
-})
-</code></pre>
-</li>
+<li>不能直接写并列的元素<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这样写是错误的</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>first div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>second div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//因为编译后，return 两个函数调用，就算不报错，也只调用第一个函数，不合意图</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> React.createElement(<span class="string">'div'</span>, <span class="literal">null</span>, <span class="string">'first div'</span>) React.createElement(<span class="string">'div'</span>, <span class="literal">null</span>, <span class="string">'second div'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//所以有时难免要增加dom层级</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;div&gt;first div&lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">                &lt;div&gt;second div&lt;/</span>div&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/编译后,合乎语法和编程意图了</span></span><br><span class="line"><span class="regexp">var MyComponent = React.createClass(&#123;</span></span><br><span class="line"><span class="regexp">    render: function() &#123;</span></span><br><span class="line"><span class="regexp">        return React.createElement('div', null, </span></span><br><span class="line"><span class="regexp">            React.createElement('div', null, 'first div'),</span></span><br><span class="line"><span class="regexp">            React.createElement('div', null, 'second div'))</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br></pre></td></tr></table></figure></li>
+<li>jsx要求标签一定要闭合，html5中不强制要求闭合的，在jsx也都要闭合，以便识别</li>
+<li>封装的组件要用大写字母开头，以便跟html标签区分。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不合规则</span></span><br><span class="line">&lt;tap /&gt;</span><br><span class="line"><span class="comment">//合乎规则</span></span><br><span class="line">&lt;Tap /&gt;</span><br></pre></td></tr></table></figure>
+reactjs与web component</li>
 </ul>
-<p>//所以有时难免要增加dom层级<br>var MyComponent = React.createClass({<br>    render: function() {<br>        return (<br>            <div><br>                <div>first div</div><br>                <div>second div</div><br>            </div><br>        )<br>    }<br>})</p>
-<p>//编译后,合乎语法和编程意图了<br>var MyComponent = React.createClass({<br>    render: function() {<br>        return React.createElement(‘div’, null,<br>            React.createElement(‘div’, null, ‘first div’),<br>            React.createElement(‘div’, null, ‘second div’))<br>    }<br>})</p>
-<pre><code>* jsx要求标签一定要闭合，html5中不强制要求闭合的，在jsx也都要闭合，以便识别
-* 封装的组件要用大写字母开头，以便跟html标签区分。
-```javascript
-//不合规则
-&lt;tap /&gt;
-//合乎规则
-&lt;Tap /&gt;</code></pre><h2 id="reactjs与web-component"><a href="#reactjs与web-component" class="headerlink" title="reactjs与web component"></a>reactjs与web component</h2><p>web component是下一代的前端标准，提供了shadow dom、templete元素、Imports与自定义元素的功能。其中自定义元素提供了生命周期回调函数:</p>
+<hr>
+<p>web component是下一代的前端标准，提供了shadow dom、templete元素、Imports与自定义元素的功能。其中自定义元素提供了生命周期回调函数:</p>
 <ul>
 <li>createdCallback: 创建时调用</li>
 <li>attachedCallback: 添加到dom树时调用</li>
@@ -509,39 +469,8 @@ var MyComponent = React.createClass({
 </ul>
 <p>reactjs与web component的关系，在我个人看来：reactjs是纯js实现的一种component标准，它可以与DOM无关，甚至与Web无关。    </p>
 <p>在reactjs中注册组件像这样：</p>
-<pre><code class="javascript">//reactjs跟objective-c在方法命名上有些相似，使劲儿用全称，与传统js编程的缩写习惯相悖
-var MyComponent = React.createClass({
-    //每个组件必须有render方法
-    render: function() {
-        return &lt;div className={this.props.className}&gt;
-            //jsx遇大括号就当作js表达式来看待
-            //map返回的数组会自动展开
-            {
-                this.props.textList.map(function(text) {
-                    return &lt;p&gt;text&lt;/p&gt;
-                })
-            }
-            &lt;/div&gt;
-    }
-})
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//reactjs跟objective-c在方法命名上有些相似，使劲儿用全称，与传统js编程的缩写习惯相悖</span></span><br><span class="line"><span class="keyword">var</span> MyComponent = React.createClass(&#123;</span><br><span class="line">    <span class="comment">//每个组件必须有render方法</span></span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;this.props.className&#125;</span>&gt;</span></span></span><br><span class="line"><span class="xml">            //jsx遇大括号就当作js表达式来看待</span></span><br><span class="line"><span class="xml">            //map返回的数组会自动展开</span></span><br><span class="line"><span class="xml">            &#123;</span></span><br><span class="line"><span class="xml">                this.props.textList.map(function(text) &#123;</span></span><br><span class="line"><span class="xml">                    return <span class="tag">&lt;<span class="name">p</span>&gt;</span>text<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span></span><br><span class="line"><span class="xml">                &#125;)</span></span><br><span class="line"><span class="xml">            &#125;</span></span><br><span class="line"><span class="xml">            <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//像这样使用</span></span><br><span class="line"><span class="keyword">var</span> TestComponent = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;div&gt;</span><br><span class="line">                &lt;MyComponent className=<span class="string">"组件内部的this.props.className来自它被调用时传递的参数，就是我啦"</span> textList=&#123;[<span class="string">'组件的this.props.textList'</span>, <span class="string">'就是我啦'</span>, <span class="string">'用花括号包裹'</span>, <span class="string">'以便让jsx将我作为数组直接量的表达式来看待'</span>]&#125; /&gt;</span><br><span class="line">            &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/这里才是插入dom，用React.render方法</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/第一个参数为React组件，第二个参数为DOM</span></span><br><span class="line"><span class="regexp">React.render(</span></span><br><span class="line"><span class="regexp">    &lt;TestComponent /</span>&gt;,</span><br><span class="line">    <span class="built_in">document</span>.body</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
-//像这样使用
-var TestComponent = React.createClass({
-    render: function() {
-        return (
-            &lt;div&gt;
-                &lt;MyComponent className=&quot;组件内部的this.props.className来自它被调用时传递的参数，就是我啦&quot; textList={[&#39;组件的this.props.textList&#39;, &#39;就是我啦&#39;, &#39;用花括号包裹&#39;, &#39;以便让jsx将我作为数组直接量的表达式来看待&#39;]} /&gt;
-            &lt;/div&gt;
-        )
-    }
-})
-
-//这里才是插入dom，用React.render方法
-//第一个参数为React组件，第二个参数为DOM
-React.render(
-    &lt;TestComponent /&gt;,
-    document.body
-)</code></pre>
 <p>总的来说，reactjs允许我们用React.createClass来拓展React.createElement的参数范畴。</p>
 <ul>
 <li>默认情况下，它接受原生html标签，所以web Component普及后，reactjs也不会被淘汰，无非是多了一些html标签罢了</li>
@@ -552,58 +481,8 @@ React.render(
 <p>正因如此，reactjs的UI层才是可替换的，构造另一套从数据到视图的映射逻辑，就能应用在canvas乃至手机原生UI上。</p>
 <h2 id="reactjs-的单向数据流"><a href="#reactjs-的单向数据流" class="headerlink" title="reactjs 的单向数据流"></a>reactjs 的单向数据流</h2><p>reactjs组件内部的this.props对象，是组件实例的父级组件提供的，提供方式就像写html属性一样。</p>
 <p>如此，父级复父级，数据可以从最顶层的组件实例，层层传递到最底层的组件中去，然而反过来却不行，这就是单向数据流的意思。</p>
-<pre><code class="javascript">//最底层的todo
-var Todo = React.createClass({
-    render: function() {
-        return (
-            //只有html属性和data-*以及aria-*才会显示在dom中，其余的key或其他，是扩展性质的，便于向下级组件传递数据
-            &lt;li title={this.props.time} key={this.props.id}&gt;
-                &lt;input type=&quot;checkbox&quot; checked={this.props.completed} /&gt;
-                &lt;label&gt;{this.props.title}&lt;/label&gt;
-            &lt;/li&gt;
-            )
-    }
-})
-//todo的父级组件
-var TodoList = React.createClass({
-    render: function() {
-        return ({
-            &lt;ul&gt;{
-                this.props.todos.map(function(todo) {
-                    //形如ES6的属性展开式语法，等价于用key=value的形式一个个书写
-                    return &lt;Todo {...todo} /&gt;
-                })
-            }&lt;/ul&gt;
-        })
-    }
-})
-//todoList的父级组件
-var TodoApp = React.createClass({
-    render: function() {
-        return (
-            &lt;TodoList todos={this.props.todos} /&gt;
-        )
-    }
-})
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最底层的todo</span></span><br><span class="line"><span class="keyword">var</span> Todo = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            <span class="comment">//只有html属性和data-*以及aria-*才会显示在dom中，其余的key或其他，是扩展性质的，便于向下级组件传递数据</span></span><br><span class="line">            &lt;li title=&#123;<span class="keyword">this</span>.props.time&#125; key=&#123;<span class="keyword">this</span>.props.id&#125;&gt;</span><br><span class="line">                &lt;input type=<span class="string">"checkbox"</span> checked=&#123;<span class="keyword">this</span>.props.completed&#125; /&gt;</span><br><span class="line">                &lt;label&gt;&#123;<span class="keyword">this</span>.props.title&#125;&lt;<span class="regexp">/label&gt;</span></span><br><span class="line"><span class="regexp">            &lt;/</span>li&gt;</span><br><span class="line">            )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//todo的父级组件</span></span><br><span class="line"><span class="keyword">var</span> TodoList = React.createClass(&#123;</span><br><span class="line">    render: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (&#123;</span><br><span class="line">            &lt;ul&gt;&#123;</span><br><span class="line">                <span class="keyword">this</span>.props.todos.map(<span class="function"><span class="keyword">function</span>(<span class="params">todo</span>) </span>&#123;</span><br><span class="line">                    <span class="comment">//形如ES6的属性展开式语法，等价于用key=value的形式一个个书写</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Todo</span> &#123;<span class="attr">...todo</span>&#125; /&gt;</span></span></span><br><span class="line">                &#125;)</span><br><span class="line">            &#125;&lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">        &#125;)</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;)</span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/todoList的父级组件</span></span><br><span class="line"><span class="regexp">var TodoApp = React.createClass(&#123;</span></span><br><span class="line"><span class="regexp">    render: function() &#123;</span></span><br><span class="line"><span class="regexp">        return (</span></span><br><span class="line"><span class="regexp">            &lt;TodoList todos=&#123;this.props.todos&#125; /</span>&gt;</span><br><span class="line">        )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">//模拟的todos数据</span></span><br><span class="line"><span class="keyword">var</span> data = [&#123;</span><br><span class="line">    id: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</span><br><span class="line">    time: <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString(),</span><br><span class="line">    title: <span class="string">'第一个待办事项'</span>,</span><br><span class="line">    completed: <span class="literal">false</span></span><br><span class="line">&#125;, &#123;</span><br><span class="line">    id: <span class="keyword">new</span> <span class="built_in">Date</span>().getTime(),</span><br><span class="line">    time: <span class="keyword">new</span> <span class="built_in">Date</span>().toLocaleString(),</span><br><span class="line">    title: <span class="string">'第二个待办事项'</span>,</span><br><span class="line">    completed: <span class="literal">true</span></span><br><span class="line">&#125;]</span><br><span class="line"></span><br><span class="line"><span class="comment">//渲染TodoApp组件到#todo-app，数据从TodoApp传递到TodoList,从TodoList传递到Todo,在Todo中展开为一种DOM结构并注入数据，展示在前端页面中</span></span><br><span class="line">React.render(</span><br><span class="line">    &lt;TodoApp todos=&#123;data&#125; /&gt;,</span><br><span class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'todo-app'</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
 
-//模拟的todos数据
-var data = [{
-    id: new Date().getTime(),
-    time: new Date().toLocaleString(),
-    title: &#39;第一个待办事项&#39;,
-    completed: false
-}, {
-    id: new Date().getTime(),
-    time: new Date().toLocaleString(),
-    title: &#39;第二个待办事项&#39;,
-    completed: true
-}]
-
-//渲染TodoApp组件到#todo-app，数据从TodoApp传递到TodoList,从TodoList传递到Todo,在Todo中展开为一种DOM结构并注入数据，展示在前端页面中
-React.render(
-    &lt;TodoApp todos={data} /&gt;,
-    document.getElementById(&#39;todo-app&#39;)
-)</code></pre>
 <h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>reactjs是有趣且富有生命力与表现力的javascript库，有其适用的场景，也有许多需要注意的事项与容易踩到的坑。</p>
 <p>总体而言，学会它不会让人后悔（想想那些学angular1的同学吧）。</p>
 <p>在此，可以去<a href="http://todomvc.com/" target="_blank" rel="noopener">TodoMVC</a> 下载react制作的mvc项目来参考学习<a href="http://todomvc.com/" target="_blank" rel="noopener">React-TodoMVC</a></p>
@@ -864,7 +743,7 @@ React.render(
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-是什么？"><span class="nav-number">1.</span> <span class="nav-text">reactjs 是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs的两个衍生项目也值得注意。"><span class="nav-number">2.</span> <span class="nav-text">reactjs的两个衍生项目也值得注意。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-真的将html-xml和js代码混杂在一起吗？"><span class="nav-number">3.</span> <span class="nav-text">reactjs 真的将html&#x2F;xml和js代码混杂在一起吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs与web-component"><span class="nav-number">4.</span> <span class="nav-text">reactjs与web component</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-的虚拟dom"><span class="nav-number">5.</span> <span class="nav-text">reactjs 的虚拟dom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-的单向数据流"><span class="nav-number">6.</span> <span class="nav-text">reactjs 的单向数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">7.</span> <span class="nav-text">结语</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-是什么？"><span class="nav-number">1.</span> <span class="nav-text">reactjs 是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs的两个衍生项目也值得注意。"><span class="nav-number">2.</span> <span class="nav-text">reactjs的两个衍生项目也值得注意。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-真的将html-xml和js代码混杂在一起吗？"><span class="nav-number">3.</span> <span class="nav-text">reactjs 真的将html&#x2F;xml和js代码混杂在一起吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-的虚拟dom"><span class="nav-number">4.</span> <span class="nav-text">reactjs 的虚拟dom</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#reactjs-的单向数据流"><span class="nav-number">5.</span> <span class="nav-text">reactjs 的单向数据流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">6.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>

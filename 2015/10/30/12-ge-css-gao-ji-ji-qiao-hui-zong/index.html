@@ -431,104 +431,48 @@
 <li>使用属性选择器用于空链接  </li>
 <li>使用 :not() 在菜单上应用/取消应用边框  </li>
 <li>先给每一个菜单项添加边框  <a id="more"></a>
-<pre><code class="css">.nav li {
- border-right: 1px solid #666;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">li</span> &#123;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
 <p>……然后再除去最后一个元素……  </p>
-<pre><code class="css">// remove border /  
-.nav li:last-child {
-  border-right: none;
-} </code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// remove border /  </span><br><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">li</span><span class="selector-pseudo">:last-child</span> &#123;</span><br><span class="line">  <span class="attribute">border-right</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
 <p>……可以直接使用 :not() 伪类来应用元素：  </p>
-<pre><code class="css">.nav li:not(:last-child) {
-  border-right: 1px solid #666;
-}  </code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">li</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:last-child)</span> &#123;</span><br><span class="line">  <span class="attribute">border-right</span>: <span class="number">1px</span> solid <span class="number">#666</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样代码就干净，易读，易于理解了。</p>
 <p>当然，如果你的新元素有兄弟元素的话，也可以使用通用的兄弟选择符（~）：</p>
-<pre><code class="css">.nav li:first-child ~ li {  
-border-left: 1px solid #666;
-}  </code></pre>
-<p>给 body添加行高<br>你不需要分别添加 line-height 到每个 <p>，&lt;h*&gt;等。只要添加到 body 即可：</p>
-<pre><code class="css">body {
-  line-height: 1;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.nav</span> <span class="selector-tag">li</span><span class="selector-pseudo">:first-child</span> ~ <span class="selector-tag">li</span> &#123;  </span><br><span class="line"><span class="attribute">border-left</span>: <span class="number">1px</span> solid <span class="number">#666</span>;</span><br><span class="line">&#125;  </span><br><span class="line">```  </span><br><span class="line">给 <span class="selector-tag">body</span>添加行高</span><br><span class="line">你不需要分别添加 <span class="selector-tag">line-height</span> 到每个 &lt;<span class="selector-tag">p</span>&gt;，&lt;<span class="selector-tag">h</span>*&gt;等。只要添加到 <span class="selector-tag">body</span> 即可：</span><br><span class="line">```<span class="selector-tag">css</span></span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">line-height</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样文本元素就可以很容易地从 body 继承。<br>所有一切都垂直居中<br>要将所有元素垂直居中，太简单了：</p>
-<pre><code class="css">html, body {
-  height: 100%;
-  margin: 0;
-}
-body {
-  -webkit-align-items: center;  
-  -ms-flex-align: center;  
-  align-items: center;
-  display: -webkit-flex;
-  display: flex;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span>, <span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">margin</span>: <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">-webkit-align-items</span>: center;  </span><br><span class="line">  <span class="attribute">-ms-flex-align</span>: center;  </span><br><span class="line">  <span class="attribute">align-items</span>: center;</span><br><span class="line">  <span class="attribute">display</span>: -webkit-flex;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>看，是不是很简单。</p>
 <ul>
 <li>注：在IE11中要小心flexbox。</li>
 </ul>
 <p>逗号分隔的列表<br>让HTML列表项看上去像一个真正的，用逗号分隔的列表：</p>
-<pre><code class="css">ul &gt; li:not(:last-child)::after {
-  content: &quot;,&quot;;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ul</span> &gt; <span class="selector-tag">li</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:last-child)</span><span class="selector-pseudo">::after</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">","</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>对最后一个列表项使用 :not() 伪类。</p>
 <p>使用负的 nth-child 选择项目<br>在CSS中使用负的 nth-child 选择项目1到项目n。</p>
-<pre><code class="css">li {
-  display: none;
-}
-/* select items 1 through 3 and display them */
-li:nth-child(-n+3) {
-  display: block;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">li</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/* select items 1 through 3 and display them */</span></span><br><span class="line"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(-n+3)</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>就是这么容易。<br>对图标使用SVG<br>我们没有理由不对图标使用SVG：</p>
-<pre><code class="css">.logo {
-  background: url(&quot;logo.svg&quot;);
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.logo</span> &#123;</span><br><span class="line">  <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">"logo.svg"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>SVG对所有的分辨率类型都具有良好的扩展性，并支持所有浏览器都回归到IE9。这样可以避开.png、.jpg或.gif文件了。</p>
 <p>优化显示文本<br>有时，字体并不能在所有设备上都达到最佳的显示，所以可以让设备浏览器来帮助你：</p>
-<pre><code class="css">html {
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">-moz-osx-font-smoothing</span>: grayscale;</span><br><span class="line">  <span class="attribute">-webkit-font-smoothing</span>: antialiased;</span><br><span class="line">  <span class="attribute">text-rendering</span>: optimizeLegibility;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>注：请负责任地使用 optimizeLegibility。此外，IE /Edge没有 text-rendering 支持。</p>
 <p>对纯CSS滑块使用 max-height<br>使用 max-height 和溢出隐藏来实现只有CSS的滑块：</p>
-<pre><code class="css">.slider ul {
-  max-height: 0;
-  overlow: hidden;
-}
-.slider:hover ul {
-  max-height: 1000px;
-  transition: .3s ease;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.slider</span> <span class="selector-tag">ul</span> &#123;</span><br><span class="line">  <span class="attribute">max-height</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">overlow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.slider</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">ul</span> &#123;</span><br><span class="line">  <span class="attribute">max-height</span>: <span class="number">1000px</span>;</span><br><span class="line">  <span class="attribute">transition</span>: .<span class="number">3s</span> ease;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>继承 box-sizing<br>让 box-sizing 继承 html：</p>
-<pre><code class="css">html {
-  box-sizing: border-box;
-}
-*,*:before,*:after {
-  box-sizing: inherit;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: border-box;</span><br><span class="line">&#125;</span><br><span class="line">*,*<span class="selector-pseudo">:before</span>,*<span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">  <span class="attribute">box-sizing</span>: inherit;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样在插件或杠杆其他行为的其他组件中就能更容易地改变 box-sizing 了。</p>
 <p>表格单元格等宽<br>表格工作起来很麻烦，所以务必尽量使用 table-layout: fixed 来保持单元格的等宽：</p>
-<pre><code class="css">.calendar {
-  table-layout: fixed;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.calendar</span> &#123;</span><br><span class="line">  <span class="attribute">table-layout</span>: fixed;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>用Flexbox摆脱外边距的各种hack<br>当需要用到列分隔符时，通过flexbox的 space-between 属性，你就可以摆脱nth-，first-，和 last-child 的hack了：</p>
-<pre><code class="css">.list {
-  display: flex;
-  justify-content: space-between;
-}
-.list .person {
-  flex-basis: 23%;
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.list</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">justify-content</span>: space-between;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.list</span> <span class="selector-class">.person</span> &#123;</span><br><span class="line">  <span class="attribute">flex-basis</span>: <span class="number">23%</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>现在，列表分隔符就会在均匀间隔的位置出现。<br>使用属性选择器用于空链接  </p>
 <p>当 &lt;a&gt; 元素没有文本值，但 href 属性有链接的时候显示链接：</p>
-<pre><code class="css">a[href^=&quot;http&quot;]:empty::before {
-  content: attr(href);
-}</code></pre>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">a</span><span class="selector-attr">[href^=<span class="string">"http"</span>]</span><span class="selector-pseudo">:empty</span><span class="selector-pseudo">::before</span> &#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="built_in">attr</span>(href);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>相当方便。</p>
 <p>支持<br>这些高级技巧在Chrome、Firefox、Safari、Edge的当前版本，以及IE11中都能有效工作。</p>
 

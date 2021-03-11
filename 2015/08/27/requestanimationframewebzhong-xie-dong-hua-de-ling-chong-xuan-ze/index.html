@@ -420,29 +420,10 @@
 <p>当然最原始的你还可以使用window.setTimout()或者window.setInterval()通过不断更新元素的状态位置等来实现动画，前提是画面的更新频率要达到每秒60次才能让肉眼看到流畅的动画效果。<br>现在又多了一种实现动画的方案，那就是还在草案当中的window.requestAnimationFrame()方法。<br>####初识requestAnimationFrame<br>来看<a href="https://developer.mozilla.org/en/docs/Web/API/window.requestAnimationFrame" target="_blank" rel="noopener">MDN</a>上对其给出的诠释：<br>The window.requestAnimationFrame() method tells the browser that you wish to perform an animation and requests that the browser call a specified function to update an animation before the next repaint.<br>The method takes as an argument a callback to be invoked before the repaint.  </p>
 <p>window.requestAnimationFrame() 将告知浏览器你马上要开始动画效果了，后者需要在下次动画前调用相应方法来更新画面。这个方法就是传递给window.requestAnimationFrame()的回调函数。  </p>
 <p>也可这个方法原理其实也就跟setTimeout/setInterval差不多，通过递归调用同一方法来不断更新画面以达到动起来的效果，但它优于setTimeout/setInterval的地方在于它是由浏览器专门为动画提供的API，在运行时浏览器会自动优化方法的调用，并且如果页面不是激活状态下的话，动画会自动暂停，有效节省了CPU开销。<br>####基本语法<br>可以直接调用，也可以通过window来调用，接收一个函数作为回调，返回一个ID值，通过把这个ID值传给window.cancelAnimationFrame()可以取消该次动画。</p>
-<pre><code class="javascript">requestAnimationFrame(callback)//callback为回调函数</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requestAnimationFrame(callback)<span class="comment">//callback为回调函数</span></span><br></pre></td></tr></table></figure>
 <p>#####一个简单的例子<br>模拟一个进度条动画，初始div宽度为1px,在step函数中将进度加1然后再更新到div宽度上，在进度达到100之前，一直重复这一过程。 </p>
-<pre><code class="html">&lt;div id=&quot;test&quot; style=&quot;width:1px;height:17px;background:#0f0;&quot;&gt;0%&lt;/div&gt;
-&lt;input type=&quot;button&quot; value=&quot;Run&quot; id=&quot;run&quot;/&gt;</code></pre>
-<pre><code class="javascript">window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-var start = null;
-var ele = document.getElementById(&quot;test&quot;);
-var progress = 0;
-
-function step(timestamp) {
-    progress += 1;
-    ele.style.width = progress + &quot;%&quot;;
-    ele.innerHTML=progress + &quot;%&quot;;
-    if (progress &lt; 100) {
-        requestAnimationFrame(step);
-    }
-}
-requestAnimationFrame(step);
-document.getElementById(&quot;run&quot;).addEventListener(&quot;click&quot;, function() {
-    ele.style.width = &quot;1px&quot;;
-    progress = 0;
-    requestAnimationFrame(step);
-}, false);</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"test"</span> <span class="attr">style</span>=<span class="string">"width:1px;height:17px;background:#0f0;"</span>&gt;</span>0%<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"Run"</span> <span class="attr">id</span>=<span class="string">"run"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.requestAnimationFrame = <span class="built_in">window</span>.requestAnimationFrame || <span class="built_in">window</span>.mozRequestAnimationFrame || <span class="built_in">window</span>.webkitRequestAnimationFrame || <span class="built_in">window</span>.msRequestAnimationFrame;</span><br><span class="line"><span class="keyword">var</span> start = <span class="literal">null</span>;</span><br><span class="line"><span class="keyword">var</span> ele = <span class="built_in">document</span>.getElementById(<span class="string">"test"</span>);</span><br><span class="line"><span class="keyword">var</span> progress = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">step</span>(<span class="params">timestamp</span>) </span>&#123;</span><br><span class="line">    progress += <span class="number">1</span>;</span><br><span class="line">    ele.style.width = progress + <span class="string">"%"</span>;</span><br><span class="line">    ele.innerHTML=progress + <span class="string">"%"</span>;</span><br><span class="line">    <span class="keyword">if</span> (progress &lt; <span class="number">100</span>) &#123;</span><br><span class="line">        requestAnimationFrame(step);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">requestAnimationFrame(step);</span><br><span class="line"><span class="built_in">document</span>.getElementById(<span class="string">"run"</span>).addEventListener(<span class="string">"click"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    ele.style.width = <span class="string">"1px"</span>;</span><br><span class="line">    progress = <span class="number">0</span>;</span><br><span class="line">    requestAnimationFrame(step);</span><br><span class="line">&#125;, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
 <p>####浏览器支持情况<br>既然还是草案状态下引入的一个功能，在使用全我们就需要关心一下各浏览器对它的支持情况了。就目前来说，主流现代浏览器都对它提供了支持。</p>
 
       

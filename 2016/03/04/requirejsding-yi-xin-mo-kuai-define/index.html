@@ -420,71 +420,17 @@
         <p>RequireJS是一个非常小巧的JavaScript模块载入框架，目标为实现浏览器端的模块化开发。</p>
 <h5 id="Require使用入门"><a href="#Require使用入门" class="headerlink" title="Require使用入门"></a>Require使用入门</h5><p>在<a href="http://www.requirejs.cn/" target="_blank" rel="noopener">RequireJS</a>中下载最新版require.js文件，在index.html中加载</p>
 <a id="more"></a>
-<pre><code class="html5">&lt;!DOCTYPE html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-    &lt;meta charset=&quot;UTF-8&quot;&gt;
-    &lt;title&gt;Require Blob&lt;/title&gt;
-    &lt;script src=&quot;require.js&quot; data-main=&quot;main&quot;&gt;&lt;/script&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;img src=&quot;blob.jpg&quot; alt=&quot;&quot; &gt;
-&lt;/body&gt;
-&lt;/html&gt;</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang&#x3D;&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">	&lt;meta charset&#x3D;&quot;UTF-8&quot;&gt;</span><br><span class="line">	&lt;title&gt;Require Blob&lt;&#x2F;title&gt;</span><br><span class="line">	&lt;script src&#x3D;&quot;require.js&quot; data-main&#x3D;&quot;main&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&lt;&#x2F;head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">&lt;img src&#x3D;&quot;blob.jpg&quot; alt&#x3D;&quot;&quot; &gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line">&lt;&#x2F;html&gt;</span><br></pre></td></tr></table></figure>
 <p>其中，data-main所指向的为函数代码入口，即是main.js</p>
-<pre><code class="javascript">require.config({
-    paths: {
-        jquery:&#39;jquery.min&#39;
-    }
-});</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>.config(&#123;</span><br><span class="line">	paths: &#123;</span><br><span class="line">		jquery:<span class="string">'jquery.min'</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>详细配置请看官方文档</p>
 <h5 id="define模块定义"><a href="#define模块定义" class="headerlink" title="define模块定义"></a>define模块定义</h5><p>在RequireJS中，require()是用来加载和使用模块，define()是用来定义新模块(注册为requirejs中模块)，define(“”,[], function(){})中第一个参数是定义模块的名字，第二个参数是依赖的名称数组，第三个参数是函数，在模块的所有依赖加载完毕后，该函数会被调用来定义该模块。依赖关系会以参数的形式注入到该函数上，参数列表与依赖名称列表一一对应。<br>一个简单的例子:</p>
-<pre><code class="javascript">define(&#39;app&#39;,[&#39;jquery&#39;],function($){
-    return {
-        log: function(msg){
-            if(window.console &amp;&amp; console.log){
-                console.log(msg);
-            }else{
-                alert(msg);
-            }
-        },
-        hello: function(){
-            this.log(&quot;hello, I&#39;m powered by jquery&quot;+$().jquery+&quot;!&quot;);
-        }
-    };
-});</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">'app'</span>,[<span class="string">'jquery'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &#123;</span><br><span class="line">		log: <span class="function"><span class="keyword">function</span>(<span class="params">msg</span>)</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">window</span>.console &amp;&amp; <span class="built_in">console</span>.log)&#123;</span><br><span class="line">				<span class="built_in">console</span>.log(msg);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				alert(msg);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		hello: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.log(<span class="string">"hello, I'm powered by jquery"</span>+$().jquery+<span class="string">"!"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>然后在使用该模块:</p>
-<pre><code class="javascript">require([&#39;app&#39;],function(sub){
-    sub.hello();
-});</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">require</span>([<span class="string">'app'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">sub</span>)</span>&#123;</span><br><span class="line">	sub.hello();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>我们可以看到，新模块以及在定义是依赖了jQuery，在使用中已经实现了jQuery模块的依赖并实现了新模块的操作。</p>
 <h5 id="定义blob模块"><a href="#定义blob模块" class="headerlink" title="定义blob模块"></a>定义blob模块</h5><p><a href="http://www.zhangxinxu.com/study/201310/blob-get-image-show.html" target="_blank" rel="noopener">详细blob的介绍</a>在此不再重复，以下直接上代码:</p>
-<pre><code class="javascript">define(&quot;blob&quot;,[],function(){
-    var t = function(e){
-        var that = e;
-        window.URL = window.URL || window.webkitURL;
-        if(typeof history.pushState == &quot;function&quot;){
-            var xhr = new XMLHttpRequest();
-            xhr.open(&quot;get&quot;,that.src,true);
-            xhr.responseType=&quot;blob&quot;;
-            xhr.onload=function(){
-                if(this.status == 200){
-                    var blob = this.response;
-                    that.src = window.URL.createObjectURL(blob);
-                }
-            }
-            xhr.send();
-        }else{
-            console.log(&quot;不支持blob,请更新浏览器哈&quot;);
-        }
-    };
-    return t
-});
-require([&quot;jquery&quot;,&quot;blob&quot;],function($,blob){
-    $(document).ready(function(){
-        blob($(&quot;img&quot;)[0]);
-    });
-});</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">define(<span class="string">"blob"</span>,[],<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">var</span> t = <span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> that = e;</span><br><span class="line">        <span class="built_in">window</span>.URL = <span class="built_in">window</span>.URL || <span class="built_in">window</span>.webkitURL;</span><br><span class="line">        <span class="keyword">if</span>(<span class="keyword">typeof</span> history.pushState == <span class="string">"function"</span>)&#123;</span><br><span class="line">            <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br><span class="line">            xhr.open(<span class="string">"get"</span>,that.src,<span class="literal">true</span>);</span><br><span class="line">            xhr.responseType=<span class="string">"blob"</span>;</span><br><span class="line">            xhr.onload=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">                <span class="keyword">if</span>(<span class="keyword">this</span>.status == <span class="number">200</span>)&#123;</span><br><span class="line">                    <span class="keyword">var</span> blob = <span class="keyword">this</span>.response;</span><br><span class="line">                    that.src = <span class="built_in">window</span>.URL.createObjectURL(blob);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            xhr.send();</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">"不支持blob,请更新浏览器哈"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">	<span class="keyword">return</span> t</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">require</span>([<span class="string">"jquery"</span>,<span class="string">"blob"</span>],<span class="function"><span class="keyword">function</span>(<span class="params">$,blob</span>)</span>&#123;</span><br><span class="line">	$(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		blob($(<span class="string">"img"</span>)[<span class="number">0</span>]);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>此模块的功能是将页面图片的src链接转化成blob对象链接，define用返回一个函数对象来实现require中依赖的实例化。    </p>
 <p>注意：blob是属于XMLHttpRequest()返回的对象，因此需要在服务器中运行才能获取得对象链接。</p>
 

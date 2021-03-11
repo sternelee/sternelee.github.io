@@ -95,7 +95,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/sternelee/assets/master/imgs1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/sternelee/assets/master/imgs3.png">
 <meta property="article:published_time" content="2019-05-30T14:02:31.000Z">
-<meta property="article:modified_time" content="2021-03-11T03:55:39.548Z">
+<meta property="article:modified_time" content="2021-03-11T05:54:00.636Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="前端">
 <meta property="article:tag" content="JavaScript">
@@ -419,41 +419,8 @@
 <li><p>效率：将应用看成是多个 DOM 块，而不是一个大的（全局性）页面。</p>
 </li>
 </ol>
-<h3 id="使用-Shadow-DOM"><a href="#使用-Shadow-DOM" class="headerlink" title="使用 Shadow DOM"></a>使用 Shadow DOM</h3><pre><code class="html">...
-&lt;style type=&quot;text/css&quot;&gt;
-#app {
-    --text-color: green;
-}
-&lt;/style&gt;
-&lt;div id=&quot;app&quot;&gt;
-    &lt;h1&gt;我是根元素&lt;/h1&gt;
-&lt;/div&gt;
-&lt;script&gt;
-    const app = document.getElementById(&#39;app&#39;);
-    const shadowRoot = app.attachShadow({mode: &#39;open&#39;});
-    shadowRoot.innerHTML = `
-    &lt;style&gt;
-        :host {color: blue;}
-        h2 {color: var(--text-color, black);background: red;}
-    &lt;/style&gt;
-    &lt;h2&gt;Hello Shadow DOM&lt;/h2&gt;
-    `;
-    const span = document.createElement(&#39;span&#39;);
-    span.textContent = &quot;你好&quot;;
-    shadowRoot.appendChild(span);
+<h3 id="使用-Shadow-DOM"><a href="#使用-Shadow-DOM" class="headerlink" title="使用 Shadow DOM"></a>使用 Shadow DOM</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span></span><br><span class="line"><span class="css"><span class="selector-id">#app</span> &#123;</span></span><br><span class="line">    --text-color: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>我是根元素<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> app = <span class="built_in">document</span>.getElementById(<span class="string">'app'</span>);</span></span><br><span class="line"><span class="actionscript">    <span class="keyword">const</span> shadowRoot = app.attachShadow(&#123;mode: <span class="string">'open'</span>&#125;);</span></span><br><span class="line">    shadowRoot.innerHTML = `</span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">style</span>&gt;</span></span></span></span><br><span class="line">        :host &#123;color: blue;&#125;</span><br><span class="line"><span class="actionscript">        h2 &#123;color: <span class="keyword">var</span>(--text-color, black);background: red;&#125;</span></span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></span></span><br><span class="line"><span class="handlebars"><span class="xml">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>Hello Shadow DOM<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span></span><br><span class="line">    `;</span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> span = <span class="built_in">document</span>.createElement(<span class="string">'span'</span>);</span></span><br><span class="line"><span class="actionscript">    span.textContent = <span class="string">"你好"</span>;</span></span><br><span class="line">    shadowRoot.appendChild(span);</span><br><span class="line"></span><br><span class="line"><span class="javascript">    <span class="keyword">let</span> css = <span class="built_in">document</span>.createTextNode(<span class="string">"h2&#123; font-size: 20px&#125;"</span>);</span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> style = <span class="built_in">document</span>.createElement(<span class="string">'style'</span>)</span></span><br><span class="line">    style.appendChild(css)</span><br><span class="line">    shadowRoot.appendChild(style)</span><br><span class="line"></span><br><span class="line"><span class="javascript">    setTimeout(<span class="function"><span class="params">_</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="actionscript">        span.textContent = <span class="string">"两秒后我改变了"</span>;</span></span><br><span class="line"><span class="actionscript">        span.setAttribute(<span class="string">'style'</span>, <span class="string">'color: green;'</span>);</span></span><br><span class="line"><span class="javascript">        css = <span class="built_in">document</span>.createTextNode(<span class="string">"h2&#123; font-size: 30px&#125;"</span>);</span></span><br><span class="line">        style.appendChild(css)</span><br><span class="line">    &#125;, 2000)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-    let css = document.createTextNode(&quot;h2{ font-size: 20px}&quot;);
-    const style = document.createElement(&#39;style&#39;)
-    style.appendChild(css)
-    shadowRoot.appendChild(style)
-
-    setTimeout(_ =&gt; {
-        span.textContent = &quot;两秒后我改变了&quot;;
-        span.setAttribute(&#39;style&#39;, &#39;color: green;&#39;);
-        css = document.createTextNode(&quot;h2{ font-size: 30px}&quot;);
-        style.appendChild(css)
-    }, 2000)
-&lt;/script&gt;</code></pre>
 <p>在原生dom节点上创建shadowDOM,添加样式和内容，并进行更新。</p>
 <p>注意点：</p>
 <ol>
@@ -475,53 +442,14 @@
 </li>
 </ol>
 <h3 id="template-和-slot"><a href="#template-和-slot" class="headerlink" title="template 和 slot"></a>template 和 slot</h3><p>前面说了,shadow dom可以实现dom的隔离，比如样式的封装，那么如何实现呢？shadow规定了一种名为<code>template</code>的标签，这种标签类似我们经常用的<code>&lt;script type=&#39;tpl&#39;&gt;</code>，它不会被解析为dom树的一部分，template的内容可以被塞入到shadow dom中并且反复利用，在template中可以设置style，但只对这个template中的元素有效，看下示例：</p>
-<pre><code class="html">&lt;style&gt;
-span {
-  background-color:blue;/*设置页面所有span背景为蓝色，然而对shadow dom没什么卵用*/
-}
-&lt;/style&gt;
-&lt;div id=&quot;con&quot;&gt;
-    没什么卵用的文字
-  &lt;/div&gt;
-   &lt;template id=&quot;tpl&quot;&gt;
-     &lt;style&gt;
-       span {
-         color:red;
-       }
-     &lt;/style&gt;
-     &lt;span&gt;hello world&lt;/span&gt;
-   &lt;/template&gt;</code></pre>
-<pre><code class="javascript">var host = document.querySelector(&#39;#con&#39;);
-var root = host.attachShadow({mode:&#39;open&#39;});
-
-var con = document.getElementById(&quot;tpl&quot;).content.cloneNode(true);
-
-root.appendChild(con);</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">span &#123;</span><br><span class="line"><span class="css">  <span class="selector-tag">background-color</span><span class="selector-pseudo">:blue</span>;<span class="comment">/*设置页面所有span背景为蓝色，然而对shadow dom没什么卵用*/</span></span></span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"con"</span>&gt;</span></span><br><span class="line">    没什么卵用的文字</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"tpl"</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">       span &#123;</span><br><span class="line"><span class="css">         <span class="selector-tag">color</span><span class="selector-pseudo">:red</span>;</span></span><br><span class="line">       &#125;</span><br><span class="line">     <span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">     <span class="tag">&lt;<span class="name">span</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> host = <span class="built_in">document</span>.querySelector(<span class="string">'#con'</span>);</span><br><span class="line"><span class="keyword">var</span> root = host.attachShadow(&#123;<span class="attr">mode</span>:<span class="string">'open'</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> con = <span class="built_in">document</span>.getElementById(<span class="string">"tpl"</span>).content.cloneNode(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">root.appendChild(con);</span><br></pre></td></tr></table></figure>
 <p>可以看到，template的内容被塞入到宿主，并且其文案被设置为红色，而body 中对 span 设置为蓝色背景却没有生效；另外这里要注意document.getElementById(“tpl”).content中的content属性，它是template标签的特有属性，你可以通过嗅探该属性来判断浏览器是否支持shadow dom和template标签。这是shadow dom的组件化复用的基本方式。</p>
 <p>由于shadow dom的内容会掩盖宿主的内容，那么现在问题来了，我就是想把宿主的内容显示出来怎么办？</p>
 <p>这时就需要<code>slot</code>了，slot是一个插槽，一个坑位，可以在template中定义坑位，然后宿主中的内容可以标记属于哪一个坑位，这样一个萝卜一个坑，宿主的内容就会被正确地插入到template所标记的位置去，还是来看一个例子：</p>
-<pre><code class="html">&lt;div id=&quot;con&quot;&gt;
-    没什么卵用的文字
-    &lt;span slot=&quot;main1&quot;&gt;
-      坑位1
-    &lt;/span&gt;
-    &lt;span slot=&quot;main2&quot;&gt;
-      坑位2
-    &lt;/span&gt;
-    没什么卵用的文字 &lt;/div&gt;
-  &lt;template id=&quot;tpl&quot;&gt;tpl begin
-    &lt;slot name=&quot;main1&quot;&gt;
-    &lt;/slot&gt;
-    &lt;slot name=&quot;main2&quot;&gt;
-    &lt;/slot&gt;
-    tpl end
-      &lt;/template&gt;</code></pre>
-<pre><code class="javascript">var host = document.querySelector(&#39;#con&#39;);
-var root = host.attachShadow({mode:&#39;open&#39;});
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"con"</span>&gt;</span></span><br><span class="line">    没什么卵用的文字</span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">"main1"</span>&gt;</span></span><br><span class="line">      坑位1</span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">slot</span>=<span class="string">"main2"</span>&gt;</span></span><br><span class="line">      坑位2</span><br><span class="line">    <span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    没什么卵用的文字 <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">template</span> <span class="attr">id</span>=<span class="string">"tpl"</span>&gt;</span>tpl begin</span><br><span class="line">    <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"main1"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">slot</span> <span class="attr">name</span>=<span class="string">"main2"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">slot</span>&gt;</span></span><br><span class="line">    tpl end</span><br><span class="line">      <span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> host = <span class="built_in">document</span>.querySelector(<span class="string">'#con'</span>);</span><br><span class="line"><span class="keyword">var</span> root = host.attachShadow(&#123;<span class="attr">mode</span>:<span class="string">'open'</span>&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> con = <span class="built_in">document</span>.getElementById(<span class="string">"tpl"</span>).content.cloneNode(<span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">root.appendChild(con);</span><br></pre></td></tr></table></figure>
 
-var con = document.getElementById(&quot;tpl&quot;).content.cloneNode(true);
-
-root.appendChild(con);</code></pre>
 <p>看看，这就是Vue的solt插槽的方式。<br>宿主中的两个span分别插入到了其标记的slot坑位中。在slot出现之前，仍然可以实现类似的功能，只不过标签名叫content。</p>
 <h3 id="基于-Shadow-DOM-的前端框架-omi-——-腾讯出品"><a href="#基于-Shadow-DOM-的前端框架-omi-——-腾讯出品" class="headerlink" title="基于 Shadow DOM 的前端框架 omi ——  腾讯出品"></a>基于 Shadow DOM 的前端框架 <a href="https://github.com/Tencent/omi/blob/master/README.CN.md" target="_blank" rel="noopener">omi</a> ——  腾讯出品</h3><ol>
 <li>基于 Shadow Dom 设计,Web Components + JSX + HTM 融合为一个框架 Omi</li>

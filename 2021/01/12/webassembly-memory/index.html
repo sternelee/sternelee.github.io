@@ -93,7 +93,7 @@
 <meta property="og:description" content="WebAssembly动态内存分配WebAssembly中的内存管理：C和Rust指南，动态内存分配是指通过一组C语言以C编程语言对动态内存分配执行手动内存管理。对于WebAssembly中动态内存分配的简单示例，让我们考虑一下记录数据类型，该数据类型具有与之关联的任意字段。例如，说一个ID，一个X和一个Y值。为了动态创建这些记录之一，我们将使用createRecord函数，该函数将其字段作为其参">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-01-12T13:33:04.000Z">
-<meta property="article:modified_time" content="2021-03-11T03:55:39.548Z">
+<meta property="article:modified_time" content="2021-03-11T05:54:00.636Z">
 <meta property="article:author" content="Sterne Lee">
 <meta property="article:tag" content="javascript">
 <meta property="article:tag" content="webassembly">
@@ -425,15 +425,8 @@
 <h4 id="处理SSI文件时出错"><a href="#处理SSI文件时出错" class="headerlink" title="处理SSI文件时出错"></a>处理SSI文件时出错</h4><p>Wasm导入内存<br>WebAssembly.Memory，使用WebAssembly.instantiateStreaming（）方法输入字节字节代码，同时导入上一行中创建的内存。然后，它存储window.Module = {} //用20页初始化内存（20 * 64KiB = 1.25 MiB）const memory = new WebAssembly.Memory（{initial：20}）; const import = {env：{memory：memory}}; //在实例化时，我们传递导入对象fetchAndInstantiate（“ ./ string-passing.wasm”，imports）.then（mod =&gt; {Module.memory = memory; Module.alloc = mod.exports.alloc; Module.dealloc = mod.exports.dealloc; Module.dealloc_str = mod.exports.dealloc_str; Module.roundtrip = function（str）{let buf = newString</p>
 <p>导入WASM内存，（键入$ FUNCSIG $ vi（func（参数i32）。））（导入“ env”“内存”（内存。$ mem 1））。（导入“ env”“免费”（func $ free。（参数i32）））。（import“ env”“ malloc”（func。看来，奇怪的是，wasm模块导入其内存似乎使这成为一种利基功能，但是随着WebAssembly线程提案的到来，我认为这是更常见的事情之一要做的是导入内存，以确保可以在所有线程上的所有wasm实例之间共享完全相同的SharedArrayBuffer。</p>
 <p>演示：导入内存，具有此属性的WebAssembly模块将不会导出自己的内存缓冲区，而是从环境中导入内存，让调用者对其进行设置。</p>
-<pre><code class="javascript">var wasmModule = new WebAssembly.Module(wasmCode);
-var wasmInstance = new WebAssembly.Instance(wasmModule, wasmImports);
-//获取数组的偏移量
-var offset = wasmInstance.exports.getData();
-//在指向该数组的内存上创建一个视图
-var linearMemory = new Uint32Array(wasmInstance.exports.memory.buffer, offset, 10);
-//用一些数据填充
-for (var i = 0; i &lt; linearMemory.length; i++) { linearMemory[i] = i; }
-//更改WebAssembly模块中的数组</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wasmModule = <span class="keyword">new</span> WebAssembly.Module(wasmCode);</span><br><span class="line"><span class="keyword">var</span> wasmInstance = <span class="keyword">new</span> WebAssembly.Instance(wasmModule, wasmImports);</span><br><span class="line"><span class="comment">//获取数组的偏移量</span></span><br><span class="line"><span class="keyword">var</span> offset = wasmInstance.exports.getData();</span><br><span class="line"><span class="comment">//在指向该数组的内存上创建一个视图</span></span><br><span class="line"><span class="keyword">var</span> linearMemory = <span class="keyword">new</span> <span class="built_in">Uint32Array</span>(wasmInstance.exports.memory.buffer, offset, <span class="number">10</span>);</span><br><span class="line"><span class="comment">//用一些数据填充</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; linearMemory.length; i++) &#123; linearMemory[i] = i; &#125;</span><br><span class="line"><span class="comment">//更改WebAssembly模块中的数组</span></span><br></pre></td></tr></table></figure>
+
 <h5 id="处理SSI文件时出错-1"><a href="#处理SSI文件时出错-1" class="headerlink" title="处理SSI文件时出错"></a>处理SSI文件时出错</h5><p>Wasm C malloc<br>如何在Wasm中实现“ malloc”， Emscripten不仅是从C / C ++到Wasm的编译器，而且包括Web运行时和专门为Emscripten libc设计的自己的libc的完整工具链是对musl的重大修改。它实现/模拟了多种标准C库（包括malloc，sbrk）和POSIX API（如pthread和BSD套接字），除了某些在Wasm环境中没有用的exec和fork这样的API。通过使用emcc命令，您可以直接将这些libc端口链接起来。</p>
 <p>maxkl / wasm-malloc：WebAssembly的malloc / free，编译build / main.wasm src / malloc.c src / test.c。可以使用预处理器宏MALLOC_DEBUG启用调试日志记录。这还添加了功能，我们演示了如何构建依赖于malloc的WebAssembly模块，并在运行时使用JS绑定技巧处理两个WebAssembly模块之间的循环引用，从而链接到预构建的malloc实现。然后，我们优化加载过程，以确保并行获取这些模块。</p>
 <p>Sable / emscripten_malloc：包含一个提取的Malloc， entry.c包含用于用Emscripten编译并提取该代码的C代码。用于编译的命令：emcc entry.c -s WASM = 1 -o entry.js -s您可以将walloc.c链接到程序中，只需将其添加到链接行中即可，如上所述。尺寸。生成的wasm文件约为2 kB（未压缩）。Walloc不是那里最小的分配器。一个永不释放的简单碰撞指针分配器是您可以拥有的最快的东西。</p>

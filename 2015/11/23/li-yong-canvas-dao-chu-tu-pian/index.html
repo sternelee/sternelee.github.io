@@ -420,40 +420,10 @@
       
         <p>######1、使用canvas绘制图片，并将图片导出。<br>在本地直接访问静态网页时，无法使用toDataURL（），需要将网页发布后，canvas才能使用toDataURL获取画布上的内容。因为canvas不允许使用toDataURL来获取异域图片<br><img src="http://images0.cnblogs.com/blog2015/604652/201505/242125195234527.png" alt=""><br>原因：将不同域下图片绘制到canvas上时，不能使用toDataURL来获取imgdata，因为 canvas 使用了没有权限的跨域图片在使用canvas.toDataURL()等数据导出函数的时候会报错！ img.crossOrigin = “Anonymous” ，它开启了本地的跨域允许。当然服务器存储那边也要开放相应的权限才行，如果是设置了防盗链的图片在服务端就没有相应的权限的话你本地端开启了权限也是没有用的。</p>
 <a id="more"></a>
-<pre><code class="javascript">function downloadImg(){
-       var a = document.createElement(&#39;a&#39;);
-       a.href = canvas.toDataURL(&#39;image/png&#39;); //下载图片
-       a.download = &#39;未命名.png&#39;; console.log(a);
-       a.click();
-   } 
-    function drawImg(ctx){
-        var img2 = new Image();
-        img2.setAttribute(&#39;crossOrigin&#39;,&#39;anonymous&#39;);
-        img2.src = &#39;img/1.png&#39;;
-        img2.onload = function (){
-            ctx.drawImage(this,0,0);
-
-        }
-    }</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">downloadImg</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       <span class="keyword">var</span> a = <span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">       a.href = canvas.toDataURL(<span class="string">'image/png'</span>); <span class="comment">//下载图片</span></span><br><span class="line">       a.download = <span class="string">'未命名.png'</span>; <span class="built_in">console</span>.log(a);</span><br><span class="line">       a.click();</span><br><span class="line">   &#125; </span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">drawImg</span>(<span class="params">ctx</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> img2 = <span class="keyword">new</span> Image();</span><br><span class="line">        img2.setAttribute(<span class="string">'crossOrigin'</span>,<span class="string">'anonymous'</span>);</span><br><span class="line">        img2.src = <span class="string">'img/1.png'</span>;</span><br><span class="line">        img2.onload = <span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">            ctx.drawImage(<span class="keyword">this</span>,<span class="number">0</span>,<span class="number">0</span>);</span><br><span class="line">           </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <p>绘制跨域图片：</p>
 <p>创建一张图片，设置其跨域属性crossOrigin,将这个临时图片绘制到canvas上</p>
-<pre><code class="javascript">for(var i=0,len=dyns.length;i&lt;len;i++){
-    var dynDiv = dyns[i].getLayerContainer();
-    var dynimg = dynDiv.getElementsByTagName(&#39;img&#39;)[0];
-    //dynimg.setAttribute(&#39;crossOrigin&#39;, &#39;anonymous&#39;);
-    //ctx.drawImage(dynimg,0,0,canvas.width,canvas.height); 
-    // canvas.toDataURL();  //出错 直接绘制不同域下的图片，无法通过toDataURL获取图片信息
-
-    // 重新创建一张图片，设置其跨域属性crossOrigin,将这个临时图片绘制到canvas上，则可以使用toDataURL方法获取其图片内容数据，在生成图片
-    var img = new Image();
-    img.setAttribute(&#39;crossOrigin&#39;,&#39;anonymous&#39;);
-    img.src = dynimg.src; 
-    img.onload =function (){
-        ctx.drawImage(this,0,0,canvas.width,canvas.height);
-        canvas.toDataURL();  //成功获取
-    };                
-}</code></pre>
-
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>,len=dyns.length;i&lt;len;i++)&#123;</span><br><span class="line">    <span class="keyword">var</span> dynDiv = dyns[i].getLayerContainer();</span><br><span class="line">    <span class="keyword">var</span> dynimg = dynDiv.getElementsByTagName(<span class="string">'img'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="comment">//dynimg.setAttribute('crossOrigin', 'anonymous');</span></span><br><span class="line">    <span class="comment">//ctx.drawImage(dynimg,0,0,canvas.width,canvas.height); </span></span><br><span class="line">    <span class="comment">// canvas.toDataURL();  //出错 直接绘制不同域下的图片，无法通过toDataURL获取图片信息</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 重新创建一张图片，设置其跨域属性crossOrigin,将这个临时图片绘制到canvas上，则可以使用toDataURL方法获取其图片内容数据，在生成图片</span></span><br><span class="line">    <span class="keyword">var</span> img = <span class="keyword">new</span> Image();</span><br><span class="line">    img.setAttribute(<span class="string">'crossOrigin'</span>,<span class="string">'anonymous'</span>);</span><br><span class="line">    img.src = dynimg.src; </span><br><span class="line">    img.onload =<span class="function"><span class="keyword">function</span> (<span class="params"></span>)</span>&#123;</span><br><span class="line">        ctx.drawImage(<span class="keyword">this</span>,<span class="number">0</span>,<span class="number">0</span>,canvas.width,canvas.height);</span><br><span class="line">        canvas.toDataURL();  <span class="comment">//成功获取</span></span><br><span class="line">    &#125;;                </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 

@@ -85,12 +85,12 @@
 
 
 
-<meta name="description" content="#####&lt;audio&gt; 标签属性： src：音乐的URLpreload：预加载autoplay：自动播放loop：循环播放controls：浏览器自带的控制条 &lt;audio id&#x3D;&quot;media&quot; src&#x3D;&quot;http:&#x2F;&#x2F;www.abc.com&#x2F;test.mp3&quot; controls&gt; &lt;source src&#x3D;&quot;http">
+<meta name="description" content="#####&lt;audio&gt; 标签属性： src：音乐的URLpreload：预加载autoplay：自动播放loop：循环播放controls：浏览器自带的控制条 1234&lt;audio id&#x3D;&quot;media&quot; src&#x3D;&quot;http:&#x2F;&#x2F;www.abc.com&#x2F;test.mp3&quot; controls&gt;&lt;source src&#x3D;&quot;http:&#x2F;&#x2F;www.abc.com&#x2F;test.mp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTML5 Audio&#x2F;Video 标签,属性,方法,事件汇总">
 <meta property="og:url" content="http://sternelee.github.io/2015/11/11/html5-audio-video-biao-qian-shu-xing-fang-fa-shi-jian-hui-zong/index.html">
 <meta property="og:site_name" content="STERNE">
-<meta property="og:description" content="#####&lt;audio&gt; 标签属性： src：音乐的URLpreload：预加载autoplay：自动播放loop：循环播放controls：浏览器自带的控制条 &lt;audio id&#x3D;&quot;media&quot; src&#x3D;&quot;http:&#x2F;&#x2F;www.abc.com&#x2F;test.mp3&quot; controls&gt; &lt;source src&#x3D;&quot;http">
+<meta property="og:description" content="#####&lt;audio&gt; 标签属性： src：音乐的URLpreload：预加载autoplay：自动播放loop：循环播放controls：浏览器自带的控制条 1234&lt;audio id&#x3D;&quot;media&quot; src&#x3D;&quot;http:&#x2F;&#x2F;www.abc.com&#x2F;test.mp3&quot; controls&gt;&lt;source src&#x3D;&quot;http:&#x2F;&#x2F;www.abc.com&#x2F;test.mp">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2015-11-11T13:19:42.000Z">
 <meta property="article:modified_time" content="2015-11-11T13:25:06.000Z">
@@ -418,90 +418,16 @@
       
         <p>#####&lt;audio&gt; 标签属性：</p>
 <p>src：音乐的URL<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条</p>
-<pre><code class="html">&lt;audio id=&quot;media&quot; src=&quot;http://www.abc.com/test.mp3&quot; controls&gt;
-&lt;source src=&quot;http://www.abc.com/test.mp3&quot; type=&quot;audio/mp3&quot;&gt;&lt;/source&gt;
-&lt;source src=&quot;http://www.abc.com/test.ogg&quot; type=&quot;audio/ogg&quot;&gt;&lt;/source&gt;
-&lt;/audio&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">audio</span> <span class="attr">id</span>=<span class="string">"media"</span> <span class="attr">src</span>=<span class="string">"http://www.abc.com/test.mp3"</span> <span class="attr">controls</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"http://www.abc.com/test.mp3"</span> <span class="attr">type</span>=<span class="string">"audio/mp3"</span>&gt;</span><span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">source</span> <span class="attr">src</span>=<span class="string">"http://www.abc.com/test.ogg"</span> <span class="attr">type</span>=<span class="string">"audio/ogg"</span>&gt;</span><span class="tag">&lt;/<span class="name">source</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">audio</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>#####&lt;video&gt;标签属性：</p>
 <a id="more"></a>
 <p>src：视频的URL<br>poster：视频封面，没有播放时显示的图片<br>preload：预加载<br>autoplay：自动播放<br>loop：循环播放<br>controls：浏览器自带的控制条<br>width：视频宽度<br>height：视频高度</p>
-<pre><code class="html">&lt;video id=&quot;media&quot; src=&quot;http://www.abc.com/test.mp4&quot; controls width=&quot;400px&quot; heigt=&quot;400px&quot;&gt;&lt;/video&gt;</code></pre>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">video</span> <span class="attr">id</span>=<span class="string">"media"</span> <span class="attr">src</span>=<span class="string">"http://www.abc.com/test.mp4"</span> <span class="attr">controls</span> <span class="attr">width</span>=<span class="string">"400px"</span> <span class="attr">heigt</span>=<span class="string">"400px"</span>&gt;</span><span class="tag">&lt;/<span class="name">video</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>获取HTMLVideoElement和HTMLAudioElement对象</p>
-<pre><code class="javascript">//audio可以直接通过new创建对象
-Media = new Audio(&quot;http://www.abc.com/test.mp3&quot;);
-//audio和video都可以通过标签获取对象
-Media = document.getElementById(&quot;media&quot;);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//audio可以直接通过new创建对象</span></span><br><span class="line">Media = <span class="keyword">new</span> Audio(<span class="string">"http://www.abc.com/test.mp3"</span>);</span><br><span class="line"><span class="comment">//audio和video都可以通过标签获取对象</span></span><br><span class="line">Media = <span class="built_in">document</span>.getElementById(<span class="string">"media"</span>);</span><br></pre></td></tr></table></figure>
 <p>######Media方法和属性：</p>
 <p>HTMLVideoElement 和 HTMLAudioElement 均继承自 HTMLMediaElement</p>
-<pre><code class="javscript">//错误状态
-Media.error;            //null:正常
-Media.error.code;       //1.用户终止 2.网络错误 3.解码错误 4.URL无效
-
-//网络状态
-Media.currentSrc;           //返回当前资源的URL
-Media.src = value;          //返回或设置当前资源的URL
-Media.canPlayType(type);    //是否能播放某种格式的资源
-Media.networkState;         //0.此元素未初始化  1.正常但没有使用网络  2.正在下载数据  3.没有找到资源
-Media.load();               //重新加载src指定的资源
-Media.buffered;             //返回已缓冲区域，TimeRanges
-Media.preload;              //none:不预载 metadata:预载资源信息 auto:
-
-//准备状态
-Media.readyState;       //1:HAVE_NOTHING 2:HAVE_METADATA 3.HAVE_CURRENT_DATA 4.HAVE_FUTURE_DATA 5.HAVE_ENOUGH_DATA
-Media.seeking;          //是否正在seeking
-
-//回放状态
-Media.currentTime = value;          //当前播放的位置，赋值可改变位置
-Media.startTime;                    //一般为0，如果为流媒体或者不从0开始的资源，则不为0
-Media.duration;                     //当前资源长度 流返回无限
-Media.paused;                       //是否暂停
-Media.defaultPlaybackRate = value;  //默认的回放速度，可以设置
-Media.playbackRate = value;         //当前播放速度，设置后马上改变
-Media.played;                       //返回已经播放的区域，TimeRanges，关于此对象见下文
-Media.seekable;                     //返回可以seek的区域 TimeRanges
-Media.ended;                        //是否结束
-Media.autoPlay;                     //是否自动播放
-Media.loop;                         //是否循环播放
-Media.play();                       //播放
-Media.pause();                      //暂停
-
-//控制
-Media.controls;         //是否有默认控制条
-Media.volume = value;   //音量
-Media.muted = value;    //静音
-
-//TimeRanges(区域)对象
-TimeRanges.length;              //区域段数
-TimeRanges.start(index)         //第index段区域的开始位置
-TimeRanges.end(index)           //第index段区域的结束位置
-事件：
-
-eventTester = function(e){
-  Media.addEventListener(e,function(){
-   console.log((new Date()).getTime(),e);
-  });
-}
-eventTester(&quot;loadstart&quot;);       //客户端开始请求数据
-eventTester(&quot;progress&quot;);        //客户端正在请求数据
-eventTester(&quot;suspend&quot;);         //延迟下载
-eventTester(&quot;abort&quot;);           //客户端主动终止下载（不是因为错误引起），
-eventTester(&quot;error&quot;);           //请求数据时遇到错误
-eventTester(&quot;stalled&quot;);         //网速失速
-eventTester(&quot;play&quot;);            //play()和autoplay开始播放时触发
-eventTester(&quot;pause&quot;);           //pause()触发
-eventTester(&quot;loadedmetadata&quot;);  //成功获取资源长度
-eventTester(&quot;loadeddata&quot;);      //提示当前帧的数据是可用的
-eventTester(&quot;waiting&quot;);         //等待数据，并非错误
-eventTester(&quot;playing&quot;);         //开始回放
-eventTester(&quot;canplay&quot;);         //可以播放，但中途可能因为加载而暂停
-eventTester(&quot;canplaythrough&quot;);  //可以播放，歌曲全部加载完毕
-eventTester(&quot;seeking&quot;);         //寻找中
-eventTester(&quot;seeked&quot;);          //寻找完毕
-eventTester(&quot;timeupdate&quot;);      //播放时间改变
-eventTester(&quot;ended&quot;);           //播放结束
-eventTester(&quot;ratechange&quot;);      //播放速率改变
-eventTester(&quot;durationchange&quot;);  //资源长度改变
-eventTester(&quot;volumechange&quot;);    //音量改变</code></pre>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F;错误状态</span><br><span class="line">Media.error;            &#x2F;&#x2F;null:正常</span><br><span class="line">Media.error.code;       &#x2F;&#x2F;1.用户终止 2.网络错误 3.解码错误 4.URL无效</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;网络状态</span><br><span class="line">Media.currentSrc;           &#x2F;&#x2F;返回当前资源的URL</span><br><span class="line">Media.src &#x3D; value;          &#x2F;&#x2F;返回或设置当前资源的URL</span><br><span class="line">Media.canPlayType(type);    &#x2F;&#x2F;是否能播放某种格式的资源</span><br><span class="line">Media.networkState;         &#x2F;&#x2F;0.此元素未初始化  1.正常但没有使用网络  2.正在下载数据  3.没有找到资源</span><br><span class="line">Media.load();               &#x2F;&#x2F;重新加载src指定的资源</span><br><span class="line">Media.buffered;             &#x2F;&#x2F;返回已缓冲区域，TimeRanges</span><br><span class="line">Media.preload;              &#x2F;&#x2F;none:不预载 metadata:预载资源信息 auto:</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;准备状态</span><br><span class="line">Media.readyState;       &#x2F;&#x2F;1:HAVE_NOTHING 2:HAVE_METADATA 3.HAVE_CURRENT_DATA 4.HAVE_FUTURE_DATA 5.HAVE_ENOUGH_DATA</span><br><span class="line">Media.seeking;          &#x2F;&#x2F;是否正在seeking</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;回放状态</span><br><span class="line">Media.currentTime &#x3D; value;          &#x2F;&#x2F;当前播放的位置，赋值可改变位置</span><br><span class="line">Media.startTime;                    &#x2F;&#x2F;一般为0，如果为流媒体或者不从0开始的资源，则不为0</span><br><span class="line">Media.duration;                     &#x2F;&#x2F;当前资源长度 流返回无限</span><br><span class="line">Media.paused;                       &#x2F;&#x2F;是否暂停</span><br><span class="line">Media.defaultPlaybackRate &#x3D; value;  &#x2F;&#x2F;默认的回放速度，可以设置</span><br><span class="line">Media.playbackRate &#x3D; value;         &#x2F;&#x2F;当前播放速度，设置后马上改变</span><br><span class="line">Media.played;                       &#x2F;&#x2F;返回已经播放的区域，TimeRanges，关于此对象见下文</span><br><span class="line">Media.seekable;                     &#x2F;&#x2F;返回可以seek的区域 TimeRanges</span><br><span class="line">Media.ended;                        &#x2F;&#x2F;是否结束</span><br><span class="line">Media.autoPlay;                     &#x2F;&#x2F;是否自动播放</span><br><span class="line">Media.loop;                         &#x2F;&#x2F;是否循环播放</span><br><span class="line">Media.play();                       &#x2F;&#x2F;播放</span><br><span class="line">Media.pause();                      &#x2F;&#x2F;暂停</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;控制</span><br><span class="line">Media.controls;         &#x2F;&#x2F;是否有默认控制条</span><br><span class="line">Media.volume &#x3D; value;   &#x2F;&#x2F;音量</span><br><span class="line">Media.muted &#x3D; value;    &#x2F;&#x2F;静音</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;TimeRanges(区域)对象</span><br><span class="line">TimeRanges.length;              &#x2F;&#x2F;区域段数</span><br><span class="line">TimeRanges.start(index)         &#x2F;&#x2F;第index段区域的开始位置</span><br><span class="line">TimeRanges.end(index)           &#x2F;&#x2F;第index段区域的结束位置</span><br><span class="line">事件：</span><br><span class="line"></span><br><span class="line">eventTester &#x3D; function(e)&#123;</span><br><span class="line">  Media.addEventListener(e,function()&#123;</span><br><span class="line">   console.log((new Date()).getTime(),e);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">eventTester(&quot;loadstart&quot;);       &#x2F;&#x2F;客户端开始请求数据</span><br><span class="line">eventTester(&quot;progress&quot;);        &#x2F;&#x2F;客户端正在请求数据</span><br><span class="line">eventTester(&quot;suspend&quot;);         &#x2F;&#x2F;延迟下载</span><br><span class="line">eventTester(&quot;abort&quot;);           &#x2F;&#x2F;客户端主动终止下载（不是因为错误引起），</span><br><span class="line">eventTester(&quot;error&quot;);           &#x2F;&#x2F;请求数据时遇到错误</span><br><span class="line">eventTester(&quot;stalled&quot;);         &#x2F;&#x2F;网速失速</span><br><span class="line">eventTester(&quot;play&quot;);            &#x2F;&#x2F;play()和autoplay开始播放时触发</span><br><span class="line">eventTester(&quot;pause&quot;);           &#x2F;&#x2F;pause()触发</span><br><span class="line">eventTester(&quot;loadedmetadata&quot;);  &#x2F;&#x2F;成功获取资源长度</span><br><span class="line">eventTester(&quot;loadeddata&quot;);      &#x2F;&#x2F;提示当前帧的数据是可用的</span><br><span class="line">eventTester(&quot;waiting&quot;);         &#x2F;&#x2F;等待数据，并非错误</span><br><span class="line">eventTester(&quot;playing&quot;);         &#x2F;&#x2F;开始回放</span><br><span class="line">eventTester(&quot;canplay&quot;);         &#x2F;&#x2F;可以播放，但中途可能因为加载而暂停</span><br><span class="line">eventTester(&quot;canplaythrough&quot;);  &#x2F;&#x2F;可以播放，歌曲全部加载完毕</span><br><span class="line">eventTester(&quot;seeking&quot;);         &#x2F;&#x2F;寻找中</span><br><span class="line">eventTester(&quot;seeked&quot;);          &#x2F;&#x2F;寻找完毕</span><br><span class="line">eventTester(&quot;timeupdate&quot;);      &#x2F;&#x2F;播放时间改变</span><br><span class="line">eventTester(&quot;ended&quot;);           &#x2F;&#x2F;播放结束</span><br><span class="line">eventTester(&quot;ratechange&quot;);      &#x2F;&#x2F;播放速率改变</span><br><span class="line">eventTester(&quot;durationchange&quot;);  &#x2F;&#x2F;资源长度改变</span><br><span class="line">eventTester(&quot;volumechange&quot;);    &#x2F;&#x2F;音量改变</span><br></pre></td></tr></table></figure>
 
       
     </div>
